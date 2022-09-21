@@ -16,30 +16,30 @@ class SettingScreen extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          // Flexible(
-          //   flex: 7,
-          //   child: Container(
-          //     // color: Colors.grey,
-          //     child: ListView.separated(
-          //       separatorBuilder: (context, index) => const Divider(),
-          //       itemCount: mSetting.getListSettings.length,
-          //       itemBuilder: (context, index) {
-          //         return GestureDetector(
-          //           onTap: () {
-          //             Navigator.of(context, rootNavigator: true).pushNamed(
-          //                 mSetting.getListSettings[index].routeSetting);
-          //           },
-          //           child: ListTile(
-          //             iconColor: Colors.blue,
-          //             leading: mSetting.getListSettings[index].iconSetting,
-          //             title: Text(mSetting.getListSettings[index].labelSetting
-          //                 .toString()),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //   ),
-          // ),
+          Flexible(
+            flex: 7,
+            child: Container(
+              // color: Colors.grey,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: mSetting.getListSettings.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).pushNamed(
+                          mSetting.getListSettings[index].routeSetting);
+                    },
+                    child: ListTile(
+                      iconColor: Colors.blue,
+                      leading: mSetting.getListSettings[index].iconSetting,
+                      title: Text(mSetting.getListSettings[index].labelSetting
+                          .toString()),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
           // followMeWidget(),
         ],
       ),
