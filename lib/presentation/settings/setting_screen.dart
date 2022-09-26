@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../config/setting/settings.dart';
+import 'category/bloc/category_bloc.dart';
 
 class SettingScreen extends StatelessWidget {
   SettingScreen({Key? key}) : super(key: key);
@@ -28,6 +31,20 @@ class SettingScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context, rootNavigator: true).pushNamed(
                           mSetting.getListSettings[index].routeSetting);
+
+                      // call bloc
+                      mSetting.callBloc(
+                          context, mSetting.getListSettings[index].blocName);
+
+                      // Type aaa = mSetting.getListSettings[index].bloc;
+                      // var aaaaaa =CategoryBloc as Type;
+                      // context.read<aaaaaa>()
+
+                      // var aaaa = BlocProvider.of<CategoryBloc>.re
+                      // aaaa.
+
+                      //  BlocProvider.of<CategoryBloc>(context)
+                      //     .add(ReadCategory());
                     },
                     child: ListTile(
                       iconColor: Colors.blue,

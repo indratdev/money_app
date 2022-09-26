@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money_app/src/config/routes/app_routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/presentation/settings/category/bloc/category_bloc.dart';
+
+import 'config/routes/app_routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,10 +15,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.splash,
-      routes: routes.getRoutes,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CategoryBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.splash,
+        routes: routes.getRoutes,
+      ),
     );
   }
 }

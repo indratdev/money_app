@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:money_app/src/config/routes/app_routes.dart';
-import 'package:money_app/src/core/utils/constants.dart' as constants;
+
+import 'package:money_app/data/constants.dart' as constants;
+
+import '../../config/routes/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushNamedAndRemoveUntil(
           context, AppRoutes.first, (route) => false);
     });
