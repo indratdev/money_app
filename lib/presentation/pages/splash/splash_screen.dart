@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:money_app/data/constants.dart' as constants;
 
-import '../../config/routes/app_routes.dart';
+import '../../../config/routes/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);

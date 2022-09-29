@@ -7,4 +7,6 @@ abstract class CategoryEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class InitCategory extends CategoryEvent {}
+
 class ReadCategory extends CategoryEvent {}

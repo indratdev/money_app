@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../presentation/settings/category/bloc/category_bloc.dart';
+
+import '../../presentation/pages/settings/category/bloc/category_bloc.dart';
 
 enum BlocName {
   categoryRead,
@@ -11,9 +12,6 @@ class Setting {
   Icon iconSetting;
   String labelSetting;
   String routeSetting;
-  // Type bloc;
-  // Type event;
-  // void aaa;
   BlocName blocName;
 
   Setting({
@@ -31,8 +29,8 @@ class MenuSetting {
   callBloc(BuildContext context, BlocName blocName) {
     switch (blocName) {
       case BlocName.categoryRead:
+        context.read<CategoryBloc>().add(InitCategory());
         context.read<CategoryBloc>().add(ReadCategory());
-        print("jalan");
         break;
       default:
         context.read<CategoryBloc>().add(ReadCategory());

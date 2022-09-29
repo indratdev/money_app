@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_app/presentation/settings/category/bloc/category_bloc.dart';
+import 'package:money_app/domain/repositories/category_repository.dart';
+import 'package:money_app/domain/usecases/category_cases.dart';
+import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
+import 'package:money_app/injection.dart' as di;
 
 import 'config/routes/app_routes.dart';
 
-void main() {
+void main() async {
+  await di.setup();
   runApp(MyApp());
 }
 
@@ -18,7 +22,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CategoryBloc(),
+          // create: (context) => CategoryBloc()..add(InitCategory()),
+          create: (context) => di.getIt<CategoryBloc>(),
         ),
       ],
       child: MaterialApp(

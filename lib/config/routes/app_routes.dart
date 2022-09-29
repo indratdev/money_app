@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../presentation/home/home_screen.dart';
 import '../../presentation/moneyapp_screen.dart';
-import '../../presentation/settings/category/category_screen.dart';
-import '../../presentation/settings/setting_screen.dart';
-import '../../presentation/splash/splash_screen.dart';
+import '../../presentation/pages/home/home_screen.dart';
+import '../../presentation/pages/settings/category/category_screen.dart';
+import '../../presentation/pages/settings/setting_screen.dart';
+import '../../presentation/pages/splash/splash_screen.dart';
 
 class AppRoutes {
   static const String first = '/';

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
-import '../../presentation/home/home_screen.dart';
-import '../../presentation/settings/setting_screen.dart';
-import '../../presentation/transaction/transaction_screen.dart';
+import '../../presentation/pages/home/home_screen.dart';
+import '../../presentation/pages/settings/setting_screen.dart';
+import '../../presentation/pages/transaction/transaction_screen.dart';
 
 class BottomMenu {
   String title;
