@@ -39,5 +39,21 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             messageError: "failureReadCategoryMessage.toString()"));
       }
     });
+
+    on<ReadIconCategoryDefault>((event, emit) async {
+      emit(LoadingReadIconCategoryDefault());
+      print("ReadCategory runinggg...");
+      try {
+        final result = await _getCategoryCases.executeReadIconCategoryDefault();
+        print("resultttttt ReadIconCategoryDefault: $result");
+        result.fold(
+            (l) =>
+                emit(FailureReadIconCategoryDefault(messageError: l.message)),
+            (data) => emit(SuccessReadIconCategoryDefault(result: data)));
+      } catch (e) {
+        emit(FailureReadIconCategoryDefault(
+            messageError: "failureReadCategoryMessage.toString()"));
+      }
+    });
   }
 }

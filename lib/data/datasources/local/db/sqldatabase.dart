@@ -74,10 +74,10 @@ class SqlDatabase {
 //   }
 
   //read all
-  Future<List<CategoryModel>> readCategory() async {
+  Future<List<CategoryModel>> readCategory(int isDefault) async {
     final db = await instance.database;
     // const orderBy = 'createdTime ASC';
-    final result = await sqlHelper.readCategory(db, instance);
+    final result = await sqlHelper.readCategory(db, instance, isDefault);
     print("==result readCategory : $result");
     return result;
 
@@ -174,5 +174,4 @@ class SqlDatabase {
   //     // return result;
   //   }
   // }
-
 }

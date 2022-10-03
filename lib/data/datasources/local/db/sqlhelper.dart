@@ -67,13 +67,21 @@ class SqlHelper {
 
   // read all category
   Future<List<CategoryModel>> readCategory(
-      Database? db, SqlDatabase instance) async {
+      Database? db, SqlDatabase instance, int isDefault) async {
     final db = await instance.database;
     // const orderBy = 'createdTime ASC';
 
+    String query = "";
+    if (isDefault == 0) {
+      query =
+          "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableMasterCategory ;";
+    } else {
+      query =
+          "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableMasterCategory where isDefault = 1 ;";
+    }
+
     if (db != null) {
-      final result = await db.rawQuery(
-          ''' select id, name, iconName, createdTime, modifieldTime, isDefault from $tableMasterCategory; ''');
+      final result = await db.rawQuery(''' $query ''');
 
       return result.map((e) => CategoryModel.fromJson(e)).toList();
     } else {

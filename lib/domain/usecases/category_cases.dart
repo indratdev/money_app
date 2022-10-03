@@ -19,6 +19,11 @@ class CategoryCases {
     return repository.getReadCategory();
   }
 
+  // read icon category default
+  Future<Either<Failure, List<Category>>> executeReadIconCategoryDefault() {
+    return repository.getReadIconCategoryDefault();
+  }
+
   // add category
   executeAddCategory() {
     repository.getAddCategory();

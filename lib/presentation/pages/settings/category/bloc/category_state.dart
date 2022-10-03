@@ -40,3 +40,21 @@ class SuccessReadCategory extends CategoryState {
   @override
   List<Object> get props => [result];
 }
+
+//
+class LoadingReadIconCategoryDefault extends CategoryState {}
+
+class FailureReadIconCategoryDefault extends FailureState {
+  FailureReadIconCategoryDefault({required super.messageError});
+}
+
+class SuccessReadIconCategoryDefault extends CategoryState {
+  final List<Category> result;
+
+  SuccessReadIconCategoryDefault({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+//

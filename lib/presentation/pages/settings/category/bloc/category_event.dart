@@ -10,3 +10,5 @@ abstract class CategoryEvent extends Equatable {
 class InitCategory extends CategoryEvent {}
 
 class ReadCategory extends CategoryEvent {}
+
+class ReadIconCategoryDefault extends CategoryEvent {}

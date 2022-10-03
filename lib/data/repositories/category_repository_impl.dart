@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:money_app/data/datasources/local/local_data_source.dart';
-import 'package:money_app/data/models/category_model.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/domain/repositories/category_repository.dart';
 
@@ -41,7 +40,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   getAddCategory() async {
     try {
       print("CategoryRepositoryImpl (getAddCategory) runingg");
-      final result = await localDataSource.readCategory();
+      final result = await localDataSource.readCategory(1);
       return result;
     } catch (e) {
       print(e);
@@ -63,7 +62,21 @@ class CategoryRepositoryImpl implements CategoryRepository {
   @override
   Future<Either<Failure, List<Category>>> getReadCategory() async {
     try {
-      final result = await localDataSource.readCategory();
+      final result = await localDataSource.readCategory(0);
+      print("result ::: $result");
+      return Right(result.toList());
+      ;
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Category>>> getReadIconCategoryDefault() async {
+    try {
+      final result = await localDataSource.readCategory(1);
       print("result ::: $result");
       return Right(result.toList());
       ;
