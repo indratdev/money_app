@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_app/data/constants.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -10,19 +9,29 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kategori"),
+        title: const Text("Kategori"),
       ),
       body: BlocBuilder<CategoryBloc, CategoryState>(
         builder: (context, state) {
-          return ListView.builder(
-            itemCount: 100,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: Text("Leading"),
-                title: Text("title"),
-              );
-            },
-          );
+          if (state is SuccessReadCategory) {
+            final result = state.result;
+            return ListView.builder(
+              itemCount: result.length,
+              itemBuilder: (context, index) {
+                return Image.asset('assets/icons/collect-interest.png');
+                // return ListTile(
+                //   leading: Text(result[index].iconName),
+                //   // leading: ClipRRect(
+                //   //   borderRadius: BorderRadius.circular(8.0),
+                //   //   child: Image.asset('assets/icons/collect-interest.png'),
+                //   // ),
+                //   title: Text(result[index].name),
+                // );
+              },
+            );
+          } else {
+            return SizedBox();
+          }
         },
       ),
       // body: Column(

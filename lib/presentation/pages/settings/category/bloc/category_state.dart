@@ -32,4 +32,11 @@ class FailureReadCategory extends FailureState {
   FailureReadCategory({required super.messageError});
 }
 
-class SuccessReadCategory extends CategoryState {}
+class SuccessReadCategory extends CategoryState {
+  final List<Category> result;
+
+  SuccessReadCategory({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}

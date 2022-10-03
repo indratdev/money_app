@@ -1,4 +1,8 @@
+import 'package:dartz/dartz.dart';
 import 'package:money_app/domain/repositories/category_repository.dart';
+
+import '../../data/failure.dart';
+import '../entities/category.dart';
 
 class CategoryCases {
   final CategoryRepository repository;
@@ -10,14 +14,14 @@ class CategoryCases {
     repository.getInitCategory();
   }
 
+  // read category
+  Future<Either<Failure, List<Category>>> executeReadCategory() {
+    return repository.getReadCategory();
+  }
+
   // add category
   executeAddCategory() {
     repository.getAddCategory();
-  }
-
-  // read category
-  executeReadCategory() {
-    repository.getReadCategory();
   }
 
   // update category
