@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_app/presentation/pages/settings/category/category_add_screen.dart';
-import 'package:money_app/presentation/pages/settings/category/category_select_icon.dart';
+import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
 
 import '../../presentation/moneyapp_screen.dart';
 import '../../presentation/pages/home/home_screen.dart';

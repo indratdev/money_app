@@ -12,3 +12,9 @@ class InitCategory extends CategoryEvent {}
 class ReadCategory extends CategoryEvent {}
 
 class ReadIconCategoryDefault extends CategoryEvent {}
+
+class SelectedIconEvent extends CategoryEvent {
+  int iconID;
+
+  SelectedIconEvent({required this.iconID});
+}

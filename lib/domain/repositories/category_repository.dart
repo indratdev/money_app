@@ -7,6 +7,7 @@ abstract class CategoryRepository {
   getInitCategory();
   Future<Either<Failure, List<Category>>> getReadCategory();
   Future<Either<Failure, List<Category>>> getReadIconCategoryDefault();
+
   getAddCategory();
   getUpdateCategory();
   getDeleteCategory();

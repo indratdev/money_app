@@ -15,8 +15,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
   CategoryBloc(this._getCategoryCases) : super(CategoryInitial()) {
     on<InitCategory>((event, emit) async {
-      emit(LoadingInitCategory());
       try {
+        emit(LoadingInitCategory());
         print("....runinggg InitCategory");
         final result = await _getCategoryCases.executeInitCategory();
       } catch (e) {
@@ -27,9 +27,9 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     });
 
     on<ReadCategory>((event, emit) async {
-      emit(LoadingReadCategory());
       print("ReadCategory runinggg...");
       try {
+        emit(LoadingReadCategory());
         final result = await _getCategoryCases.executeReadCategory();
         print("resultttttt : $result");
         result.fold((l) => emit(FailureReadCategory(messageError: l.message)),
@@ -41,9 +41,9 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     });
 
     on<ReadIconCategoryDefault>((event, emit) async {
-      emit(LoadingReadIconCategoryDefault());
       print("ReadCategory runinggg...");
       try {
+        emit(LoadingReadIconCategoryDefault());
         final result = await _getCategoryCases.executeReadIconCategoryDefault();
         print("resultttttt ReadIconCategoryDefault: $result");
         result.fold(
@@ -53,6 +53,18 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       } catch (e) {
         emit(FailureReadIconCategoryDefault(
             messageError: "failureReadCategoryMessage.toString()"));
+      }
+    });
+
+    // selected icon
+    on<SelectedIconEvent>((event, emit) async {
+      try {
+        emit(LoadingSelectedIcon());
+        final result = event.iconID;
+        print("result SelectedIconEvent : $result");
+        emit(SuccessSelectedIcon(resultSelectedIconID: result));
+      } catch (e) {
+        emit(FailureSelectedIcon(messageError: "Error FailureSelectedIcon "));
       }
     });
   }

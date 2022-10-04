@@ -58,3 +58,21 @@ class SuccessReadIconCategoryDefault extends CategoryState {
 }
 
 //
+
+//
+class LoadingSelectedIcon extends CategoryState {}
+
+class FailureSelectedIcon extends FailureState {
+  FailureSelectedIcon({required super.messageError});
+}
+
+class SuccessSelectedIcon extends CategoryState {
+  final int resultSelectedIconID;
+
+  SuccessSelectedIcon({required this.resultSelectedIconID});
+
+  @override
+  List<Object> get props => [resultSelectedIconID];
+}
+
+//
