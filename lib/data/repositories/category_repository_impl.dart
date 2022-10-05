@@ -48,18 +48,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  getDeleteCategory() {
-    // TODO: implement getDeleteCategory
-    throw UnimplementedError();
-  }
-
-  @override
-  getUpdateCategory() {
-    // TODO: implement getUpdateCategory
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, List<Category>>> getReadCategory() async {
     try {
       final result = await localDataSource.readCategory(0);
@@ -105,7 +93,32 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final result = await localDataSource.readCategoryById(idCategory);
       print("result getReadCategoryById ::: $result");
       return Right(result);
-      ;
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getUpdateCategory(
+      int idCategory, Category valueCategory) async {
+    try {
+      final result =
+          await localDataSource.updateCategory(idCategory, valueCategory);
+      return right(result);
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> getDeleteCategory(int idCategory) async {
+    try {
+      final result = await localDataSource.deleteCategory(idCategory);
+      return right(result);
     } on ServerException {
       return Left(const ServerFailure(''));
     } on SocketException {

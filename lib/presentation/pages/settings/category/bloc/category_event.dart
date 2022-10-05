@@ -37,3 +37,21 @@ class ReadCategoryByIdEvent extends CategoryEvent {
 
   ReadCategoryByIdEvent({required this.idCategory});
 }
+
+// update category
+class UpdateCategoryEvent extends CategoryEvent {
+  int idCategory;
+  Category valueCategory;
+
+  UpdateCategoryEvent({
+    required this.idCategory,
+    required this.valueCategory,
+  });
+}
+
+// delete category
+class DeleteCategoryEvent extends CategoryEvent {
+  int idCategory;
+
+  DeleteCategoryEvent({required this.idCategory});
+}

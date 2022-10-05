@@ -104,5 +104,33 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             FailureReadCategoryById(messageError: "FailureReadCategoryById e"));
       }
     });
+
+    on<UpdateCategoryEvent>((event, emit) async {
+      try {
+        emit(LoadingUpdateCategory());
+        final result = await _getCategoryCases.executeUpdateCategory(
+            event.idCategory, event.valueCategory);
+        result.fold(
+            (l) => emit(
+                FailureUpdateCategory(messageError: "FailureUpdateCategory")),
+            (data) => emit(SuccessUpdateCategory(result: data)));
+      } catch (e) {
+        emit(FailureUpdateCategory(messageError: "FailureUpdateCategory e"));
+      }
+    });
+
+    on<DeleteCategoryEvent>((event, emit) async {
+      try {
+        emit(LoadingDeleteCategory());
+        final result =
+            await _getCategoryCases.executeDeleteCategory(event.idCategory);
+        result.fold(
+            (l) => emit(
+                FailureDeleteCategory(messageError: "FailureDeleteCategory")),
+            (r) => emit(SuccessDeleteCategory()));
+      } catch (e) {
+        emit(FailureDeleteCategory(messageError: "FailureDeleteCategory e"));
+      }
+    });
   }
 }

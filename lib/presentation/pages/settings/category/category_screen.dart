@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
+import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen({Key? key}) : super(key: key);
@@ -19,24 +20,23 @@ class CategoryScreen extends StatelessWidget {
           child: Icon(Icons.add)),
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {
+          if (state is SuccessDeleteCategory) {
+            CustomWidgets.showMessageAlertBasic(
+                context, "Kategori Berhasil Dihapus");
+          }
+          if (state is SuccessUpdateCategory) {
+            CustomWidgets.showMessageAlertBasic(
+                context, "Kategori Berhasil Diperbaharui");
+          }
           if (state is SuccessCreateCategory) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text("Status"),
-                  content: Text("Kategori Baru Berhasil Ditambahkan"),
-                  actions: [
-                    ElevatedButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text("OK"))
-                  ],
-                );
-              },
-            );
+            CustomWidgets.showMessageAlertBasic(
+                context, "Kategori Baru Berhasil Ditambahkan");
           }
         },
         builder: (context, state) {
+          if (state is LoadingReadCategory) {
+            CustomWidgets.showLoadingWidget();
+          }
           if (state is SuccessReadCategory) {
             final result = state.result;
             return ListView.separated(

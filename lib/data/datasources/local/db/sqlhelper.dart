@@ -127,6 +127,40 @@ class SqlHelper {
     return result;
   }
 
+  Future<int> updateCategory(Database? db, SqlDatabase instance, int idCategory,
+      Category valueCategory) async {
+    final db = await instance.database;
+    int result = 0;
+
+    if (db != null) {
+      return result = await db.rawUpdate('''UPDATE $tableMasterCategory
+          SET
+          name = ?
+          , iconName = ?
+          , createdTime = ?
+          , modifieldTime = ?
+          , isDefault = ?
+          WHERE id = ?''', [
+        valueCategory.name,
+        valueCategory.iconName,
+        valueCategory.createdTime,
+        valueCategory.modifieldTime,
+        valueCategory.isDefault,
+        '$idCategory'
+      ]);
+      // return result = await db
+      //     .update(tableNotes, note.toJson(), where: 'id = ?', whereArgs: [id]);
+    }
+    return result;
+  }
+
+  Future<void> deleteCategoryByID(Database? db, int idCategory) async {
+    if (db != null) {
+      await db.rawDelete('''
+      DELETE FROM $tableMasterCategory WHERE id = ? ''', [idCategory]);
+    }
+  }
+
   // insertOpsCategory(
   // Database db, String tableOpsCategory, String createTime) async {
   // await db.rawInsert(

@@ -35,12 +35,13 @@ class CategoryCases {
   }
 
   // update category
-  executeUpdateCategory() {
-    repository.getUpdateCategory();
+  Future<Either<Failure, int>> executeUpdateCategory(
+      int idCategory, Category valueCategory) {
+    return repository.getUpdateCategory(idCategory, valueCategory);
   }
 
   // delete category
-  executeDeleteCategory() {
-    repository.getDeleteCategory();
+  Future<Either<Failure, void>> executeDeleteCategory(int idCategory) {
+    return repository.getDeleteCategory(idCategory);
   }
 }

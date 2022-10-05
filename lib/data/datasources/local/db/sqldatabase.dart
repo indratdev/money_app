@@ -65,18 +65,6 @@ class SqlDatabase {
     final result = await sqlHelper.readCategory(db, instance, isDefault);
     print("==result readCategory : $result");
     return result;
-
-    // if (db != null) {
-    //   final result = (isIncome == 1)
-    //       ? await db.rawQuery(
-    //           ''' select isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime from $tableOpsCategory where isIncome = 1; ''')
-    //       : await db.rawQuery(
-    //           ''' select isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime from $tableOpsCategory where isIncome = 0; ''');
-    //   // print('===> $result');
-    //   return result.map((e) => CategoryModel.fromJson(e)).toList();
-    // } else {
-    //   throw Exception('DB is NULL');
-    // }
   }
 
   //read all
@@ -85,6 +73,18 @@ class SqlDatabase {
     final result = await sqlHelper.readCategoryById(db, instance, idCategory);
     print("==result readCategoryById : $result");
     return result;
+  }
+
+  Future<int> updateCategory(int idCategory, Category valueCategory) async {
+    final db = await instance.database;
+    final result =
+        await sqlHelper.updateCategory(db, instance, idCategory, valueCategory);
+    return result;
+  }
+
+  Future<void> deleteCategory(int idCategory) async {
+    final db = await instance.database;
+    await sqlHelper.deleteCategoryByID(db, idCategory);
   }
 
 // // read all master category

@@ -8,6 +8,8 @@ abstract class LocalDataSource {
   Future<List<CategoryModel>> readCategory(int isDefault);
   Future<CategoryModel> readCategoryById(int idCategory);
   Future<int> createCategory(Category value);
+  Future<int> updateCategory(int idCategory, Category valueCategory);
+  Future<void> deleteCategory(int idCategory);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -31,5 +33,15 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<int> createCategory(Category value) async {
     return await dbprovider.createCategory(value);
+  }
+
+  @override
+  Future<int> updateCategory(int idCategory, Category valueCategory) async {
+    return await dbprovider.updateCategory(idCategory, valueCategory);
+  }
+
+  @override
+  Future<void> deleteCategory(int idCategory) async {
+    await dbprovider.deleteCategory(idCategory);
   }
 }

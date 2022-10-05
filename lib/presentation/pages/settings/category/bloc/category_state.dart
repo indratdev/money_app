@@ -128,3 +128,32 @@ class SuccessReadCategoryById extends CategoryState {
 }
 
 //
+
+// update category
+class LoadingUpdateCategory extends CategoryState {}
+
+class FailureUpdateCategory extends FailureState {
+  FailureUpdateCategory({required super.messageError});
+}
+
+class SuccessUpdateCategory extends CategoryState {
+  final int result;
+
+  SuccessUpdateCategory({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+//
+
+// delete category
+class LoadingDeleteCategory extends CategoryState {}
+
+class FailureDeleteCategory extends FailureState {
+  FailureDeleteCategory({required super.messageError});
+}
+
+class SuccessDeleteCategory extends CategoryState {}
+
+//
