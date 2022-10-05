@@ -1,6 +1,7 @@
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../../domain/entities/category.dart';
 import '../../../models/category_model.dart';
 
 class SqlHelper {
@@ -87,6 +88,43 @@ class SqlHelper {
     } else {
       throw Exception('DB is NULL');
     }
+  }
+
+  // read category by id
+  Future<CategoryModel> readCategoryById(
+      Database? db, SqlDatabase instance, int idCategory) async {
+    final db = await instance.database;
+
+    String query =
+        "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableMasterCategory where id = $idCategory ;";
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+
+      return result.map((e) => CategoryModel.fromJson(e)).toList().first;
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  Future<int> createCategory(
+      Database? db, SqlDatabase instance, Category category) async {
+    final db = await instance.database;
+    int result = 0;
+    if (db != null) {
+      result = await db.rawInsert('''
+      INSERT INTO $tableMasterCategory (name, iconName,createdTime, modifieldTime, isDefault)
+      VALUES
+      (
+        '${category.name}'
+        ,'${category.iconName}'
+        ,'${category.createdTime}'
+        ,'${category.modifieldTime}'
+        ,'${category.isDefault}'
+        );
+      ''');
+    }
+    return result;
   }
 
   // insertOpsCategory(

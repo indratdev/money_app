@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'package:path/path.dart';
 
+import '../../../../domain/entities/category.dart';
 import '../../../models/category_model.dart';
 
 class SqlDatabase {
@@ -50,28 +51,12 @@ class SqlDatabase {
     }
   }
 
-  // insert category
-  // ,${category.iconName}
-//   Future<int> insertNote(CategoryModel category) async {
-//     final db = await instance.database;
-//     int result = 0;
-//     if (db != null) {
-//       result = await db.rawInsert('''
-//       INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime)
-//       VALUES
-//       (
-//         '${category.isIncome}'
-//         ,'${category.name}'
-//         ,'${category.iconName}'
-//         ,'${category.isActive}'
-//         ,'${category.isDefault}'
-//         ,'${category.createdTime}'
-//         ,'${category.modifieldTime}'
-//         );
-//       ''');
-//     }
-//     return result;
-//   }
+  // create category
+  Future<int> createCategory(Category category) async {
+    final db = await instance.database;
+    final result = await sqlHelper.createCategory(db, instance, category);
+    return result;
+  }
 
   //read all
   Future<List<CategoryModel>> readCategory(int isDefault) async {
@@ -92,6 +77,14 @@ class SqlDatabase {
     // } else {
     //   throw Exception('DB is NULL');
     // }
+  }
+
+  //read all
+  Future<CategoryModel> readCategoryById(int idCategory) async {
+    final db = await instance.database;
+    final result = await sqlHelper.readCategoryById(db, instance, idCategory);
+    print("==result readCategoryById : $result");
+    return result;
   }
 
 // // read all master category

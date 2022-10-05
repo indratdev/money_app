@@ -9,7 +9,7 @@ class Category extends Equatable {
   final int isDefault;
 
   const Category({
-    required this.id,
+    this.id,
     required this.name,
     required this.iconName,
     required this.createdTime,

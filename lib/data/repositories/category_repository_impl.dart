@@ -85,4 +85,31 @@ class CategoryRepositoryImpl implements CategoryRepository {
       return Left(const ConnectionFailure('Failed to connect to the database'));
     }
   }
+
+  @override
+  Future<Either<Failure, int>> getCreateCategory(Category value) async {
+    try {
+      final result = await localDataSource.createCategory(value);
+      print("jalannn getCreateCategory: ${Right(result)}");
+      return Right(result);
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Category>> getReadCategoryById(int idCategory) async {
+    try {
+      final result = await localDataSource.readCategoryById(idCategory);
+      print("result getReadCategoryById ::: $result");
+      return Right(result);
+      ;
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
 }

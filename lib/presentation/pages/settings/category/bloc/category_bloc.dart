@@ -60,11 +60,48 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<SelectedIconEvent>((event, emit) async {
       try {
         emit(LoadingSelectedIcon());
-        final result = event.iconID;
-        print("result SelectedIconEvent : $result");
-        emit(SuccessSelectedIcon(resultSelectedIconID: result));
+        emit(SuccessSelectedIcon(resultSelectedIconName: event.iconName));
       } catch (e) {
         emit(FailureSelectedIcon(messageError: "Error FailureSelectedIcon "));
+      }
+    });
+
+    on<CallbackIconNameEvent>((event, emit) {
+      try {
+        emit(LoadingCallbackIconName());
+        emit(SuccessCallbackIconName(resultSelectedIconName: event.iconName));
+      } catch (e) {
+        emit(FailureCallbackIconName(
+            messageError: "Error FailureCallbackIconName"));
+      }
+    });
+
+    on<CreateCategoryEvent>((event, emit) async {
+      try {
+        emit(LoadingCreateCategory());
+        final result =
+            await _getCategoryCases.executeCreateCategory(event.valueCategory);
+        result.fold(
+            (l) => emit(
+                FailureCreateCategory(messageError: "FailureCreateCategory")),
+            (data) => emit(SuccessCreateCategory(result: data)));
+      } catch (e) {
+        emit(FailureCreateCategory(messageError: "FailureCreateCategory e"));
+      }
+    });
+
+    on<ReadCategoryByIdEvent>((event, emit) async {
+      try {
+        emit(LoadingReadCategoryById());
+        final result =
+            await _getCategoryCases.executeReadCategoryById(event.idCategory);
+        result.fold(
+            (l) => emit(FailureReadCategoryById(
+                messageError: "FailureReadCategoryById")),
+            (data) => emit(SuccessReadCategoryById(result: data)));
+      } catch (e) {
+        emit(
+            FailureReadCategoryById(messageError: "FailureReadCategoryById e"));
       }
     });
   }

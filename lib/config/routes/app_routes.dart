@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_app/presentation/pages/settings/category/category_add_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
+import 'package:money_app/presentation/pages/settings/category/category_updel_screen.dart';
 
 import '../../presentation/moneyapp_screen.dart';
 import '../../presentation/pages/home/home_screen.dart';
@@ -17,6 +18,7 @@ class AppRoutes {
   static const String settCategoryAdd = '/setting/category/add';
   static const String settCategorySelectIcon =
       '/setting/category/add/selectIcon';
+  static const String settCategoryUpDel = '/setting/category/updel';
 
   Map<String, WidgetBuilder> getRoutes = {
     first: (_) => MoneyappScreen(),
@@ -26,5 +28,6 @@ class AppRoutes {
     settCategory: (_) => CategoryScreen(),
     settCategoryAdd: (_) => CategoryAddScreen(),
     settCategorySelectIcon: (_) => CategorySelectIconScreen(),
+    settCategoryUpDel: (_) => CategoryUpDelScreen(),
   };
 }

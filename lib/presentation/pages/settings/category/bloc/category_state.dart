@@ -67,12 +67,64 @@ class FailureSelectedIcon extends FailureState {
 }
 
 class SuccessSelectedIcon extends CategoryState {
-  final int resultSelectedIconID;
+  final String resultSelectedIconName;
 
-  SuccessSelectedIcon({required this.resultSelectedIconID});
+  SuccessSelectedIcon({required this.resultSelectedIconName});
 
   @override
-  List<Object> get props => [resultSelectedIconID];
+  List<Object> get props => [resultSelectedIconName];
+}
+
+//
+
+// callback iconname
+class LoadingCallbackIconName extends CategoryState {}
+
+class FailureCallbackIconName extends FailureState {
+  FailureCallbackIconName({required super.messageError});
+}
+
+class SuccessCallbackIconName extends CategoryState {
+  final String resultSelectedIconName;
+
+  SuccessCallbackIconName({required this.resultSelectedIconName});
+
+  @override
+  List<Object> get props => [resultSelectedIconName];
+}
+
+// create new Category
+class LoadingCreateCategory extends CategoryState {}
+
+class FailureCreateCategory extends FailureState {
+  FailureCreateCategory({required super.messageError});
+}
+
+class SuccessCreateCategory extends CategoryState {
+  final int result;
+
+  SuccessCreateCategory({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+//
+
+// read new Category by id
+class LoadingReadCategoryById extends CategoryState {}
+
+class FailureReadCategoryById extends FailureState {
+  FailureReadCategoryById({required super.messageError});
+}
+
+class SuccessReadCategoryById extends CategoryState {
+  final Category result;
+
+  SuccessReadCategoryById({required this.result});
+
+  @override
+  List<Object> get props => [result];
 }
 
 //

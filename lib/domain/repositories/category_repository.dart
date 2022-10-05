@@ -6,9 +6,10 @@ import '../../data/failure.dart';
 abstract class CategoryRepository {
   getInitCategory();
   Future<Either<Failure, List<Category>>> getReadCategory();
+  Future<Either<Failure, Category>> getReadCategoryById(int idCategory);
   Future<Either<Failure, List<Category>>> getReadIconCategoryDefault();
 
-  getAddCategory();
+  Future<Either<Failure, int>> getCreateCategory(Category value);
   getUpdateCategory();
   getDeleteCategory();
 }

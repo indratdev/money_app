@@ -17,7 +17,25 @@ class CategoryScreen extends StatelessWidget {
             Navigator.pushNamed(context, AppRoutes.settCategoryAdd);
           },
           child: Icon(Icons.add)),
-      body: BlocBuilder<CategoryBloc, CategoryState>(
+      body: BlocConsumer<CategoryBloc, CategoryState>(
+        listener: (context, state) {
+          if (state is SuccessCreateCategory) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Status"),
+                  content: Text("Kategori Baru Berhasil Ditambahkan"),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("OK"))
+                  ],
+                );
+              },
+            );
+          }
+        },
         builder: (context, state) {
           if (state is SuccessReadCategory) {
             final result = state.result;
@@ -25,18 +43,26 @@ class CategoryScreen extends StatelessWidget {
               separatorBuilder: (context, index) => const Divider(),
               itemCount: result.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    foregroundColor: Colors.red,
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/icons/${result[index].iconName}.png',
-                        fit: BoxFit.fill,
+                return InkWell(
+                  onTap: () {
+                    context.read<CategoryBloc>().add(
+                        ReadCategoryByIdEvent(idCategory: result[index].id!));
+                    Navigator.pushNamed(context, AppRoutes.settCategoryUpDel);
+                    print("tap id category: ${result[index].id}");
+                  },
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      foregroundColor: Colors.red,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/icons/${result[index].iconName}.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
+                    title: Text(result[index].name),
                   ),
-                  title: Text(result[index].name),
                 );
               },
             );
