@@ -16,13 +16,13 @@ class SqlHelper {
     await db.execute('''
     CREATE TABLE $tableTransaction    (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+	    isOutcome INTEGER,
       idCategory INTEGER,
-      iconName TEXT NULL,
       title TEXT NULL,
       description TEXT NULL,
       amount REAL,
+	    idWallet INTEGER,
       createdTime TEXT NULL,
-      createdTrxTime TEXT NULL,
       isModifield INTEGER,
       modifieldTrxTime TEXT NULL  
       )
