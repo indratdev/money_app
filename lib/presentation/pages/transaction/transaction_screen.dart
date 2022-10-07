@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:money_app/domain/entities/transaction.dart';
+import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 
 import '../../../config/routes/app_routes.dart';
+import '../../../data/constants.dart';
 import '../settings/category/bloc/category_bloc.dart';
 
 class TransactionScreen extends StatelessWidget {
@@ -12,125 +16,114 @@ class TransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int? groupValue = 0;
-    DateTime? dateTime;
-    String selectedImage = "collect-interest";
+    Transaction transaction =
+        Transaction(idCategory: 0, title: "", createdTime: todayTime);
 
-    final halfMediaWidth = MediaQuery.of(context).size.width - 10;
-    final mediaHeight = MediaQuery.of(context).size.height / 3;
+    // int? groupValue = 0;
+    // DateTime? dateTime;
+    // String selectedImage = "collect-interest";
+
+    // final halfMediaWidth = MediaQuery.of(context).size.width - 10;
+    // final mediaHeight = MediaQuery.of(context).size.height / 3;
+    // var today = DateTime.now().toString;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Transaksi"),
+        title: const Text("Transaksi"),
       ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  width: halfMediaWidth,
-                  // height: mediaHeight,
-                  child: CupertinoSlidingSegmentedControl<int>(
-                    backgroundColor: CupertinoColors.lightBackgroundGray,
-                    thumbColor: CupertinoColors.activeGreen,
-                    padding: EdgeInsets.all(8),
-                    groupValue: groupValue,
-                    children: {
-                      0: buildSegment("Penerimaan"),
-                      1: buildSegment("Pengeluaran"),
-                    },
-                    onValueChanged: (value) {},
-                  ),
-                ),
-              ),
-              Container(
-                alignment: Alignment.topCenter,
-                child: Column(
-                  children: <Widget>[
-                    Text("Tanggal : $dateTime"),
-                    TextButton(
-                        onPressed: () {
-                          showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1900),
-                                  lastDate: DateTime(9999))
-                              .then((value) {
-                            print(value);
-                            dateTime = value;
-                          });
-                        },
-                        child: Text("Pilih Tanggal"))
-                  ],
-                ),
-              ),
-              Container(
-                child: Column(children: <Widget>[
-                  const Text("Ikon Kategori"),
-                  InkWell(
-                    onTap: () {
-                      context
-                          .read<CategoryBloc>()
-                          .add(ReadIconCategoryDefault());
-                      Navigator.pushNamed(
-                          context, AppRoutes.settCategorySelectIcon);
-                    },
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 35,
-                          foregroundColor: Colors.red,
-                          child: ClipOval(
-                            child: Image.asset(
-                              "assets/icons/$selectedImage.png",
-                              fit: BoxFit.fill,
-                            ),
+      body: BlocConsumer<TransactionBloc, TransactionState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          if (state is SuccessSelectedIsOutcome) {
+            transaction.isOutcome = state.result;
+          }
+          if (state is SuccessSelectedDate) {
+            transaction.createdTime = state.result;
+          }
+          return Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  // section form
+                  Flexible(
+                    flex: 9,
+                    child: Container(
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          // segement control
+                          CupertinoSlidingSegmentedControl<int>(
+                            backgroundColor:
+                                CupertinoColors.lightBackgroundGray,
+                            thumbColor: Colors.blue,
+                            padding: const EdgeInsets.all(8),
+                            groupValue: transaction.isOutcome,
+                            children: {
+                              0: buildSegment("Penerimaan"),
+                              1: buildSegment("Pengeluaran"),
+                            },
+                            onValueChanged: (value) {
+                              context.read<TransactionBloc>().add(
+                                  SelectedIsOutcomeEvent(value: value ?? 0));
+                              transaction.isOutcome = value!;
+                            },
                           ),
-                        ),
-                        const Icon(Icons.arrow_drop_down),
-                      ],
+                          SB_Height20,
+
+                          // tanggal
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text("Tanggal"),
+                              InkWell(
+                                onTap: () {
+                                  showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          lastDate: DateTime(9999))
+                                      .then((value) {
+                                    context.read<TransactionBloc>().add(
+                                        SelectedDateEvent(
+                                            value: value.toString()));
+                                  });
+                                },
+                                child: ListTile(
+                                  title: Text(defaultDateTimeF
+                                      .format(
+                                          transaction.createdTime as DateTime)
+                                      .toString()),
+                                  trailing: Icon(Icons.calendar_month),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ]),
+
+                  // section button
+                  Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 3,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text("Simpan"),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                child: Column(
-                  children: [
-                    Text("Judul"),
-                    TextFormField(
-                      decoration: InputDecoration(helperText: "Ketikan Judul"),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    Text("Keterangan"),
-                    TextFormField(
-                      decoration: InputDecoration(helperText: "Ketikan Judul"),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    Text("Nominal"),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(helperText: "Ketikan Judul"),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 class Transaction extends Equatable {
-  final int? id;
-  final int isOutcome, idCategory, idWallet, isModifield;
-  final String title, description;
-  final double amount;
-  final String createdTime, modifieldTrxTime;
+  int? id;
+  int isOutcome, idCategory, idWallet, isModifield;
+  String title, description;
+  double amount;
+  String createdTime, modifieldTrxTime;
 
   Transaction({
     this.id,
-    required this.isOutcome,
+    this.isOutcome = 0,
     required this.idCategory,
     required this.title,
     this.description = "",

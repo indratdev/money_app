@@ -7,9 +7,27 @@ part 'transaction_state.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final TransactionCases _getTransactionCases;
+
   TransactionBloc(this._getTransactionCases) : super(TransactionInitial()) {
-    on<TransactionEvent>((event, emit) {
-      // TODO: implement event handler
+    on<SelectedIsOutcomeEvent>((event, emit) {
+      try {
+        print("runniggg SelectedIsOutcomeEvent");
+        emit(LoadingSelectedIsOutcome());
+        emit(SuccessSelectedIsOutcome(result: event.value));
+      } catch (e) {
+        emit(FailureSelectedIsOutcome(
+            messageError: "FailureSelectedIsOutcome e"));
+      }
+    });
+
+    on<SelectedDateEvent>((event, emit) {
+      try {
+        print("runniggg SelectedDateEvent");
+        emit(LoadingSelectedDate());
+        emit(SuccessSelectedDate(result: event.value));
+      } catch (e) {
+        emit(FailureSelectedDate(messageError: "FailureSelectedDate e"));
+      }
     });
   }
 }
