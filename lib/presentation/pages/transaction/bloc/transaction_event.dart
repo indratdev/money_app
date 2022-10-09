@@ -18,3 +18,9 @@ class SelectedDateEvent extends TransactionEvent {
 
   SelectedDateEvent({required this.value});
 }
+
+class ChangeValueTextEditing extends TransactionEvent {
+  String value;
+
+  ChangeValueTextEditing({required this.value});
+}

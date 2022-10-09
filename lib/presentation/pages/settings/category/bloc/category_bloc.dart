@@ -66,9 +66,20 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       }
     });
 
+    // on<CallbackIconNameEvent>((event, emit) {
+    //   try {
+    //     emit(LoadingCallbackIconName());
+    //     emit(SuccessCallbackIconName(resultSelectedIconName: event.iconName));
+    //   } catch (e) {
+    //     emit(FailureCallbackIconName(
+    //         messageError: "Error FailureCallbackIconName"));
+    //   }
+    // });
+
     on<CallbackIconNameEvent>((event, emit) {
       try {
         emit(LoadingCallbackIconName());
+        // final result = _getCategoryCases.
         emit(SuccessCallbackIconName(resultSelectedIconName: event.iconName));
       } catch (e) {
         emit(FailureCallbackIconName(

@@ -21,6 +21,7 @@ class AppRoutes {
       '/setting/category/add/selectIcon';
   static const String settCategoryUpDel = '/setting/category/updel';
   static const String transaction = '/transaction';
+  static const String transactionIcon = '/transaction/selectIcon';
 
   Map<String, WidgetBuilder> getRoutes = {
     first: (_) => MoneyappScreen(),
@@ -32,5 +33,6 @@ class AppRoutes {
     settCategorySelectIcon: (_) => CategorySelectIconScreen(),
     settCategoryUpDel: (_) => CategoryUpDelScreen(),
     transaction: (_) => TransactionScreen(),
+    transactionIcon: (_) => CategorySelectIconScreen(),
   };
 }

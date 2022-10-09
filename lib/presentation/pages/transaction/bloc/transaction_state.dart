@@ -49,3 +49,12 @@ class SuccessSelectedDate extends TransactionState {
   @override
   List<Object> get props => [result];
 }
+
+class SuccessValueTextEditing extends TransactionState {
+  String result;
+
+  SuccessValueTextEditing({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}

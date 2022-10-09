@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class Category extends Equatable {
-  final int? id;
-  final String name;
-  final String iconName;
-  final String createdTime;
-  final String modifieldTime;
-  final int isDefault;
+  int? id;
+  String name;
+  String iconName;
+  String createdTime;
+  String modifieldTime;
+  int isDefault;
 
-  const Category({
+  Category({
     this.id,
     required this.name,
     required this.iconName,

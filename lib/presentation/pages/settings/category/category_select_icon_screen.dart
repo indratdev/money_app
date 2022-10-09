@@ -7,20 +7,20 @@ class CategorySelectIconScreen extends StatelessWidget {
   CategorySelectIconScreen({super.key});
 
   List<Category>? listCategoryIcon;
-  String selectedIconName = "";
+  // String selectedIconName = "";
+  Category? selectedCatecory;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // automaticallyImplyLeading: false,
         title: Text("Pilih Ikon"),
         actions: [
           TextButton(
             onPressed: () {
-              // print("selected: $selectedIconName");
-              context
-                  .read<CategoryBloc>()
-                  .add(CallbackIconNameEvent(iconName: selectedIconName));
+              context.read<CategoryBloc>().add(
+                  CallbackIconNameEvent(iconName: selectedCatecory!.iconName));
               Navigator.pop(context);
             },
             child: const Text(
@@ -32,8 +32,8 @@ class CategorySelectIconScreen extends StatelessWidget {
       ),
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {
-          if (state is SuccessSelectedIcon) {
-            selectedIconName = state.resultSelectedIconName;
+          if (state is SuccessReadCategoryById) {
+            selectedCatecory = state.result;
           }
         },
         builder: (context, state) {
@@ -51,8 +51,9 @@ class CategorySelectIconScreen extends StatelessWidget {
             itemBuilder: (BuildContext ctx, index) {
               return InkWell(
                 onTap: () {
-                  context.read<CategoryBloc>().add(SelectedIconEvent(
-                      iconName: listCategoryIcon?[index].iconName ?? ""));
+                  context.read<CategoryBloc>().add(ReadCategoryByIdEvent(
+                      idCategory: listCategoryIcon?[index].id ?? 1));
+                  print(listCategoryIcon?[index].id);
                 },
 
                 /// masih disini
@@ -60,10 +61,9 @@ class CategorySelectIconScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    // color: Colors.amber,
-                    // check if the index is equal to the selected Card integer
-                    color: selectedIconName == listCategoryIcon?[index].iconName
-                        ? Colors.amber
+                    color: selectedCatecory?.iconName ==
+                            listCategoryIcon?[index].iconName
+                        ? Colors.amber.shade300
                         : Colors.transparent,
                   ),
                   // child: Text(myProducts[index]["name"]),

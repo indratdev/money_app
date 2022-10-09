@@ -29,5 +29,13 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         emit(FailureSelectedDate(messageError: "FailureSelectedDate e"));
       }
     });
+
+    on<ChangeValueTextEditing>((event, emit) {
+      try {
+        emit(SuccessValueTextEditing(result: event.value));
+      } catch (e) {
+        print(e.toString());
+      }
+    });
   }
 }
