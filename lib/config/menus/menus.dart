@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../presentation/pages/home/home_screen.dart';
 import '../../presentation/pages/settings/setting_screen.dart';
@@ -59,7 +59,7 @@ class Menus {
   }
 
   //
-  List<PersistentBottomNavBarItem> navBarsItems() {
+  List<PersistentBottomNavBarItem> navBarsItems(BuildContext context) {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.wallet),
@@ -78,6 +78,13 @@ class Menus {
         title: "Transaksi",
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
+        onPressed: (p0) {
+          PersistentNavBarNavigator.pushNewScreen(context,
+              screen: TransactionScreen());
+        },
+        // routeAndNavigatorSettings: RouteAndNavigatorSettings(
+        //   initialRoute: AppRoutes.transaction,
+        // ),
       ),
       // PersistentBottomNavBarItem(
       //   icon: const Icon(FontAwesomeIcons.bookReader),

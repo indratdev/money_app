@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:money_app/presentation/pages/transaction/transaction_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../config/menus/menus.dart';
 
@@ -17,7 +18,7 @@ class MoneyappScreen extends StatelessWidget {
         bottomNavigationBar: PersistentTabView(
           context,
           screens: menu.bottomScreenMenu(),
-          items: menu.navBarsItems(),
+          items: menu.navBarsItems(context),
           confineInSafeArea: true,
           backgroundColor: Colors.white, // Default is Colors.white.
           handleAndroidBackButtonPress: true, // Default is true.
