@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
+import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../data/constants.dart';
@@ -217,17 +218,18 @@ class TransactionScreen extends StatelessWidget {
                                             "Ketikan Deskripsi Transaksi (optional)",
                                       ),
                                       onSaved: (newValue) {
-                                        if (newValue!.isNotEmpty ||
-                                            newValue != "") {
-                                          transaction.description = newValue;
-                                        }
+                                        // if (newValue!.isNotEmpty ||
+                                        //     newValue != "") {
+                                        transaction.description =
+                                            newValue ?? "";
+                                        // }
                                       },
-                                      validator: (value) {
-                                        if (value!.isEmpty || value == "") {
-                                          return "Deskripsi Tidak Boleh Kosong";
-                                        }
-                                        return null;
-                                      },
+                                      // validator: (value) {
+                                      //   if (value!.isEmpty || value == "") {
+                                      //     return "Deskripsi Tidak Boleh Kosong";
+                                      //   }
+                                      //   return null;
+                                      // },
                                     ),
                                   ],
                                 ),
@@ -260,12 +262,6 @@ class TransactionScreen extends StatelessWidget {
                                               double.parse(newValue);
                                         }
                                       },
-                                      validator: (value) {
-                                        if (value!.isEmpty || value == "") {
-                                          return "Deskripsi Tidak Boleh Kosong";
-                                        }
-                                        return null;
-                                      },
                                     ),
                                   ],
                                 ),
@@ -283,13 +279,15 @@ class TransactionScreen extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
+                                // _formKey.currentState!.save();
                                 print(transaction);
 
-                                //
+                                // action save
                                 context.read<TransactionBloc>().add(
                                     SaveTransactionNew(value: transaction));
                               }
+                              Navigator.popAndPushNamed(
+                                  context, AppRoutes.first);
                             },
                             child: const Text("Simpan"),
                           ),

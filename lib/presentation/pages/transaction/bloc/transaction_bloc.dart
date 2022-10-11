@@ -41,6 +41,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
     on<SaveTransactionNew>((event, emit) async {
       try {
+        print("========== jalan ==========");
         emit(LoadingSaveTransactionNew());
         final result =
             await _getTransactionCases.executeCreateNewTransaction(event.value);
