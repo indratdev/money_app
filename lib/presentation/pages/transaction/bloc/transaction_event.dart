@@ -24,3 +24,9 @@ class ChangeValueTextEditing extends TransactionEvent {
 
   ChangeValueTextEditing({required this.value});
 }
+
+class SaveTransactionNew extends TransactionEvent {
+  Transaction value;
+
+  SaveTransactionNew({required this.value});
+}

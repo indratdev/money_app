@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/domain/usecases/transaction_cases.dart';
 
 part 'transaction_event.dart';
@@ -35,6 +36,22 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         emit(SuccessValueTextEditing(result: event.value));
       } catch (e) {
         print(e.toString());
+      }
+    });
+
+    on<SaveTransactionNew>((event, emit) async {
+      try {
+        emit(LoadingSaveTransactionNew());
+        final result =
+            await _getTransactionCases.executeCreateNewTransaction(event.value);
+        result.fold(
+          (l) => emit(FailureSaveTransactionNew(
+              messageError: "FailureSaveTransactionNew l")),
+          (data) => emit(SuccessSaveTransactionNew(result: data)),
+        );
+      } catch (e) {
+        emit(FailureSaveTransactionNew(
+            messageError: "FailureSaveTransactionNew e"));
       }
     });
   }

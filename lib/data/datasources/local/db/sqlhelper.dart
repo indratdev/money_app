@@ -2,6 +2,7 @@ import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../domain/entities/category.dart';
+import '../../../../domain/entities/transaction.dart' as trx;
 import '../../../models/category_model.dart';
 
 class SqlHelper {
@@ -160,6 +161,40 @@ class SqlHelper {
       DELETE FROM $tableMasterCategory WHERE id = ? ''', [idCategory]);
     }
   }
+
+  Future<int> createNewTransaction(Database? db, SqlDatabase instance,
+      trx.Transaction valueTransaction) async {
+    final db = await instance.database;
+    int result = 0;
+    if (db != null) {
+      result = await db.rawInsert('''
+      INSERT INTO $tableTransaction (isOutcome, idCategory, title, description, amount, idWallet, createdTime, isModifield, modifieldTrxTime)
+      VALUES
+      (
+        '${valueTransaction.isOutcome}'
+        ,'${valueTransaction.idCategory}'
+        ,'${valueTransaction.title}'
+        ,'${valueTransaction.description}'
+        ,'${valueTransaction.amount}'
+        ,'${valueTransaction.idWallet}'
+        ,'${valueTransaction.createdTime}'
+        ,'${valueTransaction.isModifield}'
+        ,'${valueTransaction.modifieldTrxTime}'
+        );
+      ''');
+    }
+    return result;
+  }
+
+  // isOutcome INTEGER,
+  //     idCategory INTEGER,
+  //     title TEXT NULL,
+  //     description TEXT NULL,
+  //     amount REAL,
+  //     idWallet INTEGER,
+  //     createdTime TEXT NULL,
+  //     isModifield INTEGER,
+  //     modifieldTrxTime TEXT NULL
 
   // insertOpsCategory(
   // Database db, String tableOpsCategory, String createTime) async {

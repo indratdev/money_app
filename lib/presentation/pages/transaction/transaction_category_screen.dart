@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 
-class CategorySelectIconScreen extends StatelessWidget {
-  CategorySelectIconScreen({super.key});
+class TransactionCategoryScreen extends StatelessWidget {
+  TransactionCategoryScreen({super.key});
 
   List<Category>? listCategoryIcon;
   // String selectedIconName = "";
@@ -20,13 +20,10 @@ class CategorySelectIconScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false,
-        title: Text("Pilih Ikon"),
+        title: Text("Pilih Kategori"),
         actions: [
           TextButton(
             onPressed: () {
-              // context.read<CategoryBloc>().add(
-              //     CallbackIconNameEvent(iconName: selectedCatecory!.iconName));
-
               // add transaction
               context
                   .read<CategoryBloc>()
@@ -51,23 +48,15 @@ class CategorySelectIconScreen extends StatelessWidget {
           if (state is SuccessReadIconCategoryDefault) {
             listCategoryIcon = state.result;
           }
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 100,
-                childAspectRatio: 2 / 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
-            itemCount: listCategoryIcon?.length ?? 0,
+          return ListView.builder(
             padding: const EdgeInsets.all(8),
-            itemBuilder: (BuildContext ctx, index) {
+            itemCount: listCategoryIcon?.length ?? 0,
+            itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
                   context.read<CategoryBloc>().add(ReadCategoryByIdEvent(
                       idCategory: listCategoryIcon?[index].id ?? 1));
-                  print(listCategoryIcon?[index].id);
                 },
-
-                /// masih disini
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -77,17 +66,20 @@ class CategorySelectIconScreen extends StatelessWidget {
                         ? Colors.amber.shade300
                         : Colors.transparent,
                   ),
-                  // child: Text(myProducts[index]["name"]),
-                  child: CircleAvatar(
-                    radius: 30,
-                    foregroundColor: Colors.transparent,
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/icons/${listCategoryIcon?[index].iconName}.png',
-                        fit: BoxFit.fill,
-                        // color: Colors.transparent,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(8),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      foregroundColor: Colors.transparent,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/icons/${listCategoryIcon?[index].iconName}.png',
+                          fit: BoxFit.fill,
+                          // color: Colors.transparent,
+                        ),
                       ),
                     ),
+                    title: Text(listCategoryIcon?[index].name.toString() ?? ""),
                   ),
                 ),
               );

@@ -156,4 +156,19 @@ class FailureDeleteCategory extends FailureState {
 
 class SuccessDeleteCategory extends CategoryState {}
 
-//
+// callback category icon
+
+class LoadingCallbackIconCategory extends CategoryState {}
+
+class FailureCallbackIconCategory extends FailureState {
+  FailureCallbackIconCategory({required super.messageError});
+}
+
+class SuccessCallbackIconCategory extends CategoryState {
+  Category value;
+
+  SuccessCallbackIconCategory({required this.value});
+
+  @override
+  List<Object> get props => [value];
+}

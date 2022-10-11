@@ -46,15 +46,15 @@ class TransactionScreen extends StatelessWidget {
       ),
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is SuccessCallbackIconCategory) {
+            category = state.value;
+            transaction.idCategory = state.value.id!;
+          }
         },
         builder: (context, state) {
-          if (state is SuccessCallbackIconName) {
-            category.iconName = state.resultSelectedIconName;
-          }
           return BlocConsumer<TransactionBloc, TransactionState>(
             listener: (context, state) {
-              // TODO: implement listener
+              //
             },
             builder: (context, state) {
               if (state is SuccessSelectedIsOutcome) {
@@ -140,17 +140,14 @@ class TransactionScreen extends StatelessWidget {
                                     SB_Height10,
                                     InkWell(
                                       onTap: () {
-                                        context
-                                            .read<CategoryBloc>()
-                                            .add(ReadIconCategoryDefault());
-                                        // Navigator.pushNamed(
-                                        //     context, AppRoutes.transactionIcon);
-                                        // Navigator.of(context)
-                                        //     .pushNamed(AppRoutes.transactionIcon);
+                                        context.read<CategoryBloc>().add(
+                                            ReadIconCategoryDefault(
+                                                isDefault: 0));
+
                                         Navigator.of(context,
                                                 rootNavigator: true)
                                             .pushNamed(
-                                                AppRoutes.transactionIcon);
+                                                AppRoutes.transactionCategory);
                                       },
                                       child: ListTile(
                                         leading: CircleAvatar(
@@ -170,36 +167,9 @@ class TransactionScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+
+                                // name
                                 SB_Height30,
-                                // nama
-                                // ListView(
-                                //   scrollDirection: Axis.vertical,
-                                //   shrinkWrap: true,
-                                //   children: <Widget>[
-                                //     Text("Nama"),
-                                //     TextFormField(
-                                //       // controller: nameController,
-                                //       // onSaved: (newValue) {
-                                //       //   if (newValue!.isNotEmpty ||
-                                //       //       newValue != "") {
-                                //       //     transaction.title = newValue;
-                                //       //   }
-                                //       // },
-                                //       // validator: (value) {
-                                //       //   if (value!.isEmpty || value == "") {
-                                //       //     return "Nama Tidak Boleh Kosong";
-                                //       //   }
-                                //       //   return null;
-                                //       // },
-
-                                //       // keyboardType: TextInputType.text,
-
-                                //       decoration: const InputDecoration(
-                                //         hintText: "Ketikan Nama Transaksi",
-                                //       ),
-                                //     ),
-                                //   ],
-                                // )
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -246,6 +216,18 @@ class TransactionScreen extends StatelessWidget {
                                         hintText:
                                             "Ketikan Deskripsi Transaksi (optional)",
                                       ),
+                                      onSaved: (newValue) {
+                                        if (newValue!.isNotEmpty ||
+                                            newValue != "") {
+                                          transaction.description = newValue;
+                                        }
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty || value == "") {
+                                          return "Deskripsi Tidak Boleh Kosong";
+                                        }
+                                        return null;
+                                      },
                                     ),
                                   ],
                                 ),
@@ -271,6 +253,19 @@ class TransactionScreen extends StatelessWidget {
                                         ),
                                         hintText: "0",
                                       ),
+                                      onSaved: (newValue) {
+                                        if (newValue!.isNotEmpty ||
+                                            newValue != "") {
+                                          transaction.amount =
+                                              double.parse(newValue);
+                                        }
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty || value == "") {
+                                          return "Deskripsi Tidak Boleh Kosong";
+                                        }
+                                        return null;
+                                      },
                                     ),
                                   ],
                                 ),
@@ -290,6 +285,10 @@ class TransactionScreen extends StatelessWidget {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
                                 print(transaction);
+
+                                //
+                                context.read<TransactionBloc>().add(
+                                    SaveTransactionNew(value: transaction));
                               }
                             },
                             child: const Text("Simpan"),

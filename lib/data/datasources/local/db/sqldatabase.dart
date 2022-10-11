@@ -4,7 +4,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 import '../../../../domain/entities/category.dart';
+import '../../../../domain/entities/transaction.dart' as trx;
 import '../../../models/category_model.dart';
+import '../../../models/transaction_model.dart';
 
 class SqlDatabase {
   static final SqlDatabase instance = SqlDatabase._init();
@@ -85,6 +87,13 @@ class SqlDatabase {
   Future<void> deleteCategory(int idCategory) async {
     final db = await instance.database;
     await sqlHelper.deleteCategoryByID(db, idCategory);
+  }
+
+  // create new transaction
+  Future<int> createNewTransaction(trx.Transaction value) async {
+    final db = await instance.database;
+    final result = await sqlHelper.createNewTransaction(db, instance, value);
+    return result;
   }
 
 // // read all master category

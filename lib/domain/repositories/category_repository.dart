@@ -7,7 +7,8 @@ abstract class CategoryRepository {
   getInitCategory();
   Future<Either<Failure, List<Category>>> getReadCategory();
   Future<Either<Failure, Category>> getReadCategoryById(int idCategory);
-  Future<Either<Failure, List<Category>>> getReadIconCategoryDefault();
+  Future<Either<Failure, List<Category>>> getReadIconCategoryDefault(
+      int isDefault);
 
   Future<Either<Failure, int>> getCreateCategory(Category value);
   Future<Either<Failure, int>> getUpdateCategory(

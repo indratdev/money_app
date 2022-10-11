@@ -62,9 +62,10 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, List<Category>>> getReadIconCategoryDefault() async {
+  Future<Either<Failure, List<Category>>> getReadIconCategoryDefault(
+      isdefault) async {
     try {
-      final result = await localDataSource.readCategory(1);
+      final result = await localDataSource.readCategory(isdefault);
       print("result ::: $result");
       return Right(result.toList());
     } on ServerException {

@@ -9,9 +9,17 @@ abstract class CategoryEvent extends Equatable {
 
 class InitCategory extends CategoryEvent {}
 
-class ReadCategory extends CategoryEvent {}
+class ReadCategory extends CategoryEvent {
+  int isDefault;
 
-class ReadIconCategoryDefault extends CategoryEvent {}
+  ReadCategory({required this.isDefault});
+}
+
+class ReadIconCategoryDefault extends CategoryEvent {
+  int isDefault;
+
+  ReadIconCategoryDefault({required this.isDefault});
+}
 
 class SelectedIconEvent extends CategoryEvent {
   String iconName;
@@ -23,6 +31,12 @@ class CallbackIconNameEvent extends CategoryEvent {
   String iconName;
 
   CallbackIconNameEvent({required this.iconName});
+}
+
+class CallbackIconCategoryEvent extends CategoryEvent {
+  Category value;
+
+  CallbackIconCategoryEvent({required this.value});
 }
 
 // add new category

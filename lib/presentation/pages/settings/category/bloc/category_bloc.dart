@@ -30,7 +30,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       print("ReadCategory runinggg...");
       try {
         emit(LoadingReadCategory());
-        final result = await _getCategoryCases.executeReadCategory();
+        final result =
+            await _getCategoryCases.executeReadCategory(event.isDefault);
         print("resultttttt : $result");
         result.fold((l) => emit(FailureReadCategory(messageError: l.message)),
             (data) => emit(SuccessReadCategory(result: data)));
@@ -44,7 +45,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       print("ReadCategory runinggg...");
       try {
         emit(LoadingReadIconCategoryDefault());
-        final result = await _getCategoryCases.executeReadIconCategoryDefault();
+        final result = await _getCategoryCases
+            .executeReadIconCategoryDefault(event.isDefault);
         print("resultttttt ReadIconCategoryDefault: $result");
         result.fold(
             (l) =>
@@ -83,6 +85,17 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         emit(SuccessCallbackIconName(resultSelectedIconName: event.iconName));
       } catch (e) {
         emit(FailureCallbackIconName(
+            messageError: "Error FailureCallbackIconName"));
+      }
+    });
+
+    on<CallbackIconCategoryEvent>((event, emit) {
+      try {
+        emit(LoadingCallbackIconCategory());
+        // final result = _getCategoryCases.
+        emit(SuccessCallbackIconCategory(value: event.value));
+      } catch (e) {
+        emit(FailureCallbackIconCategory(
             messageError: "Error FailureCallbackIconName"));
       }
     });

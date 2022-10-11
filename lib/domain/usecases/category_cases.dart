@@ -15,7 +15,7 @@ class CategoryCases {
   }
 
   // read category
-  Future<Either<Failure, List<Category>>> executeReadCategory() {
+  Future<Either<Failure, List<Category>>> executeReadCategory(int isDefault) {
     return repository.getReadCategory();
   }
 
@@ -25,8 +25,9 @@ class CategoryCases {
   }
 
   // read icon category default
-  Future<Either<Failure, List<Category>>> executeReadIconCategoryDefault() {
-    return repository.getReadIconCategoryDefault();
+  Future<Either<Failure, List<Category>>> executeReadIconCategoryDefault(
+      int isDefault) {
+    return repository.getReadIconCategoryDefault(isDefault);
   }
 
   // create category

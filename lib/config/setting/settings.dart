@@ -30,10 +30,10 @@ class MenuSetting {
     switch (blocName) {
       case BlocName.categoryRead:
         context.read<CategoryBloc>().add(InitCategory());
-        context.read<CategoryBloc>().add(ReadCategory());
+        context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
         break;
       default:
-        context.read<CategoryBloc>().add(ReadCategory());
+        context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
     }
   }
 

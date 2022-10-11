@@ -58,3 +58,20 @@ class SuccessValueTextEditing extends TransactionState {
   @override
   List<Object> get props => [result];
 }
+
+// create transaction new
+
+class LoadingSaveTransactionNew extends TransactionState {}
+
+class FailureSaveTransactionNew extends FailureState {
+  FailureSaveTransactionNew({required super.messageError});
+}
+
+class SuccessSaveTransactionNew extends TransactionState {
+  final int result;
+
+  SuccessSaveTransactionNew({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}

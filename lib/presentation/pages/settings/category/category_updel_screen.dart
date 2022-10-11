@@ -17,7 +17,7 @@ class CategoryUpDelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.read<CategoryBloc>().add(ReadCategory());
+        context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
         return true;
       },
       child: Scaffold(
@@ -28,7 +28,7 @@ class CategoryUpDelScreen extends StatelessWidget {
                     context, "Apakah anda yakin ingin hapus data ini ? ", () {
                   context.read<CategoryBloc>().add(
                       DeleteCategoryEvent(idCategory: valueCategory?.id ?? 0));
-                  context.read<CategoryBloc>().add(ReadCategory());
+                  context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
                   Navigator.of(context)
                     ..pop()
                     ..pop();
@@ -75,7 +75,7 @@ class CategoryUpDelScreen extends StatelessWidget {
                       onTap: () {
                         context
                             .read<CategoryBloc>()
-                            .add(ReadIconCategoryDefault());
+                            .add(ReadIconCategoryDefault(isDefault: 1));
                         Navigator.pushNamed(
                             context, AppRoutes.settCategorySelectIcon);
                       },
@@ -114,7 +114,9 @@ class CategoryUpDelScreen extends StatelessWidget {
                                     idCategory: valueCategory?.id ?? 0,
                                     valueCategory: value));
 
-                            context.read<CategoryBloc>().add(ReadCategory());
+                            context
+                                .read<CategoryBloc>()
+                                .add(ReadCategory(isDefault: 1));
                             Navigator.pop(context);
                           },
                           child: const Text("Simpan"),

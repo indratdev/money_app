@@ -55,15 +55,15 @@
 //                   padding: EdgeInsets.all(8),
 //                   child: TextFormField(
 //                     controller: nameController,
-//                     textInputAction: TextInputAction.done,
-//                     onEditingComplete: () {
-//                       transaction.title = nameController.text;
-//                     },
-//                     onFieldSubmitted: (value) {
-//                       print("<<< onFieldSubmitted");
-//                       // transaction.title = value;
-//                       nameController.text = value;
-//                     },
+//                     // textInputAction: TextInputAction.done,
+//                     // onEditingComplete: () {
+//                     //   transaction.title = nameController.text;
+//                     // },
+//                     // onFieldSubmitted: (value) {
+//                     //   print("<<< onFieldSubmitted");
+//                     //   // transaction.title = value;
+//                     //   nameController.text = value;
+//                     // },
 //                     autofocus: false,
 
 //                     // onSaved: (newValue) {

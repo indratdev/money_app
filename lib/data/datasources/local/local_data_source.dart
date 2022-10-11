@@ -1,5 +1,6 @@
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
 import 'package:money_app/domain/entities/category.dart';
+import 'package:money_app/domain/entities/transaction.dart';
 
 import '../../models/category_model.dart';
 
@@ -10,6 +11,7 @@ abstract class LocalDataSource {
   Future<int> createCategory(Category value);
   Future<int> updateCategory(int idCategory, Category valueCategory);
   Future<void> deleteCategory(int idCategory);
+  Future<int> createNewTransaction(Transaction value);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -43,5 +45,10 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<void> deleteCategory(int idCategory) async {
     await dbprovider.deleteCategory(idCategory);
+  }
+
+  @override
+  Future<int> createNewTransaction(Transaction value) async {
+    return await dbprovider.createNewTransaction(value);
   }
 }

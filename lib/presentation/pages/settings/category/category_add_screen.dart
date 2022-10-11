@@ -9,7 +9,14 @@ import 'package:money_app/presentation/pages/settings/category/bloc/category_blo
 class CategoryAddScreen extends StatelessWidget {
   CategoryAddScreen({super.key});
 
-  String selectedImage = "collect-interest";
+  // String selectedImage = "collect-interest";
+  Category? selectedCatecory = Category(
+      name: "Bunga",
+      iconName: "collect-interest",
+      createdTime: DateTime.now().toString(),
+      modifieldTime: "",
+      isDefault: 0);
+
   TextEditingController categoryNameController = TextEditingController();
 
   @override
@@ -21,9 +28,12 @@ class CategoryAddScreen extends StatelessWidget {
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {},
         builder: (context, state) {
-          if (state is SuccessCallbackIconName) {
-            selectedImage = state.resultSelectedIconName;
-            print("hasil ::: $selectedImage");
+          // if (state is SuccessCallbackIconName) {
+          //   selectedImage = state.resultSelectedIconName;
+          //   print("hasil ::: $selectedImage");
+          // }
+          if (state is SuccessCallbackIconCategory) {
+            selectedCatecory = state.value;
           }
           return SingleChildScrollView(
             child: Padding(
@@ -47,7 +57,7 @@ class CategoryAddScreen extends StatelessWidget {
                     onTap: () {
                       context
                           .read<CategoryBloc>()
-                          .add(ReadIconCategoryDefault());
+                          .add(ReadIconCategoryDefault(isDefault: 1));
                       Navigator.pushNamed(
                           context, AppRoutes.settCategorySelectIcon);
                     },
@@ -58,7 +68,7 @@ class CategoryAddScreen extends StatelessWidget {
                           foregroundColor: Colors.red,
                           child: ClipOval(
                             child: Image.asset(
-                              "assets/icons/$selectedImage.png",
+                              "assets/icons/${selectedCatecory!.iconName}.png",
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -74,14 +84,16 @@ class CategoryAddScreen extends StatelessWidget {
                       onPressed: () {
                         Category value = Category(
                             name: categoryNameController.text,
-                            iconName: selectedImage,
+                            iconName: selectedCatecory!.iconName,
                             createdTime: DateTime.now().toString(),
                             modifieldTime: "",
                             isDefault: 0);
                         context
                             .read<CategoryBloc>()
                             .add(CreateCategoryEvent(valueCategory: value));
-                        context.read<CategoryBloc>().add(ReadCategory());
+                        context
+                            .read<CategoryBloc>()
+                            .add(ReadCategory(isDefault: 0));
                         Navigator.pop(context);
                       },
                       child: const Text("Simpan"),
