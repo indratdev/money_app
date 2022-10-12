@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../../../domain/entities/category.dart';
 import '../../../../domain/entities/transaction.dart' as trx;
 import '../../../models/category_model.dart';
+import '../../../models/transaction_model.dart';
 
 class SqlHelper {
   final String dbName = 'dbmoney.db';
@@ -164,6 +165,7 @@ class SqlHelper {
 
   Future<int> createNewTransaction(Database? db, SqlDatabase instance,
       trx.Transaction valueTransaction) async {
+    print(">>>>> valueTransaction : $valueTransaction");
     final db = await instance.database;
     int result = 0;
     if (db != null) {
@@ -184,6 +186,49 @@ class SqlHelper {
       ''');
     }
     return result;
+  }
+
+  // Future<List<TransactionModel>>
+  Future<List<TransactionModel>> readTransaction(
+      Database? db, SqlDatabase instance) async {
+    //  this.id,
+    // required this.isOutcome,
+    // required this.idCategory,
+    // required this.title,
+    // this.description = "",
+    // this.amount = 0,
+    // this.idWallet = 0,
+    // required this.createdTime,
+    // this.isModifield = 0,
+    // this.modifieldTrxTime = "",
+
+    String query = """select
+            tr.id
+            ,tr.isOutcome
+            ,tr.idCategory
+            ,tr.title
+            ,tr.description
+      ,tr.amount
+    ,tr.idWallet
+    ,tr.createdTime
+    ,tr.isModifield
+    ,tr.modifieldTrxTime
+    ,mc.name as categoryName
+    ,mc.iconName as categoryIconName
+            
+          from $tableTransaction tr join $tableMasterCategory mc on tr.idCategory = mc.id ;""";
+
+    // String query = "select * from $tableTransaction";
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+      print("result : $result");
+      final datas = result.map((e) => TransactionModel.fromJson(e)).toList();
+      print(datas);
+      return datas;
+    } else {
+      throw Exception('DB is NULL');
+    }
   }
 
   // isOutcome INTEGER,

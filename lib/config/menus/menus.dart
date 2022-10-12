@@ -66,6 +66,8 @@ class Menus {
         title: "Beranda",
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
+        // onPressed: (p0) =>
+        //     context.read<TransactionBloc>().add(ReadTransactionEvent()),
       ),
       // PersistentBottomNavBarItem(
       //   icon: const Icon(FontAwesomeIcons.moneyBill),

@@ -14,10 +14,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
   TransactionRepositoryImpl({required this.localDataSource});
 
   @override
-  getInitTransaction() {
-    // TODO: implement getInitTransaction
-    throw UnimplementedError();
-  }
+  getInitTransaction() {}
 
   @override
   Future<Either<Failure, int>> getCreateNewTransaction(
@@ -25,6 +22,18 @@ class TransactionRepositoryImpl implements TransactionRepository {
     try {
       final result = await localDataSource.createNewTransaction(value);
       print("jalannn getCreateCategory: ${Right(result)}");
+      return Right(result);
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Transaction>>> getReadTransaction() async {
+    try {
+      final result = await localDataSource.readTransaction();
       return Right(result);
     } on ServerException {
       return Left(const ServerFailure(''));

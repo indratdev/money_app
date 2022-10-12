@@ -54,9 +54,7 @@ class TransactionScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return BlocConsumer<TransactionBloc, TransactionState>(
-            listener: (context, state) {
-              //
-            },
+            listener: (context, state) {},
             builder: (context, state) {
               if (state is SuccessSelectedIsOutcome) {
                 transaction.isOutcome = state.result;
@@ -193,9 +191,7 @@ class TransactionScreen extends StatelessWidget {
                                         }
                                         return null;
                                       },
-
-                                      // keyboardType: TextInputType.text,
-
+                                      keyboardType: TextInputType.text,
                                       decoration: const InputDecoration(
                                         hintText: "Ketikan Nama Transaksi",
                                       ),
@@ -218,18 +214,9 @@ class TransactionScreen extends StatelessWidget {
                                             "Ketikan Deskripsi Transaksi (optional)",
                                       ),
                                       onSaved: (newValue) {
-                                        // if (newValue!.isNotEmpty ||
-                                        //     newValue != "") {
                                         transaction.description =
                                             newValue ?? "";
-                                        // }
                                       },
-                                      // validator: (value) {
-                                      //   if (value!.isEmpty || value == "") {
-                                      //     return "Deskripsi Tidak Boleh Kosong";
-                                      //   }
-                                      //   return null;
-                                      // },
                                     ),
                                   ],
                                 ),
@@ -279,15 +266,12 @@ class TransactionScreen extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                // _formKey.currentState!.save();
-                                print(transaction);
-
+                                _formKey.currentState!.save();
                                 // action save
                                 context.read<TransactionBloc>().add(
                                     SaveTransactionNew(value: transaction));
+                                Navigator.pop(context);
                               }
-                              Navigator.popAndPushNamed(
-                                  context, AppRoutes.first);
                             },
                             child: const Text("Simpan"),
                           ),

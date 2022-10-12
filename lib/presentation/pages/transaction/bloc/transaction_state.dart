@@ -60,7 +60,6 @@ class SuccessValueTextEditing extends TransactionState {
 }
 
 // create transaction new
-
 class LoadingSaveTransactionNew extends TransactionState {}
 
 class FailureSaveTransactionNew extends FailureState {
@@ -71,6 +70,22 @@ class SuccessSaveTransactionNew extends TransactionState {
   final int result;
 
   SuccessSaveTransactionNew({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+// create init transaction
+class LoadingReadTransaction extends TransactionState {}
+
+class FailureReadTransaction extends FailureState {
+  FailureReadTransaction({required super.messageError});
+}
+
+class SuccessReadTransaction extends TransactionState {
+  List<Transaction> result;
+
+  SuccessReadTransaction({required this.result});
 
   @override
   List<Object> get props => [result];

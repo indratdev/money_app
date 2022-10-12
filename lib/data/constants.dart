@@ -14,3 +14,5 @@ DateFormat defaultDateTimeF =
 
 const String failureInitCategoryMessage = "Gagal Inisialisasi";
 const String failureReadCategoryMessage = "Gagal Membaca Kategory";
+
+NumberFormat formatterThousand = NumberFormat('#,##,000');

@@ -30,3 +30,5 @@ class SaveTransactionNew extends TransactionEvent {
 
   SaveTransactionNew({required this.value});
 }
+
+class ReadTransactionEvent extends TransactionEvent {}

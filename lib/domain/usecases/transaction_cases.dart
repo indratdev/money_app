@@ -19,4 +19,9 @@ class TransactionCases {
       Transaction valueTransaction) {
     return repository.getCreateNewTransaction(valueTransaction);
   }
+
+  // read transaction
+  Future<Either<Failure, List<Transaction>>> executeReadTransaction() {
+    return repository.getReadTransaction();
+  }
 }

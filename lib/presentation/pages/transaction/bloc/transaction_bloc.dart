@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:money_app/data/constants.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/domain/usecases/transaction_cases.dart';
 
@@ -39,6 +40,20 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       }
     });
 
+    //  on<CreateCategoryEvent>((event, emit) async {
+    //   try {
+    //     emit(LoadingCreateCategory());
+    //     final result =
+    //         await _getCategoryCases.executeCreateCategory(event.valueCategory);
+    //     result.fold(
+    //         (l) => emit(
+    //             FailureCreateCategory(messageError: "FailureCreateCategory")),
+    //         (data) => emit(SuccessCreateCategory(result: data)));
+    //   } catch (e) {
+    //     emit(FailureCreateCategory(messageError: "FailureCreateCategory e"));
+    //   }
+    // });
+
     on<SaveTransactionNew>((event, emit) async {
       try {
         print("========== jalan ==========");
@@ -53,6 +68,21 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       } catch (e) {
         emit(FailureSaveTransactionNew(
             messageError: "FailureSaveTransactionNew e"));
+      }
+    });
+
+    on<ReadTransactionEvent>((event, emit) async {
+      try {
+        emit(LoadingReadTransaction());
+        final result = await _getTransactionCases.executeReadTransaction();
+        print(">> >> result $result");
+        result.fold(
+            (l) => emit(FailureReadTransaction(
+                messageError: "FailureReadTransaction :: $l")),
+            (data) => emit(SuccessReadTransaction(result: data)));
+      } catch (e) {
+        print(e);
+        emit(FailureReadTransaction(messageError: "FailureReadTransaction e"));
       }
     });
   }

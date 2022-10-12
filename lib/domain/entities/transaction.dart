@@ -3,9 +3,11 @@ import 'package:equatable/equatable.dart';
 class Transaction extends Equatable {
   int? id;
   int isOutcome, idCategory, idWallet, isModifield;
-  String title, description;
+  String title;
+  String? description;
   double amount;
   String createdTime, modifieldTrxTime;
+  String? categoryName, categoryIconName;
 
   Transaction({
     this.id,
@@ -18,6 +20,8 @@ class Transaction extends Equatable {
     required this.createdTime,
     this.isModifield = 0,
     this.modifieldTrxTime = "",
+    this.categoryName = "",
+    this.categoryIconName = "",
   });
 
   @override
@@ -32,5 +36,7 @@ class Transaction extends Equatable {
         createdTime,
         isModifield,
         modifieldTrxTime,
+        categoryName,
+        categoryIconName,
       ];
 }

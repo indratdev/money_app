@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<CategoryBloc>(),
         ),
         BlocProvider(
-          create: (context) => di.getIt<TransactionBloc>(),
+          create: (context) =>
+              di.getIt<TransactionBloc>()..add(ReadTransactionEvent()),
         ),
       ],
       child: MaterialApp(

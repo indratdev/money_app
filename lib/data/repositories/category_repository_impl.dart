@@ -53,7 +53,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final result = await localDataSource.readCategory(0);
       print("result ::: $result");
       return Right(result.toList());
-      ;
     } on ServerException {
       return Left(const ServerFailure(''));
     } on SocketException {

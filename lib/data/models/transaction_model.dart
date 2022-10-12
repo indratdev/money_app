@@ -3,9 +3,11 @@ import 'package:money_app/domain/entities/transaction.dart';
 class TransactionModel extends Transaction {
   int? id;
   int isOutcome, idCategory, idWallet, isModifield;
-  String title, description;
+  String title;
+  String? description;
   double amount;
   String createdTime, modifieldTrxTime;
+  String? categoryName, categoryIconName;
 
   // TransactionModel({required super.isOutcome, required super.idCategory, required super.title, required super.createdTime});
 
@@ -20,6 +22,8 @@ class TransactionModel extends Transaction {
     required this.createdTime,
     this.isModifield = 0,
     this.modifieldTrxTime = "",
+    this.categoryName = "",
+    this.categoryIconName = "",
   }) : super(
           isOutcome: 0,
           idCategory: 0,
@@ -33,12 +37,14 @@ class TransactionModel extends Transaction {
         isOutcome: json['isOutcome'] as int,
         idCategory: json['idCategory'] as int,
         title: json['title'] as String,
-        description: json['description'] as String,
+        description: json['description'] as String? ?? "",
         amount: json['amount'] as double,
         idWallet: json['idWallet'] as int,
         createdTime: json['createdTime'] as String,
         isModifield: json['isModifield'] as int,
         modifieldTrxTime: json['modifieldTrxTime'] as String,
+        categoryName: json['categoryName'] as String? ?? "",
+        categoryIconName: json['categoryIconName'] as String? ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,5 +58,7 @@ class TransactionModel extends Transaction {
         'createdTime': createdTime,
         'isModifield': isModifield,
         'modifieldTrxTime': modifieldTrxTime,
+        'categoryName': categoryName,
+        'categoryIconName': categoryIconName,
       };
 }

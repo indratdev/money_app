@@ -96,6 +96,12 @@ class SqlDatabase {
     return result;
   }
 
+  Future<List<TransactionModel>> readTransaction() async {
+    final db = await instance.database;
+    final result = await sqlHelper.readTransaction(db, instance);
+    return result;
+  }
+
 // // read all master category
 //   Future<List<CategoryMasterModel>> readAllCategoryMaster() async {
 //     final db = await instance.database;
