@@ -9,6 +9,8 @@ class Transaction extends Equatable {
   String createdTime, modifieldTrxTime;
   String? categoryName, categoryIconName;
 
+  String currentDateTime;
+
   Transaction({
     this.id,
     this.isOutcome = 0,
@@ -39,4 +41,10 @@ class Transaction extends Equatable {
         categoryName,
         categoryIconName,
       ];
+
+  String get getCurrentDateTime {
+    return currentDateTime;
+  }
+
+  set setCurrentDateTime() {}
 }

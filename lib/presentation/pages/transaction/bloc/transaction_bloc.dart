@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:money_app/data/constants.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/domain/usecases/transaction_cases.dart';
@@ -74,9 +75,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ReadTransactionEvent>((event, emit) async {
       try {
         emit(LoadingReadTransaction());
-        final result = await _getTransactionCases.executeReadTransaction();
-        print(">> >> result $result");
-        result.fold(
+        final contentTransaction = await _getTransactionCases
+            .executeReadTransaction(); // read content transaction
+        final calculation = await _getTransactionCases.executeReadCalculation();
+        print(">> >> result $contentTransaction");
+        contentTransaction.fold(
             (l) => emit(FailureReadTransaction(
                 messageError: "FailureReadTransaction :: $l")),
             (data) => emit(SuccessReadTransaction(result: data)));

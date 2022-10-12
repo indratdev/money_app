@@ -24,4 +24,9 @@ class TransactionCases {
   Future<Either<Failure, List<Transaction>>> executeReadTransaction() {
     return repository.getReadTransaction();
   }
+
+  // read calculation
+  executeReadCalculation() {
+    repository.getReadCalculation();
+  }
 }

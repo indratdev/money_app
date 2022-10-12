@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:money_app/config/routes/app_routes.dart';
-import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
+
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../presentation/pages/home/home_screen.dart';
 import '../../presentation/pages/settings/setting_screen.dart';
+import '../../presentation/pages/transaction/bloc/transaction_bloc.dart';
 import '../../presentation/pages/transaction/transaction_screen.dart';
 
 class BottomMenu {
@@ -66,6 +67,8 @@ class Menus {
         title: "Beranda",
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
+        onSelectedTabPressWhenNoScreensPushed: () =>
+            context.read<TransactionBloc>().add(ReadTransactionEvent()),
         // onPressed: (p0) =>
         //     context.read<TransactionBloc>().add(ReadTransactionEvent()),
       ),

@@ -268,8 +268,10 @@ class TransactionScreen extends StatelessWidget {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
                                 // action save
-                                context.read<TransactionBloc>().add(
-                                    SaveTransactionNew(value: transaction));
+                                context.read<TransactionBloc>()
+                                  ..add(SaveTransactionNew(value: transaction))
+                                  ..add(ReadTransactionEvent());
+
                                 Navigator.pop(context);
                               }
                             },

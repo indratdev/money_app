@@ -41,4 +41,11 @@ class TransactionRepositoryImpl implements TransactionRepository {
       return Left(const ConnectionFailure('Failed to connect to the database'));
     }
   }
+
+  @override
+  getReadCalculation() {
+    try {} catch (e) {
+      print(e);
+    }
+  }
 }

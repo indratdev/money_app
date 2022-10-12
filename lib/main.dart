@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              di.getIt<TransactionBloc>()..add(ReadTransactionEvent()),
+              di.getIt<TransactionBloc>()..add(ReadTransactionEvent(transactionDateTime: )),
         ),
       ],
       child: MaterialApp(

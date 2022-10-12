@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:money_app/data/constants.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
@@ -10,8 +11,11 @@ class HomeScreen extends StatelessWidget {
 
   List<Transaction>? listTransaction;
 
+  String transactionDateTime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
+    print("tanggal => $transactionDateTime");
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -103,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                         return ListTile(
                           contentPadding: EdgeInsets.all(8),
                           leading: CircleAvatar(
-                            radius: 30,
+                            radius: 25,
                             foregroundColor: Colors.transparent,
                             child: ClipOval(
                               child: Image.asset(
@@ -116,10 +120,12 @@ class HomeScreen extends StatelessWidget {
                           ),
                           title: Text(
                               "${listTransaction?[index].title.toString()}"),
-                          trailing:
-                              // Text("Rp.  ${listTransaction?[index].amount}"),
-                              Text(formatterThousand.format(
-                                  "${listTransaction?[index].amount.toInt()}")),
+                          trailing: Text(
+                            "Rp. ${formatterThousand.format(
+                              double.tryParse(
+                                  "${listTransaction?[index].amount}"),
+                            )}",
+                          ),
                         );
                       },
                     ),
