@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:money_app/data/constants.dart';
+import 'package:money_app/data/date_util.dart';
+import 'package:money_app/data/repositories/transaction_repository_impl.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
@@ -10,23 +11,30 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   List<Transaction>? listTransaction;
-
-  String transactionDateTime = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String selectedDate = ""; // DateUtil().getCurrentDate();
 
   @override
   Widget build(BuildContext context) {
-    print("tanggal => $transactionDateTime");
+    // print("tanggal => $transactionDateTime");
     return SafeArea(
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: BlocConsumer<TransactionBloc, TransactionState>(
             listener: (context, state) {
-              // TODO: implement listener
+              if (state is SuccessReadTransaction) {
+                listTransaction =
+                    state.result[TransactionEnum.transaction.name];
+                selectedDate = state.result[TransactionEnum.dateselected.name];
+              }
             },
             builder: (context, state) {
               if (state is SuccessReadTransaction) {
-                listTransaction = state.result;
+                // listTransaction = state.result;
+                listTransaction =
+                    state.result[TransactionEnum.transaction.name];
+                selectedDate =
+                    state.result[TransactionEnum.dateselected.name].toString();
               }
               return Column(
                 children: [
@@ -36,12 +44,25 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            String date =
+                                DateUtil().operationDate(selectedDate, 0);
+                            context.read<TransactionBloc>().add(
+                                ReadTransactionEvent(
+                                    transactionDateTime: date));
+                          },
                           icon: Icon(Icons.arrow_left_sharp),
                         ),
-                        Text("2022-10-12"),
+                        Text("data"),
+                        // (selectedDate == "") : Text() ? Text("data"),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            String date =
+                                DateUtil().operationDate(selectedDate, 1);
+                            context.read<TransactionBloc>().add(
+                                ReadTransactionEvent(
+                                    transactionDateTime: date));
+                          },
                           icon: Icon(Icons.arrow_right_sharp),
                         ),
                       ],

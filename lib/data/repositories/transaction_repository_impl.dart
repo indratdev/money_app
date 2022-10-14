@@ -8,6 +8,11 @@ import 'package:money_app/domain/repositories/transaction_repository.dart';
 import '../datasources/local/local_data_source.dart';
 import '../exception.dart';
 
+enum TransactionEnum {
+  transaction,
+  dateselected,
+}
+
 class TransactionRepositoryImpl implements TransactionRepository {
   final LocalDataSource localDataSource;
 
@@ -31,10 +36,17 @@ class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
-  Future<Either<Failure, List<Transaction>>> getReadTransaction(
+  // Future<Either<Failure, List<Transaction>>> getReadTransaction(
+  Future<Either<Failure, Map<String, dynamic>>> getReadTransaction(
       String date) async {
     try {
-      final result = await localDataSource.readTransaction(date);
+      Map<String, dynamic> result = {};
+
+      final transaction = await localDataSource.readTransaction(date);
+      result[TransactionEnum.transaction.name] = transaction;
+      // result[TransactionEnum.dateselected.name] = date;
+      print("resultresult : $result");
+
       return Right(result);
     } on ServerException {
       return Left(const ServerFailure(''));

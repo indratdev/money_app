@@ -83,7 +83,8 @@ class FailureReadTransaction extends FailureState {
 }
 
 class SuccessReadTransaction extends TransactionState {
-  List<Transaction> result;
+  // List<Transaction> result;
+  Map<String, dynamic> result;
 
   SuccessReadTransaction({required this.result});
 
