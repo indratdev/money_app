@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
@@ -270,7 +271,9 @@ class TransactionScreen extends StatelessWidget {
                                 // action save
                                 context.read<TransactionBloc>()
                                   ..add(SaveTransactionNew(value: transaction))
-                                  ..add(ReadTransactionEvent());
+                                  ..add(ReadTransactionEvent(
+                                      transactionDateTime:
+                                          DateUtil().getCurrentDate()));
 
                                 Navigator.pop(context);
                               }

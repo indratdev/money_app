@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:money_app/data/date_util.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -67,8 +68,10 @@ class Menus {
         title: "Beranda",
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
-        onSelectedTabPressWhenNoScreensPushed: () =>
-            context.read<TransactionBloc>().add(ReadTransactionEvent()),
+        onSelectedTabPressWhenNoScreensPushed: () => context
+            .read<TransactionBloc>()
+            .add(ReadTransactionEvent(
+                transactionDateTime: DateUtil().getCurrentDate())),
         // onPressed: (p0) =>
         //     context.read<TransactionBloc>().add(ReadTransactionEvent()),
       ),

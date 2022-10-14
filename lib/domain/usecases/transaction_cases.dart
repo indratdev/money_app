@@ -21,8 +21,9 @@ class TransactionCases {
   }
 
   // read transaction
-  Future<Either<Failure, List<Transaction>>> executeReadTransaction() {
-    return repository.getReadTransaction();
+  Future<Either<Failure, List<Transaction>>> executeReadTransaction(
+      String date) {
+    return repository.getReadTransaction(date);
   }
 
   // read calculation

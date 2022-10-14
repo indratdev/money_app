@@ -190,36 +190,27 @@ class SqlHelper {
 
   // Future<List<TransactionModel>>
   Future<List<TransactionModel>> readTransaction(
-      Database? db, SqlDatabase instance) async {
-    //  this.id,
-    // required this.isOutcome,
-    // required this.idCategory,
-    // required this.title,
-    // this.description = "",
-    // this.amount = 0,
-    // this.idWallet = 0,
-    // required this.createdTime,
-    // this.isModifield = 0,
-    // this.modifieldTrxTime = "",
-
+      Database? db, SqlDatabase instance,
+      {required String date}) async {
+    print(">>> datenya :: $date");
     String query = """select
             tr.id
             ,tr.isOutcome
             ,tr.idCategory
             ,tr.title
             ,tr.description
-      ,tr.amount
-    ,tr.idWallet
-    ,tr.createdTime
-    ,tr.isModifield
-    ,tr.modifieldTrxTime
-    ,mc.name as categoryName
-    ,mc.iconName as categoryIconName
-            
-          from $tableTransaction tr join $tableMasterCategory mc on tr.idCategory = mc.id ;""";
-
-    // String query = "select * from $tableTransaction";
-
+            ,tr.amount
+            ,tr.idWallet
+            ,tr.createdTime
+            ,tr.isModifield
+            ,tr.modifieldTrxTime
+            ,mc.name as categoryName
+            ,mc.iconName as categoryIconName            
+          from $tableTransaction tr 
+            join $tableMasterCategory mc on tr.idCategory = mc.id 
+          where 
+            tr.createdTime like '%$date%'
+          ;""";
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
       print("result : $result");

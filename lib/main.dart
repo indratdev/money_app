@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/domain/repositories/category_repository.dart';
 import 'package:money_app/domain/usecases/category_cases.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
@@ -27,8 +28,9 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<CategoryBloc>(),
         ),
         BlocProvider(
-          create: (context) =>
-              di.getIt<TransactionBloc>()..add(ReadTransactionEvent(transactionDateTime: )),
+          create: (context) => di.getIt<TransactionBloc>()
+            ..add(ReadTransactionEvent(
+                transactionDateTime: DateUtil().getCurrentDate())),
         ),
       ],
       child: MaterialApp(

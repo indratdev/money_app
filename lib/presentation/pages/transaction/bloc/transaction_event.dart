@@ -33,7 +33,6 @@ class SaveTransactionNew extends TransactionEvent {
 
 class ReadTransactionEvent extends TransactionEvent {
   String transactionDateTime;
-  // String defaultDate = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
 
   ReadTransactionEvent({required this.transactionDateTime});
 }

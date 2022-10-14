@@ -96,9 +96,9 @@ class SqlDatabase {
     return result;
   }
 
-  Future<List<TransactionModel>> readTransaction() async {
+  Future<List<TransactionModel>> readTransaction(String date) async {
     final db = await instance.database;
-    final result = await sqlHelper.readTransaction(db, instance);
+    final result = await sqlHelper.readTransaction(db, instance, date: date);
     return result;
   }
 

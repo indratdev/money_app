@@ -31,9 +31,10 @@ class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
-  Future<Either<Failure, List<Transaction>>> getReadTransaction() async {
+  Future<Either<Failure, List<Transaction>>> getReadTransaction(
+      String date) async {
     try {
-      final result = await localDataSource.readTransaction();
+      final result = await localDataSource.readTransaction(date);
       return Right(result);
     } on ServerException {
       return Left(const ServerFailure(''));

@@ -75,9 +75,10 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ReadTransactionEvent>((event, emit) async {
       try {
         emit(LoadingReadTransaction());
-        final contentTransaction = await _getTransactionCases
-            .executeReadTransaction(); // read content transaction
-        final calculation = await _getTransactionCases.executeReadCalculation();
+        final contentTransaction =
+            await _getTransactionCases.executeReadTransaction(
+                event.transactionDateTime); // read content transaction
+
         print(">> >> result $contentTransaction");
         contentTransaction.fold(
             (l) => emit(FailureReadTransaction(
