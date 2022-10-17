@@ -215,6 +215,10 @@ class SqlHelper {
     }
   }
 
+  readCalculation(Database? db, SqlDatabase instance, {required String date}) {
+    asdasd
+  }
+
   // insertOpsCategory(
   // Database db, String tableOpsCategory, String createTime) async {
   // await db.rawInsert(

@@ -14,6 +14,7 @@ abstract class LocalDataSource {
   Future<void> deleteCategory(int idCategory);
   Future<int> createNewTransaction(Transaction value);
   Future<List<TransactionModel>> readTransaction(String date);
+  Future<Map<String, dynamic>> readCalculation(String date);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -56,6 +57,11 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<List<TransactionModel>> readTransaction(String date) async {
+    return await dbprovider.readTransaction(date);
+  }
+  
+  @override
+  Future<Map<String, dynamic>> readCalculation(String date) {
     return await dbprovider.readTransaction(date);
   }
 }

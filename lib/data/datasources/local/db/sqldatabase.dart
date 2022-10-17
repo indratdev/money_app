@@ -102,6 +102,12 @@ class SqlDatabase {
     return result;
   }
 
+  Future<Map<String, dynamic>> readCalculation(String date) async {
+    final db = await instance.database;
+    final result = await sqlHelper.readTransaction(db, instance, date: date);
+    return result;
+  }
+
 // // read all master category
 //   Future<List<CategoryMasterModel>> readAllCategoryMaster() async {
 //     final db = await instance.database;

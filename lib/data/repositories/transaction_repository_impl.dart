@@ -11,6 +11,7 @@ import '../exception.dart';
 enum TransactionEnum {
   transaction,
   dateselected,
+  calculation,
 }
 
 class TransactionRepositoryImpl implements TransactionRepository {
@@ -43,8 +44,11 @@ class TransactionRepositoryImpl implements TransactionRepository {
       Map<String, dynamic> result = {};
 
       final transaction = await localDataSource.readTransaction(date);
+      final calculation = await localDataSource.readCalculation(date);
+
       result[TransactionEnum.transaction.name] = transaction;
       result[TransactionEnum.dateselected.name] = date;
+      result[TransactionEnum.calculation.name] = calculation;
       print("resultresult : $result");
 
       return Right(result);
