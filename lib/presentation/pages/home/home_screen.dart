@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/repositories/transaction_repository_impl.dart';
+import 'package:money_app/domain/entities/calculationE.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
@@ -11,6 +12,8 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   List<Transaction>? listTransaction;
+  List<CalculationE>? listCalculation;
+
   String selectedDate = ""; // DateUtil().getCurrentDate();
 
   @override
@@ -27,6 +30,8 @@ class HomeScreen extends StatelessWidget {
                 listTransaction =
                     state.result[TransactionEnum.transaction.name];
                 selectedDate = state.result[TransactionEnum.dateselected.name];
+                listCalculation =
+                    state.result[TransactionEnum.calculation.name];
               }
             },
             builder: (context, state) {
@@ -36,6 +41,8 @@ class HomeScreen extends StatelessWidget {
                     state.result[TransactionEnum.transaction.name];
                 selectedDate =
                     state.result[TransactionEnum.dateselected.name].toString();
+                listCalculation =
+                    state.result[TransactionEnum.calculation.name];
               }
               return Column(
                 children: [
@@ -89,7 +96,8 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               const Text("KELUAR"),
-                              Text("0"),
+                              Text(listCalculation?[0].expense.toString() ??
+                                  "0.0"),
                             ],
                           ),
                         ),
@@ -104,7 +112,8 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               const Text("TERIMA"),
-                              Text("0"),
+                              Text(listCalculation?[0].income.toString() ??
+                                  "0.0"),
                             ],
                           ),
                         ),
@@ -118,8 +127,9 @@ class HomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              const Text("SALDO"),
-                              Text("0"),
+                              const Text("PROFIT"),
+                              Text(listCalculation?[0].profit.toString() ??
+                                  "0.0"),
                             ],
                           ),
                         ),

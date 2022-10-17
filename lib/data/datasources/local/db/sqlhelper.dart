@@ -1,4 +1,5 @@
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
+import 'package:money_app/data/models/calculation_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../domain/entities/category.dart';
@@ -215,8 +216,41 @@ class SqlHelper {
     }
   }
 
-  readCalculation(Database? db, SqlDatabase instance, {required String date}) {
-    asdasd
+  Future<List<CalculationModel>> readCalculation(
+      Database? db, SqlDatabase instance,
+      {required String date}) async {
+    String query = """ 
+    SELECT
+      sum(income) as income,
+      sum(expense) as expense,
+      sum(income) - sum(expense) as profit
+    from (
+          SELECT
+            amount as income
+            , 0 as expense
+            from th_transaction
+            where 
+            isOutcome = 0
+            and createdTime like '%$date%'
+          UNION ALL
+          SELECT
+            0 as income
+            , amount as expense
+            from th_transaction
+            where 
+            isOutcome = 1
+            and createdTime like '%$date%'
+          ) 
+      """;
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+
+      final datas = result.map((e) => CalculationModel.fromJson(e)).toList();
+      return datas;
+    } else {
+      throw Exception('DB is NULL');
+    }
   }
 
   // insertOpsCategory(

@@ -1,4 +1,5 @@
 import 'package:money_app/data/datasources/local/db/sqlhelper.dart';
+import 'package:money_app/data/models/calculation_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:path/path.dart';
@@ -102,9 +103,9 @@ class SqlDatabase {
     return result;
   }
 
-  Future<Map<String, dynamic>> readCalculation(String date) async {
+  Future<List<CalculationModel>> readCalculation(String date) async {
     final db = await instance.database;
-    final result = await sqlHelper.readTransaction(db, instance, date: date);
+    final result = await sqlHelper.readCalculation(db, instance, date: date);
     return result;
   }
 

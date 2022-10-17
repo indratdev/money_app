@@ -3,6 +3,7 @@ import 'package:money_app/data/models/transaction_model.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 
+import '../../models/calculation_model.dart';
 import '../../models/category_model.dart';
 
 abstract class LocalDataSource {
@@ -14,7 +15,7 @@ abstract class LocalDataSource {
   Future<void> deleteCategory(int idCategory);
   Future<int> createNewTransaction(Transaction value);
   Future<List<TransactionModel>> readTransaction(String date);
-  Future<Map<String, dynamic>> readCalculation(String date);
+  Future<List<CalculationModel>> readCalculation(String date);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -59,9 +60,9 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<List<TransactionModel>> readTransaction(String date) async {
     return await dbprovider.readTransaction(date);
   }
-  
+
   @override
-  Future<Map<String, dynamic>> readCalculation(String date) {
-    return await dbprovider.readTransaction(date);
+  Future<List<CalculationModel>> readCalculation(String date) async {
+    return await dbprovider.readCalculation(date);
   }
 }
