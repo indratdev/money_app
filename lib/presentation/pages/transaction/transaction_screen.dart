@@ -24,7 +24,7 @@ class TransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Transaction transaction =
-        Transaction(idCategory: 0, title: "", createdTime: todayTime);
+        Transaction(idCategory: 1, title: "", createdTime: todayTime);
 
     // String selectedImage = "collect-interest";
     Category category = Category(

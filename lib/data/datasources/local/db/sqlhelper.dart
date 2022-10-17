@@ -192,9 +192,7 @@ class SqlHelper {
   Future<List<TransactionModel>> readTransaction(
       Database? db, SqlDatabase instance,
       {required String date}) async {
-    print(">>> datenya :: $date");
-    String query = """select
-            tr.id
+    String query = """select tr.id 
             ,tr.isOutcome
             ,tr.idCategory
             ,tr.title
@@ -206,31 +204,16 @@ class SqlHelper {
             ,tr.modifieldTrxTime
             ,mc.name as categoryName
             ,mc.iconName as categoryIconName            
-          from $tableTransaction tr 
-            join $tableMasterCategory mc on tr.idCategory = mc.id 
-          where 
-            tr.createdTime like '%$date%'
+          from $tableTransaction tr join $tableMasterCategory mc on tr.idCategory = mc.id where tr.createdTime like '%$date%'
           ;""";
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
-      print("result : $result");
       final datas = result.map((e) => TransactionModel.fromJson(e)).toList();
-      print(datas);
       return datas;
     } else {
       throw Exception('DB is NULL');
     }
   }
-
-  // isOutcome INTEGER,
-  //     idCategory INTEGER,
-  //     title TEXT NULL,
-  //     description TEXT NULL,
-  //     amount REAL,
-  //     idWallet INTEGER,
-  //     createdTime TEXT NULL,
-  //     isModifield INTEGER,
-  //     modifieldTrxTime TEXT NULL
 
   // insertOpsCategory(
   // Database db, String tableOpsCategory, String createTime) async {

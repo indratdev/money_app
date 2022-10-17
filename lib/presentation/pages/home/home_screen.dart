@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var widhtContainer = MediaQuery.of(context).size.width / 4;
     // print("tanggal => $transactionDateTime");
     return SafeArea(
       child: Scaffold(
@@ -53,12 +54,13 @@ class HomeScreen extends StatelessWidget {
                           },
                           icon: Icon(Icons.arrow_left_sharp),
                         ),
-                        Text("data"),
+                        Text(selectedDate),
                         // (selectedDate == "") : Text() ? Text("data"),
                         IconButton(
                           onPressed: () {
                             String date =
                                 DateUtil().operationDate(selectedDate, 1);
+                            print(">>>>> dateeee : $date");
                             context.read<TransactionBloc>().add(
                                 ReadTransactionEvent(
                                     transactionDateTime: date));
@@ -80,12 +82,13 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.red,
                           margin: EdgeInsets.all(8),
                           height: MediaQuery.of(context).size.height / 5,
-                          width: MediaQuery.of(context).size.width / 4,
+                          width: widhtContainer -
+                              10, //MediaQuery.of(context).size.width / 5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              const Text("PENGELUARAN"),
+                              const Text("KELUAR"),
                               Text("0"),
                             ],
                           ),
@@ -94,12 +97,13 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.blue,
                           margin: EdgeInsets.all(8),
                           height: MediaQuery.of(context).size.height / 5,
-                          width: MediaQuery.of(context).size.width / 4,
+                          width: widhtContainer -
+                              10, //MediaQuery.of(context).size.width / 5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              const Text("PENERIMAAN"),
+                              const Text("TERIMA"),
                               Text("0"),
                             ],
                           ),
@@ -108,7 +112,8 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.green,
                           margin: EdgeInsets.all(8),
                           height: MediaQuery.of(context).size.height / 5,
-                          width: MediaQuery.of(context).size.width / 4,
+                          width: widhtContainer -
+                              10, //MediaQuery.of(context).size.width / 5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,

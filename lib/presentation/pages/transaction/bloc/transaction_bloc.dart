@@ -75,6 +75,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ReadTransactionEvent>((event, emit) async {
       try {
         emit(LoadingReadTransaction());
+
         final contentTransaction =
             await _getTransactionCases.executeReadTransaction(
                 event.transactionDateTime); // read content transaction

@@ -44,7 +44,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
 
       final transaction = await localDataSource.readTransaction(date);
       result[TransactionEnum.transaction.name] = transaction;
-      // result[TransactionEnum.dateselected.name] = date;
+      result[TransactionEnum.dateselected.name] = date;
       print("resultresult : $result");
 
       return Right(result);

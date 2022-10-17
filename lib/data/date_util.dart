@@ -20,6 +20,8 @@ class DateUtil {
     // if isIncement = 1 => plus date 1 day
     // if isIncement = 0 => minus date 1 day
     DateTime datees = DateTime.parse(date);
-    return datees.add(Duration(days: (isIncrement == 1) ? 1 : -1)).toString();
+    String myDate =
+        datees.add(Duration(days: (isIncrement == 1) ? 1 : -1)).toString();
+    return formatedyyyyMMdd(myDate);
   }
 }
