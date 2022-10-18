@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:money_app/data/date_util.dart';
+import 'package:money_app/presentation/pages/chart/chart_screen.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../presentation/pages/home/home_screen.dart';
+import '../../presentation/pages/rekap/rekap_screen.dart';
 import '../../presentation/pages/settings/setting_screen.dart';
 import '../../presentation/pages/transaction/bloc/transaction_bloc.dart';
 import '../../presentation/pages/transaction/transaction_screen.dart';
@@ -53,9 +55,9 @@ class Menus {
   List<Widget> bottomScreenMenu() {
     return [
       HomeScreen(),
-      // HutangScreen(),
+      ChartScreen(),
       TransactionScreen(),
-      // RekapScreen(),
+      RekapScreen(),
       SettingScreen(),
     ];
   }
@@ -75,12 +77,12 @@ class Menus {
         // onPressed: (p0) =>
         //     context.read<TransactionBloc>().add(ReadTransactionEvent()),
       ),
-      // PersistentBottomNavBarItem(
-      //   icon: const Icon(FontAwesomeIcons.moneyBill),
-      //   title: "Hutang",
-      //   activeColorPrimary: CupertinoColors.activeBlue,
-      //   inactiveColorPrimary: CupertinoColors.systemGrey,
-      // ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(FontAwesomeIcons.chartSimple),
+        title: "Chart",
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.plus, color: Colors.white),
         title: "Transaksi",
@@ -94,12 +96,12 @@ class Menus {
         //   initialRoute: AppRoutes.transaction,
         // ),
       ),
-      // PersistentBottomNavBarItem(
-      //   icon: const Icon(FontAwesomeIcons.bookReader),
-      //   title: "Rekap",
-      //   activeColorPrimary: CupertinoColors.activeBlue,
-      //   inactiveColorPrimary: CupertinoColors.systemGrey,
-      // ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(FontAwesomeIcons.bookOpen),
+        title: "Rekap",
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.android),
         title: "Setting",

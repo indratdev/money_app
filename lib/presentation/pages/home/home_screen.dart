@@ -48,6 +48,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height / 14,
+                    color: Colors.amber,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -62,7 +63,6 @@ class HomeScreen extends StatelessWidget {
                           icon: Icon(Icons.arrow_left_sharp),
                         ),
                         Text(selectedDate),
-                        // (selectedDate == "") : Text() ? Text("data"),
                         IconButton(
                           onPressed: () {
                             String date =
@@ -76,7 +76,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    color: Colors.amber,
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height / 10,
@@ -127,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              const Text("PROFIT"),
+                              const Text("Selisih"),
                               Text(listCalculation?[0].profit.toString() ??
                                   "0.0"),
                             ],
