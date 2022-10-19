@@ -1,10 +1,18 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/data/constants.dart';
+import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
+
+import '../../../data/date_util.dart';
+import '../../../data/repositories/transaction_repository_impl.dart';
+import 'dart:math' as math;
 
 class ChartScreen extends StatelessWidget {
   ChartScreen({super.key});
 
   int touchedIndex = -1;
+  String selectedDate = "";
 
   @override
   Widget build(BuildContext context) {
@@ -12,43 +20,121 @@ class ChartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Laporan"),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height / 14,
-            color: Colors.amber,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: SingleChildScrollView(
+        child: BlocConsumer<ChartBloc, ChartState>(
+          listener: (context, state) {
+            if (state is SuccessReadChartDefault) {
+              selectedDate = state.result[TransactionEnum.dateselected.name];
+            }
+          },
+          builder: (context, state) {
+            if (state is SuccessReadChartDefault) {
+              selectedDate = state.result[TransactionEnum.dateselected.name];
+            }
+            return Column(
               children: <Widget>[
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.arrow_left_sharp),
+                // container tanggal
+                Container(
+                  height: MediaQuery.of(context).size.height / 14,
+                  color: Colors.amber,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: () {
+                          String date =
+                              DateUtil().operationDate(selectedDate, 0);
+                          context.read<ChartBloc>().add(
+                              ReadChartDefaultEvent(transactionDateTime: date));
+                        },
+                        icon: Icon(Icons.arrow_left_sharp),
+                      ),
+                      Text(selectedDate),
+                      IconButton(
+                        onPressed: () {
+                          String date =
+                              DateUtil().operationDate(selectedDate, 1);
+                          context.read<ChartBloc>().add(
+                              ReadChartDefaultEvent(transactionDateTime: date));
+                        },
+                        icon: Icon(Icons.arrow_right_sharp),
+                      ),
+                    ],
+                  ),
                 ),
-                Text("selectedDate"),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.arrow_right_sharp),
+                SB_Height20,
+                Column(
+                  children: [
+                    Text("Pendapatan"),
+                    SizedBox(
+                      height: 200,
+                      width: 300,
+                      child: PieChart(
+                        PieChartData(
+                          borderData: FlBorderData(show: false),
+                          sectionsSpace: 3,
+                          centerSpaceRadius: 40,
+                          sections: showingSections(),
+                        ),
+                        swapAnimationCurve: Curves.easeInOutCubic,
+                        swapAnimationDuration: Duration(milliseconds: 1000),
+                      ),
+                    ),
+                  ],
+                ),
+
+                SB_Height20,
+                Column(
+                  children: [
+                    Text("Pengeluaran"),
+                    SizedBox(
+                      height: 200,
+                      width: 300,
+                      child: PieChart(
+                        PieChartData(
+                          borderData: FlBorderData(show: false),
+                          sectionsSpace: 3,
+                          centerSpaceRadius: 40,
+                          sections: showingSections2(),
+                        ),
+                        swapAnimationCurve: Curves.easeInOutCubic,
+                        swapAnimationDuration: Duration(milliseconds: 1000),
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ),
-          ),
-          SizedBox(
-            height: 200,
-            width: 300,
-            child: PieChart(
-              PieChartData(
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                sectionsSpace: 0,
-                centerSpaceRadius: 40,
-                sections: showingSections(),
-              ),
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
+  }
+
+  List<PieChartSectionData> showingSections2() {
+    var randomColor = (math.Random().nextDouble() * 0xFFFFFF).toInt();
+    List<PieChartSectionData> datas = [];
+
+    datas.add(PieChartSectionData(
+        value: 40,
+        radius: 50,
+        titleStyle: TextStyle(
+          fontSize: 15.0,
+          fontWeight: FontWeight.bold,
+          color: const Color(0xffffffff),
+        ),
+        color: Color(randomColor).withOpacity(1.0)));
+    datas.add(PieChartSectionData(
+        value: 10,
+        radius: 50,
+        titleStyle: TextStyle(
+          fontSize: 15.0,
+          fontWeight: FontWeight.bold,
+          color: const Color(0xffffffff),
+        ),
+        color: Color(randomColor).withOpacity(1.0)));
+
+    return datas;
   }
 
   List<PieChartSectionData> showingSections() {

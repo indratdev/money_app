@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+
+import '../../data/failure.dart';
 import '../repositories/report_repository.dart';
 
 class ReportCases {
@@ -5,7 +8,8 @@ class ReportCases {
 
   ReportCases(this.repository);
 
-  executeReadChartDefault(String date) {
+  Future<Either<Failure, Map<String, dynamic>>> executeReadChartDefault(
+      String date) {
     return repository.getReadChartDefault(date);
   }
 }
