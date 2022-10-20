@@ -25,11 +25,13 @@ class ChartScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is SuccessReadChartDefault) {
               selectedDate = state.result[TransactionEnum.dateselected.name];
+              print("selecteddate listener : $selectedDate");
             }
           },
           builder: (context, state) {
             if (state is SuccessReadChartDefault) {
               selectedDate = state.result[TransactionEnum.dateselected.name];
+              print("selecteddate : $selectedDate");
             }
             return Column(
               children: <Widget>[
@@ -42,18 +44,24 @@ class ChartScreen extends StatelessWidget {
                     children: <Widget>[
                       IconButton(
                         onPressed: () {
-                          String date =
-                              DateUtil().operationDate(selectedDate, 0);
+                          String date = DateUtil()
+                              .operationDate(selectedDate, OptionDate.month, 0);
                           context.read<ChartBloc>().add(
                               ReadChartDefaultEvent(transactionDateTime: date));
                         },
                         icon: Icon(Icons.arrow_left_sharp),
                       ),
-                      Text(selectedDate),
+                      Text((selectedDate == ""
+                          ? DateUtil().currentDate
+                          : DateUtil().formatedMMMyyy(selectedDate))),
+                      // Text(selectedDate),
+                      // Text(DateUtil().formatedMMMyyy((selectedDate == "")
+                      //     ? DateUtil().currentDate
+                      //     : selectedDate)),
                       IconButton(
                         onPressed: () {
-                          String date =
-                              DateUtil().operationDate(selectedDate, 1);
+                          String date = DateUtil()
+                              .operationDate(selectedDate, OptionDate.month, 1);
                           context.read<ChartBloc>().add(
                               ReadChartDefaultEvent(transactionDateTime: date));
                         },

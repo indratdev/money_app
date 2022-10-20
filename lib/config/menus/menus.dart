@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:money_app/data/date_util.dart';
+import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/chart/chart_screen.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';

@@ -1,5 +1,11 @@
 import 'package:intl/intl.dart';
 
+enum OptionDate {
+  days,
+  month,
+  years,
+}
+
 class DateUtil {
   String currentDate;
 
@@ -16,12 +22,43 @@ class DateUtil {
     return formatter.format(DateTime.parse(date)).toString();
   }
 
-  String operationDate(String date, int isIncrement) {
+  String formatedMMMyyy(String date) {
+    print(">>>>> formatedMMMyyy : $date");
+    DateFormat formatter = DateFormat('MMMM yyy');
+    return formatter.format(DateTime.parse(date)).toString();
+  }
+
+  String operationDate2(String date, int isIncrement) {
     // if isIncement = 1 => plus date 1 day
     // if isIncement = 0 => minus date 1 day
     DateTime datees = DateTime.parse(date);
     String myDate =
         datees.add(Duration(days: (isIncrement == 1) ? 1 : -1)).toString();
+    return formatedyyyyMMdd(myDate);
+  }
+
+  String operationDate(String date, OptionDate option, int isIncrement) {
+    // if isIncement = 1 => plus date 1 day
+    // if isIncement = 0 => minus date 1 day
+    DateTime datees = DateTime.parse(date);
+    String myDate = "";
+
+    // days
+    if (option.name == OptionDate.days.name) {
+      myDate =
+          datees.add(Duration(days: (isIncrement == 1) ? 1 : -1)).toString();
+      // myDate = formatedyyyyMMdd(myDate);
+    }
+
+    // month
+    if (option.name == OptionDate.month.name) {
+      myDate =
+          datees.add(Duration(days: (isIncrement == 1) ? 30 : -30)).toString();
+
+      // myDate = formatedyyyyMMdd(date);
+      print("Mydateeee : $myDate");
+    }
+
     return formatedyyyyMMdd(myDate);
   }
 }

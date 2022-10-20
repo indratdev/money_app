@@ -54,8 +54,8 @@ class HomeScreen extends StatelessWidget {
                       children: <Widget>[
                         IconButton(
                           onPressed: () {
-                            String date =
-                                DateUtil().operationDate(selectedDate, 0);
+                            String date = DateUtil().operationDate(
+                                selectedDate, OptionDate.days, 0);
                             context.read<TransactionBloc>().add(
                                 ReadTransactionEvent(
                                     transactionDateTime: date));
@@ -65,8 +65,8 @@ class HomeScreen extends StatelessWidget {
                         Text(selectedDate),
                         IconButton(
                           onPressed: () {
-                            String date =
-                                DateUtil().operationDate(selectedDate, 1);
+                            String date = DateUtil().operationDate(
+                                selectedDate, OptionDate.days, 1);
                             print(">>>>> dateeee : $date");
                             context.read<TransactionBloc>().add(
                                 ReadTransactionEvent(
