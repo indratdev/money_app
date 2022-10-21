@@ -1,4 +1,5 @@
 import 'package:money_app/data/datasources/local/db/sqlhelper.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/models/calculation_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -106,6 +107,14 @@ class SqlDatabase {
   Future<List<CalculationModel>> readCalculation(String date) async {
     final db = await instance.database;
     final result = await sqlHelper.readCalculation(db, instance, date: date);
+    return result;
+  }
+
+  Future<List<ChartCalculationModel>> readChartDefault(
+      String date, int isOutcome, OptionDate optionDate) async {
+    final db = await instance.database;
+    final result = await sqlHelper.readChartDefault(db, instance,
+        date: date, optionDate: optionDate, isOutcome: isOutcome);
     return result;
   }
 

@@ -14,6 +14,11 @@ enum TransactionEnum {
   calculation,
 }
 
+enum TransactionType {
+  income,
+  expenses,
+}
+
 class TransactionRepositoryImpl implements TransactionRepository {
   final LocalDataSource localDataSource;
 

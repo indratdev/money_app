@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/domain/usecases/report_cases.dart';
 
 part 'chart_event.dart';
@@ -12,10 +13,9 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     on<ReadChartDefaultEvent>((event, emit) async {
       try {
         emit(LoadingReadChartDefault());
-        print("!!!!! date : ${event.transactionDateTime}");
-
-        final contentTransaction = await _getTransactionCases
-            .executeReadChartDefault(event.transactionDateTime); // read
+        final contentTransaction =
+            await _getTransactionCases.executeReadChartDefault(
+                event.transactionDateTime, OptionDate.month);
 
         print(">> >> result $contentTransaction");
         contentTransaction.fold(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/repositories/transaction_repository_impl.dart';
 import 'package:money_app/domain/repositories/report_repository.dart';
 
@@ -15,17 +16,24 @@ class ReportRepositoryImpl implements ReportRepository {
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> getReadChartDefault(
-      String date) async {
+      String date, OptionDate optionDate) async {
     try {
       Map<String, dynamic> result = {};
 
+      final chartCalcutaionExpense =
+          await localDataSource.readChartDefault(date, 1, optionDate);
+      final chartCalcutaionIncome =
+          await localDataSource.readChartDefault(date, 0, optionDate);
+
       result[TransactionEnum.dateselected.name] = date;
+      result[TransactionType.income.name] = chartCalcutaionIncome;
+      result[TransactionType.expenses.name] = chartCalcutaionExpense;
 
       return Right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 }

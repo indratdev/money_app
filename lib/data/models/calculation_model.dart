@@ -26,3 +26,31 @@ class CalculationModel extends CalculationE {
         'profit': profit,
       };
 }
+
+class ChartCalculationModel extends ChartCalculation {
+  String categoryName = "";
+  double amount, persentase = 0.0;
+
+  ChartCalculationModel({
+    required this.categoryName,
+    required this.amount,
+    required this.persentase,
+  }) : super(
+          categoryName: "",
+          amount: 0.0,
+          persentase: 0.0,
+        );
+
+  factory ChartCalculationModel.fromJson(Map<String, dynamic> json) =>
+      ChartCalculationModel(
+        categoryName: json['categoryName'] as String? ?? "",
+        amount: json["amount"] as double? ?? 0.0,
+        persentase: json["persentase"] as double? ?? 0.0,
+      );
+
+  Map<String, dynamic> toJson() => {
+        'categoryName': categoryName,
+        'amount': amount,
+        'persentase': persentase,
+      };
+}

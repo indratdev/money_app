@@ -9,6 +9,10 @@ abstract class ChartEvent extends Equatable {
 
 class ReadChartDefaultEvent extends ChartEvent {
   String transactionDateTime;
+  OptionDate optionDate;
 
-  ReadChartDefaultEvent({required this.transactionDateTime});
+  ReadChartDefaultEvent({
+    required this.transactionDateTime,
+    this.optionDate = OptionDate.month,
+  });
 }

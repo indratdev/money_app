@@ -1,4 +1,5 @@
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/models/transaction_model.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/domain/entities/transaction.dart';
@@ -16,6 +17,8 @@ abstract class LocalDataSource {
   Future<int> createNewTransaction(Transaction value);
   Future<List<TransactionModel>> readTransaction(String date);
   Future<List<CalculationModel>> readCalculation(String date);
+  Future<List<ChartCalculationModel>> readChartDefault(
+      String date, int isOutcome, OptionDate optionDate);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -64,5 +67,11 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<List<CalculationModel>> readCalculation(String date) async {
     return await dbprovider.readCalculation(date);
+  }
+
+  @override
+  Future<List<ChartCalculationModel>> readChartDefault(
+      String date, int isOutcome, OptionDate optionDate) async {
+    return await dbprovider.readChartDefault(date, isOutcome, optionDate);
   }
 }

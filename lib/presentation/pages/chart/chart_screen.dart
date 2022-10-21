@@ -2,20 +2,27 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/data/constants.dart';
+import 'package:money_app/data/models/calculation_model.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 
 import '../../../data/date_util.dart';
 import '../../../data/repositories/transaction_repository_impl.dart';
 import 'dart:math' as math;
 
+import '../../../domain/entities/calculationE.dart';
+
 class ChartScreen extends StatelessWidget {
   ChartScreen({super.key});
 
+  DateUtil dates = DateUtil();
   int touchedIndex = -1;
-  String selectedDate = "";
 
   @override
   Widget build(BuildContext context) {
+    String selectedDate = dates.currentDate;
+    Map<String, dynamic> resultChart = {};
+    // List<ChartCalculation>? resultChart;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Laporan"),
@@ -25,14 +32,21 @@ class ChartScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is SuccessReadChartDefault) {
               selectedDate = state.result[TransactionEnum.dateselected.name];
-              print("selecteddate listener : $selectedDate");
             }
           },
           builder: (context, state) {
             if (state is SuccessReadChartDefault) {
               selectedDate = state.result[TransactionEnum.dateselected.name];
-              print("selecteddate : $selectedDate");
+              resultChart[TransactionType.expenses.name] =
+                  state.result[TransactionType.expenses.name];
+              resultChart[TransactionType.income.name] =
+                  state.result[TransactionType.income.name];
+
+              // print("==>==> ${state.result[TransactionType.expenses.name]}");
+              // print("@@==>==> ${state.result}");
+              // print("@@==>==> ${resultChart}");
             }
+
             return Column(
               children: <Widget>[
                 // container tanggal
@@ -44,24 +58,20 @@ class ChartScreen extends StatelessWidget {
                     children: <Widget>[
                       IconButton(
                         onPressed: () {
-                          String date = DateUtil()
-                              .operationDate(selectedDate, OptionDate.month, 0);
+                          String date = dates.operationDate(
+                              selectedDate, OptionDate.month, 0);
                           context.read<ChartBloc>().add(
                               ReadChartDefaultEvent(transactionDateTime: date));
                         },
                         icon: Icon(Icons.arrow_left_sharp),
                       ),
                       Text((selectedDate == ""
-                          ? DateUtil().currentDate
-                          : DateUtil().formatedMMMyyy(selectedDate))),
-                      // Text(selectedDate),
-                      // Text(DateUtil().formatedMMMyyy((selectedDate == "")
-                      //     ? DateUtil().currentDate
-                      //     : selectedDate)),
+                          ? dates.currentDate
+                          : dates.formatedMMMyyy(selectedDate))),
                       IconButton(
                         onPressed: () {
-                          String date = DateUtil()
-                              .operationDate(selectedDate, OptionDate.month, 1);
+                          String date = dates.operationDate(
+                              selectedDate, OptionDate.month, 1);
                           context.read<ChartBloc>().add(
                               ReadChartDefaultEvent(transactionDateTime: date));
                         },
@@ -82,7 +92,7 @@ class ChartScreen extends StatelessWidget {
                           borderData: FlBorderData(show: false),
                           sectionsSpace: 3,
                           centerSpaceRadius: 40,
-                          sections: showingSections(),
+                          sections: showingSections(resultChart),
                         ),
                         swapAnimationCurve: Curves.easeInOutCubic,
                         swapAnimationDuration: Duration(milliseconds: 1000),
@@ -145,63 +155,148 @@ class ChartScreen extends StatelessWidget {
     return datas;
   }
 
-  List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xffffffff),
-            ),
-          );
-        default:
-          throw Error();
-      }
-    });
+  List<PieChartSectionData> showingSections(Map<String, dynamic> resultChart) {
+    var datass = resultChart[TransactionType.expenses.name] ?? [];
+    var randomColor = (math.Random().nextDouble() * 0xFFFFFF).toInt();
+
+    List<PieChartSectionData> pieData = [];
+
+    for (var element in datass) {
+      ChartCalculation dataElement = element;
+
+      pieData.add(PieChartSectionData(
+        color: Color(randomColor),
+        value: dataElement.persentase,
+        title: "${dataElement.persentase} %",
+        radius: 50.0,
+        titleStyle: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.bold,
+          color: const Color(0xffffffff),
+        ),
+      ));
+    }
+
+    return pieData;
+
+    // print("==> datas : $datass");
+
+    // return List.generate(4, (i) {
+    //   final isTouched = i == touchedIndex;
+    //   final fontSize = isTouched ? 25.0 : 16.0;
+    //   final radius = isTouched ? 60.0 : 50.0;
+    //   switch (i) {
+    //     case 0:
+    //       return PieChartSectionData(
+    //         color: const Color(0xff0293ee),
+    //         value: 40,
+    //         title: '40%',
+    //         radius: radius,
+    //         titleStyle: TextStyle(
+    //           fontSize: fontSize,
+    //           fontWeight: FontWeight.bold,
+    //           color: const Color(0xffffffff),
+    //         ),
+    //       );
+    //     case 1:
+    //       return PieChartSectionData(
+    //         color: const Color(0xfff8b250),
+    //         value: 30,
+    //         title: '30%',
+    //         radius: radius,
+    //         titleStyle: TextStyle(
+    //           fontSize: fontSize,
+    //           fontWeight: FontWeight.bold,
+    //           color: const Color(0xffffffff),
+    //         ),
+    //       );
+    //     case 2:
+    //       return PieChartSectionData(
+    //         color: const Color(0xff845bef),
+    //         value: 15,
+    //         title: '15%',
+    //         radius: radius,
+    //         titleStyle: TextStyle(
+    //           fontSize: fontSize,
+    //           fontWeight: FontWeight.bold,
+    //           color: const Color(0xffffffff),
+    //         ),
+    //       );
+    //     case 3:
+    //       return PieChartSectionData(
+    //         color: const Color(0xff13d38e),
+    //         value: 15,
+    //         title: '15%',
+    //         radius: radius,
+    //         titleStyle: TextStyle(
+    //           fontSize: fontSize,
+    //           fontWeight: FontWeight.bold,
+    //           color: const Color(0xffffffff),
+    //         ),
+    //       );
+    //     default:
+    //       throw Error();
+    //   }
+    // });
   }
+
+  // List<PieChartSectionData> showingSections(Map<String, dynamic>? resultChart) {
+  //   return List.generate(4, (i) {
+  //     final isTouched = i == touchedIndex;
+  //     final fontSize = isTouched ? 25.0 : 16.0;
+  //     final radius = isTouched ? 60.0 : 50.0;
+  //     switch (i) {
+  //       case 0:
+  //         return PieChartSectionData(
+  //           color: const Color(0xff0293ee),
+  //           value: 40,
+  //           title: '40%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //             fontSize: fontSize,
+  //             fontWeight: FontWeight.bold,
+  //             color: const Color(0xffffffff),
+  //           ),
+  //         );
+  //       case 1:
+  //         return PieChartSectionData(
+  //           color: const Color(0xfff8b250),
+  //           value: 30,
+  //           title: '30%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //             fontSize: fontSize,
+  //             fontWeight: FontWeight.bold,
+  //             color: const Color(0xffffffff),
+  //           ),
+  //         );
+  //       case 2:
+  //         return PieChartSectionData(
+  //           color: const Color(0xff845bef),
+  //           value: 15,
+  //           title: '15%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //             fontSize: fontSize,
+  //             fontWeight: FontWeight.bold,
+  //             color: const Color(0xffffffff),
+  //           ),
+  //         );
+  //       case 3:
+  //         return PieChartSectionData(
+  //           color: const Color(0xff13d38e),
+  //           value: 15,
+  //           title: '15%',
+  //           radius: radius,
+  //           titleStyle: TextStyle(
+  //             fontSize: fontSize,
+  //             fontWeight: FontWeight.bold,
+  //             color: const Color(0xffffffff),
+  //           ),
+  //         );
+  //       default:
+  //         throw Error();
+  //     }
+  //   });
+  // }
 }

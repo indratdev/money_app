@@ -16,3 +16,21 @@ class CalculationE extends Equatable {
         profit,
       ];
 }
+
+class ChartCalculation extends Equatable {
+  String categoryName = "";
+  double amount, persentase = 0.0;
+
+  ChartCalculation({
+    required this.categoryName,
+    required this.amount,
+    required this.persentase,
+  });
+
+  @override
+  List<Object?> get props => [
+        categoryName,
+        amount,
+        persentase,
+      ];
+}

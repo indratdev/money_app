@@ -1,4 +1,5 @@
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/models/calculation_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -247,6 +248,48 @@ class SqlHelper {
       final result = await db.rawQuery(''' $query ''');
 
       final datas = result.map((e) => CalculationModel.fromJson(e)).toList();
+      return datas;
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  Future<List<ChartCalculationModel>> readChartDefault(
+    Database? db,
+    SqlDatabase instance, {
+    required String date,
+    required OptionDate optionDate,
+    required int isOutcome,
+  }) async {
+    String dateSub = "";
+
+    switch (optionDate) {
+      case OptionDate.month:
+        dateSub = date.substring(0, 7);
+        break;
+      default:
+        dateSub = date.substring(0, 7);
+    }
+
+    String query = """     
+    select 
+	    ct.name as categoryName
+	    , sum(trx.amount) as amount
+	    , round(sum(trx.amount) * 100.0 / sum(sum(trx.amount)) over(),2) as persentase
+    from th_transaction trx 
+    join m_category ct on ct.id = trx.idCategory
+    where 
+      trx.idCategory <> 0
+      and trx.isOutcome = $isOutcome
+      and trx.createdTime like '%$dateSub%'
+      group by ct.name
+    ;
+    """;
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+      final datas =
+          result.map((e) => ChartCalculationModel.fromJson(e)).toList();
       return datas;
     } else {
       throw Exception('DB is NULL');
