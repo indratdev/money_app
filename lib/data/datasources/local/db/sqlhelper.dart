@@ -221,22 +221,22 @@ class SqlHelper {
       Database? db, SqlDatabase instance,
       {required String date}) async {
     String query = """ 
-    SELECT
-      sum(income) as income,
-      sum(expense) as expense,
-      sum(income) - sum(expense) as profit
+     SELECT
+      IFNULL(sum(income),0.0) as income,
+      IFNULL(sum(expense),0.0) as expense,
+      IFNULL(sum(income) ,0.0)- IFNULL(sum(expense) ,0.0) as profit
     from (
           SELECT
-            amount as income
-            , 0 as expense
+            IFNULL(amount,0.0) as income
+            , IFNULL(0.0,0.0) as expense
             from th_transaction
             where 
             isOutcome = 0
             and createdTime like '%$date%'
           UNION ALL
           SELECT
-            0 as income
-            , amount as expense
+            IFNULL(0,0.0) as income
+            , IFNULL(amount,0.0) as expense
             from th_transaction
             where 
             isOutcome = 1
@@ -403,3 +403,28 @@ class SqlHelper {
         ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Air', 'water-bill', NULL, NULL, 1) ''');
   }
 }
+
+
+// String query = """ 
+//     SELECT
+//       sum(income) as income,
+//       sum(expense) as expense,
+//       sum(income) - sum(expense) as profit
+//     from (
+//           SELECT
+//             amount as income
+//             , 0.0 as expense
+//             from th_transaction
+//             where 
+//             isOutcome = 0
+//             and createdTime like '%$date%'
+//           UNION ALL
+//           SELECT
+//             0.0 as income
+//             , amount as expense
+//             from th_transaction
+//             where 
+//             isOutcome = 1
+//             and createdTime like '%$date%'
+//           ) 
+//       """;

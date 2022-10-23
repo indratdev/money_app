@@ -64,10 +64,10 @@ class TransactionRepositoryImpl implements TransactionRepository {
     }
   }
 
-  @override
-  getReadCalculation() {
-    try {} catch (e) {
-      print(e);
-    }
-  }
+  // @override
+  // getReadCalculation() {
+  //   try {} catch (e) {
+  //     print(e);
+  //   }
+  // }
 }

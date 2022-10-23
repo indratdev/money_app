@@ -27,8 +27,8 @@ class TransactionCases {
     return repository.getReadTransaction(date);
   }
 
-  // read calculation
-  executeReadCalculation() {
-    repository.getReadCalculation();
-  }
+  // // read calculation
+  // executeReadCalculation() {
+  //   repository.getReadCalculation();
+  // }
 }
