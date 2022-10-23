@@ -42,7 +42,7 @@ class ChartScreen extends StatelessWidget {
               resultChart[TransactionType.income.name] =
                   state.result[TransactionType.income.name];
 
-              // print("==>==> ${state.result[TransactionType.expenses.name]}");
+              print("==>==> ${state.result[TransactionType.expenses.name]}");
               // print("@@==>==> ${state.result}");
               // print("@@==>==> ${resultChart}");
             }
@@ -93,6 +93,7 @@ class ChartScreen extends StatelessWidget {
                           sectionsSpace: 3,
                           centerSpaceRadius: 40,
                           sections: showingSections(resultChart),
+                          // sections: showingSections2(),
                         ),
                         swapAnimationCurve: Curves.easeInOutCubic,
                         swapAnimationDuration: Duration(milliseconds: 1000),
@@ -156,18 +157,44 @@ class ChartScreen extends StatelessWidget {
   }
 
   List<PieChartSectionData> showingSections(Map<String, dynamic> resultChart) {
-    var datass = resultChart[TransactionType.expenses.name] ?? [];
+    List<dynamic> datass = resultChart[TransactionType.expenses.name] ?? [];
     var randomColor = (math.Random().nextDouble() * 0xFFFFFF).toInt();
+
+    print("datas :: $datass");
 
     List<PieChartSectionData> pieData = [];
 
-    for (var element in datass) {
-      ChartCalculation dataElement = element;
+    // pieData.add(PieChartSectionData(
+    //     value: 40,
+    //     radius: 50,
+    //     titleStyle: TextStyle(
+    //       fontSize: 15.0,
+    //       fontWeight: FontWeight.bold,
+    //       color: const Color(0xffffffff),
+    //     ),
+    //     color: Color(randomColor).withOpacity(1.0)));
 
+    if (datass.isNotEmpty) {
+      for (var element in datass) {
+        pieData.add(PieChartSectionData(
+          color: Color(randomColor),
+          // color: Colors.red,
+          value: element.persentase,
+          title: "${element.persentase}%",
+          radius: 50.0,
+          titleStyle: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: const Color(0xffffffff),
+          ),
+        ));
+      }
+    } else {
       pieData.add(PieChartSectionData(
         color: Color(randomColor),
-        value: dataElement.persentase,
-        title: "${dataElement.persentase} %",
+        // color: Colors.red,
+        value: 0,
+        title: "Kosong",
         radius: 50.0,
         titleStyle: TextStyle(
           fontSize: 16.0,
@@ -176,6 +203,8 @@ class ChartScreen extends StatelessWidget {
         ),
       ));
     }
+
+    print(">>> piedata : ${pieData[0].value}");
 
     return pieData;
 
