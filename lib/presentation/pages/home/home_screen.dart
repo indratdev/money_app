@@ -147,27 +147,30 @@ class HomeScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: listTransaction?.length ?? 0,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          contentPadding: EdgeInsets.all(8),
-                          leading: CircleAvatar(
-                            radius: 25,
-                            foregroundColor: Colors.transparent,
-                            child: ClipOval(
-                              child: Image.asset(
-                                // 'assets/icons/${listTransaction?[index].}.png',
-                                'assets/icons/${listTransaction?[index].categoryIconName}.png',
-                                fit: BoxFit.fill,
-                                // color: Colors.transparent,
+                        return InkWell(
+                          onTap: () {
+                            print(">>> tapped : ${listTransaction?[index]}");
+                          },
+                          child: ListTile(
+                            contentPadding: EdgeInsets.all(8),
+                            leading: CircleAvatar(
+                              radius: 25,
+                              foregroundColor: Colors.transparent,
+                              child: ClipOval(
+                                child: Image.asset(
+                                  'assets/icons/${listTransaction?[index].categoryIconName}.png',
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          title: Text(
-                              "${listTransaction?[index].title.toString()}"),
-                          trailing: Text(
-                            "Rp. ${formatterThousand.format(
-                              double.tryParse(
-                                  "${listTransaction?[index].amount}"),
-                            )}",
+                            title: Text(
+                                "${listTransaction?[index].title.toString()}"),
+                            trailing: Text(
+                              "Rp. ${formatterThousand.format(
+                                double.tryParse(
+                                    "${listTransaction?[index].amount}"),
+                              )}",
+                            ),
                           ),
                         );
                       },
