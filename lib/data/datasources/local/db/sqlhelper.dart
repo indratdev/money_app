@@ -276,6 +276,7 @@ class SqlHelper {
 	    ct.name as categoryName
 	    , sum(trx.amount) as amount
 	    , round(sum(trx.amount) * 100.0 / sum(sum(trx.amount)) over(),2) as persentase
+      , cast(substr(abs(random() % 10 * 0xFFFFFF) ,0,8) as integer) as colors
     from th_transaction trx 
     join m_category ct on ct.id = trx.idCategory
     where 

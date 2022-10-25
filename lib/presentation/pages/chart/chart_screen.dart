@@ -92,7 +92,7 @@ class ChartScreen extends StatelessWidget {
                           borderData: FlBorderData(show: false),
                           sectionsSpace: 3,
                           centerSpaceRadius: 40,
-                          sections: showingSections(resultChart),
+                          sections: showingSections(resultChart, 0),
                           // sections: showingSections2(),
                         ),
                         swapAnimationCurve: Curves.easeInOutCubic,
@@ -156,13 +156,49 @@ class ChartScreen extends StatelessWidget {
     return datas;
   }
 
-  List<PieChartSectionData> showingSections(Map<String, dynamic> resultChart) {
-    List<dynamic> datass = resultChart[TransactionType.expenses.name] ?? [];
-    var randomColor = (math.Random().nextDouble() * 0xFFFFFF).toInt();
+  List<PieChartSectionData> showingSections(
+      Map<String, dynamic> resultChart, int isOutcome) {
+    // List<ChartCalculationModel> datas = ;
 
-    print("datas :: $datass");
+    // List<ChartCalculationModel> datas = [];
+    List<ChartCalculationModel> datas =
+        resultChart[TransactionType.expenses.name];
 
-    List<PieChartSectionData> pieData = [];
+    print(">>>>>>> ${resultChart}");
+
+    if (isOutcome == 1) {
+      datas = resultChart[TransactionType.expenses.name];
+    } else if (isOutcome == 0) {
+      datas = resultChart[TransactionType.income.name];
+    } else {
+      datas = [];
+    }
+
+    // if (isOutcome == 1) {
+    //   datas = resultChart[TransactionType.expenses.name];
+    // } else {
+    //   datas = resultChart[TransactionType.income.name];
+    // }
+
+    // List
+
+    final List<PieChartSectionData> list = [];
+
+    for (var element in datas) {
+      final data = PieChartSectionData(
+        color: Color(element.colors).withOpacity(1.0),
+        value: element.persentase,
+        radius: 40.0,
+        titleStyle: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.bold,
+          color: const Color(0xffffffff),
+        ),
+      );
+      list.add(data);
+    }
+
+    return list;
 
     // pieData.add(PieChartSectionData(
     //     value: 40,
@@ -174,39 +210,39 @@ class ChartScreen extends StatelessWidget {
     //     ),
     //     color: Color(randomColor).withOpacity(1.0)));
 
-    if (datass.isNotEmpty) {
-      for (var element in datass) {
-        pieData.add(PieChartSectionData(
-          color: Color(randomColor),
-          // color: Colors.red,
-          value: element.persentase,
-          title: "${element.persentase}%",
-          radius: 50.0,
-          titleStyle: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: const Color(0xffffffff),
-          ),
-        ));
-      }
-    } else {
-      pieData.add(PieChartSectionData(
-        color: Color(randomColor),
-        // color: Colors.red,
-        value: 0,
-        title: "Kosong",
-        radius: 50.0,
-        titleStyle: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xffffffff),
-        ),
-      ));
-    }
+    // if (datass.isNotEmpty) {
+    //   for (var element in datass) {
+    //     pieData.add(PieChartSectionData(
+    //       color: Color(randomColor),
+    //       // color: Colors.red,
+    //       value: element.persentase,
+    //       title: "${element.persentase}%",
+    //       radius: 50.0,
+    //       titleStyle: TextStyle(
+    //         fontSize: 16.0,
+    //         fontWeight: FontWeight.bold,
+    //         color: const Color(0xffffffff),
+    //       ),
+    //     ));
+    //   }
+    // } else {
+    //   pieData.add(PieChartSectionData(
+    //     color: Color(randomColor),
+    //     // color: Colors.red,
+    //     value: 0,
+    //     title: "Kosong",
+    //     radius: 50.0,
+    //     titleStyle: TextStyle(
+    //       fontSize: 16.0,
+    //       fontWeight: FontWeight.bold,
+    //       color: const Color(0xffffffff),
+    //     ),
+    //   ));
+    // }
 
-    print(">>> piedata : ${pieData[0].value}");
+    // print(">>> piedata : ${pieData[0].value}");
 
-    return pieData;
+    // return pieData;
 
     // print("==> datas : $datass");
 

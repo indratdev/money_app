@@ -20,11 +20,13 @@ class CalculationE extends Equatable {
 class ChartCalculation extends Equatable {
   String categoryName = "";
   double amount, persentase = 0.0;
+  int colors = 0;
 
   ChartCalculation({
     required this.categoryName,
     required this.amount,
     required this.persentase,
+    required this.colors,
   });
 
   @override
@@ -32,5 +34,6 @@ class ChartCalculation extends Equatable {
         categoryName,
         amount,
         persentase,
+        colors,
       ];
 }

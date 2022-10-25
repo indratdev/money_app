@@ -30,15 +30,18 @@ class CalculationModel extends CalculationE {
 class ChartCalculationModel extends ChartCalculation {
   String categoryName = "";
   double amount, persentase = 0.0;
+  int colors = 0;
 
   ChartCalculationModel({
     required this.categoryName,
     required this.amount,
     required this.persentase,
+    required this.colors,
   }) : super(
           categoryName: "",
           amount: 0.0,
           persentase: 0.0,
+          colors: 0xFFFFF,
         );
 
   factory ChartCalculationModel.fromJson(Map<String, dynamic> json) =>
@@ -46,11 +49,13 @@ class ChartCalculationModel extends ChartCalculation {
         categoryName: json['categoryName'] as String? ?? "",
         amount: json["amount"] as double? ?? 0.0,
         persentase: json["persentase"] as double? ?? 0.0,
+        colors: json["colors"] as int? ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
         'categoryName': categoryName,
         'amount': amount,
         'persentase': persentase,
+        'colors': colors,
       };
 }
