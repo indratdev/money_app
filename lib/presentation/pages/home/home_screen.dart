@@ -7,6 +7,7 @@ import 'package:money_app/domain/entities/calculationE.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
+import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -149,6 +150,11 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
+                            Transaction data = listTransaction![index];
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  TransactionManageScreen(data: data),
+                            ));
                             print(">>> tapped : ${listTransaction?[index]}");
                           },
                           child: ListTile(

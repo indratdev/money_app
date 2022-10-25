@@ -6,7 +6,6 @@ import 'package:money_app/data/date_util.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
-import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../data/constants.dart';
