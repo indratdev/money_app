@@ -58,6 +58,7 @@ class MoneyappScreen extends StatelessWidget {
                 curve: Curves.ease,
                 duration: Duration(milliseconds: 200),
               ),
+
               navBarStyle: NavBarStyle
                   .style16, // Choose the nav bar style with this property.
             ),

@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:money_app/data/date_util.dart';
-import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/chart/chart_screen.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../presentation/pages/chart/bloc/chart_bloc.dart';
 import '../../presentation/pages/home/home_screen.dart';
 import '../../presentation/pages/rekap/rekap_screen.dart';
 import '../../presentation/pages/settings/setting_screen.dart';
@@ -26,6 +26,7 @@ class BottomMenu {
 }
 
 class Menus {
+  DateUtil dates = DateUtil();
   // List<BottomMenu> items = [
   //   BottomMenu(title: 'Data Harian', icon: FontAwesomeIcons.wallet),
   //   BottomMenu(title: "Transaksi", icon: FontAwesomeIcons.plus),
@@ -83,6 +84,11 @@ class Menus {
         title: "Chart",
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
+        onSelectedTabPressWhenNoScreensPushed: () {
+          // String date = dates.operationDate(selectedDate, OptionDate.month, 0);
+          context.read<ChartBloc>().add(ReadChartDefaultEvent(
+              transactionDateTime: DateUtil().getCurrentDate()));
+        },
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.plus, color: Colors.white),

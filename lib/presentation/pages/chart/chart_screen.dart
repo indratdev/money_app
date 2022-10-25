@@ -93,11 +93,34 @@ class ChartScreen extends StatelessWidget {
                           sectionsSpace: 3,
                           centerSpaceRadius: 40,
                           sections: showingSections(resultChart, 0),
-                          // sections: showingSections2(),
                         ),
                         swapAnimationCurve: Curves.easeInOutCubic,
                         swapAnimationDuration: Duration(milliseconds: 1000),
                       ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: 30, top: 10, right: 30, bottom: 30),
+                      height: 200,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: ShowingDetailSection(
+                          resultChart: resultChart, isOutcome: 0),
                     ),
                   ],
                 ),
@@ -114,11 +137,35 @@ class ChartScreen extends StatelessWidget {
                           borderData: FlBorderData(show: false),
                           sectionsSpace: 3,
                           centerSpaceRadius: 40,
-                          sections: showingSections2(),
+                          sections: showingSections(resultChart, 1),
                         ),
                         swapAnimationCurve: Curves.easeInOutCubic,
                         swapAnimationDuration: Duration(milliseconds: 1000),
                       ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: 30, top: 10, right: 30, bottom: 30),
+                      height: 200,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: ShowingDetailSection(
+                          resultChart: resultChart, isOutcome: 1),
                     ),
                   ],
                 ),
@@ -130,238 +177,76 @@ class ChartScreen extends StatelessWidget {
     );
   }
 
-  List<PieChartSectionData> showingSections2() {
-    var randomColor = (math.Random().nextDouble() * 0xFFFFFF).toInt();
-    List<PieChartSectionData> datas = [];
-
-    datas.add(PieChartSectionData(
-        value: 40,
-        radius: 50,
-        titleStyle: TextStyle(
-          fontSize: 15.0,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xffffffff),
-        ),
-        color: Color(randomColor).withOpacity(1.0)));
-    datas.add(PieChartSectionData(
-        value: 10,
-        radius: 50,
-        titleStyle: TextStyle(
-          fontSize: 15.0,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xffffffff),
-        ),
-        color: Color(randomColor).withOpacity(1.0)));
-
-    return datas;
-  }
-
   List<PieChartSectionData> showingSections(
       Map<String, dynamic> resultChart, int isOutcome) {
-    // List<ChartCalculationModel> datas = ;
-
-    // List<ChartCalculationModel> datas = [];
-    List<ChartCalculationModel> datas =
-        resultChart[TransactionType.expenses.name];
+    List<ChartCalculationModel> datas = [];
 
     print(">>>>>>> ${resultChart}");
 
-    if (isOutcome == 1) {
+    if (isOutcome == 1 && resultChart.isNotEmpty) {
       datas = resultChart[TransactionType.expenses.name];
-    } else if (isOutcome == 0) {
+    } else if (isOutcome == 0 && resultChart.isNotEmpty) {
       datas = resultChart[TransactionType.income.name];
     } else {
       datas = [];
     }
 
-    // if (isOutcome == 1) {
-    //   datas = resultChart[TransactionType.expenses.name];
-    // } else {
-    //   datas = resultChart[TransactionType.income.name];
-    // }
-
-    // List
-
     final List<PieChartSectionData> list = [];
 
-    for (var element in datas) {
-      final data = PieChartSectionData(
-        color: Color(element.colors).withOpacity(1.0),
-        value: element.persentase,
-        radius: 40.0,
-        titleStyle: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xffffffff),
-        ),
-      );
-      list.add(data);
+    if (datas.isNotEmpty) {
+      for (var element in datas) {
+        final data = PieChartSectionData(
+          color: Color(element.colors).withOpacity(1.0),
+          value: element.persentase,
+          radius: 40.0,
+          titleStyle: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: const Color(0xffffffff),
+          ),
+        );
+        list.add(data);
+      }
     }
 
     return list;
-
-    // pieData.add(PieChartSectionData(
-    //     value: 40,
-    //     radius: 50,
-    //     titleStyle: TextStyle(
-    //       fontSize: 15.0,
-    //       fontWeight: FontWeight.bold,
-    //       color: const Color(0xffffffff),
-    //     ),
-    //     color: Color(randomColor).withOpacity(1.0)));
-
-    // if (datass.isNotEmpty) {
-    //   for (var element in datass) {
-    //     pieData.add(PieChartSectionData(
-    //       color: Color(randomColor),
-    //       // color: Colors.red,
-    //       value: element.persentase,
-    //       title: "${element.persentase}%",
-    //       radius: 50.0,
-    //       titleStyle: TextStyle(
-    //         fontSize: 16.0,
-    //         fontWeight: FontWeight.bold,
-    //         color: const Color(0xffffffff),
-    //       ),
-    //     ));
-    //   }
-    // } else {
-    //   pieData.add(PieChartSectionData(
-    //     color: Color(randomColor),
-    //     // color: Colors.red,
-    //     value: 0,
-    //     title: "Kosong",
-    //     radius: 50.0,
-    //     titleStyle: TextStyle(
-    //       fontSize: 16.0,
-    //       fontWeight: FontWeight.bold,
-    //       color: const Color(0xffffffff),
-    //     ),
-    //   ));
-    // }
-
-    // print(">>> piedata : ${pieData[0].value}");
-
-    // return pieData;
-
-    // print("==> datas : $datass");
-
-    // return List.generate(4, (i) {
-    //   final isTouched = i == touchedIndex;
-    //   final fontSize = isTouched ? 25.0 : 16.0;
-    //   final radius = isTouched ? 60.0 : 50.0;
-    //   switch (i) {
-    //     case 0:
-    //       return PieChartSectionData(
-    //         color: const Color(0xff0293ee),
-    //         value: 40,
-    //         title: '40%',
-    //         radius: radius,
-    //         titleStyle: TextStyle(
-    //           fontSize: fontSize,
-    //           fontWeight: FontWeight.bold,
-    //           color: const Color(0xffffffff),
-    //         ),
-    //       );
-    //     case 1:
-    //       return PieChartSectionData(
-    //         color: const Color(0xfff8b250),
-    //         value: 30,
-    //         title: '30%',
-    //         radius: radius,
-    //         titleStyle: TextStyle(
-    //           fontSize: fontSize,
-    //           fontWeight: FontWeight.bold,
-    //           color: const Color(0xffffffff),
-    //         ),
-    //       );
-    //     case 2:
-    //       return PieChartSectionData(
-    //         color: const Color(0xff845bef),
-    //         value: 15,
-    //         title: '15%',
-    //         radius: radius,
-    //         titleStyle: TextStyle(
-    //           fontSize: fontSize,
-    //           fontWeight: FontWeight.bold,
-    //           color: const Color(0xffffffff),
-    //         ),
-    //       );
-    //     case 3:
-    //       return PieChartSectionData(
-    //         color: const Color(0xff13d38e),
-    //         value: 15,
-    //         title: '15%',
-    //         radius: radius,
-    //         titleStyle: TextStyle(
-    //           fontSize: fontSize,
-    //           fontWeight: FontWeight.bold,
-    //           color: const Color(0xffffffff),
-    //         ),
-    //       );
-    //     default:
-    //       throw Error();
-    //   }
-    // });
   }
+}
 
-  // List<PieChartSectionData> showingSections(Map<String, dynamic>? resultChart) {
-  //   return List.generate(4, (i) {
-  //     final isTouched = i == touchedIndex;
-  //     final fontSize = isTouched ? 25.0 : 16.0;
-  //     final radius = isTouched ? 60.0 : 50.0;
-  //     switch (i) {
-  //       case 0:
-  //         return PieChartSectionData(
-  //           color: const Color(0xff0293ee),
-  //           value: 40,
-  //           title: '40%',
-  //           radius: radius,
-  //           titleStyle: TextStyle(
-  //             fontSize: fontSize,
-  //             fontWeight: FontWeight.bold,
-  //             color: const Color(0xffffffff),
-  //           ),
-  //         );
-  //       case 1:
-  //         return PieChartSectionData(
-  //           color: const Color(0xfff8b250),
-  //           value: 30,
-  //           title: '30%',
-  //           radius: radius,
-  //           titleStyle: TextStyle(
-  //             fontSize: fontSize,
-  //             fontWeight: FontWeight.bold,
-  //             color: const Color(0xffffffff),
-  //           ),
-  //         );
-  //       case 2:
-  //         return PieChartSectionData(
-  //           color: const Color(0xff845bef),
-  //           value: 15,
-  //           title: '15%',
-  //           radius: radius,
-  //           titleStyle: TextStyle(
-  //             fontSize: fontSize,
-  //             fontWeight: FontWeight.bold,
-  //             color: const Color(0xffffffff),
-  //           ),
-  //         );
-  //       case 3:
-  //         return PieChartSectionData(
-  //           color: const Color(0xff13d38e),
-  //           value: 15,
-  //           title: '15%',
-  //           radius: radius,
-  //           titleStyle: TextStyle(
-  //             fontSize: fontSize,
-  //             fontWeight: FontWeight.bold,
-  //             color: const Color(0xffffffff),
-  //           ),
-  //         );
-  //       default:
-  //         throw Error();
-  //     }
-  //   });
-  // }
+class ShowingDetailSection extends StatelessWidget {
+  ShowingDetailSection({
+    Key? key,
+    required this.resultChart,
+    required this.isOutcome,
+  }) : super(key: key);
+
+  Map<String, dynamic> resultChart = {};
+  int isOutcome = 0;
+
+  List<ChartCalculationModel> datas = [];
+
+  @override
+  Widget build(BuildContext context) {
+    if (isOutcome == 1 && resultChart.isNotEmpty) {
+      datas = resultChart[TransactionType.expenses.name];
+    } else if (isOutcome == 0 && resultChart.isNotEmpty) {
+      datas = resultChart[TransactionType.income.name];
+    } else {
+      datas = [];
+    }
+
+    return ListView.builder(
+      itemCount: datas.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          dense: true,
+          horizontalTitleGap: 5,
+          leading: Icon(Icons.circle_rounded,
+              color: Color(datas[index].colors).withOpacity(1.0)),
+          title: Text(
+              "${datas[index].categoryName} - (${datas[index].persentase} %)"),
+        );
+      },
+    );
+  }
 }

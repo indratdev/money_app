@@ -5,6 +5,7 @@ import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/repositories/transaction_repository_impl.dart';
 import 'package:money_app/domain/entities/calculationE.dart';
 import 'package:money_app/domain/entities/transaction.dart';
+import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
 
@@ -32,6 +33,10 @@ class HomeScreen extends StatelessWidget {
                 selectedDate = state.result[TransactionEnum.dateselected.name];
                 listCalculation =
                     state.result[TransactionEnum.calculation.name];
+
+                //reload chart
+                context.read<ChartBloc>().add(ReadChartDefaultEvent(
+                    transactionDateTime: DateUtil().getCurrentDate()));
               }
             },
             builder: (context, state) {
@@ -43,6 +48,9 @@ class HomeScreen extends StatelessWidget {
                     state.result[TransactionEnum.dateselected.name].toString();
                 listCalculation =
                     state.result[TransactionEnum.calculation.name];
+                //reload chart
+                context.read<ChartBloc>().add(ReadChartDefaultEvent(
+                    transactionDateTime: DateUtil().getCurrentDate()));
               }
               return Column(
                 children: [
