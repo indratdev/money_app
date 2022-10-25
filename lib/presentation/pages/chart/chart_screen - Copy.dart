@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -85,13 +83,7 @@ class ChartScreen extends StatelessWidget {
                 SB_Height20,
                 Column(
                   children: [
-                    const Text(
-                      "Pendapatan",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    Text("Pendapatan"),
                     SizedBox(
                       height: 200,
                       width: 300,
@@ -136,13 +128,7 @@ class ChartScreen extends StatelessWidget {
                 SB_Height20,
                 Column(
                   children: [
-                    const Text(
-                      "Pengeluaran",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    Text("Pengeluaran"),
                     SizedBox(
                       height: 200,
                       width: 300,
@@ -154,12 +140,11 @@ class ChartScreen extends StatelessWidget {
                           sections: showingSections(resultChart, 1),
                         ),
                         swapAnimationCurve: Curves.easeInOutCubic,
-                        swapAnimationDuration:
-                            const Duration(milliseconds: 1000),
+                        swapAnimationDuration: Duration(milliseconds: 1000),
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(
+                      margin: EdgeInsets.only(
                           left: 30, top: 10, right: 30, bottom: 30),
                       height: 200,
                       width: 300,
@@ -175,8 +160,7 @@ class ChartScreen extends StatelessWidget {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
+                            offset: Offset(0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -197,6 +181,8 @@ class ChartScreen extends StatelessWidget {
       Map<String, dynamic> resultChart, int isOutcome) {
     List<ChartCalculationModel> datas = [];
 
+    print(">>>>>>> ${resultChart}");
+
     if (isOutcome == 1 && resultChart.isNotEmpty) {
       datas = resultChart[TransactionType.expenses.name];
     } else if (isOutcome == 0 && resultChart.isNotEmpty) {
@@ -213,25 +199,14 @@ class ChartScreen extends StatelessWidget {
           color: Color(element.colors).withOpacity(1.0),
           value: element.persentase,
           radius: 40.0,
-          titleStyle: const TextStyle(
+          titleStyle: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
-            color: Color(0xffffffff),
+            color: const Color(0xffffffff),
           ),
         );
         list.add(data);
       }
-    }
-
-    if (datas.isEmpty) {
-      final data = PieChartSectionData(
-        color: Colors.grey.shade400,
-        radius: 40.0,
-        value: 100,
-        showTitle: true,
-        titlePositionPercentageOffset: 30.0,
-      );
-      list.add(data);
     }
 
     return list;
@@ -260,22 +235,18 @@ class ShowingDetailSection extends StatelessWidget {
       datas = [];
     }
 
-    return (datas.isNotEmpty)
-        ? ListView.builder(
-            itemCount: datas.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                dense: true,
-                horizontalTitleGap: 5,
-                leading: Icon(Icons.circle_rounded,
-                    color: Color(datas[index].colors).withOpacity(1.0)),
-                title: Text(
-                    "${datas[index].categoryName} - (${datas[index].persentase} %)"),
-              );
-            },
-          )
-        : const Center(
-            child: Text("Tidak Ada Data"),
-          );
+    return ListView.builder(
+      itemCount: datas.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          dense: true,
+          horizontalTitleGap: 5,
+          leading: Icon(Icons.circle_rounded,
+              color: Color(datas[index].colors).withOpacity(1.0)),
+          title: Text(
+              "${datas[index].categoryName} - (${datas[index].persentase} %)"),
+        );
+      },
+    );
   }
 }
