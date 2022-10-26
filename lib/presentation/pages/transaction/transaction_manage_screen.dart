@@ -36,6 +36,7 @@ class TransactionManageScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: const Text("Ubah Transaksi"),
           actions: <Widget>[
@@ -188,12 +189,16 @@ class TransactionManageScreen extends StatelessWidget {
                                   SB_Height10,
                                   TextFormField(
                                     controller: nameController
-                                      ..text = data?.title ?? "",
+                                      ..text = data!.title,
                                     onSaved: (newValue) {
                                       if (newValue!.isNotEmpty ||
                                           newValue != "") {
                                         data!.title = newValue;
                                       }
+                                    },
+                                    onFieldSubmitted: (value) {
+                                      nameController.text = value;
+                                      data!.title = value;
                                     },
                                     validator: (value) {
                                       if (value!.isEmpty || value == "") {
@@ -227,6 +232,10 @@ class TransactionManageScreen extends StatelessWidget {
                                     onSaved: (newValue) {
                                       data!.description = newValue ?? "";
                                     },
+                                    onFieldSubmitted: (value) {
+                                      deskriptionController.text = value;
+                                      data!.description = value;
+                                    },
                                   ),
                                 ],
                               ),
@@ -257,6 +266,10 @@ class TransactionManageScreen extends StatelessWidget {
                                           newValue != "") {
                                         data!.amount = double.parse(newValue);
                                       }
+                                    },
+                                    onFieldSubmitted: (value) {
+                                      amountController.text = value;
+                                      data!.amount = double.parse(value);
                                     },
                                   ),
                                 ],
