@@ -42,7 +42,6 @@ class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
-  // Future<Either<Failure, List<Transaction>>> getReadTransaction(
   Future<Either<Failure, Map<String, dynamic>>> getReadTransaction(
       String date) async {
     try {

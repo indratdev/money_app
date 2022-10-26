@@ -222,9 +222,9 @@ class SqlHelper {
       {required String date}) async {
     String query = """ 
      SELECT
-      IFNULL(sum(income),0.0) as income,
-      IFNULL(sum(expense),0.0) as expense,
-      IFNULL(sum(income) ,0.0)- IFNULL(sum(expense) ,0.0) as profit
+      CAST(IFNULL(sum(income),0.0) as double) as income,
+      CAST(IFNULL(sum(expense),0.0) as double) as expense,
+      CAST(IFNULL(sum(income) ,0.0)- IFNULL(sum(expense) ,0.0) as double) as profit
     from (
           SELECT
             IFNULL(amount,0.0) as income
