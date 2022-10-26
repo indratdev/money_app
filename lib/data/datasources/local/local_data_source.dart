@@ -19,6 +19,7 @@ abstract class LocalDataSource {
   Future<List<CalculationModel>> readCalculation(String date);
   Future<List<ChartCalculationModel>> readChartDefault(
       String date, int isOutcome, OptionDate optionDate);
+  Future<void> deleteTransaction(int idTransaction);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -52,6 +53,11 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<void> deleteCategory(int idCategory) async {
     await dbprovider.deleteCategory(idCategory);
+  }
+
+  @override
+  Future<void> deleteTransaction(int idTransaction) async {
+    await dbprovider.deleteTransaction(idTransaction);
   }
 
   @override

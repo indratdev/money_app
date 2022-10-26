@@ -28,6 +28,11 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: BlocConsumer<TransactionBloc, TransactionState>(
             listener: (context, state) {
+              if (state is SuccessDeleteTransaction) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Data Berhasil dihapus")));
+              }
+
               if (state is SuccessReadTransaction) {
                 listTransaction =
                     state.result[TransactionEnum.transaction.name];

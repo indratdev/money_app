@@ -90,5 +90,23 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         emit(FailureReadTransaction(messageError: "FailureReadTransaction e"));
       }
     });
+
+    // delete transaction
+    on<DeleteTransactionEvent>((event, emit) async {
+      try {
+        emit(LoadingDeleteTransaction());
+
+        final result = await _getTransactionCases
+            .executeDeleteTransaction(event.idTransaction);
+        result.fold(
+            (l) => emit(FailureDeleteTransaction(
+                messageError: "FailureDeleteTransaction")),
+            (data) => emit(SuccessDeleteTransaction()));
+      } catch (e) {
+        print(e);
+        emit(FailureDeleteTransaction(
+            messageError: "FailureDeleteTransaction e"));
+      }
+    });
   }
 }

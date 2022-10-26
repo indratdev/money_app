@@ -297,6 +297,14 @@ class SqlHelper {
     }
   }
 
+  // delete transaction
+  Future<void> deleteTransactionByID(Database? db, int idTransaction) async {
+    if (db != null) {
+      await db.rawDelete('''
+      DELETE FROM $tableTransaction WHERE id = ? ''', [idTransaction]);
+    }
+  }
+
   // insertOpsCategory(
   // Database db, String tableOpsCategory, String createTime) async {
   // await db.rawInsert(

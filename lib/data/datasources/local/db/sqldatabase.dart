@@ -118,6 +118,12 @@ class SqlDatabase {
     return result;
   }
 
+  // delete transaction by id
+  Future<void> deleteTransaction(int idTransaction) async {
+    final db = await instance.database;
+    await sqlHelper.deleteTransactionByID(db, idTransaction);
+  }
+
 // // read all master category
 //   Future<List<CategoryMasterModel>> readAllCategoryMaster() async {
 //     final db = await instance.database;

@@ -91,3 +91,12 @@ class SuccessReadTransaction extends TransactionState {
   @override
   List<Object> get props => [result];
 }
+
+// delete transaction
+class LoadingDeleteTransaction extends TransactionState {}
+
+class FailureDeleteTransaction extends FailureState {
+  FailureDeleteTransaction({required super.messageError});
+}
+
+class SuccessDeleteTransaction extends TransactionState {}

@@ -27,8 +27,14 @@ class TransactionCases {
     return repository.getReadTransaction(date);
   }
 
+  // delete transaction
+  Future<Either<Failure, void>> executeDeleteTransaction(int idTransaction) {
+    return repository.getDeleteTransaction(idTransaction);
+  }
+
   // // read calculation
   // executeReadCalculation() {
   //   repository.getReadCalculation();
   // }
+
 }

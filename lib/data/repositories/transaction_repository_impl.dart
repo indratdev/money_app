@@ -63,6 +63,19 @@ class TransactionRepositoryImpl implements TransactionRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> getDeleteTransaction(int idTransaction) async {
+    // TODO: implement getDeleteTransaction
+    try {
+      final result = await localDataSource.deleteTransaction(idTransaction);
+      return right(result);
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
   // @override
   // getReadCalculation() {
   //   try {} catch (e) {

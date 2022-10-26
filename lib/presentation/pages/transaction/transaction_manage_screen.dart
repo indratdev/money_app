@@ -18,20 +18,16 @@ class TransactionManageScreen extends StatelessWidget {
   });
 
   Transaction? data = Transaction(createdTime: '', idCategory: 0, title: '');
-  Transaction? tempData =
-      Transaction(createdTime: '', idCategory: 0, title: '');
+  // Transaction? tempData =
+  //     Transaction(createdTime: '', idCategory: 0, title: '');
   static final _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController deskriptionController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController =
-        TextEditingController(text: data!.title);
-    TextEditingController deskriptionController =
-        TextEditingController(text: data?.description ?? "");
-    TextEditingController amountController =
-        TextEditingController(text: data!.amount.toString());
-
-    print("datas : $data");
     return WillPopScope(
       onWillPop: () async {
         context.read<TransactionBloc>().add(ReadTransactionEvent(
@@ -41,20 +37,30 @@ class TransactionManageScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Ubah Transaksi"),
+          actions: <Widget>[
+            IconButton(
+                onPressed: () {
+                  context
+                      .read<TransactionBloc>()
+                      .add(DeleteTransactionEvent(idTransaction: data!.id!));
+                  context.read<TransactionBloc>().add(ReadTransactionEvent(
+                      transactionDateTime: DateUtil().getCurrentDate()));
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete_forever))
+          ],
         ),
         body: BlocConsumer<TransactionBloc, TransactionState>(
           listener: (context, state) {},
           builder: (context, state) {
             if (state is SuccessSelectedIsOutcome) {
               print(">>>> ${state.result}");
-              tempData!.isOutcome = state.result;
-              print(">>>@@ ${tempData}");
+              data!.isOutcome = state.result;
             }
             if (state is SuccessSelectedDate) {
-              tempData!.modifieldTrxTime = state.result;
-              tempData!.createdTime = data!.createdTime;
-              // data!.createdTime = state.result;
-              print(">>>@@2 ${tempData}");
+              data!.createdTime = state.result;
+              data!.modifieldTrxTime = DateUtil().getCurrentDate();
+              data!.isModifield = 1;
             }
             return Form(
               key: _formKey,
@@ -111,9 +117,16 @@ class TransactionManageScreen extends StatelessWidget {
                                     },
                                     child: ListTile(
                                       leading: const Icon(Icons.calendar_month),
-                                      title: Text(DateFormat('dd / MM / yyyy')
-                                          .format(DateTime.parse(
-                                              data!.createdTime))),
+                                      title: Text(
+                                        DateFormat('dd / MM / yyyy').format(
+                                          DateTime.parse(
+                                            // (data!.modifieldTrxTime.isEmpty)
+                                            //     ? data!.createdTime
+                                            //     : data!.modifieldTrxTime,
+                                            data!.createdTime,
+                                          ),
+                                        ),
+                                      ),
                                       trailing: const Icon(
                                           Icons.arrow_drop_down_sharp),
                                     ),
@@ -166,7 +179,8 @@ class TransactionManageScreen extends StatelessWidget {
                                   const Text("Nama"),
                                   SB_Height10,
                                   TextFormField(
-                                    controller: nameController,
+                                    controller: nameController
+                                      ..text = data?.title ?? "",
                                     onSaved: (newValue) {
                                       if (newValue!.isNotEmpty ||
                                           newValue != "") {
@@ -196,7 +210,8 @@ class TransactionManageScreen extends StatelessWidget {
                                   SB_Height10,
                                   TextFormField(
                                     keyboardType: TextInputType.text,
-                                    controller: deskriptionController,
+                                    controller: deskriptionController
+                                      ..text = data?.description ?? "",
                                     decoration: const InputDecoration(
                                       hintText:
                                           "Ketikan Deskripsi Transaksi (optional)",
@@ -216,7 +231,8 @@ class TransactionManageScreen extends StatelessWidget {
                                   SB_Height10,
                                   TextFormField(
                                     keyboardType: TextInputType.number,
-                                    controller: amountController,
+                                    controller: amountController
+                                      ..text = data!.amount.toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 30,
@@ -243,7 +259,7 @@ class TransactionManageScreen extends StatelessWidget {
                       ),
                     ),
                     // section button
-                    Spacer(),
+
                     Flexible(
                       flex: 1,
                       child: SizedBox(
@@ -261,7 +277,7 @@ class TransactionManageScreen extends StatelessWidget {
 
                               // Navigator.pop(context);
                               print("======");
-                              print(tempData);
+                              print("==> datas : $data");
                             }
                           },
                           child: const Text("Simpan"),

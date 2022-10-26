@@ -36,3 +36,11 @@ class ReadTransactionEvent extends TransactionEvent {
 
   ReadTransactionEvent({required this.transactionDateTime});
 }
+
+class DeleteTransactionEvent extends TransactionEvent {
+  int idTransaction;
+
+  DeleteTransactionEvent({
+    required this.idTransaction,
+  });
+}
