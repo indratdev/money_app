@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_screen.dart';
+import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../data/constants.dart';
@@ -40,12 +41,19 @@ class TransactionManageScreen extends StatelessWidget {
           actions: <Widget>[
             IconButton(
                 onPressed: () {
-                  context
-                      .read<TransactionBloc>()
-                      .add(DeleteTransactionEvent(idTransaction: data!.id!));
-                  context.read<TransactionBloc>().add(ReadTransactionEvent(
-                      transactionDateTime: DateUtil().getCurrentDate()));
-                  Navigator.pop(context);
+                  CustomWidgets.showConfirmationDelete(
+                      context, "Apakah anda yakin Hapus transaksi ini  ?", () {
+                    // delete
+                    context
+                        .read<TransactionBloc>()
+                        .add(DeleteTransactionEvent(idTransaction: data!.id!));
+                    // read
+                    context.read<TransactionBloc>().add(ReadTransactionEvent(
+                        transactionDateTime: DateUtil().getCurrentDate()));
+
+                    Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  });
                 },
                 icon: const Icon(Icons.delete_forever))
           ],
