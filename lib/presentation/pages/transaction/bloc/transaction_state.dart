@@ -100,3 +100,19 @@ class FailureDeleteTransaction extends FailureState {
 }
 
 class SuccessDeleteTransaction extends TransactionState {}
+
+// update transaction
+class LoadingUpdateTransaction extends TransactionState {}
+
+class FailureUpdateTransaction extends FailureState {
+  FailureUpdateTransaction({required super.messageError});
+}
+
+class SuccessUpdateTransaction extends TransactionState {
+  final int result;
+
+  SuccessUpdateTransaction({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}

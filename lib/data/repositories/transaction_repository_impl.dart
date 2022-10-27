@@ -76,6 +76,20 @@ class TransactionRepositoryImpl implements TransactionRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, int>> getUpdateTransaction(
+      int idTransaction, Transaction valueTransaction) async {
+    try {
+      final result =
+          await localDataSource.updateCategory(idCategory, valueCategory);
+      return right(result);
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
   // @override
   // getReadCalculation() {
   //   try {} catch (e) {

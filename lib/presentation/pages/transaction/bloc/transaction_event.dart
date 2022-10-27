@@ -44,3 +44,14 @@ class DeleteTransactionEvent extends TransactionEvent {
     required this.idTransaction,
   });
 }
+
+// update category
+class UpdateTransactionEvent extends TransactionEvent {
+  int idTransaction;
+  Transaction valueTransaction;
+
+  UpdateTransactionEvent({
+    required this.idTransaction,
+    required this.valueTransaction,
+  });
+}

@@ -29,6 +29,8 @@ class TransactionManageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final focusedCtx = FocusManager.instance.primaryFocus!.context;
+
     return WillPopScope(
       onWillPop: () async {
         context.read<TransactionBloc>().add(ReadTransactionEvent(
@@ -82,6 +84,7 @@ class TransactionManageScreen extends StatelessWidget {
                       child: Container(
                         color: Colors.white,
                         child: SingleChildScrollView(
+                          // reverse: true,
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           child: Column(
@@ -247,6 +250,12 @@ class TransactionManageScreen extends StatelessWidget {
                                   const Text("Nominal"),
                                   SB_Height10,
                                   TextFormField(
+                                    // focusNode: focusedCtx,
+                                    // scrollPadding: EdgeInsets.only(
+                                    // bottom: MediaQuery.of(context)
+                                    //         .viewInsets
+                                    //         .bottom +
+                                    //     12 * 4),
                                     keyboardType: TextInputType.number,
                                     controller: amountController
                                       ..text = data!.amount.toString(),

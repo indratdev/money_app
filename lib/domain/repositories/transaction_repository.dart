@@ -8,4 +8,6 @@ abstract class TransactionRepository {
   Future<Either<Failure, int>> getCreateNewTransaction(Transaction value);
   Future<Either<Failure, Map<String, dynamic>>> getReadTransaction(String date);
   Future<Either<Failure, void>> getDeleteTransaction(int idTransaction);
+  Future<Either<Failure, int>> getUpdateTransaction(
+      int idTransaction, Transaction valueTransaction);
 }

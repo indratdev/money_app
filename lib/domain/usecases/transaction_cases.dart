@@ -32,6 +32,12 @@ class TransactionCases {
     return repository.getDeleteTransaction(idTransaction);
   }
 
+  // update category
+  Future<Either<Failure, int>> executeUpdateCategory(
+      int idTransaction, Transaction valueTransaction) {
+    return repository.getUpdateTransaction(idTransaction, valueTransaction);
+  }
+
   // // read calculation
   // executeReadCalculation() {
   //   repository.getReadCalculation();

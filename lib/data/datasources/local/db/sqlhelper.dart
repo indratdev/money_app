@@ -305,6 +305,34 @@ class SqlHelper {
     }
   }
 
+  // update transaction
+  Future<int> updateTransaction(Database? db, SqlDatabase instance,
+      int idTransaction, Transaction valueTransaction) async {
+    final db = await instance.database;
+    int result = 0;
+
+    if (db != null) {
+      return result = await db.rawUpdate('''UPDATE $tableTransaction
+          SET
+          name = ?
+          , iconName = ?
+          , createdTime = ?
+          , modifieldTime = ?
+          , isDefault = ?
+          WHERE id = ?''', [
+        valueCategory.name,
+        valueCategory.iconName,
+        valueCategory.createdTime,
+        valueCategory.modifieldTime,
+        valueCategory.isDefault,
+        '$idCategory'
+      ]);
+      // return result = await db
+      //     .update(tableNotes, note.toJson(), where: 'id = ?', whereArgs: [id]);
+    }
+    return result;
+  }
+
   // insertOpsCategory(
   // Database db, String tableOpsCategory, String createTime) async {
   // await db.rawInsert(

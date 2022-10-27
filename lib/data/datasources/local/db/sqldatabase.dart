@@ -124,6 +124,15 @@ class SqlDatabase {
     await sqlHelper.deleteTransactionByID(db, idTransaction);
   }
 
+  // update transaction
+  Future<int> updateTransaction(
+      int idTransaction, trx.Transaction valueTransaction) async {
+    final db = await instance.database;
+    final result = await sqlHelper.updateTransaction(
+        db, instance, idTransaction, valueTransaction);
+    return result;
+  }
+
 // // read all master category
 //   Future<List<CategoryMasterModel>> readAllCategoryMaster() async {
 //     final db = await instance.database;

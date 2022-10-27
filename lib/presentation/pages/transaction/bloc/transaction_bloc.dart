@@ -108,5 +108,20 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
             messageError: "FailureDeleteTransaction e"));
       }
     });
+
+    on<UpdateTransactionEvent>((event, emit) async {
+      try {
+        emit(LoadingUpdateTransaction());
+        final result = await _getTransactionCases.executeUpdateCategory(
+            event.idCategory, event.valueCategory);
+        result.fold(
+            (l) => emit(FailureUpdateTransaction(
+                messageError: "FailureUpdateTransaction")),
+            (data) => emit(SuccessUpdateTransaction(result: data)));
+      } catch (e) {
+        emit(FailureUpdateTransaction(
+            messageError: "FailureUpdateTransaction e"));
+      }
+    });
   }
 }
