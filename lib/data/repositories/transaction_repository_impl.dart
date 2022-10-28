@@ -80,8 +80,8 @@ class TransactionRepositoryImpl implements TransactionRepository {
   Future<Either<Failure, int>> getUpdateTransaction(
       int idTransaction, Transaction valueTransaction) async {
     try {
-      final result =
-          await localDataSource.updateCategory(idCategory, valueCategory);
+      final result = await localDataSource.updateTransaction(
+          idTransaction, valueTransaction);
       return right(result);
     } on ServerException {
       return Left(const ServerFailure(''));

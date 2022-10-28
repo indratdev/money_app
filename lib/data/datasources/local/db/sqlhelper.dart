@@ -313,19 +313,19 @@ class SqlHelper {
 
     if (db != null) {
       return result = await db.rawUpdate('''UPDATE $tableTransaction
-          SET
-          name = ?
-          , iconName = ?
-          , createdTime = ?
-          , modifieldTime = ?
-          , isDefault = ?
-          WHERE id = ?''', [
-        valueCategory.name,
-        valueCategory.iconName,
-        valueCategory.createdTime,
-        valueCategory.modifieldTime,
-        valueCategory.isDefault,
-        '$idCategory'
+        //   SET
+        //   name = ?
+        //   , iconName = ?
+        //   , createdTime = ?
+        //   , modifieldTime = ?
+        //   , isDefault = ?
+        //   WHERE id = ?''', [
+        // valueCategory.name,
+        // valueCategory.iconName,
+        // valueCategory.createdTime,
+        // valueCategory.modifieldTime,
+        // valueCategory.isDefault,
+        // '$idCategory'
       ]);
       // return result = await db
       //     .update(tableNotes, note.toJson(), where: 'id = ?', whereArgs: [id]);

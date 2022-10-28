@@ -112,8 +112,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<UpdateTransactionEvent>((event, emit) async {
       try {
         emit(LoadingUpdateTransaction());
-        final result = await _getTransactionCases.executeUpdateCategory(
-            event.idCategory, event.valueCategory);
+        final result = await _getTransactionCases.executeUpdateTransaction(
+            event.idTransaction, event.valueTransaction);
         result.fold(
             (l) => emit(FailureUpdateTransaction(
                 messageError: "FailureUpdateTransaction")),

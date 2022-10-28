@@ -33,7 +33,7 @@ class TransactionCases {
   }
 
   // update category
-  Future<Either<Failure, int>> executeUpdateCategory(
+  Future<Either<Failure, int>> executeUpdateTransaction(
       int idTransaction, Transaction valueTransaction) {
     return repository.getUpdateTransaction(idTransaction, valueTransaction);
   }

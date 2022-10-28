@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/repositories/transaction_repository_impl.dart';
@@ -9,6 +10,7 @@ import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -156,10 +158,47 @@ class HomeScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             Transaction data = listTransaction![index];
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  TransactionManageScreen(data: data),
-                            ));
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //   builder: (context) =>
+                            //       TransactionManageScreen(data: data),
+                            // ));
+                            // Navigator.pushNamed(
+                            //     context, AppRoutes.transactionManage,
+                            //     arguments: data);
+                            // Navigator.pushAndRemoveUntil(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => TransactionManageScreen(
+                            //             data: data,
+                            //           )),
+                            //   (Route<dynamic> route) => false,
+                            // );
+                            // Navigator.of(
+                            //   context,
+                            //   rootNavigator: false,
+                            // ).pushNamed(AppRoutes.transactionManage,
+                            //     arguments: data);
+                            // Navigator.of(context).pushNamed(
+                            //     AppRoutes.transactionManage,
+                            //     arguments: data);
+                            // PersistentNavBarNavigator.pushNewScreen(context,
+                            //     screen: TransactionManageScreen(
+                            //       data: data,
+                            //     ));
+                            // Navigator.of(context).pushAndRemoveUntil(
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             TransactionManageScreen(
+                            //               data: data,
+                            //             )),
+                            //     (route) => false);
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) =>
+                                        TransactionManageScreen(
+                                          data: data,
+                                        )));
+
                             print(">>> tapped : ${listTransaction?[index]}");
                           },
                           child: ListTile(

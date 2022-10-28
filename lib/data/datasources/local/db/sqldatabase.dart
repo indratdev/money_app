@@ -129,7 +129,7 @@ class SqlDatabase {
       int idTransaction, trx.Transaction valueTransaction) async {
     final db = await instance.database;
     final result = await sqlHelper.updateTransaction(
-        db, instance, idTransaction, valueTransaction);
+        db, instance, idTransaction, valueTransaction as Transaction);
     return result;
   }
 

@@ -86,6 +86,6 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<int> updateTransaction(
       int idTransaction, Transaction valueTransaction) async {
-    return await dbprovider.updateCategory(idCategory, valueCategory);
+    return await dbprovider.updateTransaction(idTransaction, valueTransaction);
   }
 }
