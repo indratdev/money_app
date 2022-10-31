@@ -309,7 +309,7 @@ class TransactionManageScreen extends StatelessWidget {
                                     valueTransaction: data!));
                           }
                           Navigator.pushReplacementNamed(
-                              context, AppRoutes.home);
+                              context, AppRoutes.first);
                         },
                         child: const Text("Simpan"),
                       ),
