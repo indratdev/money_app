@@ -307,28 +307,34 @@ class SqlHelper {
 
   // update transaction
   Future<int> updateTransaction(Database? db, SqlDatabase instance,
-      int idTransaction, Transaction valueTransaction) async {
+      int idTransaction, trx.Transaction valueTransaction) async {
     final db = await instance.database;
     int result = 0;
 
     if (db != null) {
       return result = await db.rawUpdate('''UPDATE $tableTransaction
-        //   SET
-        //   name = ?
-        //   , iconName = ?
-        //   , createdTime = ?
-        //   , modifieldTime = ?
-        //   , isDefault = ?
-        //   WHERE id = ?''', [
-        // valueCategory.name,
-        // valueCategory.iconName,
-        // valueCategory.createdTime,
-        // valueCategory.modifieldTime,
-        // valueCategory.isDefault,
-        // '$idCategory'
+          SET
+          isOutcome = ?
+          , idCategory = ?
+          , title = ?
+          , description = ?
+          , amount = ?
+          , idWallet = ?
+          , createdTime = ?
+          , isModifield = ?
+          , modifieldTrxTime = ?          
+          WHERE id = ?''', [
+        valueTransaction.isOutcome,
+        valueTransaction.idCategory,
+        valueTransaction.title,
+        valueTransaction.description,
+        valueTransaction.amount,
+        valueTransaction.idWallet,
+        valueTransaction.createdTime,
+        valueTransaction.isModifield,
+        valueTransaction.modifieldTrxTime,
+        '$idTransaction'
       ]);
-      // return result = await db
-      //     .update(tableNotes, note.toJson(), where: 'id = ?', whereArgs: [id]);
     }
     return result;
   }

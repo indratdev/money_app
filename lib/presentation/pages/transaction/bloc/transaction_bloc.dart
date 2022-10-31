@@ -14,7 +14,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   TransactionBloc(this._getTransactionCases) : super(TransactionInitial()) {
     on<SelectedIsOutcomeEvent>((event, emit) {
       try {
-        print("runniggg SelectedIsOutcomeEvent");
+        // print("runniggg SelectedIsOutcomeEvent");
         emit(LoadingSelectedIsOutcome());
         emit(SuccessSelectedIsOutcome(result: event.value));
       } catch (e) {
@@ -25,7 +25,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
     on<SelectedDateEvent>((event, emit) {
       try {
-        print("runniggg SelectedDateEvent");
+        // print("runniggg SelectedDateEvent");
         emit(LoadingSelectedDate());
         emit(SuccessSelectedDate(result: event.value));
       } catch (e) {
@@ -80,11 +80,16 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
             await _getTransactionCases.executeReadTransaction(
                 event.transactionDateTime); // read content transaction
 
-        print(">> >> result $contentTransaction");
+        // print(">> >> result $contentTransaction");
         contentTransaction.fold(
-            (l) => emit(FailureReadTransaction(
-                messageError: "FailureReadTransaction :: $l")),
-            (data) => emit(SuccessReadTransaction(result: data)));
+          (l) => emit(FailureReadTransaction(
+              messageError: "FailureReadTransaction :: $l")),
+          // (data) => emit(SuccessReadTransaction(result: data)));
+          (data) {
+            print(">>>>> ReadTransactionEvent Runinggg.... ${data}");
+            emit(SuccessReadTransaction(result: data));
+          },
+        );
       } catch (e) {
         print(e);
         emit(FailureReadTransaction(messageError: "FailureReadTransaction e"));
@@ -112,12 +117,18 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<UpdateTransactionEvent>((event, emit) async {
       try {
         emit(LoadingUpdateTransaction());
+
         final result = await _getTransactionCases.executeUpdateTransaction(
             event.idTransaction, event.valueTransaction);
         result.fold(
             (l) => emit(FailureUpdateTransaction(
                 messageError: "FailureUpdateTransaction")),
-            (data) => emit(SuccessUpdateTransaction(result: data)));
+            // (data) => emit(SuccessUpdateTransaction(result: data)));
+            (data) {
+          emit(SuccessUpdateTransaction(result: data));
+          print(">>>>>!! UpdateTransactionEvent Runinggg....");
+          // emit(SuccessReadTransaction(result: ));
+        });
       } catch (e) {
         emit(FailureUpdateTransaction(
             messageError: "FailureUpdateTransaction e"));
