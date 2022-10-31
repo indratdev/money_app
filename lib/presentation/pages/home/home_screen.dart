@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_app/config/routes/app_routes.dart';
+
 import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/repositories/transaction_repository_impl.dart';
@@ -10,7 +10,6 @@ import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -33,6 +32,8 @@ class HomeScreen extends StatelessWidget {
               if (state is SuccessUpdateTransaction) {
                 CustomWidgets.showMessageAlertBasic(
                     context, "Transaksi Berhasil Diperbaharui");
+                context.read<TransactionBloc>().add(ReadTransactionEvent(
+                    transactionDateTime: DateUtil().getCurrentDate()));
               }
               if (state is SuccessDeleteTransaction) {
                 ScaffoldMessenger.of(context).showSnackBar(

@@ -109,10 +109,10 @@ class FailureUpdateTransaction extends FailureState {
 }
 
 class SuccessUpdateTransaction extends TransactionState {
-  final int result;
+  // // final int result;
 
-  SuccessUpdateTransaction({required this.result});
+  // SuccessUpdateTransaction({required this.result});
 
-  @override
-  List<Object> get props => [result];
+  // @override
+  // List<Object> get props => [result];
 }

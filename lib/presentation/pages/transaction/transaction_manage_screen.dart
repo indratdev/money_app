@@ -38,7 +38,7 @@ class TransactionManageScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, AppRoutes.first);
+            Navigator.pushReplacementNamed(context, AppRoutes.home);
             // context.read<TransactionBloc>().add(ReadTransactionEvent(
             //     transactionDateTime: DateUtil().getCurrentDate()));
           },
@@ -298,25 +298,13 @@ class TransactionManageScreen extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
                             // action save
-
                             context.read<TransactionBloc>().add(
                                 UpdateTransactionEvent(
                                     idTransaction: data!.id!,
                                     valueTransaction: data!));
-
-                            context.read<TransactionBloc>().add(
-                                  ReadTransactionEvent(
-                                    transactionDateTime:
-                                        DateUtil().getCurrentDate(),
-                                  ),
-                                );
-
-                            // Navigator.pushReplacementNamed(context, materialpager)
-                            // print("======");
-                            // print("==> datas : $data");
                           }
                           Navigator.pushReplacementNamed(
-                              context, AppRoutes.first);
+                              context, AppRoutes.home);
                         },
                         child: const Text("Simpan"),
                       ),

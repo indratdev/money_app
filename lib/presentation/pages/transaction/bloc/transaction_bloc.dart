@@ -123,12 +123,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         result.fold(
             (l) => emit(FailureUpdateTransaction(
                 messageError: "FailureUpdateTransaction")),
-            // (data) => emit(SuccessUpdateTransaction(result: data)));
-            (data) {
-          emit(SuccessUpdateTransaction(result: data));
-          print(">>>>>!! UpdateTransactionEvent Runinggg....");
-          // emit(SuccessReadTransaction(result: ));
-        });
+            (data) => emit(SuccessUpdateTransaction()));
+        //   (data) {
+        // emit(SuccessUpdateTransaction(result: data));
+        // print(">>>>>!! UpdateTransactionEvent Runinggg....");
+        // emit(SuccessReadTransaction(result: ));
+        // });
       } catch (e) {
         emit(FailureUpdateTransaction(
             messageError: "FailureUpdateTransaction e"));

@@ -127,7 +127,6 @@ class SqlDatabase {
   // update transaction
   Future<int> updateTransaction(
       int idTransaction, trx.Transaction valueTransaction) async {
-    print(">>>> result2:: $valueTransaction");
     final db = await instance.database;
     final result = await sqlHelper.updateTransaction(
         db, instance, idTransaction, valueTransaction);

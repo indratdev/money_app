@@ -312,7 +312,7 @@ class SqlHelper {
     int result = 0;
 
     if (db != null) {
-      return result = await db.rawUpdate('''UPDATE $tableTransaction
+      result = await db.rawUpdate('''UPDATE $tableTransaction
           SET
           isOutcome = ?
           , idCategory = ?

@@ -17,7 +17,7 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
             await _getTransactionCases.executeReadChartDefault(
                 event.transactionDateTime, OptionDate.month);
 
-        print(">> >> result $contentTransaction");
+        // print(">> >> result $contentTransaction");
         contentTransaction.fold(
             (l) => emit(FailureReadChartDefault(
                 messageError: "FailureReadChartDefault :: $l")),
