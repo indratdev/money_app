@@ -117,13 +117,20 @@ class TransactionManageScreen extends StatelessWidget {
                                     onTap: () {
                                       showDatePicker(
                                               context: context,
-                                              initialDate: DateTime.now(),
+                                              initialDate: DateTime.parse(
+                                                  data!.createdTime),
                                               firstDate: DateTime(1900),
                                               lastDate: DateTime(9999))
                                           .then((value) {
-                                        context.read<TransactionBloc>().add(
-                                            SelectedDateEvent(
-                                                value: value.toString()));
+                                        (value == null)
+                                            ? context
+                                                .read<TransactionBloc>()
+                                                .add(SelectedDateEvent(
+                                                    value: data!.createdTime))
+                                            : context
+                                                .read<TransactionBloc>()
+                                                .add(SelectedDateEvent(
+                                                    value: value.toString()));
                                       });
                                     },
                                     child: ListTile(
