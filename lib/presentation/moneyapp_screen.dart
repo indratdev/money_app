@@ -19,7 +19,7 @@ class MoneyappScreen extends StatelessWidget {
     return SafeArea(
       child: BlocConsumer<TransactionBloc, TransactionState>(
         listener: (context, state) {
-          print(">>>>> state : $state");
+          // print(">>>>> state : $state");
           if (state is SuccessUpdateTransaction) {
             CustomWidgets.showMessageAlertBasic(
                 context, "Transaksi Berhasil Diperbaharui");
@@ -60,8 +60,10 @@ class MoneyappScreen extends StatelessWidget {
               decoration: NavBarDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 colorBehindNavBar: Colors.white,
+                adjustScreenBottomPaddingOnCurve: true,
               ),
               popAllScreensOnTapOfSelectedTab: true,
+
               popActionScreens: PopActionScreensType.all,
               itemAnimationProperties: const ItemAnimationProperties(
                 // Navigation Bar's items animation properties.

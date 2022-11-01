@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/data/date_util.dart';
-import 'package:money_app/domain/repositories/category_repository.dart';
-import 'package:money_app/domain/usecases/category_cases.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/injection.dart' as di;
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 
 import 'config/routes/app_routes.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   await di.setup();
@@ -43,6 +42,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.splash,
         routes: routes.getRoutes,
+        theme: ThemeData(
+          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
+          // fontFamily: GoogleFonts.poppins(),
+        ),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:money_app/presentation/pages/chart/chart_screen.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../data/constants.dart';
 import '../../presentation/pages/chart/bloc/chart_bloc.dart';
 import '../../presentation/pages/home/home_screen.dart';
 import '../../presentation/pages/rekap/rekap_screen.dart';
@@ -70,7 +71,7 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.wallet),
         title: "Beranda",
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onSelectedTabPressWhenNoScreensPushed: () => context
             .read<TransactionBloc>()
@@ -82,7 +83,7 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.chartSimple),
         title: "Chart",
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onSelectedTabPressWhenNoScreensPushed: () {
           // String date = dates.operationDate(selectedDate, OptionDate.month, 0);
@@ -93,7 +94,7 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.plus, color: Colors.white),
         title: "Transaksi",
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: lightPurple,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onPressed: (p0) {
           PersistentNavBarNavigator.pushNewScreen(context,
@@ -106,13 +107,13 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.bookOpen),
         title: "Rekap",
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.android),
         title: "Setting",
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];

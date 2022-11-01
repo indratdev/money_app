@@ -25,190 +25,272 @@ class HomeScreen extends StatelessWidget {
     // print("tanggal => $transactionDateTime");
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: BlocConsumer<TransactionBloc, TransactionState>(
-            listener: (context, state) {
-              if (state is SuccessReadTransaction) {
-                listTransaction =
-                    state.result[TransactionEnum.transaction.name];
-                selectedDate = state.result[TransactionEnum.dateselected.name];
-                listCalculation =
-                    state.result[TransactionEnum.calculation.name];
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.topLeft,
+              colors: bloomColor,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: BlocConsumer<TransactionBloc, TransactionState>(
+              listener: (context, state) {
+                if (state is SuccessReadTransaction) {
+                  listTransaction =
+                      state.result[TransactionEnum.transaction.name];
+                  selectedDate =
+                      state.result[TransactionEnum.dateselected.name];
+                  listCalculation =
+                      state.result[TransactionEnum.calculation.name];
 
-                //reload chart
-                context.read<ChartBloc>().add(ReadChartDefaultEvent(
-                    transactionDateTime: DateUtil().getCurrentDate()));
-              }
-            },
-            builder: (context, state) {
-              if (state is SuccessReadTransaction) {
-                // listTransaction = state.result;
-                listTransaction =
-                    state.result[TransactionEnum.transaction.name];
-                selectedDate =
-                    state.result[TransactionEnum.dateselected.name].toString();
-                listCalculation =
-                    state.result[TransactionEnum.calculation.name];
-                //reload chart
-                context.read<ChartBloc>().add(ReadChartDefaultEvent(
-                    transactionDateTime: DateUtil().getCurrentDate()));
-              }
-              return Column(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height / 14,
-                    color: Colors.grey.shade300,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        IconButton(
-                          onPressed: () {
-                            String date = DateUtil().operationDate(
-                                selectedDate, OptionDate.days, 0);
-                            context.read<TransactionBloc>().add(
-                                ReadTransactionEvent(
-                                    transactionDateTime: date));
-                          },
-                          icon: const Icon(Icons.arrow_left_sharp),
-                        ),
-                        Text(selectedDate),
-                        IconButton(
-                          onPressed: () {
-                            String date = DateUtil().operationDate(
-                                selectedDate, OptionDate.days, 1);
-
-                            context.read<TransactionBloc>().add(
-                                ReadTransactionEvent(
-                                    transactionDateTime: date));
-                          },
-                          icon: Icon(Icons.arrow_right_sharp),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // container calculation
-                  Container(
-                    height: MediaQuery.of(context).size.height / 10,
-                    color: Colors.grey.shade200,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      // crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Container(
-                          color: Colors.red,
-                          margin: EdgeInsets.all(8),
-                          height: MediaQuery.of(context).size.height / 5,
-                          width: widhtContainer -
-                              10, //MediaQuery.of(context).size.width / 5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              const Text("KELUAR"),
-                              Text(listCalculation?[0].expense.toString() ??
-                                  "0.0"),
-                            ],
+                  //reload chart
+                  context.read<ChartBloc>().add(ReadChartDefaultEvent(
+                      transactionDateTime: DateUtil().getCurrentDate()));
+                }
+              },
+              builder: (context, state) {
+                if (state is SuccessReadTransaction) {
+                  // listTransaction = state.result;
+                  listTransaction =
+                      state.result[TransactionEnum.transaction.name];
+                  selectedDate = state.result[TransactionEnum.dateselected.name]
+                      .toString();
+                  listCalculation =
+                      state.result[TransactionEnum.calculation.name];
+                  //reload chart
+                  context.read<ChartBloc>().add(ReadChartDefaultEvent(
+                      transactionDateTime: DateUtil().getCurrentDate()));
+                }
+                return Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                          top: 8, right: 8, left: 8, bottom: 25),
+                      height: MediaQuery.of(context).size.height / 14,
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            decoration: arrowDecor,
+                            child: IconButton(
+                              onPressed: () {
+                                String date = DateUtil().operationDate(
+                                    selectedDate, OptionDate.days, 0);
+                                context.read<TransactionBloc>().add(
+                                    ReadTransactionEvent(
+                                        transactionDateTime: date));
+                              },
+                              icon: const Icon(Icons.arrow_left_sharp),
+                            ),
                           ),
-                        ),
-                        Container(
-                          color: Colors.blue,
-                          margin: EdgeInsets.all(8),
-                          height: MediaQuery.of(context).size.height / 5,
-                          width: widhtContainer -
-                              10, //MediaQuery.of(context).size.width / 5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              const Text("TERIMA"),
-                              Text(listCalculation?[0].income.toString() ??
-                                  "0.0"),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          color: Colors.green,
-                          margin: EdgeInsets.all(8),
-                          height: MediaQuery.of(context).size.height / 5,
-                          width: widhtContainer -
-                              10, //MediaQuery.of(context).size.width / 5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              const Text("Selisih"),
-                              Text(listCalculation?[0].profit.toString() ??
-                                  "0.0"),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30.0),
-                            bottomRight: Radius.circular(5.0),
-                            topLeft: Radius.circular(5.0),
-                            bottomLeft: Radius.circular(5.0)),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.blue.shade300, spreadRadius: 4),
-                        ],
-                      ),
-                      margin: EdgeInsets.only(top: 20),
-                      child: ListView.builder(
-                        itemCount: listTransaction?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Transaction data = listTransaction![index];
-                              context.read<CategoryBloc>().add(
-                                  ReadCategoryByIdEvent(
-                                      idCategory: data.idCategory));
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushReplacement(MaterialPageRoute(
-                                      builder: (context) =>
-                                          TransactionManageScreen(
-                                            data: data,
-                                          )));
-
-                              // print(">>> tapped : ${listTransaction?[index]}");
-                            },
-                            child: ListTile(
-                              contentPadding: EdgeInsets.all(8),
-                              leading: CircleAvatar(
-                                radius: 25,
-                                foregroundColor: Colors.transparent,
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    'assets/icons/${listTransaction?[index].categoryIconName}.png',
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                              title: Text(
-                                  "${listTransaction?[index].title.toString()}"),
-                              trailing: Text(
-                                "Rp. ${formatterThousand.format(
-                                  double.tryParse(
-                                      "${listTransaction?[index].amount}"),
-                                )}",
+                          Container(
+                            decoration: arrowDecor,
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: double.infinity,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                selectedDate,
+                                softWrap: true,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
-                          );
-                        },
+                          ),
+                          Container(
+                            decoration: arrowDecor,
+                            child: IconButton(
+                              onPressed: () {
+                                String date = DateUtil().operationDate(
+                                    selectedDate, OptionDate.days, 1);
+
+                                context.read<TransactionBloc>().add(
+                                    ReadTransactionEvent(
+                                        transactionDateTime: date));
+                              },
+                              icon: const Icon(Icons.arrow_right_sharp),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
+                    // container calculation
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white54,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(27),
+                            bottomLeft: Radius.circular(27),
+                            bottomRight: Radius.circular(10),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0, -5),
+                                blurRadius: 8.0)
+                          ]),
+                      height: MediaQuery.of(context).size.height / 10,
+                      margin: EdgeInsets.only(
+                          top: 8, bottom: 25, left: 10, right: 10),
+                      // color: Colors.grey.shade200,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Container(
+                            // color: Colors.red,
+                            // margin: EdgeInsets.all(8),
+                            height: MediaQuery.of(context).size.height / 5,
+                            width: widhtContainer -
+                                10, //MediaQuery.of(context).size.width / 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(3),
+                                  child: const Text(
+                                    "Pengeluaran",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  listCalculation?[0].expense.toString() ??
+                                      "0.0",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            // color: Colors.blue,
+                            // margin: EdgeInsets.all(8),
+                            height: MediaQuery.of(context).size.height / 5,
+                            width: widhtContainer -
+                                10, //MediaQuery.of(context).size.width / 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(3),
+                                  child: const Text(
+                                    "Penerimaan",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  listCalculation?[0].income.toString() ??
+                                      "0.0",
+                                  style:
+                                      TextStyle(color: Colors.green.shade600),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            // color: Colors.green,
+                            // margin: EdgeInsets.all(8),
+                            height: MediaQuery.of(context).size.height / 5,
+                            width: widhtContainer -
+                                10, //MediaQuery.of(context).size.width / 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: const Text(
+                                    "Selisih",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Text(listCalculation?[0].profit.toString() ??
+                                    "0.0"),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(35),
+                              bottomRight: Radius.circular(5.0),
+                              topLeft: Radius.circular(5.0),
+                              bottomLeft: Radius.circular(5.0)),
+                          color: lightMildWaters,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF50A7D9),
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        // margin: EdgeInsets.only(top: 20),
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              const Divider(color: Colors.black26),
+                          itemCount: listTransaction?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Transaction data = listTransaction![index];
+                                context.read<CategoryBloc>().add(
+                                    ReadCategoryByIdEvent(
+                                        idCategory: data.idCategory));
+                                Navigator.of(context, rootNavigator: true)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) =>
+                                            TransactionManageScreen(
+                                              data: data,
+                                            )));
+
+                                // print(">>> tapped : ${listTransaction?[index]}");
+                              },
+                              child: ListTile(
+                                contentPadding: EdgeInsets.all(8),
+                                leading: CircleAvatar(
+                                  radius: 25,
+                                  foregroundColor: Colors.transparent,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/icons/${listTransaction?[index].categoryIconName}.png',
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                                title: Text(
+                                    "${listTransaction?[index].title.toString()}"),
+                                trailing: Text(
+                                  "Rp. ${formatterThousand.format(
+                                    double.tryParse(
+                                        "${listTransaction?[index].amount}"),
+                                  )}",
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
