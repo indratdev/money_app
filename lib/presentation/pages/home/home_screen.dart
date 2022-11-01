@@ -10,7 +10,6 @@ import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
-import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -30,17 +29,6 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: BlocConsumer<TransactionBloc, TransactionState>(
             listener: (context, state) {
-              // if (state is SuccessUpdateTransaction) {
-              //   CustomWidgets.showMessageAlertBasic(
-              //       context, "Transaksi Berhasil Diperbaharui");
-              //   context.read<TransactionBloc>().add(ReadTransactionEvent(
-              //       transactionDateTime: DateUtil().getCurrentDate()));
-              // }
-              // if (state is SuccessDeleteTransaction) {
-              //   ScaffoldMessenger.of(context).showSnackBar(
-              //       SnackBar(content: Text("Data Berhasil dihapus")));
-              // }
-
               if (state is SuccessReadTransaction) {
                 listTransaction =
                     state.result[TransactionEnum.transaction.name];
@@ -70,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height / 14,
-                    color: Colors.amber,
+                    color: Colors.grey.shade300,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -82,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                                 ReadTransactionEvent(
                                     transactionDateTime: date));
                           },
-                          icon: Icon(Icons.arrow_left_sharp),
+                          icon: const Icon(Icons.arrow_left_sharp),
                         ),
                         Text(selectedDate),
                         IconButton(
@@ -99,6 +87,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // container calculation
                   Container(
                     height: MediaQuery.of(context).size.height / 10,
                     color: Colors.grey.shade200,
@@ -157,83 +146,64 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: listTransaction?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Transaction data = listTransaction![index];
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //   builder: (context) =>
-                            //       TransactionManageScreen(data: data),
-                            // ));
-                            // Navigator.pushNamed(
-                            //     context, AppRoutes.transactionManage,
-                            //     arguments: data);
-                            // Navigator.pushAndRemoveUntil(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => TransactionManageScreen(
-                            //             data: data,
-                            //           )),
-                            //   (Route<dynamic> route) => false,
-                            // );
-                            // Navigator.of(
-                            //   context,
-                            //   rootNavigator: false,
-                            // ).pushNamed(AppRoutes.transactionManage,
-                            //     arguments: data);
-                            // Navigator.of(context).pushNamed(
-                            //     AppRoutes.transactionManage,
-                            //     arguments: data);
-                            // PersistentNavBarNavigator.pushNewScreen(context,
-                            //     screen: TransactionManageScreen(
-                            //       data: data,
-                            //     ));
-                            // Navigator.of(context).pushAndRemoveUntil(
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             TransactionManageScreen(
-                            //               data: data,
-                            //             )),
-                            //     (route) => false);
-                            print(">>>>> data:: $data");
-                            context.read<CategoryBloc>().add(
-                                ReadCategoryByIdEvent(
-                                    idCategory: data.idCategory));
-                            Navigator.of(context, rootNavigator: true)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) =>
-                                        TransactionManageScreen(
-                                          data: data,
-                                        )));
 
-                            // print(">>> tapped : ${listTransaction?[index]}");
-                          },
-                          child: ListTile(
-                            contentPadding: EdgeInsets.all(8),
-                            leading: CircleAvatar(
-                              radius: 25,
-                              foregroundColor: Colors.transparent,
-                              child: ClipOval(
-                                child: Image.asset(
-                                  'assets/icons/${listTransaction?[index].categoryIconName}.png',
-                                  fit: BoxFit.fill,
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30.0),
+                            bottomRight: Radius.circular(5.0),
+                            topLeft: Radius.circular(5.0),
+                            bottomLeft: Radius.circular(5.0)),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.blue.shade300, spreadRadius: 4),
+                        ],
+                      ),
+                      margin: EdgeInsets.only(top: 20),
+                      child: ListView.builder(
+                        itemCount: listTransaction?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Transaction data = listTransaction![index];
+                              context.read<CategoryBloc>().add(
+                                  ReadCategoryByIdEvent(
+                                      idCategory: data.idCategory));
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) =>
+                                          TransactionManageScreen(
+                                            data: data,
+                                          )));
+
+                              // print(">>> tapped : ${listTransaction?[index]}");
+                            },
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(8),
+                              leading: CircleAvatar(
+                                radius: 25,
+                                foregroundColor: Colors.transparent,
+                                child: ClipOval(
+                                  child: Image.asset(
+                                    'assets/icons/${listTransaction?[index].categoryIconName}.png',
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
+                              title: Text(
+                                  "${listTransaction?[index].title.toString()}"),
+                              trailing: Text(
+                                "Rp. ${formatterThousand.format(
+                                  double.tryParse(
+                                      "${listTransaction?[index].amount}"),
+                                )}",
+                              ),
                             ),
-                            title: Text(
-                                "${listTransaction?[index].title.toString()}"),
-                            trailing: Text(
-                              "Rp. ${formatterThousand.format(
-                                double.tryParse(
-                                    "${listTransaction?[index].amount}"),
-                              )}",
-                            ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
