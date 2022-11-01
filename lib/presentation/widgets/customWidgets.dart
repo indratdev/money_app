@@ -11,7 +11,7 @@ class CustomWidgets {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Konfirmasi"),
+          title: const Text("Konfirmasi"),
           content: Text(content),
           actions: [
             ElevatedButton(

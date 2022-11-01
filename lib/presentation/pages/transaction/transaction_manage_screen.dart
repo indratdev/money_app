@@ -29,7 +29,8 @@ class TransactionManageScreen extends StatelessWidget {
       isDefault: 1);
   // Transaction? tempData =
   //     Transaction(createdTime: '', idCategory: 0, title: '');
-  static final _formKey = GlobalKey<FormState>();
+  // static final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController deskriptionController = TextEditingController();
@@ -44,11 +45,11 @@ class TransactionManageScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Ubah Transaksi"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pushReplacementNamed(context, AppRoutes.first);
-            // context.read<TransactionBloc>().add(ReadTransactionEvent(
-            //     transactionDateTime: DateUtil().getCurrentDate()));
+            context.read<TransactionBloc>().add(ReadTransactionEvent(
+                transactionDateTime: DateUtil().getCurrentDate()));
           },
         ),
         actions: <Widget>[
@@ -101,7 +102,7 @@ class TransactionManageScreen extends StatelessWidget {
                 data!.isModifield = 1;
               }
               return Form(
-                key: _formKey,
+                key: formKey,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -337,8 +338,8 @@ class TransactionManageScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 2,
                           child: ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
                                 // action save
                                 context.read<TransactionBloc>().add(
                                     UpdateTransactionEvent(

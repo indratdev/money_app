@@ -14,7 +14,9 @@ import '../settings/category/bloc/category_bloc.dart';
 class TransactionScreen extends StatelessWidget {
   TransactionScreen({Key? key}) : super(key: key);
 
-  static final _formKeyTrx = GlobalKey<FormState>();
+  // static final _formKeyTrx = GlobalKey<FormState>();
+  GlobalKey<FormState> formKeyTrx = GlobalKey<FormState>();
+
   // late FocusNode myFocusNode = FocusNode();
   TextEditingController nameController = TextEditingController();
   TextEditingController deskriptionController = TextEditingController();
@@ -23,7 +25,7 @@ class TransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Transaction transaction =
-        Transaction(idCategory: 0, title: "", createdTime: todayTime);
+        Transaction(idCategory: 1, title: "", createdTime: todayTime);
 
     // String selectedImage = "collect-interest";
     Category category = Category(
@@ -46,6 +48,11 @@ class TransactionScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          // if (state is SuccessCallbackIconCategory) {
+          //   print(">>>> state2: ${state.value}");
+          //   category = state.value;
+          //   transaction.idCategory = state.value.id!;
+          // }
           return BlocConsumer<TransactionBloc, TransactionState>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -56,7 +63,7 @@ class TransactionScreen extends StatelessWidget {
                 transaction.createdTime = state.result;
               }
               return Form(
-                key: _formKeyTrx,
+                key: formKeyTrx,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -268,8 +275,9 @@ class TransactionScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 2,
                           child: ElevatedButton(
                             onPressed: () {
-                              if (_formKeyTrx.currentState!.validate()) {
-                                _formKeyTrx.currentState!.save();
+                              if (formKeyTrx.currentState!.validate()) {
+                                formKeyTrx.currentState!.save();
+                                // print(">> transaksi  : $transaction");
                                 // action save
                                 context.read<TransactionBloc>()
                                   ..add(SaveTransactionNew(value: transaction))
