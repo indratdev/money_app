@@ -21,6 +21,12 @@ class ReadIconCategoryDefault extends CategoryEvent {
   ReadIconCategoryDefault({required this.isDefault});
 }
 
+class ChangeIconCategory extends CategoryEvent {
+  Category categoryValue;
+
+  ChangeIconCategory({required this.categoryValue});
+}
+
 class SelectedIconEvent extends CategoryEvent {
   String iconName;
 

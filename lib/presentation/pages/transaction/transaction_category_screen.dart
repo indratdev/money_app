@@ -3,10 +3,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 
-class TransactionCategoryScreen extends StatelessWidget {
+class TransactionCategoryScreen extends StatefulWidget {
   TransactionCategoryScreen({super.key});
 
+  @override
+  State<TransactionCategoryScreen> createState() =>
+      _TransactionCategoryScreenState();
+}
+
+class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
   List<Category>? listCategoryIcon;
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CategoryBloc>().add(ReadIconCategoryDefault(isDefault: 0));
+  }
+
   // String selectedIconName = "";
   Category? selectedCatecory = Category(
       name: "Bunga",
@@ -20,7 +34,7 @@ class TransactionCategoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false,
-        title: Text("Pilih Kategori"),
+        title: const Text("Pilih Kategori"),
         actions: [
           TextButton(
             onPressed: () {
@@ -47,6 +61,10 @@ class TransactionCategoryScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is SuccessReadIconCategoryDefault) {
             listCategoryIcon = state.result;
+          }
+
+          if (state is SuccessChangeIconCategory) {
+            selectedCatecory = state.categoryValue;
           }
           return ListView.builder(
             padding: const EdgeInsets.all(8),

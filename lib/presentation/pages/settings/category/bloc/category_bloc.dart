@@ -42,12 +42,10 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     });
 
     on<ReadIconCategoryDefault>((event, emit) async {
-      print("ReadCategory runinggg...");
       try {
         emit(LoadingReadIconCategoryDefault());
         final result = await _getCategoryCases
             .executeReadIconCategoryDefault(event.isDefault);
-        print("resultttttt ReadIconCategoryDefault: $result");
         result.fold(
             (l) =>
                 emit(FailureReadIconCategoryDefault(messageError: l.message)),
@@ -154,6 +152,14 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             (r) => emit(SuccessDeleteCategory()));
       } catch (e) {
         emit(FailureDeleteCategory(messageError: "FailureDeleteCategory e"));
+      }
+    });
+
+    on<ChangeIconCategory>((event, emit) {
+      try {
+        emit(SuccessChangeIconCategory(categoryValue: event.categoryValue));
+      } catch (e) {
+        print(e);
       }
     });
   }

@@ -65,7 +65,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
       isdefault) async {
     try {
       final result = await localDataSource.readCategory(isdefault);
-      print("result ::: $result");
       return Right(result.toList());
     } on ServerException {
       return Left(const ServerFailure(''));

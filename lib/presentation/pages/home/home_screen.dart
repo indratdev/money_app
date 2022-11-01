@@ -7,6 +7,7 @@ import 'package:money_app/data/repositories/transaction_repository_impl.dart';
 import 'package:money_app/domain/entities/calculationE.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
+import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
@@ -29,16 +30,16 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: BlocConsumer<TransactionBloc, TransactionState>(
             listener: (context, state) {
-              if (state is SuccessUpdateTransaction) {
-                CustomWidgets.showMessageAlertBasic(
-                    context, "Transaksi Berhasil Diperbaharui");
-                context.read<TransactionBloc>().add(ReadTransactionEvent(
-                    transactionDateTime: DateUtil().getCurrentDate()));
-              }
-              if (state is SuccessDeleteTransaction) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Data Berhasil dihapus")));
-              }
+              // if (state is SuccessUpdateTransaction) {
+              //   CustomWidgets.showMessageAlertBasic(
+              //       context, "Transaksi Berhasil Diperbaharui");
+              //   context.read<TransactionBloc>().add(ReadTransactionEvent(
+              //       transactionDateTime: DateUtil().getCurrentDate()));
+              // }
+              // if (state is SuccessDeleteTransaction) {
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //       SnackBar(content: Text("Data Berhasil dihapus")));
+              // }
 
               if (state is SuccessReadTransaction) {
                 listTransaction =
@@ -88,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                           onPressed: () {
                             String date = DateUtil().operationDate(
                                 selectedDate, OptionDate.days, 1);
-                            print(">>>>> dateeee : $date");
+
                             context.read<TransactionBloc>().add(
                                 ReadTransactionEvent(
                                     transactionDateTime: date));
@@ -197,6 +198,10 @@ class HomeScreen extends StatelessWidget {
                             //               data: data,
                             //             )),
                             //     (route) => false);
+                            print(">>>>> data:: $data");
+                            context.read<CategoryBloc>().add(
+                                ReadCategoryByIdEvent(
+                                    idCategory: data.idCategory));
                             Navigator.of(context, rootNavigator: true)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) =>
@@ -204,7 +209,7 @@ class HomeScreen extends StatelessWidget {
                                           data: data,
                                         )));
 
-                            print(">>> tapped : ${listTransaction?[index]}");
+                            // print(">>> tapped : ${listTransaction?[index]}");
                           },
                           child: ListTile(
                             contentPadding: EdgeInsets.all(8),

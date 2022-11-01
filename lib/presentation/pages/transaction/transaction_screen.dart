@@ -14,7 +14,7 @@ import '../settings/category/bloc/category_bloc.dart';
 class TransactionScreen extends StatelessWidget {
   TransactionScreen({Key? key}) : super(key: key);
 
-  static final _formKey = GlobalKey<FormState>();
+  static final _formKeyTrx = GlobalKey<FormState>();
   // late FocusNode myFocusNode = FocusNode();
   TextEditingController nameController = TextEditingController();
   TextEditingController deskriptionController = TextEditingController();
@@ -23,7 +23,7 @@ class TransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Transaction transaction =
-        Transaction(idCategory: 1, title: "", createdTime: todayTime);
+        Transaction(idCategory: 0, title: "", createdTime: todayTime);
 
     // String selectedImage = "collect-interest";
     Category category = Category(
@@ -33,14 +33,6 @@ class TransactionScreen extends StatelessWidget {
         modifieldTime: "",
         isDefault: 1);
 
-    // int? groupValue = 0;
-    // DateTime? dateTime;
-    // String selectedImage = "collect-interest";
-
-    // final halfMediaWidth = MediaQuery.of(context).size.width - 10;
-    // final mediaHeight = MediaQuery.of(context).size.height / 3;
-    // var today = DateTime.now().toString;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Transaksi"),
@@ -48,6 +40,7 @@ class TransactionScreen extends StatelessWidget {
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {
           if (state is SuccessCallbackIconCategory) {
+            print(">>>> state: ${state.value}");
             category = state.value;
             transaction.idCategory = state.value.id!;
           }
@@ -63,7 +56,7 @@ class TransactionScreen extends StatelessWidget {
                 transaction.createdTime = state.result;
               }
               return Form(
-                key: _formKey,
+                key: _formKeyTrx,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -147,9 +140,11 @@ class TransactionScreen extends StatelessWidget {
                                     SB_Height10,
                                     InkWell(
                                       onTap: () {
-                                        context.read<CategoryBloc>().add(
-                                            ReadIconCategoryDefault(
-                                                isDefault: 0));
+                                        if (transaction.idCategory > 0) {
+                                          context.read<CategoryBloc>().add(
+                                              ChangeIconCategory(
+                                                  categoryValue: category));
+                                        }
 
                                         Navigator.of(context,
                                                 rootNavigator: true)
@@ -273,8 +268,8 @@ class TransactionScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 2,
                           child: ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
+                              if (_formKeyTrx.currentState!.validate()) {
+                                _formKeyTrx.currentState!.save();
                                 // action save
                                 context.read<TransactionBloc>()
                                   ..add(SaveTransactionNew(value: transaction))

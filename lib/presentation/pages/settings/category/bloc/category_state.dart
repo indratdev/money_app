@@ -172,3 +172,12 @@ class SuccessCallbackIconCategory extends CategoryState {
   @override
   List<Object> get props => [value];
 }
+
+class SuccessChangeIconCategory extends CategoryState {
+  Category categoryValue;
+
+  SuccessChangeIconCategory({required this.categoryValue});
+
+  @override
+  List<Object> get props => [categoryValue];
+}

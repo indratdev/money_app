@@ -6,6 +6,7 @@ import 'package:money_app/presentation/widgets/customWidgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../config/menus/menus.dart';
+import '../data/date_util.dart';
 
 class MoneyappScreen extends StatelessWidget {
   MoneyappScreen({Key? key}) : super(key: key);
@@ -19,9 +20,24 @@ class MoneyappScreen extends StatelessWidget {
       child: BlocConsumer<TransactionBloc, TransactionState>(
         listener: (context, state) {
           print(">>>>> state : $state");
+          if (state is SuccessUpdateTransaction) {
+            CustomWidgets.showMessageAlertBasic(
+                context, "Transaksi Berhasil Diperbaharui");
+            context.read<TransactionBloc>().add(ReadTransactionEvent(
+                transactionDateTime: DateUtil().getCurrentDate()));
+          }
+          if (state is SuccessDeleteTransaction) {
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text("Data Berhasil dihapus")));
+            CustomWidgets.showMessageAlertBasic(
+                context, "Transaksi Berhasil Dihapus");
+          }
+
           if (state is SuccessSaveTransactionNew) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Data Berhasil Ditambahkan")));
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("Data Berhasil Ditambahkan")));
+            CustomWidgets.showMessageAlertBasic(
+                context, "Transaksi Berhasil Ditambahkan");
             // }
           }
         },
