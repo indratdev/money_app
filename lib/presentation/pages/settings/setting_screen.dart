@@ -15,7 +15,6 @@ class SettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pengaturan'),
-        centerTitle: true,
       ),
       body: Column(
         children: <Widget>[

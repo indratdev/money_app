@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
@@ -43,9 +44,10 @@ class MyApp extends StatelessWidget {
         initialRoute: AppRoutes.splash,
         routes: routes.getRoutes,
         theme: ThemeData(
-          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
-          // fontFamily: GoogleFonts.poppins(),
-        ),
+            textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
+            appBarTheme: AppBarTheme(color: lightBlue, centerTitle: false)
+            // fontFamily: GoogleFonts.poppins(),
+            ),
       ),
     );
   }

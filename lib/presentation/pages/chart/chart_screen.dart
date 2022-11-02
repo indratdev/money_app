@@ -9,9 +9,9 @@ import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 
 import '../../../data/date_util.dart';
 import '../../../data/repositories/transaction_repository_impl.dart';
-import 'dart:math' as math;
+// import 'dart:math' as math;
 
-import '../../../domain/entities/calculationE.dart';
+// import '../../../domain/entities/calculationE.dart';
 
 class ChartScreen extends StatelessWidget {
   ChartScreen({super.key});
@@ -26,6 +26,7 @@ class ChartScreen extends StatelessWidget {
     // List<ChartCalculation>? resultChart;
 
     return Scaffold(
+      backgroundColor: Colors.amber,
       appBar: AppBar(
         title: const Text("Laporan"),
       ),
@@ -49,143 +50,178 @@ class ChartScreen extends StatelessWidget {
               // print("@@==>==> ${resultChart}");
             }
 
-            return Column(
-              children: <Widget>[
-                // container tanggal
-                Container(
-                  height: MediaQuery.of(context).size.height / 14,
-                  color: Colors.amber,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          String date = dates.operationDate(
-                              selectedDate, OptionDate.month, 0);
-                          context.read<ChartBloc>().add(
-                              ReadChartDefaultEvent(transactionDateTime: date));
-                        },
-                        icon: Icon(Icons.arrow_left_sharp),
+            return Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                  colors: bloomColor,
+                ),
+              ),
+              child: Column(
+                children: <Widget>[
+                  // // container tanggal
+                  Container(
+                    // height: MediaQuery.of(context).size.height / 14,
+                    // color: Colors.amber,
+                    margin: const EdgeInsets.only(
+                        top: 8, right: 8, left: 8, bottom: 25),
+                    height: MediaQuery.of(context).size.height / 14,
+                    color: Color.fromRGBO(0, 0, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Container(
+                          decoration: arrowDecor,
+                          child: IconButton(
+                            onPressed: () {
+                              String date = dates.operationDate(
+                                  selectedDate, OptionDate.month, 0);
+                              context.read<ChartBloc>().add(
+                                  ReadChartDefaultEvent(
+                                      transactionDateTime: date));
+                            },
+                            icon: const Icon(Icons.arrow_left_sharp),
+                          ),
+                        ),
+                        Container(
+                          decoration: arrowDecor,
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: double.infinity,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              (selectedDate == ""
+                                  ? dates.currentDate
+                                  : dates.formatedMMMyyy(selectedDate)),
+                              softWrap: true,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: arrowDecor,
+                          child: IconButton(
+                            onPressed: () {
+                              String date = dates.operationDate(
+                                  selectedDate, OptionDate.month, 1);
+                              context.read<ChartBloc>().add(
+                                  ReadChartDefaultEvent(
+                                      transactionDateTime: date));
+                            },
+                            icon: const Icon(Icons.arrow_right_sharp),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SB_Height10,
+                  Column(
+                    children: [
+                      const Text(
+                        "Pendapatan",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      Text((selectedDate == ""
-                          ? dates.currentDate
-                          : dates.formatedMMMyyy(selectedDate))),
-                      IconButton(
-                        onPressed: () {
-                          String date = dates.operationDate(
-                              selectedDate, OptionDate.month, 1);
-                          context.read<ChartBloc>().add(
-                              ReadChartDefaultEvent(transactionDateTime: date));
-                        },
-                        icon: Icon(Icons.arrow_right_sharp),
+                      SizedBox(
+                        height: 200,
+                        width: 300,
+                        child: PieChart(
+                          PieChartData(
+                            borderData: FlBorderData(show: false),
+                            sectionsSpace: 3,
+                            centerSpaceRadius: 40,
+                            sections: showingSections(resultChart, 0),
+                          ),
+                          swapAnimationCurve: Curves.easeInOutCubic,
+                          swapAnimationDuration: Duration(milliseconds: 1000),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: 30, top: 10, right: 30, bottom: 30),
+                        height: 200,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: ShowingDetailSection(
+                            resultChart: resultChart, isOutcome: 0),
                       ),
                     ],
                   ),
-                ),
-                SB_Height20,
-                Column(
-                  children: [
-                    const Text(
-                      "Pendapatan",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200,
-                      width: 300,
-                      child: PieChart(
-                        PieChartData(
-                          borderData: FlBorderData(show: false),
-                          sectionsSpace: 3,
-                          centerSpaceRadius: 40,
-                          sections: showingSections(resultChart, 0),
-                        ),
-                        swapAnimationCurve: Curves.easeInOutCubic,
-                        swapAnimationDuration: Duration(milliseconds: 1000),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: 30, top: 10, right: 30, bottom: 30),
-                      height: 200,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: ShowingDetailSection(
-                          resultChart: resultChart, isOutcome: 0),
-                    ),
-                  ],
-                ),
 
-                SB_Height20,
-                Column(
-                  children: [
-                    const Text(
-                      "Pengeluaran",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200,
-                      width: 300,
-                      child: PieChart(
-                        PieChartData(
-                          borderData: FlBorderData(show: false),
-                          sectionsSpace: 3,
-                          centerSpaceRadius: 40,
-                          sections: showingSections(resultChart, 1),
+                  SB_Height20,
+                  Column(
+                    children: [
+                      const Text(
+                        "Pengeluaran",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
                         ),
-                        swapAnimationCurve: Curves.easeInOutCubic,
-                        swapAnimationDuration:
-                            const Duration(milliseconds: 1000),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                          left: 30, top: 10, right: 30, bottom: 30),
-                      height: 200,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
+                      SizedBox(
+                        height: 200,
+                        width: 300,
+                        child: PieChart(
+                          PieChartData(
+                            borderData: FlBorderData(show: false),
+                            sectionsSpace: 3,
+                            centerSpaceRadius: 40,
+                            sections: showingSections(resultChart, 1),
                           ),
-                        ],
+                          swapAnimationCurve: Curves.easeInOutCubic,
+                          swapAnimationDuration:
+                              const Duration(milliseconds: 1000),
+                        ),
                       ),
-                      child: ShowingDetailSection(
-                          resultChart: resultChart, isOutcome: 1),
-                    ),
-                  ],
-                ),
-              ],
+                      Container(
+                        margin: const EdgeInsets.only(
+                            left: 30, top: 10, right: 30, bottom: 30),
+                        height: 200,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: ShowingDetailSection(
+                            resultChart: resultChart, isOutcome: 1),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             );
           },
         ),

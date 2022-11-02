@@ -46,24 +46,7 @@ class CustomWidgets {
   }
 }
 
-static showNoDataWidget(){
-  Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    AspectRatio(
-                                      aspectRatio: 21 / 9,
-                                      child: Image.asset(
-                                        'assets/images/nodata.png',
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text("Tidak ada data"),
-                                  ],
-                                ),
-                              )
-}
+
 
 
 // <a href="https://www.flaticon.com/free-icons/empty" title="empty icons">Empty icons created by Freepik - Flaticon</a>
