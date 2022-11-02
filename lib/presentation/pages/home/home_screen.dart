@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +12,8 @@ import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
+
+import '../../widgets/no_data_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -241,50 +245,54 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         // margin: EdgeInsets.only(top: 20),
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) =>
-                              const Divider(color: Colors.black26),
-                          itemCount: listTransaction?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Transaction data = listTransaction![index];
-                                context.read<CategoryBloc>().add(
-                                    ReadCategoryByIdEvent(
-                                        idCategory: data.idCategory));
-                                Navigator.of(context, rootNavigator: true)
-                                    .pushReplacement(MaterialPageRoute(
-                                        builder: (context) =>
-                                            TransactionManageScreen(
-                                              data: data,
-                                            )));
+                        // (listTransaction.length == 0) ?
+                        child: (listTransaction?.length == 0)
+                            ? const NoDataWidget()
+                            : ListView.separated(
+                                separatorBuilder: (context, index) =>
+                                    const Divider(color: Colors.black26),
+                                itemCount: listTransaction?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      Transaction data =
+                                          listTransaction![index];
+                                      context.read<CategoryBloc>().add(
+                                          ReadCategoryByIdEvent(
+                                              idCategory: data.idCategory));
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pushReplacement(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TransactionManageScreen(
+                                                    data: data,
+                                                  )));
 
-                                // print(">>> tapped : ${listTransaction?[index]}");
-                              },
-                              child: ListTile(
-                                contentPadding: EdgeInsets.all(8),
-                                leading: CircleAvatar(
-                                  radius: 25,
-                                  foregroundColor: Colors.transparent,
-                                  child: ClipOval(
-                                    child: Image.asset(
-                                      'assets/icons/${listTransaction?[index].categoryIconName}.png',
-                                      fit: BoxFit.fill,
+                                      // print(">>> tapped : ${listTransaction?[index]}");
+                                    },
+                                    child: ListTile(
+                                      contentPadding: EdgeInsets.all(8),
+                                      leading: CircleAvatar(
+                                        radius: 25,
+                                        foregroundColor: Colors.transparent,
+                                        child: ClipOval(
+                                          child: Image.asset(
+                                            'assets/icons/${listTransaction?[index].categoryIconName}.png',
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ),
+                                      title: Text(
+                                          "${listTransaction?[index].title.toString()}"),
+                                      trailing: Text(
+                                        "Rp. ${formatterThousand.format(
+                                          double.tryParse(
+                                              "${listTransaction?[index].amount}"),
+                                        )}",
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                title: Text(
-                                    "${listTransaction?[index].title.toString()}"),
-                                trailing: Text(
-                                  "Rp. ${formatterThousand.format(
-                                    double.tryParse(
-                                        "${listTransaction?[index].amount}"),
-                                  )}",
-                                ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       ),
                     ),
                   ],
