@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../data/constants.dart';
+
 class NoDataWidget extends StatelessWidget {
   const NoDataWidget({
     Key? key,
@@ -15,13 +17,22 @@ class NoDataWidget extends StatelessWidget {
           AspectRatio(
             aspectRatio: 21 / 9,
             child: Image.asset(
-              'assets/images/nodata.png',
+              noDataImage,
+              opacity: const AlwaysStoppedAnimation(0.4),
             ),
           ),
           const SizedBox(height: 5),
-          const Text(
-            "Tidak ada data",
-            style: TextStyle(fontWeight: FontWeight.w800),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2.5,
+            height: MediaQuery.of(context).size.width / 14,
+            // color: Colors.red,
+            child: const FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                "Tidak ada data",
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
+            ),
           ),
         ],
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_app/domain/entities/transaction.dart';
+
 import 'package:money_app/presentation/pages/settings/category/category_add_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_updel_screen.dart';

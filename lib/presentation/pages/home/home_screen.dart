@@ -54,7 +54,6 @@ class HomeScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is SuccessReadTransaction) {
-                  // listTransaction = state.result;
                   listTransaction =
                       state.result[TransactionEnum.transaction.name];
                   selectedDate = state.result[TransactionEnum.dateselected.name]
@@ -77,28 +76,37 @@ class HomeScreen extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             decoration: arrowDecor,
-                            child: IconButton(
-                              onPressed: () {
-                                String date = DateUtil().operationDate(
-                                    selectedDate, OptionDate.days, 0);
-                                context.read<TransactionBloc>().add(
-                                    ReadTransactionEvent(
-                                        transactionDateTime: date));
-                              },
-                              icon: const Icon(Icons.arrow_left_sharp),
+                            child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              alignment: Alignment.center,
+                              child: IconButton(
+                                onPressed: () {
+                                  String date = DateUtil().operationDate(
+                                      selectedDate, OptionDate.days, 0);
+                                  context.read<TransactionBloc>().add(
+                                      ReadTransactionEvent(
+                                          transactionDateTime: date));
+                                },
+                                icon: const Icon(Icons.arrow_left_sharp),
+                              ),
                             ),
                           ),
                           Container(
                             decoration: arrowDecor,
                             width: MediaQuery.of(context).size.width / 2,
                             height: double.infinity,
-                            child: Align(
+                            child: FittedBox(
+                              fit: BoxFit.fitWidth,
                               alignment: Alignment.center,
-                              child: Text(
-                                selectedDate,
-                                softWrap: true,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500),
+                              child: Padding(
+                                padding: const EdgeInsets.all(30.0),
+                                child: Text(
+                                  selectedDate,
+                                  softWrap: true,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500),
+                                ),
                               ),
                             ),
                           ),
@@ -121,20 +129,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     // container calculation
                     Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white54,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(27),
-                            bottomLeft: Radius.circular(27),
-                            bottomRight: Radius.circular(10),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0, -5),
-                                blurRadius: 8.0)
-                          ]),
+                      decoration: calculationDecor,
                       height: MediaQuery.of(context).size.height / 10,
                       margin: EdgeInsets.only(
                           top: 8, bottom: 25, left: 10, right: 10),
@@ -143,7 +138,7 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             // color: Colors.red,
                             // margin: EdgeInsets.all(8),
                             height: MediaQuery.of(context).size.height / 5,
@@ -165,14 +160,12 @@ class HomeScreen extends StatelessWidget {
                                 Text(
                                   listCalculation?[0].expense.toString() ??
                                       "0.0",
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 ),
                               ],
                             ),
                           ),
-                          Container(
-                            // color: Colors.blue,
-                            // margin: EdgeInsets.all(8),
+                          SizedBox(
                             height: MediaQuery.of(context).size.height / 5,
                             width: widhtContainer -
                                 10, //MediaQuery.of(context).size.width / 5,
@@ -228,27 +221,13 @@ class HomeScreen extends StatelessWidget {
 
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(35),
-                              bottomRight: Radius.circular(5.0),
-                              topLeft: Radius.circular(5.0),
-                              bottomLeft: Radius.circular(5.0)),
-                          color: lightMildWaters,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF50A7D9),
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        // margin: EdgeInsets.only(top: 20),
-                        // (listTransaction.length == 0) ?
+                        decoration: listDataDecor,
                         child: (listTransaction?.length == 0)
                             ? const NoDataWidget()
                             : ListView.separated(
                                 separatorBuilder: (context, index) =>
-                                    const Divider(color: Colors.black26),
+                                    const Divider(
+                                        color: Colors.black54, height: 1),
                                 itemCount: listTransaction?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   return InkWell(
@@ -259,13 +238,14 @@ class HomeScreen extends StatelessWidget {
                                           ReadCategoryByIdEvent(
                                               idCategory: data.idCategory));
                                       Navigator.of(context, rootNavigator: true)
-                                          .pushReplacement(MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TransactionManageScreen(
-                                                    data: data,
-                                                  )));
-
-                                      // print(">>> tapped : ${listTransaction?[index]}");
+                                          .pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              TransactionManageScreen(
+                                            data: data,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: ListTile(
                                       contentPadding: EdgeInsets.all(8),
