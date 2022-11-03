@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,7 +43,7 @@ class ChartScreen extends StatelessWidget {
               resultChart[TransactionType.income.name] =
                   state.result[TransactionType.income.name];
 
-              print("==>==> ${state.result[TransactionType.expenses.name]}");
+              // print("==>==> ${state.result[TransactionType.expenses.name]}");
               // print("@@==>==> ${state.result}");
               // print("@@==>==> ${resultChart}");
             }
@@ -117,108 +115,86 @@ class ChartScreen extends StatelessWidget {
                     ),
                   ),
                   SB_Height10,
-                  Column(
-                    children: [
-                      const Text(
-                        "Pendapatan",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 200,
-                        width: 300,
-                        child: PieChart(
-                          PieChartData(
-                            borderData: FlBorderData(show: false),
-                            sectionsSpace: 3,
-                            centerSpaceRadius: 40,
-                            sections: showingSections(resultChart, 0),
+                  Container(
+                    decoration: customCircularBox(),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Pendapatan",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
                           ),
-                          swapAnimationCurve: Curves.easeInOutCubic,
-                          swapAnimationDuration: Duration(milliseconds: 1000),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            left: 30, top: 10, right: 30, bottom: 30),
-                        height: 200,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset:
-                                  Offset(0, 3), // changes position of shadow
+                        SizedBox(
+                          height: 200,
+                          width: 300,
+                          child: PieChart(
+                            PieChartData(
+                              borderData: FlBorderData(show: false),
+                              sectionsSpace: 3,
+                              centerSpaceRadius: 40,
+                              sections: showingSections(resultChart, 0),
                             ),
-                          ],
+                            swapAnimationCurve: Curves.easeInOutCubic,
+                            swapAnimationDuration: Duration(milliseconds: 1000),
+                          ),
                         ),
-                        child: ShowingDetailSection(
-                            resultChart: resultChart, isOutcome: 0),
-                      ),
-                    ],
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: 30, top: 10, right: 30, bottom: 30),
+                          height: 200,
+                          width: 300,
+                          decoration: customCircularBox(color: Colors.white),
+                          child: ShowingDetailSection(
+                              resultChart: resultChart, isOutcome: 0),
+                        ),
+                      ],
+                    ),
                   ),
 
-                  SB_Height20,
-                  Column(
-                    children: [
-                      const Text(
-                        "Pengeluaran",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 200,
-                        width: 300,
-                        child: PieChart(
-                          PieChartData(
-                            borderData: FlBorderData(show: false),
-                            sectionsSpace: 3,
-                            centerSpaceRadius: 40,
-                            sections: showingSections(resultChart, 1),
+                  SB_Height30,
+                  Container(
+                    decoration: customCircularBox(),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Pengeluaran",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
                           ),
-                          swapAnimationCurve: Curves.easeInOutCubic,
-                          swapAnimationDuration:
-                              const Duration(milliseconds: 1000),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 30, top: 10, right: 30, bottom: 30),
-                        height: 200,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
+                        SizedBox(
+                          height: 200,
+                          width: 300,
+                          child: PieChart(
+                            PieChartData(
+                              borderData: FlBorderData(show: false),
+                              sectionsSpace: 3,
+                              centerSpaceRadius: 40,
+                              sections: showingSections(resultChart, 1),
                             ),
-                          ],
+                            swapAnimationCurve: Curves.easeInOutCubic,
+                            swapAnimationDuration:
+                                const Duration(milliseconds: 1000),
+                          ),
                         ),
-                        child: ShowingDetailSection(
-                            resultChart: resultChart, isOutcome: 1),
-                      ),
-                    ],
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 30, top: 10, right: 30, bottom: 30),
+                          height: 200,
+                          width: 300,
+                          decoration: customCircularBox(color: Colors.white),
+                          child: ShowingDetailSection(
+                              resultChart: resultChart, isOutcome: 1),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
