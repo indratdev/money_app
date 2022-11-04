@@ -24,7 +24,7 @@ class ChartScreen extends StatelessWidget {
     // List<ChartCalculation>? resultChart;
 
     return Scaffold(
-      backgroundColor: Colors.amber,
+      // backgroundColor: Colors.amber,
       appBar: AppBar(
         title: const Text("Laporan"),
       ),
@@ -66,6 +66,7 @@ class ChartScreen extends StatelessWidget {
                         top: 8, right: 8, left: 8, bottom: 25),
                     height: MediaQuery.of(context).size.height / 14,
                     color: Color.fromRGBO(0, 0, 0, 0),
+                    // color: Color(8388608),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[

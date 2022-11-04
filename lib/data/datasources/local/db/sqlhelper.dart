@@ -12,7 +12,7 @@ class SqlHelper {
   final String dbName = 'dbmoney.db';
   final String tableTransaction = 'th_transaction';
   final String tableMasterCategory = 'm_category';
-  // final String tableOpsCategory = 'ops_category';
+  final String tableMasterColors = 'm_colors';
 
   // init tables
   initDB(Database db) async {
@@ -44,6 +44,17 @@ class SqlHelper {
       )
       ''');
 
+    // create table master colors
+    await db.execute('''
+       CREATE TABLE $tableMasterColors    (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      hex_code TEXT NULL,
+      int_code INTEGER NULL,
+      rgb_code TEXT NULL
+      )
+      ''');
+
     // create table ops category
     // await db.execute('''
     // CREATE TABLE $tableOpsCategory    (
@@ -63,8 +74,10 @@ class SqlHelper {
   initDefaultDB(Database db) {
     // var createTime = DateTime.now().toString();
 
-    // insert default master category
-    inserMasterCategory(db, tableMasterCategory);
+    inserMasterCategory(
+        db, tableMasterCategory); // insert default master category
+
+    inserMasterColors(db, tableMasterColors); // insert default master category
 
     // insert default ops category
     // insertOpsCategory(db, tableOpsCategory, createTime);
@@ -272,19 +285,40 @@ class SqlHelper {
     }
 
     String query = """     
-    select 
-	    ct.name as categoryName
-	    , sum(trx.amount) as amount
-	    , round(sum(trx.amount) * 100.0 / sum(sum(trx.amount)) over(),2) as persentase
-      , cast(substr(abs(random() % 10 * 0xFFFFFF) ,0,8) as integer) as colors
-    from th_transaction trx 
-    join m_category ct on ct.id = trx.idCategory
-    where 
-      trx.idCategory <> 0
-      and trx.isOutcome = $isOutcome
-      and trx.createdTime like '%$dateSub%'
-      group by ct.name
-    ;
+        select 
+      A.categoryName as categoryName
+      , A.amount as amount
+      , A.persentase as persentase
+      , B.int_code  as colors
+    from
+    (
+      select 
+        row_number() over (order by ct.name) as row_num
+        ,ct.name as categoryName
+        , sum(trx.amount) as amount 
+        , round(sum(trx.amount) * 100.0 / sum(sum(trx.amount)) over(),2) as persentase 
+      from $tableTransaction trx
+      join $tableMasterCategory ct on ct.id = trx.idCategory
+        where 
+          trx.idCategory <> 0
+          and trx.isOutcome = $isOutcome
+          and trx.createdTime like '%$dateSub%'
+          group by ct.name
+    ) A
+    join
+    (
+      select 
+        row_number() over (order by name) as row_num
+        , id
+        , name
+        , hex_code
+        , int_code
+        , rgb_code
+        
+      from $tableMasterColors
+    ) B
+    on  A.row_num=B.row_num
+    ORDER BY A.persentase
     """;
 
     if (db != null) {
@@ -373,6 +407,221 @@ class SqlHelper {
   //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'REKREASI', 'umbrellaBeach', 1, 1, '$createTime', '');   ''');
   // }
 
+  inserMasterColors(Database db, String tableMasterColors) async {
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('maroon', '800000', 8388608, '(128,0,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('brown', 'A52A2A', 10824234, '(165,42,42)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('crimson', 'DC143C', 14423100, '(220,20,60)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('tomato', 'FF6347', 16737095, '(255,99,71)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('indian red', 'CD5C5C', 13458524, '(205,92,92)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark salmon', 'E9967A', 15308410, '(233,150,122)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('salmon', 'FA8072', 16416882, '(250,128,114)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('orange red', 'FF4500', 16729344, '(255,69,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark orange', 'FF8C00', 16747520, '(255,140,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('gold', 'FFD700', 16766720, '(255,215,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark golden rod', 'B8860B', 12092939, '(184,134,11)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('golden rod', 'DAA520', 14329120, '(218,165,32)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('pale golden rod', 'EEE8AA', 15657130, '(238,232,170)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark khaki', 'BDB76B', 12433259, '(189,183,107)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('khaki', 'F0E68C', 15787660, '(240,230,140)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('olive', '808000', 8421376, '(128,128,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('yellow', 'FFFF00', 16776960, '(255,255,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('yellow green', '9ACD32', 10145074, '(154,205,50)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark olive green', '556B2F', 5597999, '(85,107,47)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('olive drab', '6B8E23', 7048739, '(107,142,35)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('lawn green', '7CFC00', 8190976, '(124,252,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark green', '6400', 25600, '(0,100,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('forest green', '228B22', 2263842, '(34,139,34)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('lime green', '32CD32', 3329330, '(50,205,50)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light green', '90EE90', 9498256, '(144,238,144)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark sea green', '8FBC8F', 9419919, '(143,188,143)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium spring green', '00FA9A', 64154, '(0,250,154)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('spring green', '00FF7F', 65407, '(0,255,127)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('sea green', '2E8B57', 3050327, '(46,139,87)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium aquamarine', '66CDAA', 6737322, '(102,205,170)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium sea green', '3CB371', 3978097, '(60,179,113)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light sea green', '20B2AA', 2142890, '(32,178,170)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark slate gray', '2F4F4F', 3100495, '(47,79,79)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark cyan', '008B8B', 35723, '(0,139,139)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('aqua', '00FFFF', 65535, '(0,255,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light cyan', 'E0FFFF', 14745599, '(224,255,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark turquoise', '00CED1', 52945, '(0,206,209)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('turquoise', '40E0D0', 4251856, '(64,224,208)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('pale turquoise', 'AFEEEE', 11529966, '(175,238,238)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('aquamarine', '7FFFD4', 8388564, '(127,255,212)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('powder blue', 'B0E0E6', 11591910, '(176,224,230)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('cadet blue', '5F9EA0', 6266528, '(95,158,160)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('steel blue', '4682B4', 4620980, '(70,130,180)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('cornflower blue', '6495ED', 6591981, '(100,149,237)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('deep sky blue', '00BFFF', 49151, '(0,191,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dodger blue', '1E90FF', 2003199, '(30,144,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light blue', 'ADD8E6', 11393254, '(173,216,230)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('sky blue', '87CEEB', 8900331, '(135,206,235)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light sky blue', '87CEFA', 8900346, '(135,206,250)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('midnight blue', '191970', 1644912, '(25,25,112)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium blue', '0000CD', 205, '(0,0,205)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('blue', '0000FF', 255, '(0,0,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('royal blue', '41690', 267920, '(65,105,225)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('blue violet', '8A2BE2', 9055202, '(138,43,226)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('indigo', '4B0082', 4915330, '(75,0,130)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('slate blue', '6A5ACD', 6970061, '(106,90,205)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium slate blue', '7B68EE', 8087790, '(123,104,238)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium purple', '9370DB', 9662683, '(147,112,219)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark magenta', '8B008B', 9109643, '(139,0,139)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark violet', '9400D3', 9699539, '(148,0,211)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium orchid', 'BA55D3', 12211667, '(186,85,211)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('purple', '800080', 8388736, '(128,0,128)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('thistle', 'D8BFD8', 14204888, '(216,191,216)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('plum', 'DDA0DD', 14524637, '(221,160,221)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('violet', 'EE82EE', 15631086, '(238,130,238)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('fuchsia', 'FF00FF', 16711935, '(255,0,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('orchid', 'DA70D6', 14315734, '(218,112,214)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('medium violet red', 'C71585', 13047173, '(199,21,133)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('pale violet red', 'DB7093', 14381203, '(219,112,147)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('deep pink', 'FF1493', 16716947, '(255,20,147)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('hot pink', 'FF69B4', 16738740, '(255,105,180)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light pink', 'FFB6C1', 16758465, '(255,182,193)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('pink', 'FFC0CB', 16761035, '(255,192,203)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('beige', 'F5F5DC', 16119260, '(245,245,220)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('blanched almond', 'FFEBCD', 16772045, '(255,235,205)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light yellow', 'FFFFE0', 16777184, '(255,255,224)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('saddle brown', '8B4513', 9127187, '(139,69,19)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('sienna', 'A0522D', 10506797, '(160,82,45)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('chocolate', 'D2691E', 13789470, '(210,105,30)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('peru', 'CD853F', 13468991, '(205,133,63)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('sandy brown', 'F4A460', 16032864, '(244,164,96)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('burly wood', 'DEB887', 14596231, '(222,184,135)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('tan', 'D2B48C', 13808780, '(210,180,140)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('rosy brown', 'BC8F8F', 12357519, '(188,143,143)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('moccasin', 'FFE4B5', 16770229, '(255,228,181)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('misty rose', 'FFE4E1', 16770273, '(255,228,225)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('lavender blush', 'FFF0F5', 16773365, '(255,240,245)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('linen', 'FAF0E6', 16445670, '(250,240,230)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('old lace', 'FDF5E6', 16643558, '(253,245,230)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('papaya whip', 'FFEFD5', 16773077, '(255,239,213)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('sea shell', 'FFF5EE', 16774638, '(255,245,238)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light slate gray', '778899', 7833753, '(119,136,153)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light steel blue', 'B0C4DE', 11584734, '(176,196,222)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('lavender', 'E6E6FA', 15132410, '(230,230,250)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('floral white', 'FFFAF0', 16775920, '(255,250,240)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('alice blue', 'F0F8FF', 15792383, '(240,248,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('ghost white', 'F8F8FF', 16316671, '(248,248,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('honey dew', 'F0FFF0', 15794160, '(240,255,240)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('ivory', 'FFFFF0', 16777200, '(255,255,240)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('azure', 'F0FFFF', 15794175, '(240,255,255)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('snow', 'FFFAFA', 16775930, '(255,250,250)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('black', '0', 0, '(0,0,0)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark gray / dark grey', 'A9A9A9', 11119017, '(169,169,169)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('gainsboro', 'DCDCDC', 14474460, '(220,220,220)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('white smoke', 'F5F5F5', 16119285, '(245,245,245)') ''');
+    await db.rawInsert(
+        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('white', 'FFFFFF', 16777215, '(255,255,255)') ''');
+  }
+
   inserMasterCategory(Database db, String tableMasterCategory) async {
     await db.rawInsert(
         ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Bunga', 'collect-interest', NULL, NULL, 1) ''');
@@ -447,8 +696,7 @@ class SqlHelper {
   }
 }
 
-
-// String query = """ 
+// String query = """
 //     SELECT
 //       sum(income) as income,
 //       sum(expense) as expense,
@@ -458,7 +706,7 @@ class SqlHelper {
 //             amount as income
 //             , 0.0 as expense
 //             from th_transaction
-//             where 
+//             where
 //             isOutcome = 0
 //             and createdTime like '%$date%'
 //           UNION ALL
@@ -466,8 +714,8 @@ class SqlHelper {
 //             0.0 as income
 //             , amount as expense
 //             from th_transaction
-//             where 
+//             where
 //             isOutcome = 1
 //             and createdTime like '%$date%'
-//           ) 
+//           )
 //       """;

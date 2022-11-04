@@ -19,12 +19,12 @@ class HomeScreen extends StatelessWidget {
   List<Transaction>? listTransaction;
   List<CalculationE>? listCalculation;
 
-  String selectedDate = ""; // DateUtil().getCurrentDate();
+  String selectedDate = "";
 
   @override
   Widget build(BuildContext context) {
-    var widhtContainer = MediaQuery.of(context).size.width / 4;
-    // print("tanggal => $transactionDateTime");
+    final widhtContainer = MediaQuery.of(context).size.width / 4;
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -133,17 +133,12 @@ class HomeScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 10,
                       margin: EdgeInsets.only(
                           top: 8, bottom: 25, left: 10, right: 10),
-                      // color: Colors.grey.shade200,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           SizedBox(
-                            // color: Colors.red,
-                            // margin: EdgeInsets.all(8),
                             height: MediaQuery.of(context).size.height / 5,
-                            width: widhtContainer -
-                                10, //MediaQuery.of(context).size.width / 5,
+                            width: widhtContainer - 10,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,8 +162,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 5,
-                            width: widhtContainer -
-                                10, //MediaQuery.of(context).size.width / 5,
+                            width: widhtContainer - 10,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -210,8 +204,10 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Text(listCalculation?[0].profit.toString() ??
-                                    "0.0"),
+                                Text(
+                                  listCalculation?[0].profit.toString() ??
+                                      "0.0",
+                                ),
                               ],
                             ),
                           ),
@@ -248,7 +244,7 @@ class HomeScreen extends StatelessWidget {
                                       );
                                     },
                                     child: ListTile(
-                                      contentPadding: EdgeInsets.all(8),
+                                      contentPadding: const EdgeInsets.all(8),
                                       leading: CircleAvatar(
                                         radius: 25,
                                         foregroundColor: Colors.transparent,
