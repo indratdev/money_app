@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:money_app/presentation/pages/settings/category/category_add_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_updel_screen.dart';
+import 'package:money_app/presentation/pages/settings/languanges/languange_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_category_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_screen.dart';
@@ -27,6 +28,7 @@ class AppRoutes {
   static const String transactionIcon = '/transaction/selectIcon';
   static const String transactionCategory = '/transaction/selectCategory';
   static const String transactionManage = '/transaction/manage';
+  static const String settLanguage = '/setting/language';
 
   Map<String, WidgetBuilder> getRoutes = {
     first: (_) => MoneyappScreen(),
@@ -41,5 +43,6 @@ class AppRoutes {
     transactionIcon: (_) => CategorySelectIconScreen(),
     transactionCategory: (_) => TransactionCategoryScreen(),
     transactionManage: (_) => TransactionManageScreen(),
+    settLanguage: (_) => LanguangeScreen(),
   };
 }

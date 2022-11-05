@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/presentation/pages/settings/languanges/languange_bloc/language_bloc.dart';
 
 import '../../presentation/pages/settings/category/bloc/category_bloc.dart';
 
 enum BlocName {
   categoryRead,
+  languangeRead,
 }
 
 class Setting {
@@ -32,6 +35,9 @@ class MenuSetting {
         context.read<CategoryBloc>().add(InitCategory());
         context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
         break;
+      case BlocName.languangeRead:
+        // context.read<LanguageBloc>().add(ReadLanguangeEvent());
+        break;
       default:
         context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
     }
@@ -49,6 +55,12 @@ class MenuSetting {
       // context.read<CategoryBloc>().add(ReadCategory()),
 
       // BlocProvider.of<CategoryBloc>(context).add(ReadCategory()),
+    ),
+    Setting(
+      labelSetting: 'Bahasa',
+      iconSetting: Icon(Icons.language),
+      routeSetting: AppRoutes.settLanguage,
+      blocName: BlocName.languangeRead,
     ),
     // Setting(
     //     labelSetting: 'Backup Data',
