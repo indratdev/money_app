@@ -35,7 +35,7 @@ const noDataImage = 'assets/images/nodata.png';
 Decoration arrowDecor = BoxDecoration(
   color: Colors.white.withOpacity(0.9),
   borderRadius: const BorderRadius.all(Radius.circular(13)),
-  boxShadow: [
+  boxShadow: const [
     BoxShadow(
       color: Colors.black,
       blurRadius: 1.0,
@@ -58,8 +58,8 @@ Decoration calculationDecor = BoxDecoration(
   ],
 );
 
-Decoration listDataDecor = const BoxDecoration(
-  borderRadius: BorderRadius.only(
+Decoration listDataDecor = BoxDecoration(
+  borderRadius: const BorderRadius.only(
       topRight: Radius.circular(35),
       bottomRight: Radius.circular(5.0),
       topLeft: Radius.circular(5.0),
@@ -67,8 +67,10 @@ Decoration listDataDecor = const BoxDecoration(
   color: lightMildWaters,
   boxShadow: [
     BoxShadow(
-      color: Color(0xFF50A7D9),
+      color: Colors.white.withOpacity(0.9),
       spreadRadius: 2,
+      blurRadius: 1.0,
+      offset: const Offset(0, 3), // changes position
     ),
   ],
 );
@@ -85,9 +87,13 @@ Decoration customCircularBox({Color? color}) => BoxDecoration(
           color: Colors.grey.withOpacity(0.5),
           spreadRadius: 5,
           blurRadius: 7,
-          offset: Offset(0, 3), // changes position of shadow
+          offset: const Offset(0, 3), // changes position of shadow
         ),
       ],
     );
 
 // --------------------------------- off decoration ----------------------------------
+
+// divider
+
+Divider defaultDivider = const Divider(color: Colors.black54, height: 1);

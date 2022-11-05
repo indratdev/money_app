@@ -12,6 +12,7 @@ import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.d
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 
 import '../../widgets/no_data_widget.dart';
+import 'widgets/calculation_section.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widhtContainer = MediaQuery.of(context).size.width / 4;
+    final widhtContainer = MediaQuery.of(context).size.width / 3.5;
 
     return SafeArea(
       child: Scaffold(
@@ -131,86 +132,37 @@ class HomeScreen extends StatelessWidget {
                     Container(
                       decoration: calculationDecor,
                       height: MediaQuery.of(context).size.height / 10,
-                      margin: EdgeInsets.only(
-                          top: 8, bottom: 25, left: 10, right: 10),
+                      margin: const EdgeInsets.only(
+                          top: 5, bottom: 20, left: 8, right: 8),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 5,
-                            width: widhtContainer - 10,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(3),
-                                  child: const Text(
-                                    "Pengeluaran",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  listCalculation?[0].expense.toString() ??
-                                      "0.0",
-                                  style: const TextStyle(color: Colors.red),
-                                ),
-                              ],
-                            ),
+                          // sizebox pengeluaran
+                          CalculationSection(
+                            widhtContainer: widhtContainer,
+                            listCalculation: listCalculation,
+                            labelName: "Pengeluaran",
+                            category: listCalculation?[0].expense ?? 0.0,
+                            textColor: Colors.red,
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 5,
-                            width: widhtContainer - 10,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(3),
-                                  child: const Text(
-                                    "Penerimaan",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  listCalculation?[0].income.toString() ??
-                                      "0.0",
-                                  style:
-                                      TextStyle(color: Colors.green.shade600),
-                                ),
-                              ],
-                            ),
+                          // container penerimaan
+                          CalculationSection(
+                            widhtContainer: widhtContainer,
+                            listCalculation: listCalculation,
+                            labelName: "Penerimaan",
+                            category: listCalculation?[0].income ?? 0.0,
+                            textColor: Colors.green,
                           ),
-                          Container(
-                            // color: Colors.green,
-                            // margin: EdgeInsets.all(8),
-                            height: MediaQuery.of(context).size.height / 5,
-                            width: widhtContainer -
-                                10, //MediaQuery.of(context).size.width / 5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: const Text(
-                                    "Selisih",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  listCalculation?[0].profit.toString() ??
-                                      "0.0",
-                                ),
-                              ],
-                            ),
+
+                          // selisih
+                          CalculationSection(
+                            widhtContainer: widhtContainer,
+                            listCalculation: listCalculation,
+                            labelName: "Selisih",
+                            category: listCalculation?[0].profit ?? 0.0,
+                            textColor: Colors.black,
                           ),
+                          // Container(
                         ],
                       ),
                     ),
@@ -222,8 +174,7 @@ class HomeScreen extends StatelessWidget {
                             ? const NoDataWidget()
                             : ListView.separated(
                                 separatorBuilder: (context, index) =>
-                                    const Divider(
-                                        color: Colors.black54, height: 1),
+                                    defaultDivider,
                                 itemCount: listTransaction?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   return InkWell(
