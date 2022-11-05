@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,7 +18,7 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bahasa"),
+        title: Text('titleLanguage'.tr()),
       ),
       body: Column(
         children: <Widget>[
@@ -30,6 +31,7 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
                 setState(() {
                   print("value 1>>> $value");
                   _languageOption = value;
+                  context.setLocale(Locale('id', 'ID'));
                 });
               },
             ),
@@ -43,6 +45,7 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
                 setState(() {
                   print("value 2>>> $value");
                   _languageOption = value;
+                  context.setLocale(Locale('en'));
                 });
               },
             ),
