@@ -105,7 +105,7 @@ class TransactionScreen extends StatelessWidget {
                                         groupValue: transaction.isOutcome,
                                         children: {
                                           0: buildSegment('income'.tr()),
-                                          1: buildSegment('expanse'.tr()),
+                                          1: buildSegment('expense'.tr()),
                                         },
                                         onValueChanged: (value) {
                                           context.read<TransactionBloc>().add(

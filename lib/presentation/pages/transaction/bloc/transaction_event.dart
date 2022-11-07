@@ -55,3 +55,5 @@ class UpdateTransactionEvent extends TransactionEvent {
     required this.valueTransaction,
   });
 }
+
+class DeleteAllData extends TransactionEvent {}

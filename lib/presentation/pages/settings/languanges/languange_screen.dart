@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-enum LanguageOptionEnum { indonesia, english }
+enum LanguageOptionEnum { id_ID, en_US }
 
 class LanguangeScreen extends StatefulWidget {
   const LanguangeScreen({super.key});
@@ -13,9 +11,17 @@ class LanguangeScreen extends StatefulWidget {
 }
 
 class _LanguangeScreenState extends State<LanguangeScreen> {
-  LanguageOptionEnum? _languageOption = LanguageOptionEnum.indonesia;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  LanguageOptionEnum? _languageOption = LanguageOptionEnum.id_ID;
+
   @override
   Widget build(BuildContext context) {
+    var chooseLanguage = context.locale.toString();
+    print("aaaaa : $chooseLanguage");
     return Scaffold(
       appBar: AppBar(
         title: Text('titleLanguage'.tr()),
@@ -25,7 +31,7 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
           ListTile(
             title: Text("Indonesia"),
             leading: Radio<LanguageOptionEnum>(
-              value: LanguageOptionEnum.indonesia,
+              value: LanguageOptionEnum.id_ID,
               groupValue: _languageOption,
               onChanged: (LanguageOptionEnum? value) {
                 setState(() {
@@ -39,7 +45,7 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
           ListTile(
             title: Text("English"),
             leading: Radio<LanguageOptionEnum>(
-              value: LanguageOptionEnum.english,
+              value: LanguageOptionEnum.en_US,
               groupValue: _languageOption,
               onChanged: (LanguageOptionEnum? value) {
                 setState(() {

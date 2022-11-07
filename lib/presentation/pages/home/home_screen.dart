@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                           CalculationSection(
                             widhtContainer: widhtContainer,
                             listCalculation: listCalculation,
-                            labelName: 'expanse'.tr(),
+                            labelName: 'expense'.tr(),
                             category: listCalculation?[0].expense ?? 0.0,
                             textColor: Colors.red,
                           ),

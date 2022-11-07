@@ -76,6 +76,19 @@ class TransactionRepositoryImpl implements TransactionRepository {
     }
   }
 
+  // delete all data
+  @override
+  Future<Either<Failure, void>> getDeleteAllData() async {
+    try {
+      final result = await localDataSource.deleteAllData();
+      return right(result);
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
   @override
   Future<Either<Failure, int>> getUpdateTransaction(
       int idTransaction, Transaction valueTransaction) async {

@@ -91,6 +91,12 @@ class SqlDatabase {
     await sqlHelper.deleteCategoryByID(db, idCategory);
   }
 
+  // delete all data
+  Future<void> deleteAllData() async {
+    final db = await instance.database;
+    return await sqlHelper.deleteAllData(db);
+  }
+
   // create new transaction
   Future<int> createNewTransaction(trx.Transaction value) async {
     final db = await instance.database;

@@ -10,4 +10,5 @@ abstract class TransactionRepository {
   Future<Either<Failure, void>> getDeleteTransaction(int idTransaction);
   Future<Either<Failure, int>> getUpdateTransaction(
       int idTransaction, Transaction valueTransaction);
+  Future<Either<Failure, void>> getDeleteAllData();
 }

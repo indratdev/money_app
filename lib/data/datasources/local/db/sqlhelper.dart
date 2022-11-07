@@ -178,6 +178,14 @@ class SqlHelper {
     }
   }
 
+  Future<void> deleteAllData(Database? db) async {
+    if (db != null) {
+      await db.rawDelete(''' DELETE FROM $tableTransaction ; ''');
+      await db.rawDelete(
+          ''' DELETE FROM $tableMasterCategory where isDefault != 1; ''');
+    }
+  }
+
   Future<int> createNewTransaction(Database? db, SqlDatabase instance,
       trx.Transaction valueTransaction) async {
     print(">>>>> valueTransaction : $valueTransaction");

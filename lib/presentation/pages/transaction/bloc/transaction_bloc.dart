@@ -114,6 +114,23 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       }
     });
 
+    on<DeleteAllData>((event, emit) async {
+      try {
+        emit(LoadingDeleteAllData());
+        final result = await _getTransactionCases.executeDeleteAllData();
+        result.fold(
+          (l) =>
+              emit(FailureDeleteAllData(messageError: "FailureDeleteAllData")),
+          (data) => emit(
+            SuccessDeleteAllData(),
+          ),
+        );
+      } catch (e) {
+        print(e);
+        emit(FailureDeleteAllData(messageError: "FailureDeleteAllData e"));
+      }
+    });
+
     on<UpdateTransactionEvent>((event, emit) async {
       try {
         emit(LoadingUpdateTransaction());

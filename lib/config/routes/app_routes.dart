@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_app/presentation/pages/clear_data/cleardata_screen.dart';
 
 import 'package:money_app/presentation/pages/settings/category/category_add_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
@@ -29,6 +30,7 @@ class AppRoutes {
   static const String transactionCategory = '/transaction/selectCategory';
   static const String transactionManage = '/transaction/manage';
   static const String settLanguage = '/setting/language';
+  static const String settClearData = '/setting/cleardata';
 
   Map<String, WidgetBuilder> getRoutes = {
     first: (_) => MoneyappScreen(),
@@ -44,5 +46,6 @@ class AppRoutes {
     transactionCategory: (_) => TransactionCategoryScreen(),
     transactionManage: (_) => TransactionManageScreen(),
     settLanguage: (_) => LanguangeScreen(),
+    settClearData: (_) => ClearDataScreen(),
   };
 }

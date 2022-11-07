@@ -22,6 +22,7 @@ abstract class LocalDataSource {
   Future<void> deleteTransaction(int idTransaction);
   Future<int> updateTransaction(
       int idTransaction, Transaction valueTransaction);
+  Future<void> deleteAllData();
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -55,6 +56,12 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<void> deleteCategory(int idCategory) async {
     await dbprovider.deleteCategory(idCategory);
+  }
+
+  // delete all data
+  @override
+  Future<void> deleteAllData() async {
+    return await dbprovider.deleteAllData();
   }
 
   @override

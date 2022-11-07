@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +71,7 @@ class Menus {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.wallet),
-        title: "Beranda",
+        title: 'home'.tr(),
         activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onSelectedTabPressWhenNoScreensPushed: () => context
@@ -82,7 +83,7 @@ class Menus {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.chartSimple),
-        title: "Chart",
+        title: 'chart'.tr(),
         activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onSelectedTabPressWhenNoScreensPushed: () {
@@ -93,7 +94,7 @@ class Menus {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.plus, color: Colors.white),
-        title: "Transaksi",
+        title: 'transaction'.tr(),
         activeColorPrimary: lightPurple,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onPressed: (p0) {
@@ -106,13 +107,13 @@ class Menus {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.bookOpen),
-        title: "Rekap",
+        title: 'report'.tr(),
         activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.android),
-        title: "Setting",
+        title: 'titleSetting'.tr(),
         activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/constants.dart';
+
 class CustomWidgets {
   static showLoadingWidget() {
     return Center(child: Text('loading'.tr()));
@@ -17,9 +19,14 @@ class CustomWidgets {
           actions: [
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('cancel'.tr()),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+              ),
+              child: Text('cancel'.tr(),
+                  style: const TextStyle(color: Colors.black)),
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: lightBlue),
               onPressed: voidCallback,
               child: Text("OK"),
             ),

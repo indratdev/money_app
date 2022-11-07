@@ -1,7 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:money_app/data/constants.dart';
 
 class RekapScreen extends StatelessWidget {
@@ -10,7 +9,7 @@ class RekapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Rekap")),
+      appBar: AppBar(title: Text('report'.tr())),
       body: Column(
         children: <Widget>[
           // segment control

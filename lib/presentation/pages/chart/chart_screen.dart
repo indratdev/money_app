@@ -27,7 +27,7 @@ class ChartScreen extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Colors.amber,
       appBar: AppBar(
-        title: Text('report'.tr()),
+        title: Text('chart'.tr()),
       ),
       body: SingleChildScrollView(
         child: BlocConsumer<ChartBloc, ChartState>(
@@ -88,18 +88,45 @@ class ChartScreen extends StatelessWidget {
                           decoration: arrowDecor,
                           width: MediaQuery.of(context).size.width / 2,
                           height: double.infinity,
-                          child: Align(
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
                             alignment: Alignment.center,
-                            child: Text(
-                              (selectedDate == ""
-                                  ? dates.currentDate
-                                  : dates.formatedMMMyyy(selectedDate)),
-                              softWrap: true,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w500),
+                            child: Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Text(
+                                (selectedDate == ""
+                                    ? dates.currentDate
+                                    : dates.formatedMMMyyy(selectedDate)),
+                                softWrap: true,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              // Text(
+                              //   selectedDate,
+                              //   softWrap: true,
+                              //   maxLines: 1,
+                              //   style: const TextStyle(
+                              //       fontWeight: FontWeight.w500),
+                              // ),
                             ),
                           ),
                         ),
+                        // Container(
+                        //   decoration: arrowDecor,
+                        //   width: MediaQuery.of(context).size.width / 2,
+                        //   height: double.infinity,
+                        //   child: Align(
+                        //     alignment: Alignment.center,
+                        //     child: Text(
+                        //       (selectedDate == ""
+                        //           ? dates.currentDate
+                        //           : dates.formatedMMMyyy(selectedDate)),
+                        //       softWrap: true,
+                        //       style:
+                        //           const TextStyle(fontWeight: FontWeight.w500),
+                        //     ),
+                        //   ),
+                        // ),
                         Container(
                           decoration: arrowDecor,
                           child: IconButton(

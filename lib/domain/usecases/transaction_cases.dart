@@ -32,6 +32,11 @@ class TransactionCases {
     return repository.getDeleteTransaction(idTransaction);
   }
 
+  // delete all data
+  Future<Either<Failure, void>> executeDeleteAllData() {
+    return repository.getDeleteAllData();
+  }
+
   // update category
   Future<Either<Failure, int>> executeUpdateTransaction(
       int idTransaction, Transaction valueTransaction) {

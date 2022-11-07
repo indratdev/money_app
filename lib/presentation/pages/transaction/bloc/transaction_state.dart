@@ -108,11 +108,13 @@ class FailureUpdateTransaction extends FailureState {
   FailureUpdateTransaction({required super.messageError});
 }
 
-class SuccessUpdateTransaction extends TransactionState {
-  // // final int result;
+class SuccessUpdateTransaction extends TransactionState {}
 
-  // SuccessUpdateTransaction({required this.result});
+// delete all data
+class LoadingDeleteAllData extends TransactionState {}
 
-  // @override
-  // List<Object> get props => [result];
+class FailureDeleteAllData extends FailureState {
+  FailureDeleteAllData({required super.messageError});
 }
+
+class SuccessDeleteAllData extends TransactionState {}

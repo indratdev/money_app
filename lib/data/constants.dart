@@ -95,5 +95,4 @@ Decoration customCircularBox({Color? color}) => BoxDecoration(
 // --------------------------------- off decoration ----------------------------------
 
 // divider
-
 Divider defaultDivider = const Divider(color: Colors.black54, height: 1);
