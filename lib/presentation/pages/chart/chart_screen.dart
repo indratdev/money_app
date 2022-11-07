@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class ChartScreen extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Colors.amber,
       appBar: AppBar(
-        title: const Text("Laporan"),
+        title: Text('report'.tr()),
       ),
       body: SingleChildScrollView(
         child: BlocConsumer<ChartBloc, ChartState>(
@@ -122,8 +123,8 @@ class ChartScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 20, right: 20),
                     child: Column(
                       children: [
-                        const Text(
-                          "Pendapatan",
+                        Text(
+                          'income'.tr(),
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,
@@ -163,8 +164,8 @@ class ChartScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 20, right: 20),
                     child: Column(
                       children: [
-                        const Text(
-                          "Pengeluaran",
+                        Text(
+                          'expense'.tr(),
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,

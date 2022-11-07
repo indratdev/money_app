@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,12 +39,12 @@ class TransactionScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Transaksi"),
+          title: Text('transaction'.tr()),
         ),
         body: BlocConsumer<CategoryBloc, CategoryState>(
           listener: (context, state) {
             if (state is SuccessCallbackIconCategory) {
-              print(">>>> state: ${state.value}");
+              // print(">>>> state: ${state.value}");
               category = state.value;
               transaction.idCategory = state.value.id!;
             }
@@ -103,8 +104,8 @@ class TransactionScreen extends StatelessWidget {
                                         padding: const EdgeInsets.all(8),
                                         groupValue: transaction.isOutcome,
                                         children: {
-                                          0: buildSegment("Penerimaan"),
-                                          1: buildSegment("Pengeluaran"),
+                                          0: buildSegment('income'.tr()),
+                                          1: buildSegment('expanse'.tr()),
                                         },
                                         onValueChanged: (value) {
                                           context.read<TransactionBloc>().add(
@@ -127,7 +128,7 @@ class TransactionScreen extends StatelessWidget {
                                         children: [
                                           FittedBox(
                                               fit: BoxFit.fitWidth,
-                                              child: Text("Tanggal")),
+                                              child: Text('date'.tr())),
                                           InkWell(
                                             onTap: () {
                                               showDatePicker(
@@ -180,7 +181,7 @@ class TransactionScreen extends StatelessWidget {
                                         children: [
                                           FittedBox(
                                               fit: BoxFit.fitWidth,
-                                              child: Text("Kategori")),
+                                              child: Text('category'.tr())),
                                           SB_Height10,
                                           InkWell(
                                             onTap: () {
@@ -229,7 +230,7 @@ class TransactionScreen extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text("Nama"),
+                                          Text('name'.tr()),
                                           SB_Height10,
                                           TextFormField(
                                             controller: nameController,
@@ -242,15 +243,14 @@ class TransactionScreen extends StatelessWidget {
                                             validator: (value) {
                                               if (value!.isEmpty ||
                                                   value == "") {
-                                                return "Nama Tidak Boleh Kosong";
+                                                return 'name-not-null'.tr();
                                               }
                                               return null;
                                             },
                                             keyboardType: TextInputType.text,
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText:
-                                                  "Ketikan Nama Transaksi",
+                                              hintText: 'type-name'.tr(),
                                             ),
                                           ),
                                         ],
@@ -268,15 +268,14 @@ class TransactionScreen extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text("Deskripsi"),
+                                          Text('description'.tr()),
                                           SB_Height10,
                                           TextFormField(
                                             keyboardType: TextInputType.text,
                                             controller: deskriptionController,
-                                            decoration: const InputDecoration(
+                                            decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText:
-                                                  "Ketikan Deskripsi Transaksi (optional)",
+                                              hintText: 'type-description'.tr(),
                                             ),
                                             onSaved: (newValue) {
                                               transaction.description =
@@ -353,7 +352,7 @@ class TransactionScreen extends StatelessWidget {
                                     Navigator.pop(context);
                                   }
                                 },
-                                child: const Text("Simpan"),
+                                child: Text('save'.tr()),
                               ),
                             ),
                           ),

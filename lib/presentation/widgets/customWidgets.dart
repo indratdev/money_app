@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CustomWidgets {
   static showLoadingWidget() {
-    return Center(child: Text("Memuat..."));
+    return Center(child: Text('loading'.tr()));
   }
 
   static showConfirmationDelete(
@@ -11,12 +12,12 @@ class CustomWidgets {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Konfirmasi"),
+          title: Text('confirmation'.tr()),
           content: Text(content),
           actions: [
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Batal"),
+              child: Text('cancel'.tr()),
             ),
             ElevatedButton(
               onPressed: voidCallback,
@@ -33,7 +34,7 @@ class CustomWidgets {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Status"),
+          title: Text('status'.tr()),
           content: Text(content),
           actions: [
             ElevatedButton(

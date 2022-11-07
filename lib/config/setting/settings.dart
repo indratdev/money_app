@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:money_app/config/routes/app_routes.dart';
@@ -45,7 +46,7 @@ class MenuSetting {
 
   List<Setting> getListSettings = [
     Setting(
-      labelSetting: 'Kategori',
+      labelSetting: 'category'.tr(),
       routeSetting: AppRoutes.settCategory,
       iconSetting: Icon(Icons.category),
       blocName: BlocName.categoryRead,
@@ -57,7 +58,7 @@ class MenuSetting {
       // BlocProvider.of<CategoryBloc>(context).add(ReadCategory()),
     ),
     Setting(
-      labelSetting: 'Bahasa',
+      labelSetting: 'titleLanguage'.tr(),
       iconSetting: Icon(Icons.language),
       routeSetting: AppRoutes.settLanguage,
       blocName: BlocName.languangeRead,

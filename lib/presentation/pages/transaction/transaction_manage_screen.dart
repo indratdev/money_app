@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,7 @@ class TransactionManageScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text("Ubah Transaksi"),
+        title: Text('change-transaction'.tr()),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -56,7 +57,7 @@ class TransactionManageScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 CustomWidgets.showConfirmationDelete(
-                    context, "Apakah anda yakin Hapus transaksi ini  ?", () {
+                    context, 'confirm-transaction-delete'.tr(), () {
                   // delete
                   context
                       .read<TransactionBloc>()
@@ -93,7 +94,7 @@ class TransactionManageScreen extends StatelessWidget {
             listener: (context, state) {},
             builder: (context, state) {
               if (state is SuccessSelectedIsOutcome) {
-                print(">>>> ${state.result}");
+                // print(">>>> ${state.result}");
                 data!.isOutcome = state.result;
               }
               if (state is SuccessSelectedDate) {
@@ -125,8 +126,8 @@ class TransactionManageScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(8),
                                   groupValue: data!.isOutcome,
                                   children: {
-                                    0: buildSegmentComponent("Penerimaan"),
-                                    1: buildSegmentComponent("Pengeluaran"),
+                                    0: buildSegmentComponent('income'.tr()),
+                                    1: buildSegmentComponent('expense'.tr()),
                                   },
                                   onValueChanged: (value) {
                                     context.read<TransactionBloc>().add(
@@ -141,7 +142,7 @@ class TransactionManageScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Tanggal"),
+                                    Text('date'.tr()),
                                     InkWell(
                                       onTap: () {
                                         showDatePicker(
@@ -187,7 +188,7 @@ class TransactionManageScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Kategori"),
+                                    Text('category'.tr()),
                                     SB_Height10,
                                     InkWell(
                                       onTap: () {
@@ -230,7 +231,7 @@ class TransactionManageScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Nama"),
+                                    Text('name'.tr()),
                                     SB_Height10,
                                     TextFormField(
                                       controller: nameController
@@ -247,13 +248,13 @@ class TransactionManageScreen extends StatelessWidget {
                                       },
                                       validator: (value) {
                                         if (value!.isEmpty || value == "") {
-                                          return "Nama Tidak Boleh Kosong";
+                                          return 'name-not-null'.tr();
                                         }
                                         return null;
                                       },
                                       keyboardType: TextInputType.text,
-                                      decoration: const InputDecoration(
-                                        hintText: "Ketikan Nama Transaksi",
+                                      decoration: InputDecoration(
+                                        hintText: 'type-name'.tr(),
                                       ),
                                     ),
                                   ],
@@ -264,15 +265,14 @@ class TransactionManageScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Deskripsi"),
+                                    Text('description'.tr()),
                                     SB_Height10,
                                     TextFormField(
                                       keyboardType: TextInputType.text,
                                       controller: deskriptionController
                                         ..text = data?.description ?? "",
-                                      decoration: const InputDecoration(
-                                        hintText:
-                                            "Ketikan Deskripsi Transaksi (optional)",
+                                      decoration: InputDecoration(
+                                        hintText: 'type-description'.tr(),
                                       ),
                                       onSaved: (newValue) {
                                         data!.description = newValue ?? "";
@@ -289,7 +289,7 @@ class TransactionManageScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Nominal"),
+                                    Text('amount'.tr()),
                                     SB_Height10,
                                     TextFormField(
                                       // focusNode: focusedCtx,
@@ -349,7 +349,7 @@ class TransactionManageScreen extends StatelessWidget {
                               Navigator.pushReplacementNamed(
                                   context, AppRoutes.first);
                             },
-                            child: const Text("Simpan"),
+                            child: Text('save'.tr()),
                           ),
                         ),
                       ),

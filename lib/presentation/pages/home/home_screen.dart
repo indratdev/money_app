@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -141,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                           CalculationSection(
                             widhtContainer: widhtContainer,
                             listCalculation: listCalculation,
-                            labelName: "Pengeluaran",
+                            labelName: 'expanse'.tr(),
                             category: listCalculation?[0].expense ?? 0.0,
                             textColor: Colors.red,
                           ),
@@ -149,7 +150,7 @@ class HomeScreen extends StatelessWidget {
                           CalculationSection(
                             widhtContainer: widhtContainer,
                             listCalculation: listCalculation,
-                            labelName: "Penerimaan",
+                            labelName: 'income'.tr(),
                             category: listCalculation?[0].income ?? 0.0,
                             textColor: Colors.green,
                           ),
@@ -158,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                           CalculationSection(
                             widhtContainer: widhtContainer,
                             listCalculation: listCalculation,
-                            labelName: "Selisih",
+                            labelName: 'deviation'.tr(),
                             category: listCalculation?[0].profit ?? 0.0,
                             textColor: Colors.black,
                           ),

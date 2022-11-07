@@ -22,7 +22,7 @@ void main() async {
     path: 'assets/languages',
     supportedLocales: [
       Locale('id', 'ID'),
-      Locale('en', ''),
+      Locale('en', 'US'),
     ],
     fallbackLocale: Locale('id', 'ID'),
     child: MyApp(),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/constants.dart';
@@ -23,13 +24,13 @@ class NoDataWidget extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 2.5,
-            height: MediaQuery.of(context).size.width / 14,
+            width: MediaQuery.of(context).size.width / 3,
+            height: MediaQuery.of(context).size.width / 20,
             // color: Colors.red,
-            child: const FittedBox(
+            child: FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
-                "Tidak ada data",
+                'no-data'.tr(),
                 style: TextStyle(fontWeight: FontWeight.w800),
               ),
             ),

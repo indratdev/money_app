@@ -45,7 +45,7 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
                 setState(() {
                   print("value 2>>> $value");
                   _languageOption = value;
-                  context.setLocale(Locale('en'));
+                  context.setLocale(Locale('en', 'US'));
                 });
               },
             ),

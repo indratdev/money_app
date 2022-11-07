@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
-import 'package:money_app/presentation/pages/transaction/transaction_screen.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -22,7 +22,7 @@ class MoneyappScreen extends StatelessWidget {
           // print(">>>>> state : $state");
           if (state is SuccessUpdateTransaction) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Transaksi Berhasil Diperbaharui");
+                context, 'success-update-transaction'.tr());
             context.read<TransactionBloc>().add(ReadTransactionEvent(
                 transactionDateTime: DateUtil().getCurrentDate()));
           }
@@ -30,14 +30,14 @@ class MoneyappScreen extends StatelessWidget {
             // ScaffoldMessenger.of(context)
             //     .showSnackBar(SnackBar(content: Text("Data Berhasil dihapus")));
             CustomWidgets.showMessageAlertBasic(
-                context, "Transaksi Berhasil Dihapus");
+                context, 'success-delete-transaction'.tr());
           }
 
           if (state is SuccessSaveTransactionNew) {
             // ScaffoldMessenger.of(context).showSnackBar(
             //     SnackBar(content: Text("Data Berhasil Ditambahkan")));
             CustomWidgets.showMessageAlertBasic(
-                context, "Transaksi Berhasil Ditambahkan");
+                context, 'success-added-transaction'.tr());
             // }
           }
         },
