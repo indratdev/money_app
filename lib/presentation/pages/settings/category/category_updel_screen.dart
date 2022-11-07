@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
@@ -21,7 +22,7 @@ class CategoryUpDelScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text("Ubah Kategori"), actions: [
+        appBar: AppBar(title: Text('change-category'.tr()), actions: [
           TextButton(
               onPressed: () {
                 CustomWidgets.showConfirmationDelete(
