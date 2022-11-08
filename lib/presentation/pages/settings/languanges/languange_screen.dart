@@ -16,48 +16,69 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
     super.initState();
   }
 
-  LanguageOptionEnum? _languageOption = LanguageOptionEnum.id_ID;
+  LanguageOptionEnum? _languageOption; // = LanguageOptionEnum.id_ID;
+
+  Future<LanguageOptionEnum?> checkLanguage(String language) async {
+    if (language == LanguageOptionEnum.en_US.name) {
+      _languageOption = LanguageOptionEnum.en_US;
+    } else if (language == LanguageOptionEnum.id_ID.name) {
+      _languageOption = LanguageOptionEnum.id_ID;
+    }
+
+    return _languageOption;
+  }
 
   @override
   Widget build(BuildContext context) {
-    var chooseLanguage = context.locale.toString();
-    print("aaaaa : $chooseLanguage");
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('titleLanguage'.tr()),
-      ),
-      body: Column(
-        children: <Widget>[
-          ListTile(
-            title: Text("Indonesia"),
-            leading: Radio<LanguageOptionEnum>(
-              value: LanguageOptionEnum.id_ID,
-              groupValue: _languageOption,
-              onChanged: (LanguageOptionEnum? value) {
-                setState(() {
-                  print("value 1>>> $value");
-                  _languageOption = value;
-                  context.setLocale(Locale('id', 'ID'));
-                });
-              },
+    return FutureBuilder(
+      future: checkLanguage(context.locale.toString()),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var aa = snapshot.data;
+          print("aa :: $aa");
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('titleLanguage'.tr()),
             ),
-          ),
-          ListTile(
-            title: Text("English"),
-            leading: Radio<LanguageOptionEnum>(
-              value: LanguageOptionEnum.en_US,
-              groupValue: _languageOption,
-              onChanged: (LanguageOptionEnum? value) {
-                setState(() {
-                  print("value 2>>> $value");
-                  _languageOption = value;
-                  context.setLocale(Locale('en', 'US'));
-                });
-              },
+            body: Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text("Indonesia"),
+                  leading: Radio<LanguageOptionEnum>(
+                    value: LanguageOptionEnum.id_ID,
+                    groupValue: _languageOption,
+                    onChanged: (LanguageOptionEnum? value) {
+                      setState(() {
+                        print("value 1>>> $value");
+                        _languageOption = value;
+                        context.setLocale(Locale('id', 'ID'));
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text("English"),
+                  leading: Radio<LanguageOptionEnum>(
+                    value: LanguageOptionEnum.en_US,
+                    groupValue: _languageOption,
+                    onChanged: (LanguageOptionEnum? value) {
+                      setState(() {
+                        print("value 2>>> $value");
+                        _languageOption = value;
+                        context.setLocale(Locale('en', 'US'));
+                      });
+                    },
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          );
+        } else {
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator.adaptive()),
+          );
+        }
+      },
     );
   }
 }

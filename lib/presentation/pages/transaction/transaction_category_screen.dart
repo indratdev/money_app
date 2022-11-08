@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 
+import '../../../data/constants.dart';
+
 class TransactionCategoryScreen extends StatefulWidget {
   TransactionCategoryScreen({super.key});
 
@@ -48,7 +50,7 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
             },
             child: Text(
               'done'.tr(),
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ],
@@ -82,11 +84,11 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
                     borderRadius: BorderRadius.circular(15),
                     color: selectedCatecory?.iconName ==
                             listCategoryIcon?[index].iconName
-                        ? Colors.amber.shade300
+                        ? lightPurple //Colors.amber.shade300
                         : Colors.transparent,
                   ),
                   child: ListTile(
-                    contentPadding: EdgeInsets.all(8),
+                    contentPadding: const EdgeInsets.all(8),
                     leading: CircleAvatar(
                       radius: 30,
                       foregroundColor: Colors.transparent,

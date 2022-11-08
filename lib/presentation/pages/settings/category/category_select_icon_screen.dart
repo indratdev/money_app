@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 
+import '../../../../data/constants.dart';
+
 class CategorySelectIconScreen extends StatelessWidget {
   CategorySelectIconScreen({super.key});
 
@@ -64,7 +66,7 @@ class CategorySelectIconScreen extends StatelessWidget {
                 onTap: () {
                   context.read<CategoryBloc>().add(ReadCategoryByIdEvent(
                       idCategory: listCategoryIcon?[index].id ?? 1));
-                  print(listCategoryIcon?[index].id);
+                  // print(listCategoryIcon?[index].id);
                 },
 
                 /// masih disini
@@ -74,7 +76,7 @@ class CategorySelectIconScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     color: selectedCatecory?.iconName ==
                             listCategoryIcon?[index].iconName
-                        ? Colors.amber.shade300
+                        ? lightPurple // Colors.amber.shade300
                         : Colors.transparent,
                   ),
                   // child: Text(myProducts[index]["name"]),

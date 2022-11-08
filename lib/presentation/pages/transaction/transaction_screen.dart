@@ -44,7 +44,6 @@ class TransactionScreen extends StatelessWidget {
         body: BlocConsumer<CategoryBloc, CategoryState>(
           listener: (context, state) {
             if (state is SuccessCallbackIconCategory) {
-              // print(">>>> state: ${state.value}");
               category = state.value;
               transaction.idCategory = state.value.id!;
             }
@@ -296,7 +295,7 @@ class TransactionScreen extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text("Nominal"),
+                                          Text('amount'.tr()),
                                           SB_Height10,
                                           TextFormField(
                                             keyboardType: TextInputType.number,
