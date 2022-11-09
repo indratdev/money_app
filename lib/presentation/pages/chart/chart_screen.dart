@@ -315,8 +315,8 @@ class ShowingDetailSection extends StatelessWidget {
               );
             },
           )
-        : const Center(
-            child: Text("Tidak Ada Data"),
+        : Center(
+            child: Text('no-data'.tr()),
           );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-enum LanguageOptionEnum { id_ID, en_US }
+enum LanguageOptionEnum { id_ID, en_US, ja_JP }
 
 class LanguangeScreen extends StatefulWidget {
   const LanguangeScreen({super.key});
@@ -23,6 +23,8 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
       _languageOption = LanguageOptionEnum.en_US;
     } else if (language == LanguageOptionEnum.id_ID.name) {
       _languageOption = LanguageOptionEnum.id_ID;
+    } else if (language == LanguageOptionEnum.ja_JP.name) {
+      _languageOption = LanguageOptionEnum.ja_JP;
     }
 
     return _languageOption;
@@ -69,7 +71,21 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
                       });
                     },
                   ),
-                )
+                ),
+                ListTile(
+                  title: Text("Japanese"),
+                  leading: Radio<LanguageOptionEnum>(
+                    value: LanguageOptionEnum.ja_JP,
+                    groupValue: _languageOption,
+                    onChanged: (LanguageOptionEnum? value) {
+                      setState(() {
+                        print("value 1>>> $value");
+                        _languageOption = value;
+                        context.setLocale(Locale('ja', 'JP'));
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           );

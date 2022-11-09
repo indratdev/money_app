@@ -5,7 +5,6 @@ import 'package:money_app/data/date_util.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/injection.dart' as di;
-import 'package:money_app/presentation/pages/settings/languanges/languange_bloc/language_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 
 import 'config/routes/app_routes.dart';
@@ -23,6 +22,7 @@ void main() async {
     supportedLocales: [
       Locale('id', 'ID'),
       Locale('en', 'US'),
+      Locale('ja', 'JP'),
     ],
     fallbackLocale: Locale('id', 'ID'),
     child: MyApp(),
@@ -52,10 +52,6 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<ChartBloc>()
             ..add(ReadChartDefaultEvent(
                 transactionDateTime: DateUtil().getCurrentDate())),
-        ),
-        BlocProvider(
-          create: (context) =>
-              di.getIt<LanguageBloc>()..add(ReadLanguangeEvent()),
         ),
       ],
       child: MaterialApp(
