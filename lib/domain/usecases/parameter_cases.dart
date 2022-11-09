@@ -18,6 +18,11 @@ class ParameterCases {
     return repository.getReadThemes();
   }
 
+  // update category
+  Future<Either<Failure, String>> executeUpdateThemes(String value) {
+    return repository.getUpdateThemes(value);
+  }
+
   // // read category by id
   // Future<Either<Failure, Category>> executeReadCategoryById(int idCategory) {
   //   return repository.getReadCategoryById(idCategory);

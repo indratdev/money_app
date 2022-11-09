@@ -23,9 +23,18 @@ class FailureReadThemes extends FailureState {
 }
 
 class SuccessReadThemes extends ThemesState {
-  final String result;
+  final bool result;
 
   SuccessReadThemes({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+class SuccessUpdateThemes extends ThemesState {
+  final bool result;
+
+  SuccessUpdateThemes({required this.result});
 
   @override
   List<Object> get props => [result];

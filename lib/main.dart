@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget {
 
   AppRoutes routes = AppRoutes();
 
+  bool isDark = false;
+
   @override
   Widget build(BuildContext context) {
     print(">>> main build");
@@ -61,22 +63,30 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<ThemesBloc>()..add(ReadThemesEvent()),
         ),
       ],
-      child: MaterialApp(
-        // add new language
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        // end add new language
-        debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.splash,
-        routes: routes.getRoutes,
-        theme: ThemesApp.themeData(false, context),
-        // themeMode: ThemeMode.dark,
-        // theme: ThemeData(
-        //     textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
-        //     appBarTheme: AppBarTheme(color: lightBlue, centerTitle: false)
-        //     // fontFamily: GoogleFonts.poppins(),
-        //     ),
+      child: BlocBuilder<ThemesBloc, ThemesState>(
+        builder: (context, state) {
+          if (state is SuccessReadThemes) {
+            print("this is state : ${state.result}");
+            isDark = state.result;
+          }
+          return MaterialApp(
+            // add new language
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            // end add new language
+            debugShowCheckedModeBanner: false,
+            initialRoute: AppRoutes.splash,
+            routes: routes.getRoutes,
+            theme: ThemesApp.themeData(isDark, context),
+            // themeMode: ThemeMode.dark,
+            // theme: ThemeData(
+            //     textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
+            //     appBarTheme: AppBarTheme(color: lightBlue, centerTitle: false)
+            //     // fontFamily: GoogleFonts.poppins(),
+            //     ),
+          );
+        },
       ),
     );
   }

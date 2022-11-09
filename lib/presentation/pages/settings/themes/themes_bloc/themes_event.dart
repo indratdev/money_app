@@ -8,3 +8,9 @@ abstract class ThemesEvent extends Equatable {
 }
 
 class ReadThemesEvent extends ThemesEvent {}
+
+class UpdateThemesEvent extends ThemesEvent {
+  ThemesEnum value;
+
+  UpdateThemesEvent({required this.value});
+}
