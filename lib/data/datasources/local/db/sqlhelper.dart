@@ -13,6 +13,7 @@ class SqlHelper {
   final String tableTransaction = 'th_transaction';
   final String tableMasterCategory = 'm_category';
   final String tableMasterColors = 'm_colors';
+  final String tableMasterParameter = 'm_parameter';
 
   // init tables
   initDB(Database db) async {
@@ -55,6 +56,17 @@ class SqlHelper {
       )
       ''');
 
+    // create table master parameter
+    await db.execute('''
+    CREATE TABLE $tableMasterParameter    (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      value TEXT NULL,
+      actived INTEGER,
+      description TEXT NULL
+      )
+      ''');
+
     // create table ops category
     // await db.execute('''
     // CREATE TABLE $tableOpsCategory    (
@@ -79,8 +91,7 @@ class SqlHelper {
 
     inserMasterColors(db, tableMasterColors); // insert default master category
 
-    // insert default ops category
-    // insertOpsCategory(db, tableOpsCategory, createTime);
+    insertMasterParameter(db, tableMasterParameter); // insert master parameter
   }
 
   // read all category
@@ -379,6 +390,47 @@ class SqlHelper {
       ]);
     }
     return result;
+  }
+
+  // --- parameter ---
+  // read parameter themes
+  Future<String> readParamThemes(Database? db, SqlDatabase instance) async {
+    final db = await instance.database;
+
+    String query = """select value from $tableMasterParameter 
+        where name = 'isDark' limit 1 ;""";
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+
+      print("resultttt ::::: $result");
+
+      return result.first.toString();
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  // update parameter themes
+  Future<int> updateParamThemes(
+      Database? db, SqlDatabase instance, String valueParam) async {
+    final db = await instance.database;
+    int result = 0;
+
+    if (db != null) {
+      result = await db.rawUpdate("""UPDATE $tableMasterParameter
+          SET
+          value = ?          
+          WHERE name = 'isDark' """, [valueParam]);
+    }
+    return result;
+  }
+
+  // -- end paramter ----------------------------------------------------------
+
+  insertMasterParameter(Database db, String tableMasterParamter) async {
+    await db.rawInsert(
+        ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('isDark', '0', 1, 'Default Themes of Application');   ''');
   }
 
   // insertOpsCategory(

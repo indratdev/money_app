@@ -38,5 +38,7 @@
     , "success-clear-data-all" : "全データ消去成功"
     , "failed-clear-data-all" : "全データの消去に失敗しました!"
     , "loading-clear-data-all" : "クリアデータを読み込んでいます..."
-
+    , "themes-color" : "テーマカラー"
+    , "dark-color" : "暗色"
+    , "light-color" : "明色"
 }

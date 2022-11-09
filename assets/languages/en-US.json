@@ -38,4 +38,8 @@
     , "success-clear-data-all" : "Clear All Data Successfully"
     , "failed-clear-data-all" : "Clear All Data Failed !"
     , "loading-clear-data-all" : "Loading Clear Data..."
+    , "themes-color" : "Theme Color"
+    , "dark-color" : "Dark Color"
+    , "light-color" : "Light Color"
+
 }

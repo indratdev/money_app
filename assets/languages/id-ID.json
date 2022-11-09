@@ -38,5 +38,8 @@
     , "success-clear-data-all" : "Hapus Semua Data Berhasil"
     , "failed-clear-data-all" : "Hapus Semua Data Gagal !"
     , "loading-clear-data-all" : "Memuat Hapus Data..."
+    , "themes-color" : "Warna Tema"
+    , "dark-color" : "Gelap"
+    , "light-color" : "Terang"
 
 }

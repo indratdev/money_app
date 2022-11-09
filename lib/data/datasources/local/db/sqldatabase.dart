@@ -71,7 +71,7 @@ class SqlDatabase {
     return result;
   }
 
-  //read all
+  //read category by id
   Future<CategoryModel> readCategoryById(int idCategory) async {
     final db = await instance.database;
     final result = await sqlHelper.readCategoryById(db, instance, idCategory);
@@ -136,6 +136,14 @@ class SqlDatabase {
     final db = await instance.database;
     final result = await sqlHelper.updateTransaction(
         db, instance, idTransaction, valueTransaction);
+    return result;
+  }
+
+  //read parameter theme
+  Future<String> readParamThemes() async {
+    final db = await instance.database;
+    final result = await sqlHelper.readParamThemes(db, instance);
+    print("==result readParamThemes : $result");
     return result;
   }
 

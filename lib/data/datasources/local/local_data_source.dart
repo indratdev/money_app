@@ -23,6 +23,9 @@ abstract class LocalDataSource {
   Future<int> updateTransaction(
       int idTransaction, Transaction valueTransaction);
   Future<void> deleteAllData();
+
+  // parameter
+  Future<String> readParamThemes();
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -94,5 +97,10 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<int> updateTransaction(
       int idTransaction, Transaction valueTransaction) async {
     return await dbprovider.updateTransaction(idTransaction, valueTransaction);
+  }
+
+  @override
+  Future<String> readParamThemes() async {
+    return await dbprovider.readParamThemes();
   }
 }

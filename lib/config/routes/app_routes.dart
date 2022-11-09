@@ -5,6 +5,7 @@ import 'package:money_app/presentation/pages/settings/category/category_add_scre
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_updel_screen.dart';
 import 'package:money_app/presentation/pages/settings/languanges/languange_screen.dart';
+import 'package:money_app/presentation/pages/settings/themes/themes_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_category_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_screen.dart';
@@ -31,6 +32,7 @@ class AppRoutes {
   static const String transactionManage = '/transaction/manage';
   static const String settLanguage = '/setting/language';
   static const String settClearData = '/setting/cleardata';
+  static const String settThemes = '/setting/themes';
 
   Map<String, WidgetBuilder> getRoutes = {
     first: (_) => MoneyappScreen(),
@@ -47,5 +49,6 @@ class AppRoutes {
     transactionManage: (_) => TransactionManageScreen(),
     settLanguage: (_) => LanguangeScreen(),
     settClearData: (_) => ClearDataScreen(),
+    settThemes: (_) => ThemesScreen(),
   };
 }

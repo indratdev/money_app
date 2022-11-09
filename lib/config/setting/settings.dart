@@ -2,13 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 
 import '../../presentation/pages/settings/category/bloc/category_bloc.dart';
 
 enum BlocName {
+  defaultRead,
   categoryRead,
   languangeRead,
   clearDataRead,
+  themesRead,
 }
 
 class Setting {
@@ -21,7 +24,7 @@ class Setting {
     this.iconSetting = const Icon(Icons.error),
     this.labelSetting = 'no name',
     required this.routeSetting,
-    required this.blocName,
+    this.blocName = BlocName.defaultRead,
   });
 }
 
@@ -33,7 +36,9 @@ class MenuSetting {
         context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
         break;
       case BlocName.languangeRead:
-        // context.read<LanguageBloc>().add(ReadLanguangeEvent());
+        break;
+      case BlocName.themesRead:
+        context.read<ThemesBloc>().add(ReadThemesEvent());
         break;
       default:
         context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
@@ -44,26 +49,26 @@ class MenuSetting {
     Setting(
       labelSetting: 'category'.tr(),
       routeSetting: AppRoutes.settCategory,
-      iconSetting: Icon(Icons.category),
+      iconSetting: const Icon(Icons.category),
       blocName: BlocName.categoryRead,
-      // bloc: CategoryBloc,
-      // event: ReadCategory,
-      // aaa: call
-      // context.read<CategoryBloc>().add(ReadCategory()),
-
-      // BlocProvider.of<CategoryBloc>(context).add(ReadCategory()),
     ),
     Setting(
       labelSetting: 'titleLanguage'.tr(),
-      iconSetting: Icon(Icons.language),
+      iconSetting: const Icon(Icons.language),
       routeSetting: AppRoutes.settLanguage,
       blocName: BlocName.languangeRead,
     ),
     Setting(
       labelSetting: 'clear-data-all'.tr(),
-      iconSetting: Icon(Icons.clear_all),
+      iconSetting: const Icon(Icons.clear_all),
       routeSetting: AppRoutes.settClearData,
       blocName: BlocName.clearDataRead,
+    ),
+    Setting(
+      labelSetting: 'themes-color'.tr(),
+      iconSetting: const Icon(Icons.colorize),
+      routeSetting: AppRoutes.settThemes,
+      blocName: BlocName.themesRead,
     ),
     // Setting(
     //     labelSetting: 'Backup Data',
