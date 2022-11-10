@@ -31,7 +31,7 @@ import '../../data/constants.dart';
 class ThemesApp {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
         primaryColor: isDarkTheme ? Colors.black : Colors.white,
         backgroundColor: isDarkTheme ? Colors.black : Color(0xffF1F5FB),
         // colorScheme: ColorScheme(brightness: brightness, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface),

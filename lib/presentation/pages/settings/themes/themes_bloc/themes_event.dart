@@ -10,7 +10,7 @@ abstract class ThemesEvent extends Equatable {
 class ReadThemesEvent extends ThemesEvent {}
 
 class UpdateThemesEvent extends ThemesEvent {
-  ThemesEnum value;
+  String value;
 
   UpdateThemesEvent({required this.value});
 }

@@ -4,8 +4,8 @@ import '../../data/failure.dart';
 
 abstract class ParameterRepository {
   // getInitCategory();
-  Future<Either<Failure, String>> getReadThemes();
-  Future<Either<Failure, String>> getUpdateThemes(String value);
+  Future<Either<Failure, List<Map<String, dynamic>>>> getReadThemes();
+  // Future<Either<Failure, String>> getUpdateThemes(String value);
   // Future<Either<Failure, Category>> getReadCategoryById(int idCategory);
   // Future<Either<Failure, List<Category>>> getReadIconCategoryDefault(
   //     int isDefault);

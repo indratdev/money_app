@@ -25,7 +25,8 @@ abstract class LocalDataSource {
   Future<void> deleteAllData();
 
   // parameter
-  Future<String> readParamThemes();
+  Future<List<Map<String, dynamic>>> readParamThemes();
+  // Future<bool> updateParamThemes(String value);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -100,7 +101,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<String> readParamThemes() async {
+  Future<List<Map<String, dynamic>>> readParamThemes() async {
     return await dbprovider.readParamThemes();
   }
 }

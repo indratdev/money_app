@@ -3,8 +3,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 
@@ -21,27 +19,43 @@ class ThemesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('themes-color'.tr()),
       ),
-      body: Column(
-        children: <Widget>[
-          ListTile(
-            title: Text('light-color'.tr()),
-            leading: Radio<ThemesEnum>(
-              value: ThemesEnum.lightColor,
-              groupValue: _themesOption,
-              onChanged: (ThemesEnum? value) {},
-            ),
-          ),
-          ListTile(
-            title: Text('dark-color'.tr()),
-            leading: Radio<ThemesEnum>(
-              value: ThemesEnum.darkColor,
-              groupValue: _themesOption,
-              onChanged: (ThemesEnum? value) {
-                context.read<ThemesBloc>().add(updatethe)
-              },
-            ),
-          ),
-        ],
+      body: BlocConsumer<ThemesBloc, ThemesState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is SuccessReadThemes) {
+            (state.result == true)
+                ? _themesOption = ThemesEnum.darkColor
+                : _themesOption = ThemesEnum.lightColor;
+          }
+          return Column(
+            children: <Widget>[
+              ListTile(
+                title: Text('light-color'.tr()),
+                leading: Radio<ThemesEnum>(
+                  value: ThemesEnum.lightColor,
+                  groupValue: _themesOption,
+                  onChanged: (ThemesEnum? value) {
+                    context
+                        .read<ThemesBloc>()
+                        .add(UpdateThemesEvent(value: value!.name));
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text('dark-color'.tr()),
+                leading: Radio<ThemesEnum>(
+                  value: ThemesEnum.darkColor,
+                  groupValue: _themesOption,
+                  onChanged: (ThemesEnum? value) {
+                    context
+                        .read<ThemesBloc>()
+                        .add(UpdateThemesEvent(value: value!.name));
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

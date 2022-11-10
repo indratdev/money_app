@@ -394,7 +394,8 @@ class SqlHelper {
 
   // --- parameter ---
   // read parameter themes
-  Future<String> readParamThemes(Database? db, SqlDatabase instance) async {
+  Future<List<Map<String, dynamic>>> readParamThemes(
+      Database? db, SqlDatabase instance) async {
     final db = await instance.database;
 
     String query = """select value from $tableMasterParameter 
@@ -403,9 +404,12 @@ class SqlHelper {
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
 
-      print("resultttt ::::: $result");
+      // result.map((e) => print("eee : $e"));
 
-      return result.first.toString();
+      // print("resultttt ::::: ${result.first.entries.toString()}");
+
+      // return result[0].entries.toString();
+      return result;
     } else {
       throw Exception('DB is NULL');
     }

@@ -13,7 +13,7 @@ class ParameterRepositoryImpl implements ParameterRepository {
   ParameterRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, String>> getReadThemes() async {
+  Future<Either<Failure, List<Map<String, dynamic>>>> getReadThemes() async {
     try {
       final result = await localDataSource.readParamThemes();
       return right(result);
@@ -23,6 +23,15 @@ class ParameterRepositoryImpl implements ParameterRepository {
       return Left(const ConnectionFailure('Failed to connect to the database'));
     }
   }
+
+  // @override
+  // Future<Either<Failure, String>> getUpdateThemes(String value) {
+  //   try {
+  //     // final result = await localDataSource.upda
+  //   } catch (e) {
+
+  //   }
+  // }
 
   // @override
   // getInitCategory() {

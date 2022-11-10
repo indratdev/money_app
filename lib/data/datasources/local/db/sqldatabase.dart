@@ -140,7 +140,7 @@ class SqlDatabase {
   }
 
   //read parameter theme
-  Future<String> readParamThemes() async {
+  Future<List<Map<String, dynamic>>> readParamThemes() async {
     final db = await instance.database;
     final result = await sqlHelper.readParamThemes(db, instance);
     print("==result readParamThemes : $result");

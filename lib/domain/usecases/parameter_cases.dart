@@ -13,15 +13,15 @@ class ParameterCases {
   //   repository.getInitCategory();
   // }
 
-  // read category
-  Future<Either<Failure, String>> executeReadThemes() {
+  // read themes
+  Future<Either<Failure, List<Map<String, dynamic>>>> executeReadThemes() {
     return repository.getReadThemes();
   }
 
-  // update category
-  Future<Either<Failure, String>> executeUpdateThemes(String value) {
-    return repository.getUpdateThemes(value);
-  }
+  // // update themes
+  // Future<Either<Failure, String>> executeUpdateThemes(String value) {
+  //   return repository.getUpdateThemes(value);
+  // }
 
   // // read category by id
   // Future<Either<Failure, Category>> executeReadCategoryById(int idCategory) {

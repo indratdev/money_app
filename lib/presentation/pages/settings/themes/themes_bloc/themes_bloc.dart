@@ -16,10 +16,11 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
         print("ReadThemesEvent ... $result");
         result.fold(
           (l) => emit(FailureReadThemes(messageError: "FailureReadThemes")),
-          // (data) => emit(SuccessReadThemes(result: data)),
           (data) {
             bool result = false;
-            (data == "0") ? result = false : result = true;
+            (data.first.entries.first.value == "0")
+                ? result = false
+                : result = true;
             emit(SuccessReadThemes(result: result));
           },
         );
@@ -31,9 +32,10 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
 
     on<UpdateThemesEvent>((event, emit) {
       try {
-        String valueThemes = "";
-        (event.value.name == "lightColor") ? valueThemes = 
-        final result = _getParameterCases.executeUpdateThemes(event.value);
+        print("event ::: ${event.value}");
+        // var choose = "";
+        // (event.value.name == "lightColor") ? choose = "0" : choose = "1";
+        final result = _getParameterCases.executeUpdateThemes(choose);
       } catch (e) {}
     });
   }
