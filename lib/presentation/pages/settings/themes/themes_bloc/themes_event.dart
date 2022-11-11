@@ -14,3 +14,9 @@ class UpdateThemesEvent extends ThemesEvent {
 
   UpdateThemesEvent({required this.value});
 }
+
+class ChangeThemeEvent extends ThemesEvent {
+  AppTheme appTheme;
+
+  ChangeThemeEvent({required this.appTheme});
+}

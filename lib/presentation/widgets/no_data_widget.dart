@@ -24,14 +24,14 @@ class NoDataWidget extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
+            width: MediaQuery.of(context).size.width / 4,
             height: MediaQuery.of(context).size.width / 20,
             // color: Colors.red,
             child: FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
                 'no-data'.tr(),
-                style: TextStyle(fontWeight: FontWeight.w800),
+                style: TextStyle(fontWeight: FontWeight.w500),
               ),
             ),
           ),

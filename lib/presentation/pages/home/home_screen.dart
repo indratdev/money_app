@@ -13,6 +13,7 @@ import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.d
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 
 import '../../widgets/no_data_widget.dart';
+import '../../../config/themes/app_themes.dart';
 import 'widgets/calculation_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widhtContainer = MediaQuery.of(context).size.width / 3.5;
+    // print("theme of context : ${context.isDarkMode}");
 
     return SafeArea(
       child: Scaffold(
@@ -172,7 +174,7 @@ class HomeScreen extends StatelessWidget {
                       child: Container(
                         decoration: listDataDecor,
                         child: (listTransaction?.length == 0)
-                            ? const NoDataWidget()
+                            ? NoDataWidget()
                             : ListView.separated(
                                 separatorBuilder: (context, index) =>
                                     defaultDivider,

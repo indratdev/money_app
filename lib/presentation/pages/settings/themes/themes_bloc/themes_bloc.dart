@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:money_app/domain/usecases/parameter_cases.dart';
 
-import '../themes_screen.dart';
+import '../../../../../config/themes/app_themes.dart';
 
 part 'themes_event.dart';
 part 'themes_state.dart';
@@ -13,7 +14,7 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
     on<ReadThemesEvent>((event, emit) async {
       try {
         final result = await _getParameterCases.executeReadThemes();
-        print("ReadThemesEvent ... $result");
+        // print("ReadThemesEvent ... $result");
         result.fold(
           (l) => emit(FailureReadThemes(messageError: "FailureReadThemes")),
           (data) {
@@ -32,11 +33,31 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
 
     on<UpdateThemesEvent>((event, emit) {
       try {
-        print("event ::: ${event.value}");
+        // print("event ::: ${event.value}");
         // var choose = "";
         // (event.value.name == "lightColor") ? choose = "0" : choose = "1";
-        final result = _getParameterCases.executeUpdateThemes(choose);
+        // final result = _getParameterCases.executeUpdateThemes(choose);
       } catch (e) {}
+    });
+
+    on<ChangeThemeEvent>((event, emit) {
+      try {
+        final result = event.appTheme;
+
+        switch (result) {
+          case AppTheme.darkAppTheme:
+            // print("AppTheme.darkAppTheme ==> klikk");
+            emit(SuccessChangeThemes(appTheme: AppTheme.darkAppTheme));
+            break;
+          case AppTheme.lightAppTheme:
+            // print("AppTheme.lightAppTheme ==> klikk");
+            emit(SuccessChangeThemes(appTheme: AppTheme.lightAppTheme));
+            break;
+          default:
+        }
+      } catch (e) {
+        print(e);
+      }
     });
   }
 }

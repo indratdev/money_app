@@ -30,6 +30,7 @@ const Color lightPurple = Color(0xFF8383BE);
 
 // image name
 const noDataImage = 'assets/images/nodata.png';
+const locAssetLanguage = 'assets/languages';
 
 // --------------------------------- decoration ----------------------------------
 Decoration arrowDecor = BoxDecoration(

@@ -39,3 +39,12 @@ class SuccessUpdateThemes extends ThemesState {
   @override
   List<Object> get props => [result];
 }
+
+class SuccessChangeThemes extends ThemesState {
+  final AppTheme appTheme;
+
+  SuccessChangeThemes({required this.appTheme});
+
+  @override
+  List<Object> get props => [appTheme];
+}

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_app/config/themes/themes.dart';
+import 'package:money_app/config/themes/app_themes.dart';
 import 'package:money_app/data/constants.dart';
+
 import 'package:money_app/data/date_util.dart';
+import 'package:money_app/data/languages_app.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/injection.dart' as di;
@@ -17,16 +19,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
+  LanguagesApp _languageApp = LanguagesApp();
+
   await di.setup();
   runApp(EasyLocalization(
-    startLocale: Locale('id', 'ID'),
-    path: 'assets/languages',
-    supportedLocales: [
-      Locale('id', 'ID'),
-      Locale('en', 'US'),
-      Locale('ja', 'JP'),
-    ],
-    fallbackLocale: Locale('id', 'ID'),
+    startLocale: _languageApp.getDefaultLanguage,
+    path: locAssetLanguage,
+    supportedLocales: _languageApp.getListLanguage,
+    fallbackLocale: _languageApp.getDefaultLanguage,
     child: MyApp(),
   ));
 }
@@ -36,11 +36,11 @@ class MyApp extends StatelessWidget {
 
   AppRoutes routes = AppRoutes();
 
-  bool isDark = false;
+  // bool isDark = false;
+  ThemeData? _themeData = appThemeData[AppTheme.lightAppTheme];
 
   @override
   Widget build(BuildContext context) {
-    print(">>> main build");
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -65,9 +65,12 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemesBloc, ThemesState>(
         builder: (context, state) {
-          if (state is SuccessReadThemes) {
-            print("this is state : ${state.result}");
-            isDark = state.result;
+          // if (state is SuccessReadThemes) {
+          //   print("this is state : ${state.result}");
+          //   isDark = state.result;
+          // }
+          if (state is SuccessChangeThemes) {
+            _themeData = appThemeData[state.appTheme];
           }
           return MaterialApp(
             // add new language
@@ -78,7 +81,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: AppRoutes.splash,
             routes: routes.getRoutes,
-            theme: ThemesApp.themeData(isDark, context),
+            theme: _themeData,
+            // theme: ThemesApp.themeData(isDark, context),
             // themeMode: ThemeMode.dark,
             // theme: ThemeData(
             //     textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
