@@ -147,6 +147,13 @@ class SqlDatabase {
     return result;
   }
 
+  Future<int> updateThemes(String value) async {
+    final db = await instance.database;
+    final result = await sqlHelper.updateParamThemes(db, instance, value);
+    print("==result updateThemes : $result");
+    return result;
+  }
+
 // // read all master category
 //   Future<List<CategoryMasterModel>> readAllCategoryMaster() async {
 //     final db = await instance.database;

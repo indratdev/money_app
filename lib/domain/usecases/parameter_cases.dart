@@ -19,9 +19,9 @@ class ParameterCases {
   }
 
   // // update themes
-  // Future<Either<Failure, String>> executeUpdateThemes(String value) {
-  //   return repository.getUpdateThemes(value);
-  // }
+  Future<Either<Failure, int>> executeUpdateThemes(String value) {
+    return repository.getUpdateThemes(value);
+  }
 
   // // read category by id
   // Future<Either<Failure, Category>> executeReadCategoryById(int idCategory) {

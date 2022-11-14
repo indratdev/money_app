@@ -31,14 +31,14 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
       }
     });
 
-    on<UpdateThemesEvent>((event, emit) {
-      try {
-        // print("event ::: ${event.value}");
-        // var choose = "";
-        // (event.value.name == "lightColor") ? choose = "0" : choose = "1";
-        // final result = _getParameterCases.executeUpdateThemes(choose);
-      } catch (e) {}
-    });
+    // on<UpdateThemesEvent>((event, emit) {
+    //   try {
+    //     // print("event ::: ${event.value}");
+    //     // var choose = "";
+    //     // (event.value.name == "lightColor") ? choose = "0" : choose = "1";
+    //     // final result = _getParameterCases.executeUpdateThemes(choose);
+    //   } catch (e) {}
+    // });
 
     on<ChangeThemeEvent>((event, emit) {
       try {
@@ -46,11 +46,14 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
 
         switch (result) {
           case AppTheme.darkAppTheme:
+            final updateTheme = _getParameterCases.executeUpdateThemes("1");
             // print("AppTheme.darkAppTheme ==> klikk");
             emit(SuccessChangeThemes(appTheme: AppTheme.darkAppTheme));
             break;
           case AppTheme.lightAppTheme:
             // print("AppTheme.lightAppTheme ==> klikk");
+            final updateTheme = _getParameterCases.executeUpdateThemes("0");
+
             emit(SuccessChangeThemes(appTheme: AppTheme.lightAppTheme));
             break;
           default:

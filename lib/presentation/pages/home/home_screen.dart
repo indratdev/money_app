@@ -9,6 +9,7 @@ import 'package:money_app/domain/entities/calculationE.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
+import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 
@@ -27,18 +28,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widhtContainer = MediaQuery.of(context).size.width / 3.5;
-    // print("theme of context : ${context.isDarkMode}");
+    final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
 
     return SafeArea(
       child: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.topLeft,
-              colors: bloomColor,
-            ),
-          ),
+          decoration: (stateTheme == AppTheme.lightAppTheme.toString())
+              ? backgroundThemeLight
+              : backgroundThemeDark,
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: BlocConsumer<TransactionBloc, TransactionState>(
@@ -79,7 +76,10 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Container(
-                            decoration: arrowDecor,
+                            decoration: (stateTheme ==
+                                    AppTheme.lightAppTheme.toString())
+                                ? arrowDecor
+                                : arrowDecorDark,
                             child: FittedBox(
                               fit: BoxFit.fitWidth,
                               alignment: Alignment.center,
@@ -96,7 +96,10 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            decoration: arrowDecor,
+                            decoration: (stateTheme ==
+                                    AppTheme.lightAppTheme.toString())
+                                ? arrowDecor
+                                : arrowDecorDark,
                             width: MediaQuery.of(context).size.width / 2,
                             height: double.infinity,
                             child: FittedBox(
@@ -115,7 +118,10 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            decoration: arrowDecor,
+                            decoration: (stateTheme ==
+                                    AppTheme.lightAppTheme.toString())
+                                ? arrowDecor
+                                : arrowDecorDark,
                             child: IconButton(
                               onPressed: () {
                                 String date = DateUtil().operationDate(
@@ -133,7 +139,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                     // container calculation
                     Container(
-                      decoration: calculationDecor,
+                      decoration:
+                          (stateTheme == AppTheme.lightAppTheme.toString())
+                              ? calculationDecor
+                              : calculationDecorDark,
                       height: MediaQuery.of(context).size.height / 10,
                       margin: const EdgeInsets.only(
                           top: 5, bottom: 20, left: 8, right: 8),
@@ -146,7 +155,7 @@ class HomeScreen extends StatelessWidget {
                             listCalculation: listCalculation,
                             labelName: 'expense'.tr(),
                             category: listCalculation?[0].expense ?? 0.0,
-                            textColor: Colors.red,
+                            textColor: redCalculation,
                           ),
                           // container penerimaan
                           CalculationSection(
@@ -154,7 +163,7 @@ class HomeScreen extends StatelessWidget {
                             listCalculation: listCalculation,
                             labelName: 'income'.tr(),
                             category: listCalculation?[0].income ?? 0.0,
-                            textColor: Colors.green,
+                            textColor: greenCalculation,
                           ),
 
                           // selisih

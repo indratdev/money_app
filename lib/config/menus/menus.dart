@@ -14,8 +14,10 @@ import '../../presentation/pages/chart/bloc/chart_bloc.dart';
 import '../../presentation/pages/home/home_screen.dart';
 import '../../presentation/pages/rekap/rekap_screen.dart';
 import '../../presentation/pages/settings/setting_screen.dart';
+import '../../presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 import '../../presentation/pages/transaction/bloc/transaction_bloc.dart';
 import '../../presentation/pages/transaction/transaction_screen.dart';
+import '../themes/app_themes.dart';
 
 class BottomMenu {
   String title;
@@ -29,6 +31,7 @@ class BottomMenu {
 
 class Menus {
   DateUtil dates = DateUtil();
+
   // List<BottomMenu> items = [
   //   BottomMenu(title: 'Data Harian', icon: FontAwesomeIcons.wallet),
   //   BottomMenu(title: "Transaksi", icon: FontAwesomeIcons.plus),
@@ -68,12 +71,18 @@ class Menus {
 
   //
   List<PersistentBottomNavBarItem> navBarsItems(BuildContext context) {
+    final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
+
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.wallet),
         title: 'home'.tr(),
-        activeColorPrimary: lightBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? lightBlue
+            : lightMildWaters,
+        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? CupertinoColors.systemGrey
+            : Colors.black38,
         onSelectedTabPressWhenNoScreensPushed: () => context
             .read<TransactionBloc>()
             .add(ReadTransactionEvent(
@@ -84,8 +93,12 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.chartSimple),
         title: 'chart'.tr(),
-        activeColorPrimary: lightBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? lightBlue
+            : lightMildWaters,
+        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? CupertinoColors.systemGrey
+            : Colors.black38,
         onSelectedTabPressWhenNoScreensPushed: () {
           // String date = dates.operationDate(selectedDate, OptionDate.month, 0);
           context.read<ChartBloc>().add(ReadChartDefaultEvent(
@@ -95,7 +108,9 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.plus, color: Colors.white),
         title: 'transaction'.tr(),
-        activeColorPrimary: lightPurple,
+        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? lightPurple
+            : redCalculation,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onPressed: (p0) {
           PersistentNavBarNavigator.pushNewScreen(context,
@@ -108,14 +123,22 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.bookOpen),
         title: 'report'.tr(),
-        activeColorPrimary: lightBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? lightBlue
+            : lightMildWaters,
+        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? CupertinoColors.systemGrey
+            : Colors.black38,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.android),
         title: 'titleSetting'.tr(),
-        activeColorPrimary: lightBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? lightBlue
+            : lightMildWaters,
+        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+            ? CupertinoColors.systemGrey
+            : Colors.black38,
       ),
     ];
   }

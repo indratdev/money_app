@@ -24,6 +24,21 @@ class ParameterRepositoryImpl implements ParameterRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, int>> getUpdateThemes(String value) async {
+    try {
+      final result = await localDataSource.updateParamThemes(value);
+      // updateTransaction(
+      //     idTransaction, valueTransaction);
+
+      return right(result);
+    } on ServerException {
+      return Left(const ServerFailure(''));
+    } on SocketException {
+      return Left(const ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
   // @override
   // Future<Either<Failure, String>> getUpdateThemes(String value) {
   //   try {

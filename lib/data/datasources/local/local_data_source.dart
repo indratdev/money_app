@@ -26,6 +26,7 @@ abstract class LocalDataSource {
 
   // parameter
   Future<List<Map<String, dynamic>>> readParamThemes();
+  Future<int> updateParamThemes(String value);
   // Future<bool> updateParamThemes(String value);
 }
 
@@ -103,5 +104,10 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<List<Map<String, dynamic>>> readParamThemes() async {
     return await dbprovider.readParamThemes();
+  }
+
+  @override
+  Future<int> updateParamThemes(String value) async {
+    return await dbprovider.updateThemes(value);
   }
 }

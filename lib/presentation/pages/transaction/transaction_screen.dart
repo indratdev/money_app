@@ -64,7 +64,7 @@ class TransactionScreen extends StatelessWidget {
                   transaction.createdTime = state.result;
                 }
                 return Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.topLeft,

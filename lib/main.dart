@@ -56,9 +56,6 @@ class MyApp extends StatelessWidget {
             ..add(ReadChartDefaultEvent(
                 transactionDateTime: DateUtil().getCurrentDate())),
         ),
-        // BlocProvider(
-        //   create: (context) => di.getIt<ThemesBloc>()..add(ReadThemesEvent()),
-        // ),
         BlocProvider(
           create: (context) => di.getIt<ThemesBloc>()..add(ReadThemesEvent()),
         ),

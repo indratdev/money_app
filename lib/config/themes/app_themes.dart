@@ -27,7 +27,15 @@ final appThemeData = {
     brightness: Brightness.dark,
     // buttonTheme: Theme.of(context).buttonTheme.copyWith(
     colorScheme: ColorScheme.dark(),
-    appBarTheme: AppBarTheme(color: Colors.white, centerTitle: false),
+    appBarTheme: AppBarTheme(color: blackDefault, centerTitle: false),
+    floatingActionButtonTheme:
+        const FloatingActionButtonThemeData(backgroundColor: lightPurple),
+    // bottomNavigationBarTheme:
+    //     BottomNavigationBarThemeData(backgroundColor: Colors.amber),
+
+    // textTheme: TextTheme()
+    // textTheme: TextTheme()
+    // primaryTextTheme: TextTheme(titleSmall: TextStyle(color: Colors.amber)),
   ),
   // primaryColor: Colors.redAccent,
   // primarySwatch: Colors.blue,

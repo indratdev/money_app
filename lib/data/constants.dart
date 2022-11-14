@@ -27,6 +27,9 @@ const List<Color> bloomColor = [
 const Color lightMildWaters = Color(0xFFE0EAFD);
 const Color lightBlue = Color(0xFF50A7D9);
 const Color lightPurple = Color(0xFF8383BE);
+const Color greenCalculation = Color(0xFF29C7AC);
+const Color redCalculation = Color(0xFF84142D);
+const Color blackDefault = Color(0xFF141010);
 
 // image name
 const noDataImage = 'assets/images/nodata.png';
@@ -46,6 +49,19 @@ Decoration arrowDecor = BoxDecoration(
   ],
 );
 
+Decoration arrowDecorDark = const BoxDecoration(
+  color: lightPurple,
+  borderRadius: BorderRadius.all(Radius.circular(13)),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.white60,
+      blurRadius: 0.5,
+      spreadRadius: 0.2,
+      offset: Offset(0, 1), // changes position of shadow
+    )
+  ],
+);
+
 Decoration calculationDecor = BoxDecoration(
   color: Colors.white.withOpacity(0.9),
   borderRadius: const BorderRadius.only(
@@ -55,6 +71,19 @@ Decoration calculationDecor = BoxDecoration(
     bottomRight: Radius.circular(10),
   ),
   boxShadow: const [
+    BoxShadow(color: Colors.black12, offset: Offset(0, -5), blurRadius: 8.0)
+  ],
+);
+
+Decoration calculationDecorDark = const BoxDecoration(
+  color: lightPurple,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(10),
+    topRight: Radius.circular(27),
+    bottomLeft: Radius.circular(27),
+    bottomRight: Radius.circular(10),
+  ),
+  boxShadow: [
     BoxShadow(color: Colors.black12, offset: Offset(0, -5), blurRadius: 8.0)
   ],
 );
@@ -92,6 +121,20 @@ Decoration customCircularBox({Color? color}) => BoxDecoration(
         ),
       ],
     );
+
+Decoration backgroundThemeLight = const BoxDecoration(
+  gradient: LinearGradient(
+    begin: Alignment.topRight,
+    end: Alignment.topLeft,
+    colors: bloomColor,
+  ),
+);
+
+Decoration backgroundThemeDark = const BoxDecoration(
+  color: Color(
+    0xFF0a0f0d,
+  ),
+);
 
 // --------------------------------- off decoration ----------------------------------
 

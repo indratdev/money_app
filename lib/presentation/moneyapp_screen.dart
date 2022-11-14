@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/config/themes/app_themes.dart';
+import 'package:money_app/data/constants.dart';
+import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -15,6 +18,7 @@ class MoneyappScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int _index = 0;
+    final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
 
     return SafeArea(
       child: BlocConsumer<TransactionBloc, TransactionState>(
@@ -49,7 +53,9 @@ class MoneyappScreen extends StatelessWidget {
               screens: menu.bottomScreenMenu(),
               items: menu.navBarsItems(context),
               confineInSafeArea: true,
-              backgroundColor: Colors.white, // Default is Colors.white.
+              backgroundColor: (stateTheme == AppTheme.lightAppTheme.toString())
+                  ? Colors.white
+                  : lightPurple, // Default is Colors.white.
               handleAndroidBackButtonPress: true, // Default is true.
               resizeToAvoidBottomInset:
                   true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
@@ -76,6 +82,7 @@ class MoneyappScreen extends StatelessWidget {
                 curve: Curves.ease,
                 duration: Duration(milliseconds: 200),
               ),
+              
 
               navBarStyle: NavBarStyle
                   .style16, // Choose the nav bar style with this property.

@@ -18,6 +18,7 @@ class CalculationSection extends StatelessWidget {
   final String labelName;
   final double? category;
   final Color textColor;
+  // final bool isLight;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +38,10 @@ class CalculationSection extends StatelessWidget {
               child: Text(
                 // "Pengeluaran",
                 labelName,
+
                 softWrap: true,
                 maxLines: 1,
-                style: const TextStyle(fontWeight: FontWeight.w600),
+                style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
           ),

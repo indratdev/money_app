@@ -50,7 +50,7 @@ class ChartScreen extends StatelessWidget {
             }
 
             return Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.topRight,
