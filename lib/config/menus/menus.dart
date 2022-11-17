@@ -72,6 +72,7 @@ class Menus {
   //
   List<PersistentBottomNavBarItem> navBarsItems(BuildContext context) {
     final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
+    print(">>> stateTheme (menus) :: $stateTheme");
 
     return [
       PersistentBottomNavBarItem(

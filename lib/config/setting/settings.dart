@@ -70,6 +70,11 @@ class MenuSetting {
       routeSetting: AppRoutes.settThemes,
       blocName: BlocName.themesRead,
     ),
+    Setting(
+      labelSetting: 'donation'.tr(),
+      iconSetting: const Icon(Icons.money_rounded),
+      routeSetting: AppRoutes.settDonation,
+    )
     // Setting(
     //     labelSetting: 'Backup Data',
     //     routeSetting: '/setting/backupData',

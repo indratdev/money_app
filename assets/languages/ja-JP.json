@@ -41,4 +41,8 @@
     , "themes-color" : "テーマカラー"
     , "dark-color" : "暗色"
     , "light-color" : "明色"
+    , "donation" : "Donation"
+    , "donation-saweria" : "By Saweria"
+    , "donation-paypal" : "By Paypal"
+    , "donation-description" : "Terima kasih telah meng-unduh aplikasi {appName}. Segala macam bentuk donasi akan kami terima dan akan kami pergunakan untuk pengembangan aplikasi ini  \n\n Dukung terus pengembang aplikasi Indonesia "
 }

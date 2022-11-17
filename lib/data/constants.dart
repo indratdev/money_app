@@ -30,10 +30,15 @@ const Color lightPurple = Color(0xFF8383BE);
 const Color greenCalculation = Color(0xFF29C7AC);
 const Color redCalculation = Color(0xFF84142D);
 const Color blackDefault = Color(0xFF141010);
+const Color orangeSaweria = Color(0xFFfaae2b);
+const Color bluePaypal = Color(0xFF3b7bbf);
 
 // image name
 const noDataImage = 'assets/images/nodata.png';
 const locAssetLanguage = 'assets/languages';
+
+// url
+const urlSaweria = 'https://saweria.co/indratdev';
 
 // --------------------------------- decoration ----------------------------------
 Decoration arrowDecor = BoxDecoration(

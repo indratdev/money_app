@@ -18,7 +18,7 @@ class MoneyappScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int _index = 0;
-    final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
+    // final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
 
     return SafeArea(
       child: BlocConsumer<TransactionBloc, TransactionState>(
@@ -53,9 +53,10 @@ class MoneyappScreen extends StatelessWidget {
               screens: menu.bottomScreenMenu(),
               items: menu.navBarsItems(context),
               confineInSafeArea: true,
-              backgroundColor: (stateTheme == AppTheme.lightAppTheme.toString())
-                  ? Colors.white
-                  : lightPurple, // Default is Colors.white.
+              backgroundColor: Colors.white,
+              // (stateTheme == AppTheme.lightAppTheme.toString())
+              // ? Colors.white
+              // : lightPurple, // Default is Colors.white.
               handleAndroidBackButtonPress: true, // Default is true.
               resizeToAvoidBottomInset:
                   true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
@@ -82,7 +83,6 @@ class MoneyappScreen extends StatelessWidget {
                 curve: Curves.ease,
                 duration: Duration(milliseconds: 200),
               ),
-              
 
               navBarStyle: NavBarStyle
                   .style16, // Choose the nav bar style with this property.
