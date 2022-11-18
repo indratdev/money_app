@@ -28,7 +28,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widhtContainer = MediaQuery.of(context).size.width / 3.5;
-    final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
+    final stateTheme = context.watch<ThemesBloc>().state;
+    print(">>> stateTheme ::: $stateTheme");
 
     return SafeArea(
       child: Scaffold(

@@ -145,3 +145,7 @@ Decoration backgroundThemeDark = const BoxDecoration(
 
 // divider
 Divider defaultDivider = const Divider(color: Colors.black54, height: 1);
+
+
+
+// <a href="https://www.flaticon.com/free-icons/donation" title="donation icons">Donation icons created by DinosoftLabs - Flaticon</a>
