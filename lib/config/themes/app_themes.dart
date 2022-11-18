@@ -44,7 +44,7 @@ final appThemeData = {
   //   headline3: TextStyle().copyWith(color: Colors.white),
 
   AppTheme.lightAppTheme: ThemeData(
-    primarySwatch: Colors.blue,
+    primarySwatch: Colors.indigo,
     primaryColor: Colors.white,
     backgroundColor: Color(0xffF1F5FB),
 

@@ -34,9 +34,10 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          decoration: (stateTheme == AppTheme.lightAppTheme.toString())
-              ? backgroundThemeLight
-              : backgroundThemeDark,
+          decoration: backgroundThemeLight,
+          // decoration: (stateTheme == AppTheme.lightAppTheme.toString())
+          //     ? backgroundThemeLight
+          //     : backgroundThemeDark,
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: BlocConsumer<TransactionBloc, TransactionState>(
@@ -77,10 +78,11 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Container(
-                            decoration: (stateTheme ==
-                                    AppTheme.lightAppTheme.toString())
-                                ? arrowDecor
-                                : arrowDecorDark,
+                            decoration: arrowDecor,
+                            // decoration: (stateTheme ==
+                            //         AppTheme.lightAppTheme.toString())
+                            //     ? arrowDecor
+                            //     : arrowDecorDark,
                             child: FittedBox(
                               fit: BoxFit.fitWidth,
                               alignment: Alignment.center,
@@ -97,10 +99,11 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            decoration: (stateTheme ==
-                                    AppTheme.lightAppTheme.toString())
-                                ? arrowDecor
-                                : arrowDecorDark,
+                            decoration: arrowDecor,
+                            // decoration: (stateTheme ==
+                            //         AppTheme.lightAppTheme.toString())
+                            //     ? arrowDecor
+                            //     : arrowDecorDark,
                             width: MediaQuery.of(context).size.width / 2,
                             height: double.infinity,
                             child: FittedBox(
@@ -119,10 +122,11 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            decoration: (stateTheme ==
-                                    AppTheme.lightAppTheme.toString())
-                                ? arrowDecor
-                                : arrowDecorDark,
+                            decoration: arrowDecor,
+                            // decoration: (stateTheme ==
+                            //         AppTheme.lightAppTheme.toString())
+                            //     ? arrowDecor
+                            //     : arrowDecorDark,
                             child: IconButton(
                               onPressed: () {
                                 String date = DateUtil().operationDate(
@@ -140,10 +144,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                     // container calculation
                     Container(
-                      decoration:
-                          (stateTheme == AppTheme.lightAppTheme.toString())
-                              ? calculationDecor
-                              : calculationDecorDark,
+                      decoration: calculationDecor,
+                      // (stateTheme == AppTheme.lightAppTheme.toString())
+                      //     ? calculationDecor
+                      //     : calculationDecorDark,
                       height: MediaQuery.of(context).size.height / 10,
                       margin: const EdgeInsets.only(
                           top: 5, bottom: 20, left: 8, right: 8),

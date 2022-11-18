@@ -22,15 +22,15 @@ class CategoryScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is SuccessDeleteCategory) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Kategori Berhasil Dihapus");
+                context, "Kategori Berhasil Dihapus", true);
           }
           if (state is SuccessUpdateCategory) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Kategori Berhasil Diperbaharui");
+                context, "Kategori Berhasil Diperbaharui", true);
           }
           if (state is SuccessCreateCategory) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Kategori Baru Berhasil Ditambahkan");
+                context, "Kategori Baru Berhasil Ditambahkan", true);
           }
         },
         builder: (context, state) {

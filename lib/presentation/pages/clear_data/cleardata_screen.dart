@@ -19,11 +19,11 @@ class ClearDataScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is SuccessDeleteAllData) {
             CustomWidgets.showMessageAlertBasic(
-                context, 'success-clear-data-all'.tr());
+                context, 'success-clear-data-all'.tr(), true);
           }
           if (state is FailureDeleteAllData) {
             CustomWidgets.showMessageAlertBasic(
-                context, 'failed-clear-data-all'.tr());
+                context, 'failed-clear-data-all'.tr(), false);
           }
         },
         child: Column(

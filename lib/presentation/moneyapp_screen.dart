@@ -26,7 +26,7 @@ class MoneyappScreen extends StatelessWidget {
           // print(">>>>> state : $state");
           if (state is SuccessUpdateTransaction) {
             CustomWidgets.showMessageAlertBasic(
-                context, 'success-update-transaction'.tr());
+                context, 'success-update-transaction'.tr(), true);
             context.read<TransactionBloc>().add(ReadTransactionEvent(
                 transactionDateTime: DateUtil().getCurrentDate()));
           }
@@ -34,14 +34,14 @@ class MoneyappScreen extends StatelessWidget {
             // ScaffoldMessenger.of(context)
             //     .showSnackBar(SnackBar(content: Text("Data Berhasil dihapus")));
             CustomWidgets.showMessageAlertBasic(
-                context, 'success-delete-transaction'.tr());
+                context, 'success-delete-transaction'.tr(), true);
           }
 
           if (state is SuccessSaveTransactionNew) {
             // ScaffoldMessenger.of(context).showSnackBar(
             //     SnackBar(content: Text("Data Berhasil Ditambahkan")));
             CustomWidgets.showMessageAlertBasic(
-                context, 'success-added-transaction'.tr());
+                context, 'success-added-transaction'.tr(), true);
             // }
           }
         },

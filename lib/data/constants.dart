@@ -36,6 +36,8 @@ const Color bluePaypal = Color(0xFF3b7bbf);
 // image name
 const noDataImage = 'assets/images/nodata.png';
 const locAssetLanguage = 'assets/languages';
+const successImage = 'assets/images/success.png';
+const failedImage = 'assets/images/failed.png';
 
 // url
 const urlSaweria = 'https://saweria.co/indratdev';

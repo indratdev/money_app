@@ -36,7 +36,7 @@ class CustomWidgets {
     );
   }
 
-  static showMessageAlertBasic(BuildContext context, String content) {
+  static showMessageAlertBasic2(BuildContext context, String content) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -52,9 +52,53 @@ class CustomWidgets {
       },
     );
   }
+
+  static showMessageAlertBasic(
+      BuildContext context, String content, bool isSuccess) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)), //this right here
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 3,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: MediaQuery.of(context).size.width / 8,
+                      foregroundColor: Colors.transparent,
+                      child: ClipOval(
+                        child: Image.asset(
+                          (isSuccess) ? successImage : failedImage,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    SB_Height20,
+                    Text(content),
+                    SB_Height20,
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("OK")))
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
 }
 
 
 
 
 // <a href="https://www.flaticon.com/free-icons/empty" title="empty icons">Empty icons created by Freepik - Flaticon</a>
+// <a href="https://www.flaticon.com/free-icons/tick" title="tick icons">Tick icons created by Roundicons - Flaticon</a>
+// <a href="https://www.flaticon.com/free-icons/cross" title="cross icons">Cross icons created by Roundicons - Flaticon</a>

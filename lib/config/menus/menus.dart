@@ -71,19 +71,21 @@ class Menus {
 
   //
   List<PersistentBottomNavBarItem> navBarsItems(BuildContext context) {
-    final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
-    print(">>> stateTheme (menus) :: $stateTheme");
+    // final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
+    // print(">>> stateTheme (menus) :: $stateTheme");
 
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.wallet),
         title: 'home'.tr(),
-        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? lightBlue
-            : lightMildWaters,
-        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? CupertinoColors.systemGrey
-            : Colors.black38,
+        activeColorPrimary: lightBlue,
+        // (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? lightBlue
+        //     : lightMildWaters,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? CupertinoColors.systemGrey
+        //     : Colors.black38,
         onSelectedTabPressWhenNoScreensPushed: () => context
             .read<TransactionBloc>()
             .add(ReadTransactionEvent(
@@ -94,12 +96,14 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.chartSimple),
         title: 'chart'.tr(),
-        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? lightBlue
-            : lightMildWaters,
-        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? CupertinoColors.systemGrey
-            : Colors.black38,
+        activeColorPrimary: lightBlue,
+        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? lightBlue
+        //     : lightMildWaters,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? CupertinoColors.systemGrey
+        //     : Colors.black38,
         onSelectedTabPressWhenNoScreensPushed: () {
           // String date = dates.operationDate(selectedDate, OptionDate.month, 0);
           context.read<ChartBloc>().add(ReadChartDefaultEvent(
@@ -109,9 +113,10 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.plus, color: Colors.white),
         title: 'transaction'.tr(),
-        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? lightPurple
-            : redCalculation,
+        activeColorPrimary: lightBlue,
+        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? lightPurple
+        //     : redCalculation,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onPressed: (p0) {
           PersistentNavBarNavigator.pushNewScreen(context,
@@ -124,22 +129,27 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.bookOpen),
         title: 'report'.tr(),
-        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? lightBlue
-            : lightMildWaters,
-        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? CupertinoColors.systemGrey
-            : Colors.black38,
+        activeColorPrimary: lightBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? lightBlue
+        //     : lightMildWaters,
+
+        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? CupertinoColors.systemGrey
+        //     : Colors.black38,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.android),
         title: 'titleSetting'.tr(),
-        activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? lightBlue
-            : lightMildWaters,
-        inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-            ? CupertinoColors.systemGrey
-            : Colors.black38,
+        activeColorPrimary: lightBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? lightBlue
+        //     : lightMildWaters,
+        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
+        //     ? CupertinoColors.systemGrey
+        //     : Colors.black38,
       ),
     ];
   }
