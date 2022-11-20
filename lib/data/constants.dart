@@ -38,6 +38,7 @@ const noDataImage = 'assets/images/nodata.png';
 const locAssetLanguage = 'assets/languages';
 const successImage = 'assets/images/success.png';
 const failedImage = 'assets/images/failed.png';
+const warningImage = 'assets/images/warning.png';
 
 // url
 const urlSaweria = 'https://saweria.co/indratdev';

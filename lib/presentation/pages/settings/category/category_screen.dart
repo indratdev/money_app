@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
+import 'package:money_app/presentation/pages/settings/category/category_updel_screen.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -11,7 +13,7 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Kategori"),
+        title: Text('category'.tr()),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -20,6 +22,10 @@ class CategoryScreen extends StatelessWidget {
           child: Icon(Icons.add)),
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {
+          if (state is FailureDeleteCategory) {
+            CustomWidgets.showMessageAlertBasic(
+                context, "Kategori Gagal Dihapus", false);
+          }
           if (state is SuccessDeleteCategory) {
             CustomWidgets.showMessageAlertBasic(
                 context, "Kategori Berhasil Dihapus", true);
@@ -45,10 +51,17 @@ class CategoryScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    context.read<CategoryBloc>().add(
-                        ReadCategoryByIdEvent(idCategory: result[index].id!));
-                    Navigator.pushNamed(context, AppRoutes.settCategoryUpDel);
-                    print("tap id category: ${result[index].id}");
+                    // context.read<CategoryBloc>().add(
+                    //     ReadCategoryByIdEvent(idCategory: result[index].id!));
+                    // Navigator.pushNamed(context, AppRoutes.settCategoryUpDel);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CategoryUpDelScreen(
+                        selectedImage: result[index].iconName,
+                        oldValueCategory: result[index],
+                      ),
+                    ));
+                    print(
+                        "tap id category: ${result[index].id} - ${result[index]}");
                   },
                   child: ListTile(
                     leading: CircleAvatar(

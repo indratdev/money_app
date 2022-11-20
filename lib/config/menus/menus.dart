@@ -14,10 +14,9 @@ import '../../presentation/pages/chart/bloc/chart_bloc.dart';
 import '../../presentation/pages/home/home_screen.dart';
 import '../../presentation/pages/rekap/rekap_screen.dart';
 import '../../presentation/pages/settings/setting_screen.dart';
-import '../../presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
+
 import '../../presentation/pages/transaction/bloc/transaction_bloc.dart';
 import '../../presentation/pages/transaction/transaction_screen.dart';
-import '../themes/app_themes.dart';
 
 class BottomMenu {
   String title;

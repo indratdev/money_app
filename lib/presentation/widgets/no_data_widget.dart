@@ -26,7 +26,6 @@ class NoDataWidget extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width / 4,
             height: MediaQuery.of(context).size.width / 20,
-            // color: Colors.red,
             child: FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(

@@ -144,12 +144,18 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<DeleteCategoryEvent>((event, emit) async {
       try {
         emit(LoadingDeleteCategory());
-        final result =
-            await _getCategoryCases.executeDeleteCategory(event.idCategory);
-        result.fold(
-            (l) => emit(
-                FailureDeleteCategory(messageError: "FailureDeleteCategory")),
-            (r) => emit(SuccessDeleteCategory()));
+        print("Event ::: ${event.idCategory}");
+        if (event.idCategory == 0 || event.idCategory < 1) {
+          print("ini jalan");
+          emit(FailureDeleteCategory(messageError: "FailureDeleteCategory e"));
+        } else {
+          final result =
+              await _getCategoryCases.executeDeleteCategory(event.idCategory);
+          result.fold(
+              (l) => emit(
+                  FailureDeleteCategory(messageError: "FailureDeleteCategory")),
+              (r) => emit(SuccessDeleteCategory()));
+        }
       } catch (e) {
         emit(FailureDeleteCategory(messageError: "FailureDeleteCategory e"));
       }
