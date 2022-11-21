@@ -8,28 +8,47 @@ enum AppTheme {
 }
 
 final appThemeData = {
-  AppTheme.darkAppTheme: ThemeData(
+  AppTheme.darkAppTheme: ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Colors.black38,
-    primarySwatch: Colors.blue,
-    primaryColor: Colors.black,
-    backgroundColor: Colors.black,
-    // colorScheme: ColorScheme(brightness: brightness, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface),
-    indicatorColor: Color(0xff0E1D36),
-    buttonColor: Color(0xff3B3B3B),
-    hintColor: Color(0xff280C0B),
-    highlightColor: Color(0xff372901),
-    hoverColor: Color(0xff3A3A3B),
-    focusColor: Color(0xff0B2512),
-    disabledColor: Colors.grey,
-    // textSelectionColor:  Colors.white : Colors.black,
-    cardColor: Color(0xFF151515),
-    canvasColor: Colors.black,
     brightness: Brightness.dark,
+    appBarTheme: AppBarTheme(
+      color: charcoal,
+      centerTitle: false,
+    ),
+    // primarySwatch: Colors.blue,
+    // primaryColor: Colors.black,
+    // backgroundColor: Colors.black,
+
+    colorScheme: ColorScheme.dark(
+      brightness: Brightness.dark,
+      primary: const Color(0xffbb86fc),
+      onPrimary: Colors.black,
+      secondary: const Color(0xff03dac6),
+      onSecondary: Colors.black,
+      error: const Color(0xffcf6679),
+      onError: Colors.black,
+      background: const Color(0xff121212),
+      onBackground: Colors.white,
+      surface: const Color(0xff121212),
+      onSurface: Colors.white,
+    ),
+    dividerColor: Colors.white,
+    // indicatorColor: Color(0xff0E1D36),
+    // buttonColor: Color(0xff3B3B3B),
+    // hintColor: Color(0xff280C0B),
+    // highlightColor: Color(0xff372901),
+    // hoverColor: Color(0xff3A3A3B),
+    // focusColor: Color(0xff0B2512),
+    // disabledColor: Colors.grey,
+    // // textSelectionColor:  Colors.white : Colors.black,
+    // cardColor: Color(0xFF151515),
+    // canvasColor: Colors.black,
+
     // buttonTheme: Theme.of(context).buttonTheme.copyWith(
-    colorScheme: ColorScheme.dark(),
-    appBarTheme: AppBarTheme(color: blackDefault, centerTitle: false),
+
     floatingActionButtonTheme:
         const FloatingActionButtonThemeData(backgroundColor: lightPurple),
+
     // bottomNavigationBarTheme:
     //     BottomNavigationBarThemeData(backgroundColor: Colors.amber),
 
@@ -43,10 +62,12 @@ final appThemeData = {
   // textTheme: TextTheme(
   //   headline3: TextStyle().copyWith(color: Colors.white),
 
-  AppTheme.lightAppTheme: ThemeData(
-    primarySwatch: Colors.indigo,
+  AppTheme.lightAppTheme: ThemeData.light().copyWith(
+    brightness: Brightness.light,
+    // primarySwatch: Colors.indigo,
     primaryColor: Colors.white,
     backgroundColor: Color(0xffF1F5FB),
+    dividerColor: blackDefault,
 
     // unselectedWidgetColor: Colors.white,
     // colorScheme: ColorScheme(brightness: brightness, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface),
@@ -60,7 +81,7 @@ final appThemeData = {
     // textSelectionColor:  Colors.white : Colors.black,
     cardColor: Colors.white,
     canvasColor: Colors.grey[50],
-    brightness: Brightness.light,
+
     // buttonTheme: Theme.of(context)
     //     .buttonTheme
     //     .copyWith(colorScheme: ColorScheme.light()),

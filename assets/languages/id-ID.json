@@ -50,4 +50,13 @@
     , "donation-saweria" : "By Saweria"
     , "donation-paypal" : "By Paypal"
     , "donation-description" : "Terima kasih telah meng-unduh aplikasi {appName}. Segala macam bentuk donasi akan kami terima dan akan kami pergunakan untuk pengembangan aplikasi ini  \n\n Dukung terus pengembang aplikasi Indonesia "
+    , "error-read-transaction" : "Gagal Membaca List Transaksi"
+    , "error-read-chart" : "Gagal Membaca List Chart"
+    , "error-delete-category" : "Kategori Gagal Dihapus"
+    , "success-delete-category" : "Kategori Berhasil Dihapus"
+    , "success-update-category" : "Kategori Berhasil Diperbaharui"
+    , "success-add-category" : "Kategori Baru Berhasil Ditambahkan"
+    , "error-add-category" : "Kategori Baru Gagal Ditambahkan"
+    , "error-read-category" : "Gagal Menampilkan Kategori"
+    , "error-read-themes" : "Gagal Membaca Tema"
 }

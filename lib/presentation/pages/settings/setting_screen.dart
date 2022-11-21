@@ -1,11 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../config/setting/settings.dart';
-import 'category/bloc/category_bloc.dart';
 
 class SettingScreen extends StatelessWidget {
   SettingScreen({Key? key}) : super(key: key);
@@ -21,8 +17,7 @@ class SettingScreen extends StatelessWidget {
         children: <Widget>[
           Flexible(
             flex: 7,
-            child: Container(
-              // color: Colors.grey,
+            child: SizedBox(
               child: ListView.separated(
                 separatorBuilder: (context, index) => const Divider(),
                 itemCount: mSetting.getListSettings.length,
@@ -54,57 +49,57 @@ class SettingScreen extends StatelessWidget {
   }
 }
 
-class followMeWidget extends StatelessWidget {
-  const followMeWidget({
-    Key? key,
-  }) : super(key: key);
+// class followMeWidget extends StatelessWidget {
+//   const followMeWidget({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      flex: 1,
-      child: Container(
-        alignment: Alignment.center,
-        // color: Colors.yellow,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text(
-                'Ikuti Kami',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Flexible(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                      onPressed: () {},
-                      icon: FaIcon(
-                        FontAwesomeIcons.facebookSquare,
-                        color: Colors.blue,
-                      )),
-                  IconButton(
-                      onPressed: () {},
-                      icon: FaIcon(
-                        FontAwesomeIcons.instagramSquare,
-                        color: Colors.blue,
-                      )),
-                  IconButton(
-                      onPressed: () {},
-                      icon: FaIcon(
-                        FontAwesomeIcons.twitterSquare,
-                        color: Colors.blue,
-                      )),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Flexible(
+//       flex: 1,
+//       child: Container(
+//         alignment: Alignment.center,
+//         // color: Colors.yellow,
+//         child: Column(
+//           children: <Widget>[
+//             Padding(
+//               padding: const EdgeInsets.only(top: 5),
+//               child: Text(
+//                 'Ikuti Kami',
+//                 style: TextStyle(
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//             ),
+//             Flexible(
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: <Widget>[
+//                   IconButton(
+//                       onPressed: () {},
+//                       icon: FaIcon(
+//                         FontAwesomeIcons.facebookSquare,
+//                         color: Colors.blue,
+//                       )),
+//                   IconButton(
+//                       onPressed: () {},
+//                       icon: FaIcon(
+//                         FontAwesomeIcons.instagramSquare,
+//                         color: Colors.blue,
+//                       )),
+//                   IconButton(
+//                       onPressed: () {},
+//                       icon: FaIcon(
+//                         FontAwesomeIcons.twitterSquare,
+//                         color: Colors.blue,
+//                       )),
+//                 ],
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

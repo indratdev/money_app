@@ -9,12 +9,12 @@ import 'package:money_app/domain/entities/calculationE.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
-import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
 
+import '../../widgets/customWidgets.dart';
 import '../../widgets/no_data_widget.dart';
-import '../../../config/themes/app_themes.dart';
+
 import 'widgets/calculation_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,20 +28,22 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widhtContainer = MediaQuery.of(context).size.width / 3.5;
-    final stateTheme = context.watch<ThemesBloc>().state;
-    print(">>> stateTheme ::: $stateTheme");
+    final stateTheme = Theme.of(context).brightness;
 
     return SafeArea(
       child: Scaffold(
         body: Container(
-          decoration: backgroundThemeLight,
-          // decoration: (stateTheme == AppTheme.lightAppTheme.toString())
-          //     ? backgroundThemeLight
-          //     : backgroundThemeDark,
+          decoration: (stateTheme == Brightness.light)
+              ? backgroundThemeLight
+              : backgroundThemeDark,
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: BlocConsumer<TransactionBloc, TransactionState>(
               listener: (context, state) {
+                if (state is FailureReadTransaction) {
+                  CustomWidgets.showMessageAlertBasic(
+                      context, 'error-read-transaction'.tr(), false);
+                }
                 if (state is SuccessReadTransaction) {
                   listTransaction =
                       state.result[TransactionEnum.transaction.name];
@@ -56,6 +58,10 @@ class HomeScreen extends StatelessWidget {
                 }
               },
               builder: (context, state) {
+                if (state is FailureReadTransaction) {
+                  CustomWidgets.showMessageAlertBasic(
+                      context, 'error-read-transaction'.tr(), false);
+                }
                 if (state is SuccessReadTransaction) {
                   listTransaction =
                       state.result[TransactionEnum.transaction.name];
@@ -78,11 +84,9 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Container(
-                            decoration: arrowDecor,
-                            // decoration: (stateTheme ==
-                            //         AppTheme.lightAppTheme.toString())
-                            //     ? arrowDecor
-                            //     : arrowDecorDark,
+                            decoration: (stateTheme == Brightness.light)
+                                ? arrowDecor
+                                : arrowDecorDark,
                             child: FittedBox(
                               fit: BoxFit.fitWidth,
                               alignment: Alignment.center,
@@ -99,11 +103,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            decoration: arrowDecor,
-                            // decoration: (stateTheme ==
-                            //         AppTheme.lightAppTheme.toString())
-                            //     ? arrowDecor
-                            //     : arrowDecorDark,
+                            decoration: (stateTheme == Brightness.light)
+                                ? arrowDecor
+                                : arrowDecorDark,
                             width: MediaQuery.of(context).size.width / 2,
                             height: double.infinity,
                             child: FittedBox(
@@ -122,11 +124,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            decoration: arrowDecor,
-                            // decoration: (stateTheme ==
-                            //         AppTheme.lightAppTheme.toString())
-                            //     ? arrowDecor
-                            //     : arrowDecorDark,
+                            decoration: (stateTheme == Brightness.light)
+                                ? arrowDecor
+                                : arrowDecorDark,
                             child: IconButton(
                               onPressed: () {
                                 String date = DateUtil().operationDate(
@@ -144,10 +144,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                     // container calculation
                     Container(
-                      decoration: calculationDecor,
-                      // (stateTheme == AppTheme.lightAppTheme.toString())
-                      //     ? calculationDecor
-                      //     : calculationDecorDark,
+                      // decoration: calculationDecor,
+                      decoration: (stateTheme == Brightness.light)
+                          ? calculationDecor
+                          : calculationDecorDark,
                       height: MediaQuery.of(context).size.height / 10,
                       margin: const EdgeInsets.only(
                           top: 5, bottom: 20, left: 8, right: 8),
@@ -186,12 +186,16 @@ class HomeScreen extends StatelessWidget {
 
                     Expanded(
                       child: Container(
-                        decoration: listDataDecor,
+                        decoration: (stateTheme == Brightness.light)
+                            ? listDataDecor
+                            : listDataDecorDark,
                         child: (listTransaction?.length == 0)
                             ? NoDataWidget()
                             : ListView.separated(
                                 separatorBuilder: (context, index) =>
-                                    defaultDivider,
+                                    const Divider(),
+                                // (context, index) =>
+                                //     defaultDivider(context),
                                 itemCount: listTransaction?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   return InkWell(
@@ -215,11 +219,13 @@ class HomeScreen extends StatelessWidget {
                                       contentPadding: const EdgeInsets.all(8),
                                       leading: CircleAvatar(
                                         radius: 25,
-                                        foregroundColor: Colors.transparent,
+                                        // foregroundColor: Colors.transparent,
+                                        backgroundColor: Colors.white,
                                         child: ClipOval(
                                           child: Image.asset(
                                             'assets/icons/${listTransaction?[index].categoryIconName}.png',
                                             fit: BoxFit.fill,
+                                            // color: Colors.white,
                                           ),
                                         ),
                                       ),

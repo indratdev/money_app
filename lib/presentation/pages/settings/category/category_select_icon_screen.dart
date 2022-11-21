@@ -22,7 +22,6 @@ class CategorySelectIconScreen extends StatefulWidget {
 class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
   List<Category>? listCategoryIcon;
 
-  // int selectedId = 1;
   String? selectedCategoryIconName;
   Category? selectedCategory;
 
@@ -31,14 +30,10 @@ class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
     super.initState();
 
     selectedCategoryIconName = widget.selectedIconName;
-    print("selectedCategoryIconName ::: $selectedCategoryIconName");
   }
 
   @override
   Widget build(BuildContext context) {
-    // final arguments = (ModalRoute.of(context)?.settings.arguments as Map);
-    // oldCategory = arguments['selectedCategory'];
-
     return Scaffold(
       appBar: AppBar(
         title: Text('icon-selected'.tr()),
@@ -50,8 +45,6 @@ class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
               context
                   .read<CategoryBloc>()
                   .add(CallbackIconCategoryEvent(value: selectedCategory!));
-
-              print("selectedCategory ::: $selectedCategory");
 
               Navigator.pop(context);
             },
@@ -76,9 +69,6 @@ class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
             itemBuilder: (BuildContext ctx, index) {
               return InkWell(
                 onTap: () {
-                  // context.read<CategoryBloc>().add(ReadCategoryByIdEvent(
-                  //     idCategory: listCategoryIcon?[index].id ?? 1));
-                  // print(listCategoryIcon?[index].id);
                   selectedCategoryIconName = listCategoryIcon?[index].iconName;
                   selectedCategory = listCategoryIcon?[index];
                   setState(() {});
@@ -91,15 +81,9 @@ class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
                     borderRadius: BorderRadius.circular(15),
                     color: selectedCategoryIconName ==
                             listCategoryIcon?[index].iconName
-                        ? lightPurple // Colors.amber.shade300
+                        ? lightPurple
                         : Colors.transparent,
-                    // Colors.amber,
-                    // selectedCategory?.iconName ==
-                    //         listCategoryIcon?[index].iconName
-                    //     ? lightPurple // Colors.amber.shade300
-                    //     : Colors.transparent,
                   ),
-                  // child: Text(myProducts[index]["name"]),
                   child: CircleAvatar(
                     radius: 30,
                     foregroundColor: Colors.transparent,

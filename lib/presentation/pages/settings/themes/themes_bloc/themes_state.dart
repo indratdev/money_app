@@ -23,7 +23,8 @@ class FailureReadThemes extends FailureState {
 }
 
 class SuccessReadThemes extends ThemesState {
-  final bool result;
+  // final bool result;
+  final AppTheme result;
 
   SuccessReadThemes({required this.result});
 
@@ -47,4 +48,8 @@ class SuccessChangeThemes extends ThemesState {
 
   @override
   List<Object> get props => [appTheme];
+}
+
+class FailureChangeThemes extends FailureState {
+  FailureChangeThemes({required super.messageError});
 }

@@ -18,14 +18,12 @@ class CalculationSection extends StatelessWidget {
   final String labelName;
   final double? category;
   final Color textColor;
-  // final bool isLight;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height / 5,
       width: widhtContainer,
-      // color: Colors.orange,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +46,7 @@ class CalculationSection extends StatelessWidget {
           FittedBox(
             fit: BoxFit.fitWidth,
             child: Text(
-              "${formatterThousand.format(double.tryParse(category.toString()))}",
+              formatterThousand.format(double.tryParse(category.toString())),
               style: TextStyle(
                 color: textColor,
               ),

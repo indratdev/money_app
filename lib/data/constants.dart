@@ -32,6 +32,14 @@ const Color redCalculation = Color(0xFF84142D);
 const Color blackDefault = Color(0xFF141010);
 const Color orangeSaweria = Color(0xFFfaae2b);
 const Color bluePaypal = Color(0xFF3b7bbf);
+const Color lightWhite = Color(0xFFEFF5F5);
+const Color charcoal = Color(0xFF404258);
+const Color meteorite = Color(0xFF474E68);
+
+// dark
+const Color blueDeep = Color(0xFF3F3B6C);
+const Color zimidar = Color(0xFF624F82);
+const Color seagull = Color(0xFFA3C7D6);
 
 // image name
 const noDataImage = 'assets/images/nodata.png';
@@ -113,6 +121,23 @@ Decoration listDataDecor = BoxDecoration(
   ],
 );
 
+Decoration listDataDecorDark = BoxDecoration(
+  borderRadius: const BorderRadius.only(
+      topRight: Radius.circular(35),
+      bottomRight: Radius.circular(5.0),
+      topLeft: Radius.circular(5.0),
+      bottomLeft: Radius.circular(5.0)),
+  color: lightPurple,
+  boxShadow: [
+    BoxShadow(
+      color: Colors.white.withOpacity(0.9),
+      spreadRadius: 2,
+      blurRadius: 1.0,
+      offset: const Offset(0, 3), // changes position
+    ),
+  ],
+);
+
 Decoration customCircularBox({Color? color}) => BoxDecoration(
       color: color ?? Colors.white60,
       borderRadius: const BorderRadius.only(
@@ -129,6 +154,23 @@ Decoration customCircularBox({Color? color}) => BoxDecoration(
         ),
       ],
     );
+
+// Decoration customCircularBoxDark({Color? color}) => BoxDecoration(
+//       color: color ?? Colors.white60,
+//       borderRadius: const BorderRadius.only(
+//           topLeft: Radius.circular(10),
+//           topRight: Radius.circular(10),
+//           bottomLeft: Radius.circular(10),
+//           bottomRight: Radius.circular(10)),
+//       boxShadow: [
+//         BoxShadow(
+//           color: Colors.grey.withOpacity(0.5),
+//           spreadRadius: 5,
+//           blurRadius: 7,
+//           offset: const Offset(0, 3), // changes position of shadow
+//         ),
+//       ],
+//     );
 
 Decoration backgroundThemeLight = const BoxDecoration(
   gradient: LinearGradient(
@@ -147,7 +189,8 @@ Decoration backgroundThemeDark = const BoxDecoration(
 // --------------------------------- off decoration ----------------------------------
 
 // divider
-Divider defaultDivider = const Divider(color: Colors.black54, height: 1);
+Divider defaultDivider(BuildContext context) =>
+    Divider(color: Theme.of(context).dividerColor, height: 1);
 
 
 

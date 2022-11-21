@@ -8,9 +8,7 @@ import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 
 import '../../../data/date_util.dart';
 import '../../../data/repositories/transaction_repository_impl.dart';
-// import 'dart:math' as math;
-
-// import '../../../domain/entities/calculationE.dart';
+import '../../widgets/customWidgets.dart';
 
 class ChartScreen extends StatelessWidget {
   ChartScreen({super.key});
@@ -20,59 +18,59 @@ class ChartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateTheme = Theme.of(context).brightness;
+
     String selectedDate = dates.currentDate;
     Map<String, dynamic> resultChart = {};
-    // List<ChartCalculation>? resultChart;
 
     return Scaffold(
-      // backgroundColor: Colors.amber,
       appBar: AppBar(
         title: Text('chart'.tr()),
       ),
       body: SingleChildScrollView(
         child: BlocConsumer<ChartBloc, ChartState>(
           listener: (context, state) {
+            if (state is FailureReadChartDefault) {
+              CustomWidgets.showMessageAlertBasic(
+                  context, 'error-read-chart'.tr(), false);
+            }
+
             if (state is SuccessReadChartDefault) {
               selectedDate = state.result[TransactionEnum.dateselected.name];
             }
           },
           builder: (context, state) {
+            if (state is FailureReadChartDefault) {
+              CustomWidgets.showMessageAlertBasic(
+                  context, 'error-read-chart'.tr(), false);
+            }
+
             if (state is SuccessReadChartDefault) {
               selectedDate = state.result[TransactionEnum.dateselected.name];
               resultChart[TransactionType.expenses.name] =
                   state.result[TransactionType.expenses.name];
               resultChart[TransactionType.income.name] =
                   state.result[TransactionType.income.name];
-
-              // print("==>==> ${state.result[TransactionType.expenses.name]}");
-              // print("@@==>==> ${state.result}");
-              // print("@@==>==> ${resultChart}");
             }
 
             return Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.topRight,
-                  colors: bloomColor,
-                ),
-              ),
+              decoration: (stateTheme == Brightness.light)
+                  ? backgroundThemeLight
+                  : backgroundThemeDark,
               child: Column(
                 children: <Widget>[
                   // // container tanggal
                   Container(
-                    // height: MediaQuery.of(context).size.height / 14,
-                    // color: Colors.amber,
                     margin: const EdgeInsets.only(
                         top: 8, right: 8, left: 8, bottom: 25),
                     height: MediaQuery.of(context).size.height / 14,
-                    color: Color.fromRGBO(0, 0, 0, 0),
-                    // color: Color(8388608),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Container(
-                          decoration: arrowDecor,
+                          decoration: (stateTheme == Brightness.light)
+                              ? arrowDecor
+                              : arrowDecorDark,
                           child: IconButton(
                             onPressed: () {
                               String date = dates.operationDate(
@@ -85,7 +83,9 @@ class ChartScreen extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          decoration: arrowDecor,
+                          decoration: (stateTheme == Brightness.light)
+                              ? arrowDecor
+                              : arrowDecorDark,
                           width: MediaQuery.of(context).size.width / 2,
                           height: double.infinity,
                           child: FittedBox(
@@ -101,34 +101,13 @@ class ChartScreen extends StatelessWidget {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w500),
                               ),
-                              // Text(
-                              //   selectedDate,
-                              //   softWrap: true,
-                              //   maxLines: 1,
-                              //   style: const TextStyle(
-                              //       fontWeight: FontWeight.w500),
-                              // ),
                             ),
                           ),
                         ),
-                        // Container(
-                        //   decoration: arrowDecor,
-                        //   width: MediaQuery.of(context).size.width / 2,
-                        //   height: double.infinity,
-                        //   child: Align(
-                        //     alignment: Alignment.center,
-                        //     child: Text(
-                        //       (selectedDate == ""
-                        //           ? dates.currentDate
-                        //           : dates.formatedMMMyyy(selectedDate)),
-                        //       softWrap: true,
-                        //       style:
-                        //           const TextStyle(fontWeight: FontWeight.w500),
-                        //     ),
-                        //   ),
-                        // ),
                         Container(
-                          decoration: arrowDecor,
+                          decoration: (stateTheme == Brightness.light)
+                              ? arrowDecor
+                              : arrowDecorDark,
                           child: IconButton(
                             onPressed: () {
                               String date = dates.operationDate(
@@ -145,7 +124,10 @@ class ChartScreen extends StatelessWidget {
                   ),
                   SB_Height10,
                   Container(
-                    decoration: customCircularBox(),
+                    decoration: customCircularBox(
+                        color: (stateTheme == Brightness.light)
+                            ? Colors.white60
+                            : lightPurple),
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(left: 20, right: 20),
                     child: Column(
@@ -160,6 +142,9 @@ class ChartScreen extends StatelessWidget {
                         SizedBox(
                           height: 200,
                           width: 300,
+                          // color: (stateTheme == Brightness.light)
+                          //     ? Colors.white60
+                          //     : Colors.red,
                           child: PieChart(
                             PieChartData(
                               borderData: FlBorderData(show: false),
@@ -176,7 +161,10 @@ class ChartScreen extends StatelessWidget {
                               left: 30, top: 10, right: 30, bottom: 30),
                           height: 200,
                           width: 300,
-                          decoration: customCircularBox(color: Colors.white),
+                          decoration: customCircularBox(
+                              color: (stateTheme == Brightness.light
+                                  ? lightWhite
+                                  : seagull)),
                           child: ShowingDetailSection(
                               resultChart: resultChart, isOutcome: 0),
                         ),
@@ -186,7 +174,11 @@ class ChartScreen extends StatelessWidget {
 
                   SB_Height30,
                   Container(
-                    decoration: customCircularBox(),
+                    // decoration: customCircularBox(),
+                    decoration: customCircularBox(
+                        color: (stateTheme == Brightness.light)
+                            ? Colors.white60
+                            : lightPurple),
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(left: 20, right: 20),
                     child: Column(
@@ -218,7 +210,10 @@ class ChartScreen extends StatelessWidget {
                               left: 30, top: 10, right: 30, bottom: 30),
                           height: 200,
                           width: 300,
-                          decoration: customCircularBox(color: Colors.white),
+                          decoration: customCircularBox(
+                              color: (stateTheme == Brightness.light
+                                  ? lightWhite
+                                  : seagull)),
                           child: ShowingDetailSection(
                               resultChart: resultChart, isOutcome: 1),
                         ),

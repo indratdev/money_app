@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
@@ -96,8 +95,7 @@ class CategoryAddScreen extends StatelessWidget {
                                 context
                                     .read<CategoryBloc>()
                                     .add(ReadIconCategoryDefault(isDefault: 1));
-                                // Navigator.pushNamed(
-                                //     context, AppRoutes.settCategorySelectIcon);
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(

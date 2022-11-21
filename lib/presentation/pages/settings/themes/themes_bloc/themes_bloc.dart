@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:money_app/domain/usecases/parameter_cases.dart';
 
 import '../../../../../config/themes/app_themes.dart';
@@ -18,10 +17,10 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
         result.fold(
           (l) => emit(FailureReadThemes(messageError: "FailureReadThemes")),
           (data) {
-            bool result = false;
+            AppTheme result = AppTheme.lightAppTheme;
             (data.first.entries.first.value == "0")
-                ? result = false
-                : result = true;
+                ? result = AppTheme.lightAppTheme
+                : result = AppTheme.darkAppTheme;
             emit(SuccessReadThemes(result: result));
           },
         );
@@ -60,6 +59,7 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
         }
       } catch (e) {
         print(e);
+        emit(FailureChangeThemes(messageError: "$e"));
       }
     });
   }

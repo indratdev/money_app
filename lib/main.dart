@@ -62,10 +62,10 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemesBloc, ThemesState>(
         builder: (context, state) {
-          // if (state is SuccessReadThemes) {
-          //   print("this is state : ${state.result}");
-          //   isDark = state.result;
-          // }
+          if (state is SuccessReadThemes) {
+            print("SuccessReadThemes Runningg...");
+            _themeData = appThemeData[state.result];
+          }
           if (state is SuccessChangeThemes) {
             _themeData = appThemeData[state.appTheme];
           }

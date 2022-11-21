@@ -24,25 +24,42 @@ class CategoryScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is FailureDeleteCategory) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Kategori Gagal Dihapus", false);
+                context, 'error-delete-category'.tr(), false);
           }
           if (state is SuccessDeleteCategory) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Kategori Berhasil Dihapus", true);
+                context, 'success-delete-category'.tr(), true);
           }
+
+          if (state is FailureUpdateCategory) {
+            CustomWidgets.showMessageAlertBasic(
+                context, 'success-delete-category'.tr(), true);
+          }
+
           if (state is SuccessUpdateCategory) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Kategori Berhasil Diperbaharui", true);
+                context, 'success-update-category'.tr(), true);
+          }
+
+          if (state is FailureCreateCategory) {
+            CustomWidgets.showMessageAlertBasic(
+                context, 'error-add-category'.tr(), true);
           }
           if (state is SuccessCreateCategory) {
             CustomWidgets.showMessageAlertBasic(
-                context, "Kategori Baru Berhasil Ditambahkan", true);
+                context, 'success-add-category'.tr(), true);
           }
         },
         builder: (context, state) {
           if (state is LoadingReadCategory) {
             CustomWidgets.showLoadingWidget();
           }
+
+          if (state is FailureReadCategory) {
+            CustomWidgets.showMessageAlertBasic(
+                context, ' error-read-category'.tr(), true);
+          }
+
           if (state is SuccessReadCategory) {
             final result = state.result;
             return ListView.separated(
@@ -51,17 +68,12 @@ class CategoryScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    // context.read<CategoryBloc>().add(
-                    //     ReadCategoryByIdEvent(idCategory: result[index].id!));
-                    // Navigator.pushNamed(context, AppRoutes.settCategoryUpDel);
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CategoryUpDelScreen(
                         selectedImage: result[index].iconName,
                         oldValueCategory: result[index],
                       ),
                     ));
-                    print(
-                        "tap id category: ${result[index].id} - ${result[index]}");
                   },
                   child: ListTile(
                     leading: CircleAvatar(

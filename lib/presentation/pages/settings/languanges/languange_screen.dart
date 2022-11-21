@@ -36,65 +36,56 @@ class _LanguangeScreenState extends State<LanguangeScreen> {
       future: checkLanguage(context.locale.toString()),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var aa = snapshot.data;
-          print("aa :: $aa");
           return Scaffold(
             appBar: AppBar(
               title: Text('titleLanguage'.tr()),
             ),
             body: Column(
               children: <Widget>[
-                ListTile(
-                  title: Text("Indonesia"),
-                  leading: Radio<LanguageOptionEnum>(
-                    value: LanguageOptionEnum.id_ID,
-                    groupValue: _languageOption,
-                    onChanged: (LanguageOptionEnum? value) {
-                      setState(() {
-                        print("value 1>>> $value");
-                        _languageOption = value;
-                        context.setLocale(Locale('id', 'ID'));
-                      });
-                    },
-                  ),
+                TileLanguage(
+                  context,
+                  'Indonesia',
+                  LanguageOptionEnum.id_ID,
+                  const Locale('id', 'ID'),
                 ),
-                ListTile(
-                  title: Text("English"),
-                  leading: Radio<LanguageOptionEnum>(
-                    value: LanguageOptionEnum.en_US,
-                    groupValue: _languageOption,
-                    onChanged: (LanguageOptionEnum? value) {
-                      setState(() {
-                        print("value 2>>> $value");
-                        _languageOption = value;
-                        context.setLocale(Locale('en', 'US'));
-                      });
-                    },
-                  ),
+                TileLanguage(
+                  context,
+                  'English',
+                  LanguageOptionEnum.en_US,
+                  const Locale('en', 'US'),
                 ),
-                ListTile(
-                  title: Text("Japanese"),
-                  leading: Radio<LanguageOptionEnum>(
-                    value: LanguageOptionEnum.ja_JP,
-                    groupValue: _languageOption,
-                    onChanged: (LanguageOptionEnum? value) {
-                      setState(() {
-                        print("value 1>>> $value");
-                        _languageOption = value;
-                        context.setLocale(Locale('ja', 'JP'));
-                      });
-                    },
-                  ),
+                TileLanguage(
+                  context,
+                  'Japanese',
+                  LanguageOptionEnum.ja_JP,
+                  const Locale('ja', 'JP'),
                 ),
               ],
             ),
           );
         } else {
-          return Scaffold(
+          return const Scaffold(
             body: Center(child: CircularProgressIndicator.adaptive()),
           );
         }
       },
+    );
+  }
+
+  ListTile TileLanguage(BuildContext context, String title,
+      LanguageOptionEnum values, Locale lll) {
+    return ListTile(
+      title: Text(title),
+      leading: Radio<LanguageOptionEnum>(
+        value: values,
+        groupValue: _languageOption,
+        onChanged: (LanguageOptionEnum? value) {
+          setState(() {
+            _languageOption = value;
+            context.setLocale(lll);
+          });
+        },
+      ),
     );
   }
 }
