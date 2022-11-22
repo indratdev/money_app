@@ -34,12 +34,12 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final stateTheme = Theme.of(context).brightness;
     return Scaffold(
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
         title: Text('choose-category'.tr()),
         actions: [
-          TextButton(
+          IconButton(
             onPressed: () {
               // add transaction
               context
@@ -48,10 +48,7 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
 
               Navigator.pop(context);
             },
-            child: Text(
-              'done'.tr(),
-              style: const TextStyle(color: Colors.white),
-            ),
+            icon: const Icon(Icons.check),
           ),
         ],
       ),
@@ -84,7 +81,9 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
                     borderRadius: BorderRadius.circular(15),
                     color: selectedCatecory?.iconName ==
                             listCategoryIcon?[index].iconName
-                        ? lightPurple //Colors.amber.shade300
+                        ? (stateTheme == Brightness.light)
+                            ? lightMildWaters
+                            : lightBlue
                         : Colors.transparent,
                   ),
                   child: ListTile(

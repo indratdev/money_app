@@ -34,15 +34,14 @@ class CalculationSection extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(3.0),
               child: Text(
-                // "Pengeluaran",
                 labelName,
-
                 softWrap: true,
                 maxLines: 1,
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: const TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
           ),
+          SizedBox(height: MediaQuery.of(context).size.height / 100),
           FittedBox(
             fit: BoxFit.fitWidth,
             child: Text(

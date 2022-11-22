@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemesBloc, ThemesState>(
         builder: (context, state) {
           if (state is SuccessReadThemes) {
-            print("SuccessReadThemes Runningg...");
             _themeData = appThemeData[state.result];
           }
           if (state is SuccessChangeThemes) {
@@ -79,13 +78,6 @@ class MyApp extends StatelessWidget {
             initialRoute: AppRoutes.splash,
             routes: routes.getRoutes,
             theme: _themeData,
-            // theme: ThemesApp.themeData(isDark, context),
-            // themeMode: ThemeMode.dark,
-            // theme: ThemeData(
-            //     textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
-            //     appBarTheme: AppBarTheme(color: lightBlue, centerTitle: false)
-            //     // fontFamily: GoogleFonts.poppins(),
-            //     ),
           );
         },
       ),

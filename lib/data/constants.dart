@@ -20,15 +20,24 @@ NumberFormat formatterThousand =
 
 // color
 const List<Color> bloomColor = [
-  Color(0xFF8383BE),
-  Color(0xFF50A7D9),
+  // Color(0xFF8383BE),
+  // Color(0xFF50A7D9),
+
+  lightMildWaters,
+  seagull
 ];
 
 const Color lightMildWaters = Color(0xFFE0EAFD);
 const Color lightBlue = Color(0xFF50A7D9);
 const Color lightPurple = Color(0xFF8383BE);
-const Color greenCalculation = Color(0xFF29C7AC);
-const Color redCalculation = Color(0xFF84142D);
+// const Color greenCalculation = Color(0xFF29C7AC);
+// const Color greenCalculation = Color(0xFF4E9F3D);
+const Color greenCalculation = Color(0xFF03DAC5);
+const Color greenDeepCalculation = Color(0xFF018786);
+// const Color redCalculation = Color(0xFF84142D);
+// const Color redCalculation = Color(0xFFE94560);
+const Color redCalculation = Color(0xFFFF7597);
+const Color redDeepCalculation = Color(0xFFB42B51);
 const Color blackDefault = Color(0xFF141010);
 const Color orangeSaweria = Color(0xFFfaae2b);
 const Color bluePaypal = Color(0xFF3b7bbf);
@@ -40,6 +49,7 @@ const Color meteorite = Color(0xFF474E68);
 const Color blueDeep = Color(0xFF3F3B6C);
 const Color zimidar = Color(0xFF624F82);
 const Color seagull = Color(0xFFA3C7D6);
+const Color blackN = Color(0xFF474E68);
 
 // image name
 const noDataImage = 'assets/images/nodata.png';
@@ -52,21 +62,23 @@ const warningImage = 'assets/images/warning.png';
 const urlSaweria = 'https://saweria.co/indratdev';
 
 // --------------------------------- decoration ----------------------------------
-Decoration arrowDecor = BoxDecoration(
-  color: Colors.white.withOpacity(0.9),
-  borderRadius: const BorderRadius.all(Radius.circular(13)),
-  boxShadow: const [
+Decoration arrowDecor = const BoxDecoration(
+  // color: Colors.white.withOpacity(0.9),
+  color: lightWhite,
+  borderRadius: BorderRadius.all(Radius.circular(13)),
+  boxShadow: [
     BoxShadow(
-      color: Colors.black,
-      blurRadius: 1.0,
+      color: lightPurple,
+      blurRadius: 0.8,
       spreadRadius: 1,
-      offset: Offset(0, 3), // changes position of shadow
-    )
+      offset: Offset(1, 3), // changes position of shadow
+    ),
   ],
 );
 
 Decoration arrowDecorDark = const BoxDecoration(
-  color: lightPurple,
+  // color: lightPurple,
+  color: blackN,
   borderRadius: BorderRadius.all(Radius.circular(13)),
   boxShadow: [
     BoxShadow(
@@ -78,21 +90,9 @@ Decoration arrowDecorDark = const BoxDecoration(
   ],
 );
 
-Decoration calculationDecor = BoxDecoration(
-  color: Colors.white.withOpacity(0.9),
-  borderRadius: const BorderRadius.only(
-    topLeft: Radius.circular(10),
-    topRight: Radius.circular(27),
-    bottomLeft: Radius.circular(27),
-    bottomRight: Radius.circular(10),
-  ),
-  boxShadow: const [
-    BoxShadow(color: Colors.black12, offset: Offset(0, -5), blurRadius: 8.0)
-  ],
-);
-
-Decoration calculationDecorDark = const BoxDecoration(
-  color: lightPurple,
+Decoration calculationDecor = const BoxDecoration(
+  // color: Colors.white.withOpacity(0.9),
+  color: lightWhite,
   borderRadius: BorderRadius.only(
     topLeft: Radius.circular(10),
     topRight: Radius.circular(27),
@@ -100,23 +100,51 @@ Decoration calculationDecorDark = const BoxDecoration(
     bottomRight: Radius.circular(10),
   ),
   boxShadow: [
-    BoxShadow(color: Colors.black12, offset: Offset(0, -5), blurRadius: 8.0)
+    // BoxShadow(
+    //   color: Colors.black12,
+    //   offset: Offset(0, -5),
+    //   blurRadius: 8.0,
+    // )
+    BoxShadow(
+      color: lightPurple,
+      blurRadius: 0.8,
+      spreadRadius: 1,
+      offset: Offset(1, 4), // changes position of shadow
+    ),
   ],
 );
 
-Decoration listDataDecor = BoxDecoration(
-  borderRadius: const BorderRadius.only(
-      topRight: Radius.circular(35),
+Decoration calculationDecorDark = const BoxDecoration(
+  // color: lightPurple,
+  color: blackN,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(10),
+    topRight: Radius.circular(27),
+    bottomLeft: Radius.circular(27),
+    bottomRight: Radius.circular(10),
+  ),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black12,
+      offset: Offset(0, -5),
+      blurRadius: 8.0,
+    )
+  ],
+);
+
+Decoration listDataDecor = const BoxDecoration(
+  borderRadius: BorderRadius.only(
+      topRight: Radius.circular(48),
       bottomRight: Radius.circular(5.0),
       topLeft: Radius.circular(5.0),
       bottomLeft: Radius.circular(5.0)),
-  color: lightMildWaters,
+  color: lightWhite,
   boxShadow: [
     BoxShadow(
-      color: Colors.white.withOpacity(0.9),
-      spreadRadius: 2,
-      blurRadius: 1.0,
-      offset: const Offset(0, 3), // changes position
+      color: lightPurple,
+      spreadRadius: 0.8,
+      blurRadius: 0.8,
+      offset: Offset(5, 0),
     ),
   ],
 );
@@ -127,7 +155,8 @@ Decoration listDataDecorDark = BoxDecoration(
       bottomRight: Radius.circular(5.0),
       topLeft: Radius.circular(5.0),
       bottomLeft: Radius.circular(5.0)),
-  color: lightPurple,
+  // color: lightPurple,
+  color: blackN,
   boxShadow: [
     BoxShadow(
       color: Colors.white.withOpacity(0.9),
@@ -145,14 +174,14 @@ Decoration customCircularBox({Color? color}) => BoxDecoration(
           topRight: Radius.circular(10),
           bottomLeft: Radius.circular(10),
           bottomRight: Radius.circular(10)),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 5,
-          blurRadius: 7,
-          offset: const Offset(0, 3), // changes position of shadow
-        ),
-      ],
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: Colors.grey.withOpacity(0.5),
+      //     spreadRadius: 5,
+      //     blurRadius: 7,
+      //     offset: const Offset(0, 3), // changes position of shadow
+      //   ),
+      // ],
     );
 
 // Decoration customCircularBoxDark({Color? color}) => BoxDecoration(
@@ -190,7 +219,7 @@ Decoration backgroundThemeDark = const BoxDecoration(
 
 // divider
 Divider defaultDivider(BuildContext context) =>
-    Divider(color: Theme.of(context).dividerColor, height: 1);
+    Divider(color: Theme.of(context).dividerColor, height: 0.5);
 
 
 

@@ -31,33 +31,6 @@ class BottomMenu {
 class Menus {
   DateUtil dates = DateUtil();
 
-  // List<BottomMenu> items = [
-  //   BottomMenu(title: 'Data Harian', icon: FontAwesomeIcons.wallet),
-  //   BottomMenu(title: "Transaksi", icon: FontAwesomeIcons.plus),
-  //   BottomMenu(title: 'Hutang', icon: FontAwesomeIcons.moneyBill),
-  //   BottomMenu(title: 'Rekap', icon: FontAwesomeIcons.chartSimple),
-  //   BottomMenu(title: 'Setting', icon: Icons.settings),
-  // ];
-
-  // List<Widget> allScreen = <Widget>[
-  //   HomeScreen(),
-  //   TransactionScreen(),
-  //   RekapScreen(),
-  //   SettingScreen(),
-  // ];
-
-  // List<BottomNavigationBarItem> getBottomMenu(List<BottomMenu> tabs) {
-  //   return tabs
-  //       .map(
-  //         (item) => BottomNavigationBarItem(
-  //           icon: Icon(item.icon),
-  //           label: item.title,
-  //         ),
-  //       )
-  //       .toList();
-  // }
-
-  // -------------------------- new
   List<Widget> bottomScreenMenu() {
     return [
       HomeScreen(),
@@ -69,42 +42,25 @@ class Menus {
   }
 
   //
-  List<PersistentBottomNavBarItem> navBarsItems(BuildContext context) {
-    // final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
-    // print(">>> stateTheme (menus) :: $stateTheme");
-
+  List<PersistentBottomNavBarItem> navBarsItems(
+      BuildContext context, Brightness brightness) {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.wallet),
         title: 'home'.tr(),
         activeColorPrimary: lightBlue,
-        // (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? lightBlue
-        //     : lightMildWaters,
         inactiveColorPrimary: CupertinoColors.systemGrey,
-        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? CupertinoColors.systemGrey
-        //     : Colors.black38,
         onSelectedTabPressWhenNoScreensPushed: () => context
             .read<TransactionBloc>()
             .add(ReadTransactionEvent(
                 transactionDateTime: DateUtil().getCurrentDate())),
-        // onPressed: (p0) =>
-        //     context.read<TransactionBloc>().add(ReadTransactionEvent()),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.chartSimple),
         title: 'chart'.tr(),
         activeColorPrimary: lightBlue,
-        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? lightBlue
-        //     : lightMildWaters,
         inactiveColorPrimary: CupertinoColors.systemGrey,
-        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? CupertinoColors.systemGrey
-        //     : Colors.black38,
         onSelectedTabPressWhenNoScreensPushed: () {
-          // String date = dates.operationDate(selectedDate, OptionDate.month, 0);
           context.read<ChartBloc>().add(ReadChartDefaultEvent(
               transactionDateTime: DateUtil().getCurrentDate()));
         },
@@ -112,43 +68,24 @@ class Menus {
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.plus, color: Colors.white),
         title: 'transaction'.tr(),
-        activeColorPrimary: lightBlue,
-        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? lightPurple
-        //     : redCalculation,
+        activeColorPrimary: bluePaypal,
         inactiveColorPrimary: CupertinoColors.systemGrey,
         onPressed: (p0) {
           PersistentNavBarNavigator.pushNewScreen(context,
               screen: TransactionScreen());
         },
-        // routeAndNavigatorSettings: RouteAndNavigatorSettings(
-        //   initialRoute: AppRoutes.transaction,
-        // ),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.bookOpen),
         title: 'report'.tr(),
         activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
-        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? lightBlue
-        //     : lightMildWaters,
-
-        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? CupertinoColors.systemGrey
-        //     : Colors.black38,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(FontAwesomeIcons.android),
         title: 'titleSetting'.tr(),
         activeColorPrimary: lightBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
-        // activeColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? lightBlue
-        //     : lightMildWaters,
-        // inactiveColorPrimary: (stateTheme == AppTheme.lightAppTheme.toString())
-        //     ? CupertinoColors.systemGrey
-        //     : Colors.black38,
       ),
     ];
   }

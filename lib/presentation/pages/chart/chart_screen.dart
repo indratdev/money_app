@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/models/calculation_model.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
+import 'package:money_app/presentation/pages/chart/widgets/container_date_chart.dart';
+import 'package:money_app/presentation/pages/chart/widgets/container_income_chart.dart';
 
 import '../../../data/date_util.dart';
 import '../../../data/repositories/transaction_repository_impl.dart';
@@ -59,172 +61,128 @@ class ChartScreen extends StatelessWidget {
                   : backgroundThemeDark,
               child: Column(
                 children: <Widget>[
-                  // // container tanggal
-                  Container(
-                    margin: const EdgeInsets.only(
-                        top: 8, right: 8, left: 8, bottom: 25),
-                    height: MediaQuery.of(context).size.height / 14,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          decoration: (stateTheme == Brightness.light)
-                              ? arrowDecor
-                              : arrowDecorDark,
-                          child: IconButton(
-                            onPressed: () {
-                              String date = dates.operationDate(
-                                  selectedDate, OptionDate.month, 0);
-                              context.read<ChartBloc>().add(
-                                  ReadChartDefaultEvent(
-                                      transactionDateTime: date));
-                            },
-                            icon: const Icon(Icons.arrow_left_sharp),
-                          ),
-                        ),
-                        Container(
-                          decoration: (stateTheme == Brightness.light)
-                              ? arrowDecor
-                              : arrowDecorDark,
-                          width: MediaQuery.of(context).size.width / 2,
-                          height: double.infinity,
-                          child: FittedBox(
-                            fit: BoxFit.fitWidth,
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.all(30.0),
-                              child: Text(
-                                (selectedDate == ""
-                                    ? dates.currentDate
-                                    : dates.formatedMMMyyy(selectedDate)),
-                                softWrap: true,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: (stateTheme == Brightness.light)
-                              ? arrowDecor
-                              : arrowDecorDark,
-                          child: IconButton(
-                            onPressed: () {
-                              String date = dates.operationDate(
-                                  selectedDate, OptionDate.month, 1);
-                              context.read<ChartBloc>().add(
-                                  ReadChartDefaultEvent(
-                                      transactionDateTime: date));
-                            },
-                            icon: const Icon(Icons.arrow_right_sharp),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // container tanggal
+                  ContainerDateChart(
+                      stateTheme: stateTheme,
+                      dates: dates,
+                      selectedDate: selectedDate),
                   SB_Height10,
-                  Container(
-                    decoration: customCircularBox(
-                        color: (stateTheme == Brightness.light)
-                            ? Colors.white60
-                            : lightPurple),
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Text(
-                          'income'.tr(),
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 200,
-                          width: 300,
-                          // color: (stateTheme == Brightness.light)
-                          //     ? Colors.white60
-                          //     : Colors.red,
-                          child: PieChart(
-                            PieChartData(
-                              borderData: FlBorderData(show: false),
-                              sectionsSpace: 3,
-                              centerSpaceRadius: 40,
-                              sections: showingSections(resultChart, 0),
-                            ),
-                            swapAnimationCurve: Curves.easeInOutCubic,
-                            swapAnimationDuration: Duration(milliseconds: 1000),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 30, top: 10, right: 30, bottom: 30),
-                          height: 200,
-                          width: 300,
-                          decoration: customCircularBox(
-                              color: (stateTheme == Brightness.light
-                                  ? lightWhite
-                                  : seagull)),
-                          child: ShowingDetailSection(
-                              resultChart: resultChart, isOutcome: 0),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // container income
+                  // ContainerIncomeChart(stateTheme, resultChart, resultChart, 0),
+                  ContainerIncomeChart(stateTheme, resultChart),
 
                   SB_Height30,
-                  Container(
-                    // decoration: customCircularBox(),
-                    decoration: customCircularBox(
-                        color: (stateTheme == Brightness.light)
-                            ? Colors.white60
-                            : lightPurple),
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Text(
-                          'expense'.tr(),
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 200,
-                          width: 300,
-                          child: PieChart(
-                            PieChartData(
-                              borderData: FlBorderData(show: false),
-                              sectionsSpace: 3,
-                              centerSpaceRadius: 40,
-                              sections: showingSections(resultChart, 1),
-                            ),
-                            swapAnimationCurve: Curves.easeInOutCubic,
-                            swapAnimationDuration:
-                                const Duration(milliseconds: 1000),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              left: 30, top: 10, right: 30, bottom: 30),
-                          height: 200,
-                          width: 300,
-                          decoration: customCircularBox(
-                              color: (stateTheme == Brightness.light
-                                  ? lightWhite
-                                  : seagull)),
-                          child: ShowingDetailSection(
-                              resultChart: resultChart, isOutcome: 1),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // container outcome
+                  ContainerExpense(stateTheme, resultChart),
                 ],
               ),
             );
           },
         ),
+      ),
+    );
+  }
+
+  Container ContainerIncomeChart(
+      Brightness stateTheme, Map<String, dynamic> resultChart) {
+    return Container(
+      decoration: customCircularBox(
+        color: (stateTheme == Brightness.light)
+            ? Colors.white60
+            // : lightPurple,
+            : blackN,
+      ),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(left: 20, right: 20),
+      child: Column(
+        children: [
+          Text(
+            'income'.tr(),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(
+            height: 200,
+            width: 300,
+
+            // color: (stateTheme == Brightness.light)
+            //     ? Colors.white60
+            //     : Colors.red,
+            child: PieChart(
+              PieChartData(
+                borderData: FlBorderData(show: true),
+                sectionsSpace: 3,
+                centerSpaceRadius: 40,
+                sections: showingSections(resultChart, 0),
+              ),
+              swapAnimationCurve: Curves.easeInOutCubic,
+              swapAnimationDuration: Duration(milliseconds: 1000),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 30),
+            height: 200,
+            width: 300,
+            decoration: customCircularBox(
+              color: (stateTheme == Brightness.light
+                  ? greenCalculation
+                  : greenDeepCalculation),
+              // : seagull),
+            ),
+            child: ShowingDetailSection(resultChart: resultChart, isOutcome: 0),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container ContainerExpense(
+      Brightness stateTheme, Map<String, dynamic> resultChart) {
+    return Container(
+      // decoration: customCircularBox(),
+      decoration: customCircularBox(
+        color: (stateTheme == Brightness.light) ? Colors.white60 : blackN,
+      ),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(left: 20, right: 20),
+      child: Column(
+        children: [
+          Text(
+            'expense'.tr(),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(
+            height: 200,
+            width: 300,
+            child: PieChart(
+              PieChartData(
+                borderData: FlBorderData(show: false),
+                sectionsSpace: 3,
+                centerSpaceRadius: 40,
+                sections: showingSections(resultChart, 1),
+              ),
+              swapAnimationCurve: Curves.easeInOutCubic,
+              swapAnimationDuration: const Duration(milliseconds: 1000),
+            ),
+          ),
+          Container(
+            margin:
+                const EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 30),
+            height: 200,
+            width: 300,
+            decoration: customCircularBox(
+              color: (stateTheme == Brightness.light
+                  ? redCalculation
+                  : redDeepCalculation),
+            ),
+            child: ShowingDetailSection(resultChart: resultChart, isOutcome: 1),
+          ),
+        ],
       ),
     );
   }

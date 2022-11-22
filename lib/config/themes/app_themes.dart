@@ -15,6 +15,12 @@ final appThemeData = {
       color: charcoal,
       centerTitle: false,
     ),
+    // textTheme: TextTheme(
+    //   titleMedium: TextStyle(color: lightWhite, fontSize: 30),
+    //   titleLarge: TextStyle(
+    //     color: Colors.red,
+    //   ),
+    // ),
     // primarySwatch: Colors.blue,
     // primaryColor: Colors.black,
     // backgroundColor: Colors.black,
@@ -67,7 +73,7 @@ final appThemeData = {
     // primarySwatch: Colors.indigo,
     primaryColor: Colors.white,
     backgroundColor: Color(0xffF1F5FB),
-    dividerColor: blackDefault,
+    dividerColor: lightWhite,
 
     // unselectedWidgetColor: Colors.white,
     // colorScheme: ColorScheme(brightness: brightness, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface),
@@ -81,11 +87,19 @@ final appThemeData = {
     // textSelectionColor:  Colors.white : Colors.black,
     cardColor: Colors.white,
     canvasColor: Colors.grey[50],
+    // textTheme: TextTheme(
+    //   titleMedium: TextStyle(color: blackDefault, fontSize: 30),
+    //   // titleLarge: TextStyle(
+    //   //   color: Colors.red,
+    //   // ),
+    // ),
 
     // buttonTheme: Theme.of(context)
     //     .buttonTheme
     //     .copyWith(colorScheme: ColorScheme.light()),
     appBarTheme: AppBarTheme(color: lightBlue, centerTitle: false),
+    floatingActionButtonTheme:
+        const FloatingActionButtonThemeData(backgroundColor: bluePaypal),
   ),
 };
 

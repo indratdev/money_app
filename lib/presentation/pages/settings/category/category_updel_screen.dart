@@ -24,6 +24,7 @@ class CategoryUpDelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateTheme = Theme.of(context).brightness;
     return WillPopScope(
       onWillPop: () async {
         context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
@@ -70,7 +71,10 @@ class CategoryUpDelScreen extends StatelessWidget {
               valueCategory = state.result;
               selectedImage = state.result.iconName;
             }
-            return SingleChildScrollView(
+            return Container(
+              decoration: (stateTheme == Brightness.light)
+                  ? backgroundThemeLight
+                  : backgroundThemeDark,
               child: Form(
                 key: formKeyCtgrM,
                 child: Padding(
@@ -82,7 +86,9 @@ class CategoryUpDelScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.all(8),
                         decoration: customCircularBox(
-                            color: Colors.white.withOpacity(0.9)),
+                            color: (stateTheme == Brightness.light)
+                                ? lightWhite
+                                : blackN),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -124,7 +130,10 @@ class CategoryUpDelScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.all(8),
                         decoration: customCircularBox(
-                            color: Colors.white.withOpacity(0.9)),
+                            // color: Colors.white.withOpacity(0.9)),
+                            color: (stateTheme == Brightness.light)
+                                ? lightWhite
+                                : blackN),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -197,7 +206,7 @@ class CategoryUpDelScreen extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                               elevation: 5,
-                              backgroundColor: lightBlue,
+                              backgroundColor: bluePaypal,
                             ),
                             child: Text('save'.tr()),
                           ),

@@ -77,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(
-                          top: 8, right: 8, left: 8, bottom: 25),
+                          top: 8, right: 8, left: 8, bottom: 20),
                       height: MediaQuery.of(context).size.height / 14,
                       color: Colors.transparent,
                       child: Row(
@@ -177,7 +177,9 @@ class HomeScreen extends StatelessWidget {
                             listCalculation: listCalculation,
                             labelName: 'deviation'.tr(),
                             category: listCalculation?[0].profit ?? 0.0,
-                            textColor: Colors.black,
+                            textColor: (stateTheme == Brightness.light)
+                                ? blackDefault
+                                : lightWhite,
                           ),
                           // Container(
                         ],
@@ -190,12 +192,13 @@ class HomeScreen extends StatelessWidget {
                             ? listDataDecor
                             : listDataDecorDark,
                         child: (listTransaction?.length == 0)
-                            ? NoDataWidget()
+                            ? const NoDataWidget()
                             : ListView.separated(
+                                shrinkWrap: true,
                                 separatorBuilder: (context, index) =>
-                                    const Divider(),
-                                // (context, index) =>
-                                //     defaultDivider(context),
+                                    // const Divider(color: lightWhite),
+                                    // (context, index) =>
+                                    defaultDivider(context),
                                 itemCount: listTransaction?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   return InkWell(
@@ -219,7 +222,6 @@ class HomeScreen extends StatelessWidget {
                                       contentPadding: const EdgeInsets.all(8),
                                       leading: CircleAvatar(
                                         radius: 25,
-                                        // foregroundColor: Colors.transparent,
                                         backgroundColor: Colors.white,
                                         child: ClipOval(
                                           child: Image.asset(
