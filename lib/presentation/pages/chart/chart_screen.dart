@@ -6,7 +6,6 @@ import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/models/calculation_model.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/chart/widgets/container_date_chart.dart';
-import 'package:money_app/presentation/pages/chart/widgets/container_income_chart.dart';
 
 import '../../../data/date_util.dart';
 import '../../../data/repositories/transaction_repository_impl.dart';
