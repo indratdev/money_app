@@ -8,6 +8,7 @@ import 'package:money_app/data/repositories/transaction_repository_impl.dart';
 import 'package:money_app/domain/entities/calculationE.dart';
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
+import 'package:money_app/presentation/pages/home/widgets/widget_banner.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
@@ -245,6 +246,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                       ),
                     ),
+                    WidgetBanner(),
                   ],
                 );
               },

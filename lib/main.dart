@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:money_app/config/themes/app_themes.dart';
+import 'package:money_app/data/banner/ad_helper.dart';
 import 'package:money_app/data/constants.dart';
 
 import 'package:money_app/data/date_util.dart';
@@ -18,6 +20,11 @@ import 'package:easy_localization/easy_localization.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
+  // thing to add
+  RequestConfiguration configuration =
+      RequestConfiguration(testDeviceIds: AdHelper.getTestBannerID);
+  MobileAds.instance.updateRequestConfiguration(configuration);
 
   LanguagesApp _languageApp = LanguagesApp();
 
