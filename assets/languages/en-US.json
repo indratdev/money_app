@@ -59,5 +59,7 @@
     , "error-add-category" : "New Category Added Failed"
     , "error-read-category" : "Failed to Display Category"
     , "error-read-themes" : "Failed Read Themes"
+    , "title-pin" : "PIN"
+    , "set-pin" : "PIN の設定"
 
 }

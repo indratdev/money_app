@@ -59,4 +59,6 @@
     , "error-add-category" : "新しいカテゴリの追加に失敗しました"
     , "error-read-category" : "カテゴリを表示できませんでした"
     , "error-read-themes" : "失敗した読み取りテーマ"
+    , "title-pin" : "PIN"
+    , "set-pin" : "Atur PIN"
 }

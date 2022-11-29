@@ -12,6 +12,7 @@ enum BlocName {
   languangeRead,
   clearDataRead,
   themesRead,
+  pinRead,
 }
 
 class Setting {
@@ -71,18 +72,15 @@ class MenuSetting {
       blocName: BlocName.themesRead,
     ),
     Setting(
+      labelSetting: 'title-pin'.tr(),
+      iconSetting: const Icon(Icons.password),
+      routeSetting: AppRoutes.settPin,
+      // blocName: BlocName.pinRead,
+    ),
+    Setting(
       labelSetting: 'donation'.tr(),
       iconSetting: const Icon(Icons.money_rounded),
       routeSetting: AppRoutes.settDonation,
-    )
-    // Setting(
-    //     labelSetting: 'Backup Data',
-    //     routeSetting: '/setting/backupData',
-    //     iconSetting: Icon(Icons.backup)),
-    // Setting(
-    //   labelSetting: 'Tema',
-    //   routeSetting: '/setting/warnaTema',
-    //   iconSetting: Icon(Icons.color_lens),
-    // ),
+    ),
   ];
 }
