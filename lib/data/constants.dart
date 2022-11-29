@@ -19,13 +19,7 @@ NumberFormat formatterThousand =
     NumberFormat("#,##0.00", "en_US"); //NumberFormat('#,##,000');
 
 // color
-const List<Color> bloomColor = [
-  // Color(0xFF8383BE),
-  // Color(0xFF50A7D9),
-
-  lightMildWaters,
-  seagull
-];
+const List<Color> bloomColor = [lightMildWaters, seagull];
 
 const Color lightMildWaters = Color(0xFFE0EAFD);
 const Color lightBlue = Color(0xFF50A7D9);

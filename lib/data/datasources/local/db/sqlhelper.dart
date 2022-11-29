@@ -66,20 +66,6 @@ class SqlHelper {
       description TEXT NULL
       )
       ''');
-
-    // create table ops category
-    // await db.execute('''
-    // CREATE TABLE $tableOpsCategory    (
-    //   id INTEGER PRIMARY KEY AUTOINCREMENT,
-    //   isIncome INTEGER,
-    //   name TEXT NOT NULL,
-    //   iconName TEXT NULL,
-    //   isActive INTEGER,
-    //   isDefault INTEGER,
-    //   createdTime TEXT NULL,
-    //   modifieldTime TEXT NULL
-    //   )
-    //   ''');
   }
 
   // init default value tables
@@ -98,7 +84,6 @@ class SqlHelper {
   Future<List<CategoryModel>> readCategory(
       Database? db, SqlDatabase instance, int isDefault) async {
     final db = await instance.database;
-    // const orderBy = 'createdTime ASC';
 
     String query = "";
     if (isDefault == 0) {
@@ -176,8 +161,6 @@ class SqlHelper {
         valueCategory.isDefault,
         '$idCategory'
       ]);
-      // return result = await db
-      //     .update(tableNotes, note.toJson(), where: 'id = ?', whereArgs: [id]);
     }
     return result;
   }
@@ -199,7 +182,6 @@ class SqlHelper {
 
   Future<int> createNewTransaction(Database? db, SqlDatabase instance,
       trx.Transaction valueTransaction) async {
-    print(">>>>> valueTransaction : $valueTransaction");
     final db = await instance.database;
     int result = 0;
     if (db != null) {
@@ -403,12 +385,6 @@ class SqlHelper {
 
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
-
-      // result.map((e) => print("eee : $e"));
-
-      // print("resultttt ::::: ${result.first.entries.toString()}");
-
-      // return result[0].entries.toString();
       return result;
     } else {
       throw Exception('DB is NULL');
@@ -436,40 +412,6 @@ class SqlHelper {
     await db.rawInsert(
         ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('isDark', '0', 1, 'Default Themes of Application');   ''');
   }
-
-  // insertOpsCategory(
-  // Database db, String tableOpsCategory, String createTime) async {
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (1, 'GAJI', 'sackDollar', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (1, 'TABUNGAN', 'piggyBank', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (1, 'DEPOSITO', 'buildingColumns', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (1, 'PENDAPATAN LAINNYA', 'boxesStacked', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'MAKANAN & MINUMAN', 'champagneGlasses', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'TRANSPORTASI', 'car', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'RENTAL', 'cars', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'PEMBAYARAN', 'fileInvoiceDollar', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'ASURANSI', 'handHoldingHeart', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'PEMELIHARAAN KENDARAAN', 'screwdriverWrench', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'PENGELUARAN LAINNYA', 'boxesStacked', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'FITNESS', 'dumbbell', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'MAKEUP', 'heart', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'HADIAH', 'gifts', 1, 1, '$createTime', '');   ''');
-  // await db.rawInsert(
-  //     ''' INSERT INTO $tableOpsCategory (isIncome, name, iconName,isActive, isDefault, createdTime, modifieldTime) VALUES (0, 'REKREASI', 'umbrellaBeach', 1, 1, '$createTime', '');   ''');
-  // }
 
   inserMasterColors(Database db, String tableMasterColors) async {
     await db.rawInsert(
@@ -759,27 +701,3 @@ class SqlHelper {
         ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Air', 'water-bill', NULL, NULL, 1) ''');
   }
 }
-
-// String query = """
-//     SELECT
-//       sum(income) as income,
-//       sum(expense) as expense,
-//       sum(income) - sum(expense) as profit
-//     from (
-//           SELECT
-//             amount as income
-//             , 0.0 as expense
-//             from th_transaction
-//             where
-//             isOutcome = 0
-//             and createdTime like '%$date%'
-//           UNION ALL
-//           SELECT
-//             0.0 as income
-//             , amount as expense
-//             from th_transaction
-//             where
-//             isOutcome = 1
-//             and createdTime like '%$date%'
-//           )
-//       """;

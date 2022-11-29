@@ -32,12 +32,12 @@ class TransactionRepositoryImpl implements TransactionRepository {
       Transaction value) async {
     try {
       final result = await localDataSource.createNewTransaction(value);
-      print("jalannn getCreateCategory: ${Right(result)}");
+
       return Right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -53,26 +53,24 @@ class TransactionRepositoryImpl implements TransactionRepository {
       result[TransactionEnum.transaction.name] = transaction;
       result[TransactionEnum.dateselected.name] = date;
       result[TransactionEnum.calculation.name] = calculation;
-      print("resultresult : $result");
 
       return Right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
   @override
   Future<Either<Failure, void>> getDeleteTransaction(int idTransaction) async {
-    // TODO: implement getDeleteTransaction
     try {
       final result = await localDataSource.deleteTransaction(idTransaction);
       return right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -83,9 +81,9 @@ class TransactionRepositoryImpl implements TransactionRepository {
       final result = await localDataSource.deleteAllData();
       return right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -98,16 +96,9 @@ class TransactionRepositoryImpl implements TransactionRepository {
 
       return right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
-
-  // @override
-  // getReadCalculation() {
-  //   try {} catch (e) {
-  //     print(e);
-  //   }
-  // }
 }

@@ -49,9 +49,6 @@ class DonationScreen extends StatelessWidget {
                 children: [
                   DonationButton(context, 'donation-saweria'.tr(),
                       orangeSaweria, _launchInWebViewOrVC),
-                  // DonationButton(context, 'donation-paypal'.tr(), bluePaypal,
-                  //     _launchInWebViewOrVC,
-                  //     textColor: Colors.white),
                 ],
               ),
             ],

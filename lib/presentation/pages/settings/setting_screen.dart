@@ -42,64 +42,8 @@ class SettingScreen extends StatelessWidget {
               ),
             ),
           ),
-          // followMeWidget(),
         ],
       ),
     );
   }
 }
-
-// class followMeWidget extends StatelessWidget {
-//   const followMeWidget({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Flexible(
-//       flex: 1,
-//       child: Container(
-//         alignment: Alignment.center,
-//         // color: Colors.yellow,
-//         child: Column(
-//           children: <Widget>[
-//             Padding(
-//               padding: const EdgeInsets.only(top: 5),
-//               child: Text(
-//                 'Ikuti Kami',
-//                 style: TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//             ),
-//             Flexible(
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: <Widget>[
-//                   IconButton(
-//                       onPressed: () {},
-//                       icon: FaIcon(
-//                         FontAwesomeIcons.facebookSquare,
-//                         color: Colors.blue,
-//                       )),
-//                   IconButton(
-//                       onPressed: () {},
-//                       icon: FaIcon(
-//                         FontAwesomeIcons.instagramSquare,
-//                         color: Colors.blue,
-//                       )),
-//                   IconButton(
-//                       onPressed: () {},
-//                       icon: FaIcon(
-//                         FontAwesomeIcons.twitterSquare,
-//                         color: Colors.blue,
-//                       )),
-//                 ],
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

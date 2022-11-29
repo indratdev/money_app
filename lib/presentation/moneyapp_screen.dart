@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
 
@@ -83,13 +82,6 @@ class MoneyappScreen extends StatelessWidget {
               navBarStyle: NavBarStyle
                   .style16, // Choose the nav bar style with this property.
             ),
-            // SizedBox(
-            //   height: 116,
-            //   child: CustomBottomNav(
-            //     menu: menu,
-            //     stateTheme: stateTheme,
-            //   ),
-            // ),
           );
         },
       ),

@@ -5,7 +5,7 @@ import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
 
-import '../../../../data/constants.dart';
+import '../../../../../data/constants.dart';
 
 class CategoryAddScreen extends StatelessWidget {
   CategoryAddScreen({super.key});

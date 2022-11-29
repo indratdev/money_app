@@ -95,7 +95,6 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
                         child: Image.asset(
                           'assets/icons/${listCategoryIcon?[index].iconName}.png',
                           fit: BoxFit.fill,
-                          // color: Colors.transparent,
                         ),
                       ),
                     ),

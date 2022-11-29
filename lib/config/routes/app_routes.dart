@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:money_app/presentation/pages/clear_data/cleardata_screen.dart';
 
-import 'package:money_app/presentation/pages/settings/category/category_add_screen.dart';
+import 'package:money_app/presentation/pages/settings/category/add/category_add_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_updel_screen.dart';
 import 'package:money_app/presentation/pages/settings/donation/donation_screen.dart';
 import 'package:money_app/presentation/pages/settings/languanges/languange_screen.dart';
 import 'package:money_app/presentation/pages/settings/themes/themes_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_category_screen.dart';
-import 'package:money_app/presentation/pages/transaction/transaction_manage_screen.dart';
+
 import 'package:money_app/presentation/pages/transaction/transaction_screen.dart';
 
 import '../../presentation/moneyapp_screen.dart';
@@ -16,6 +16,7 @@ import '../../presentation/pages/home/home_screen.dart';
 import '../../presentation/pages/settings/category/category_screen.dart';
 import '../../presentation/pages/settings/setting_screen.dart';
 import '../../presentation/pages/splash/splash_screen.dart';
+import '../../presentation/pages/transaction/manage_transaction/transaction_manage_screen.dart';
 
 class AppRoutes {
   static const String first = '/';
@@ -49,8 +50,8 @@ class AppRoutes {
     transactionIcon: (_) => CategorySelectIconScreen(),
     transactionCategory: (_) => TransactionCategoryScreen(),
     transactionManage: (_) => TransactionManageScreen(),
-    settLanguage: (_) => LanguangeScreen(),
-    settClearData: (_) => ClearDataScreen(),
+    settLanguage: (_) => const LanguangeScreen(),
+    settClearData: (_) => const ClearDataScreen(),
     settThemes: (_) => ThemesScreen(),
     settDonation: (_) => DonationScreen(),
   };

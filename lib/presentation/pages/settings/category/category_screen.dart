@@ -19,7 +19,7 @@ class CategoryScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, AppRoutes.settCategoryAdd);
           },
-          child: Icon(Icons.add)),
+          child: const Icon(Icons.add)),
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {
           if (state is FailureDeleteCategory) {
@@ -78,7 +78,7 @@ class CategoryScreen extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       radius: 30,
-                      foregroundColor: Colors.red,
+                      foregroundColor: Colors.transparent,
                       child: ClipOval(
                         child: Image.asset(
                           'assets/icons/${result[index].iconName}.png',

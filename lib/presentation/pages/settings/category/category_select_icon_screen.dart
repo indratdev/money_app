@@ -73,15 +73,13 @@ class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
                   selectedCategory = listCategoryIcon?[index];
                   setState(() {});
                 },
-
-                /// masih disini
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: selectedCategoryIconName ==
                             listCategoryIcon?[index].iconName
-                        ? lightPurple
+                        ? lightBlue
                         : Colors.transparent,
                   ),
                   child: CircleAvatar(
@@ -91,7 +89,6 @@ class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
                       child: Image.asset(
                         'assets/icons/${listCategoryIcon?[index].iconName}.png',
                         fit: BoxFit.fill,
-                        // color: Colors.transparent,
                       ),
                     ),
                   ),

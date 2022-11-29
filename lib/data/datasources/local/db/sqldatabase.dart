@@ -25,7 +25,6 @@ class SqlDatabase {
 
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
-    print('lokasi db : $dbPath');
     final path = join(dbPath, filePath);
 
     return await openDatabase(
@@ -65,9 +64,7 @@ class SqlDatabase {
   //read all
   Future<List<CategoryModel>> readCategory(int isDefault) async {
     final db = await instance.database;
-    // const orderBy = 'createdTime ASC';
     final result = await sqlHelper.readCategory(db, instance, isDefault);
-    print("==result readCategory : $result");
     return result;
   }
 
@@ -75,7 +72,6 @@ class SqlDatabase {
   Future<CategoryModel> readCategoryById(int idCategory) async {
     final db = await instance.database;
     final result = await sqlHelper.readCategoryById(db, instance, idCategory);
-    print("==result readCategoryById : $result");
     return result;
   }
 
@@ -143,95 +139,12 @@ class SqlDatabase {
   Future<List<Map<String, dynamic>>> readParamThemes() async {
     final db = await instance.database;
     final result = await sqlHelper.readParamThemes(db, instance);
-    print("==result readParamThemes : $result");
     return result;
   }
 
   Future<int> updateThemes(String value) async {
     final db = await instance.database;
     final result = await sqlHelper.updateParamThemes(db, instance, value);
-    print("==result updateThemes : $result");
     return result;
   }
-
-// // read all master category
-//   Future<List<CategoryMasterModel>> readAllCategoryMaster() async {
-//     final db = await instance.database;
-
-//     if (db != null) {
-//       final result = await db.rawQuery(
-//           ''' select id, name, iconName from $tableMasterCategory; ''');
-
-//       // print('===> $result');
-//       return result.map((e) => CategoryMasterModel.fromJson(e)).toList();
-//     } else {
-//       throw Exception('DB is NULL');
-//     }
-//   }
-
-  // read note by id
-  // Future<NotesModel?> readNoteByID(int id) async {
-  //   final db = await instance.database;
-
-  //   if (db != null) {
-  //     final result =
-  //         await db.query(tableNotes, where: 'id = ?', whereArgs: [id]);
-
-  //     if (result.isNotEmpty) {
-  //       return NotesModel.fromJson(result.first);
-  //     }
-  //     return null;
-  //   } else {
-  //     throw Exception('DB is NULL');
-  //   }
-  // }
-
-  // delete data table note
-  // Future<int> deleteTableNotes() async {
-  //   final db = await instance.database;
-
-  //   if (db != null) {
-  //     return await db.rawDelete(''' DELETE FROM $tableOpsCategory''');
-  //   }
-  //   return 0;
-  // }
-
-  // Future<int> updateNote(int id, NotesModel note) async {
-  //   final db = await instance.database;
-  //   int result = 0;
-
-  //   if (db != null) {
-  //     return result = await db.rawUpdate('''UPDATE $tableNotes
-  //         SET
-  //         title = ?
-  //         , content = ?
-  //         , noteColor = ?
-  //         , createdTime = ?
-  //         , modifieldTime = ?
-  //         WHERE id = ?''', [
-  //       note.title,
-  //       note.content,
-  //       note.noteColor,
-  //       '${note.createdTime}',
-  //       '${note.modifieldTime}',
-  //       '$id'
-  //     ]);
-  //     // return result = await db
-  //     //     .update(tableNotes, note.toJson(), where: 'id = ?', whereArgs: [id]);
-  //   }
-
-  //   return result;
-  // }
-
-  // delete note by id
-  // Future<void> deleteNoteByID(int id) async {
-  //   final db = await instance.database;
-
-  //   if (db != null) {
-  //     // ('DELETE FROM Test WHERE name = ?', ['another name']);
-  //     await db.rawDelete('''
-  //     DELETE FROM $tableNotes WHERE id = ? ''', [id]);
-  //     // return result;
-  //   }
-  // }
 }

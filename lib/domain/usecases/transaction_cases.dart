@@ -42,10 +42,4 @@ class TransactionCases {
       int idTransaction, Transaction valueTransaction) {
     return repository.getUpdateTransaction(idTransaction, valueTransaction);
   }
-
-  // // read calculation
-  // executeReadCalculation() {
-  //   repository.getReadCalculation();
-  // }
-
 }

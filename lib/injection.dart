@@ -5,7 +5,7 @@ import 'package:money_app/data/repositories/transaction_repository_impl.dart';
 import 'package:money_app/domain/repositories/parameter_repository.dart';
 import 'package:money_app/domain/repositories/report_repository.dart';
 import 'package:money_app/domain/repositories/transaction_repository.dart';
-import 'package:money_app/domain/usecases/language_cases.dart';
+
 import 'package:money_app/domain/usecases/parameter_cases.dart';
 import 'package:money_app/domain/usecases/report_cases.dart';
 import 'package:money_app/domain/usecases/transaction_cases.dart';
@@ -32,7 +32,6 @@ Future<void> setup() async {
   getIt.registerLazySingleton(() => CategoryCases(getIt()));
   getIt.registerLazySingleton(() => TransactionCases(getIt()));
   getIt.registerLazySingleton(() => ReportCases(getIt()));
-  getIt.registerLazySingleton(() => LanguageCases()); // onprogress
   getIt.registerLazySingleton(() => ParameterCases(getIt()));
 
   // repository

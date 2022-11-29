@@ -23,19 +23,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
     }
   }
 
-  // @override
-  // Future<Either<Failure, List<Category>>> getReadCategory() async {
-  //   try {
-  //     final result = await localDataSource.readCategory();
-  //     print("result ::: $result");
-  //     return Right(result.toList());
-  //   } on ServerException {
-  //     return Left(const ServerFailure(''));
-  //   } on SocketException {
-  //     return Left(const ConnectionFailure('Failed to connect to the database'));
-  //   }
-  // }
-
   @override
   getAddCategory() async {
     try {
@@ -51,12 +38,12 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Either<Failure, List<Category>>> getReadCategory() async {
     try {
       final result = await localDataSource.readCategory(0);
-      print("result ::: $result");
+
       return Right(result.toList());
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -67,9 +54,9 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final result = await localDataSource.readCategory(isdefault);
       return Right(result.toList());
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -77,12 +64,11 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Either<Failure, int>> getCreateCategory(Category value) async {
     try {
       final result = await localDataSource.createCategory(value);
-      print("jalannn getCreateCategory: ${Right(result)}");
       return Right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -90,12 +76,11 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Either<Failure, Category>> getReadCategoryById(int idCategory) async {
     try {
       final result = await localDataSource.readCategoryById(idCategory);
-      print("result getReadCategoryById ::: $result");
       return Right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -107,9 +92,9 @@ class CategoryRepositoryImpl implements CategoryRepository {
           await localDataSource.updateCategory(idCategory, valueCategory);
       return right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
@@ -119,9 +104,9 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final result = await localDataSource.deleteCategory(idCategory);
       return right(result);
     } on ServerException {
-      return Left(const ServerFailure(''));
+      return const Left(ServerFailure(''));
     } on SocketException {
-      return Left(const ConnectionFailure('Failed to connect to the database'));
+      return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 }
