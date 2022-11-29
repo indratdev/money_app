@@ -14,7 +14,6 @@ import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 
 import 'config/routes/app_routes.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() async {

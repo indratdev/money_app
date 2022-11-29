@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               ? backgroundThemeLight
               : backgroundThemeDark,
           child: Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(top: 8.0),
             child: BlocConsumer<TransactionBloc, TransactionState>(
               listener: (context, state) {
                 if (state is FailureReadTransaction) {
@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(
-                          top: 8, right: 8, left: 8, bottom: 20),
+                          top: 8, right: 8, left: 8, bottom: 10),
                       height: MediaQuery.of(context).size.height / 14,
                       color: Colors.transparent,
                       child: Row(
@@ -113,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                               fit: BoxFit.fitWidth,
                               alignment: Alignment.center,
                               child: Padding(
-                                padding: const EdgeInsets.all(30.0),
+                                padding: const EdgeInsets.all(25.0),
                                 child: Text(
                                   selectedDate,
                                   softWrap: true,
@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                           : calculationDecorDark,
                       height: MediaQuery.of(context).size.height / 10,
                       margin: const EdgeInsets.only(
-                          top: 5, bottom: 20, left: 8, right: 8),
+                          top: 5, bottom: 15, left: 8, right: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
@@ -197,8 +197,6 @@ class HomeScreen extends StatelessWidget {
                             : ListView.separated(
                                 shrinkWrap: true,
                                 separatorBuilder: (context, index) =>
-                                    // const Divider(color: lightWhite),
-                                    // (context, index) =>
                                     defaultDivider(context),
                                 itemCount: listTransaction?.length ?? 0,
                                 itemBuilder: (context, index) {

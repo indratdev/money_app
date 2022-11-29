@@ -40,7 +40,8 @@ class _WidgetBannerState extends State<WidgetBanner> {
 
     bannerAd = BannerAd(
       size: AdSize.banner,
-      adUnitId: AdHelper.bannerAdUnitId, //bannerId,
+      // adUnitId: AdHelper.bannerAdUnitId, //bannerId,
+      adUnitId: AdHelper.bannerAdUnitIdTest,
       listener: bannerAdListener,
       request: adRequest!,
     );

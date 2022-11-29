@@ -32,7 +32,7 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1582141259719037~7071854042"/>
+            android:value="ca-app-pub-1582141259719037~4445776428"/>
         <!-- For apps targeting Android 13 or higher & GMA SDK version 20.3.0 or lower -->
         <!-- <uses-permission android:name="com.google.android.gms.permission.AD_ID"/> -->
         <meta-data 
