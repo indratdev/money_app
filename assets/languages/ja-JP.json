@@ -60,5 +60,7 @@
     , "error-read-category" : "カテゴリを表示できませんでした"
     , "error-read-themes" : "失敗した読み取りテーマ"
     , "title-pin" : "PIN"
-    , "set-pin" : "Atur PIN"
+    , "set-pin" : "暗証番号を設定"
+    , "enter-pincode" : "PIN コードを入力してください"
+    , "confirm-pincode" : "PIN コードの確認"
 }

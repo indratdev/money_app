@@ -60,6 +60,8 @@
     , "error-read-category" : "Failed to Display Category"
     , "error-read-themes" : "Failed Read Themes"
     , "title-pin" : "PIN"
-    , "set-pin" : "PIN の設定"
+    , "set-pin" : "Set PIN"
+    , "enter-pincode" : "Enter PIN Code"
+    , "confirm-pincode" : "Confirm PIN Code"
 
 }

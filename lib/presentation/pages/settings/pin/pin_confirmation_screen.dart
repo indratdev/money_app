@@ -1,26 +1,29 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:money_app/presentation/pages/settings/pin/pin_confirmation_screen.dart';
 
 import '../../../../data/constants.dart';
 
-class PinChangeScreen extends StatefulWidget {
-  PinChangeScreen({
+class PinConfirmationScreen extends StatefulWidget {
+  final List<int> valuePasscodeBefore;
+
+  PinConfirmationScreen({
     super.key,
+    this.valuePasscodeBefore = const [],
   });
 
   @override
-  State<PinChangeScreen> createState() => _PinChangeScreenState();
+  State<PinConfirmationScreen> createState() => _PinConfirmationScreenState();
 }
 
-class _PinChangeScreenState extends State<PinChangeScreen> {
+class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
   List<String> tempPasscode = ['', '', '', '', '', ''];
   List<int> valuePasscode = [];
 
   @override
   void initState() {
-    print("tempPasscode : $tempPasscode");
     super.initState();
+
+    print(">>lemparan valuePasscodeBefore : ${widget.valuePasscodeBefore}");
   }
 
   changePasscode(int value) {
@@ -32,13 +35,18 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
 
     // passcode already 6
     if (valuePasscode.length == 6) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              PinConfirmationScreen(valuePasscodeBefore: valuePasscode),
-        ),
-      );
+      //check
+      isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
+    }
+  }
+
+  isValidPasscode(List<int> before, List<int> now) {
+    print("before : $before");
+    print("now : $now");
+    if (before == now) {
+      print(">>> SAMA");
+    } else {
+      print(">>> Ga sama");
     }
   }
 
@@ -53,7 +61,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('set-pin'.tr())),
+      appBar: AppBar(title: Text('confirm-pincode'.tr())),
       body: Column(
         children: [
           Container(
@@ -68,7 +76,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: Text(
-                      'enter-pincode'.tr(),
+                      'confirm-pincode'.tr(),
                     ),
                   ),
                 ),
