@@ -60,8 +60,11 @@
     , "error-read-category" : "Failed to Display Category"
     , "error-read-themes" : "Failed Read Themes"
     , "title-pin" : "PIN"
-    , "set-pin" : "Set PIN"
+    , "change-pin" : "Change PIN Code"
+    , "choose-pin" : "Choose PIN Code"
+    , "remove-pin" : "Remove PIN Code"
     , "enter-pincode" : "Enter PIN Code"
     , "confirm-pincode" : "Confirm PIN Code"
+    , "pin-information" : "Caution: If you forget your pin code, you have to re-download this application"
 
 }

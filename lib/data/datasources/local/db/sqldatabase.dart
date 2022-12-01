@@ -147,4 +147,11 @@ class SqlDatabase {
     final result = await sqlHelper.updateParamThemes(db, instance, value);
     return result;
   }
+
+  // read passcode - exist
+  Future<bool> readPasscodeExist() async {
+    final db = await instance.database;
+    final result = await sqlHelper.readParamPasscodeExist(db, instance);
+    return result;
+  }
 }

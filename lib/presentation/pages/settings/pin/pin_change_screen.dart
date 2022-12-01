@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:money_app/data/pin_manager.dart';
 import 'package:money_app/presentation/pages/settings/pin/pin_confirmation_screen.dart';
 
 import '../../../../data/constants.dart';
@@ -14,46 +15,59 @@ class PinChangeScreen extends StatefulWidget {
 }
 
 class _PinChangeScreenState extends State<PinChangeScreen> {
-  List<String> tempPasscode = ['', '', '', '', '', ''];
-  List<int> valuePasscode = [];
+  PinManager pm = PinManager();
+  // List<String> _tempPasscode = ['', '', '', '', '', ''];
+  // List<int> _valuePasscode = [];
 
   @override
   void initState() {
-    print("tempPasscode : $tempPasscode");
+    // print("tempPasscode : $tempPasscode");
     super.initState();
   }
 
-  changePasscode(int value) {
-    if (valuePasscode.length < 6) {
-      valuePasscode.add(value);
-      tempPasscode[valuePasscode.length - 1] = value.toString(); //update tempp
-      setState(() {}); // refresh
-    }
-
-    // passcode already 6
-    if (valuePasscode.length == 6) {
+  nextPageConfirmation() {
+    if (pm.getPasscodeAlreadFulfilled == true) {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) =>
-              PinConfirmationScreen(valuePasscodeBefore: valuePasscode),
+              PinConfirmationScreen(valuePasscodeBefore: pm.getValuePasscode),
         ),
       );
     }
   }
 
-  removeDigitPasscode() {
-    if (valuePasscode.isNotEmpty) {
-      valuePasscode.removeLast();
-      tempPasscode[valuePasscode.length] = '';
-      setState(() {});
-    }
-  }
+  // changePasscode(int value) {
+  //   if (valuePasscode.length < pm.getMaxLengthPasscode) {
+  //     valuePasscode.add(value);
+  //     tempPasscode[valuePasscode.length - 1] = value.toString(); //update tempp
+  //     setState(() {}); // refresh
+  //   }
+
+  // passcode already 6
+  //   if (valuePasscode.length == pm.getMaxLengthPasscode) {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) =>
+  //             PinConfirmationScreen(valuePasscodeBefore: valuePasscode),
+  //       ),
+  //     );
+  //   }
+  // }
+
+  // removeDigitPasscode() {
+  //   if (valuePasscode.isNotEmpty) {
+  //     valuePasscode.removeLast();
+  //     tempPasscode[valuePasscode.length] = '';
+  //     setState(() {});
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('set-pin'.tr())),
+      appBar: AppBar(title: Text('choose-pin'.tr())),
       body: Column(
         children: [
           Container(
@@ -82,24 +96,42 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
                       children:
                           // _buildCircles(),
                           <Widget>[
-                        (tempPasscode[0] == '')
+                        (pm.getTempPasscode[0] == '')
                             ? const Icon(Icons.circle_outlined)
                             : const Icon(Icons.circle_rounded),
-                        (tempPasscode[1] == '')
+                        (pm.getTempPasscode[1] == '')
                             ? const Icon(Icons.circle_outlined)
                             : const Icon(Icons.circle_rounded),
-                        (tempPasscode[2] == '')
+                        (pm.getTempPasscode[2] == '')
                             ? const Icon(Icons.circle_outlined)
                             : const Icon(Icons.circle_rounded),
-                        (tempPasscode[3] == '')
+                        (pm.getTempPasscode[3] == '')
                             ? const Icon(Icons.circle_outlined)
                             : const Icon(Icons.circle_rounded),
-                        (tempPasscode[4] == '')
+                        (pm.getTempPasscode[4] == '')
                             ? const Icon(Icons.circle_outlined)
                             : const Icon(Icons.circle_rounded),
-                        (tempPasscode[5] == '')
+                        (pm.getTempPasscode[5] == '')
                             ? const Icon(Icons.circle_outlined)
                             : const Icon(Icons.circle_rounded),
+                        // (tempPasscode[0] == '')
+                        //     ? const Icon(Icons.circle_outlined)
+                        //     : const Icon(Icons.circle_rounded),
+                        // (tempPasscode[1] == '')
+                        //     ? const Icon(Icons.circle_outlined)
+                        //     : const Icon(Icons.circle_rounded),
+                        // (tempPasscode[2] == '')
+                        //     ? const Icon(Icons.circle_outlined)
+                        //     : const Icon(Icons.circle_rounded),
+                        // (tempPasscode[3] == '')
+                        //     ? const Icon(Icons.circle_outlined)
+                        //     : const Icon(Icons.circle_rounded),
+                        // (tempPasscode[4] == '')
+                        //     ? const Icon(Icons.circle_outlined)
+                        //     : const Icon(Icons.circle_rounded),
+                        // (tempPasscode[5] == '')
+                        //     ? const Icon(Icons.circle_outlined)
+                        //     : const Icon(Icons.circle_rounded),
                       ],
                     ),
                   ),
@@ -143,9 +175,14 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
     return InkWell(
       onTap: () {
         if (operationPin == OperationPin.number) {
-          changePasscode(int.parse(label));
+          // changePasscode(int.parse(label));
+          pm.changePasscode(int.parse(label));
+          nextPageConfirmation();
+          setState(() {});
         } else if (operationPin == OperationPin.cancel) {
-          removeDigitPasscode();
+          // removeDigitPasscode();
+          pm.removeDigitPasscode();
+          setState(() {});
         }
       },
       child: Container(

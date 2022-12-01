@@ -391,6 +391,26 @@ class SqlHelper {
     }
   }
 
+  // read passcode exist
+  Future<bool> readParamPasscodeExist(
+      Database? db, SqlDatabase instance) async {
+    final db = await instance.database;
+
+    String query =
+        """ select value from $tableMasterParameter where name = 'user_passcode' limit 1; """;
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query''');
+      print(">> nilainya ::: ${result.first.values}");
+      print(">>> hasil ::: $result");
+
+      return (result.first.values.toString() == '00000') ? false : true;
+      // return false;
+    } else {
+      throw Exception('DB is null');
+    }
+  }
+
   // update parameter themes
   Future<int> updateParamThemes(
       Database? db, SqlDatabase instance, String valueParam) async {
@@ -411,6 +431,8 @@ class SqlHelper {
   insertMasterParameter(Database db, String tableMasterParamter) async {
     await db.rawInsert(
         ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('isDark', '0', 1, 'Default Themes of Application');   ''');
+    await db.rawInsert(
+        ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('user_passcode', '00000', 1, 'User Passcode');   ''');
   }
 
   inserMasterColors(Database db, String tableMasterColors) async {

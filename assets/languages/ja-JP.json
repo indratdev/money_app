@@ -60,7 +60,10 @@
     , "error-read-category" : "カテゴリを表示できませんでした"
     , "error-read-themes" : "失敗した読み取りテーマ"
     , "title-pin" : "PIN"
-    , "set-pin" : "暗証番号を設定"
+    , "change-pin" : "暗証番号の変更"
+    , "choose-pin" : "PINコードを選択"
+    , "remove-pin" : "PINコードを削除"
     , "enter-pincode" : "PIN コードを入力してください"
     , "confirm-pincode" : "PIN コードの確認"
+    , "pin-information" : "注意: 暗証番号を忘れた場合は、このアプリを再ダウンロードする必要があります"
 }

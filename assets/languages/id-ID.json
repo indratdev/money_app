@@ -60,7 +60,10 @@
     , "error-read-category" : "Gagal Menampilkan Kategori"
     , "error-read-themes" : "Gagal Membaca Tema"
     , "title-pin" : "PIN"
-    , "set-pin" : "Atur PIN"
+    , "change-pin" : "Ubah Kode PIN"
+    , "choose-pin" : "Pilih Kode PIN"
+    , "remove-pin" : "Hapus Kode PIN"
     , "enter-pincode" : "Masukkan Kode PIN"
     , "confirm-pincode" : "Konfirmasi Kode PIN"
+    , "pin-information" : "Perhatian: jika Anda lupa kode pin, Anda harus mengunduh ulang aplikasi ini"
 }

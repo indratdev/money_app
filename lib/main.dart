@@ -10,6 +10,7 @@ import 'package:money_app/data/languages_app.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/injection.dart' as di;
+import 'package:money_app/presentation/pages/settings/pin/bloc/pin_bloc.dart';
 import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 
@@ -64,6 +65,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => di.getIt<ThemesBloc>()..add(ReadThemesEvent()),
+        ),
+        BlocProvider(
+          create: (context) => di.getIt<PinBloc>(),
         ),
       ],
       child: BlocBuilder<ThemesBloc, ThemesState>(

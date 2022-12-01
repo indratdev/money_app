@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 import '../../../../data/constants.dart';
 
@@ -41,8 +42,12 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
   }
 
   isValidPasscode(List<int> before, List<int> now) {
+    Function eq = const ListEquality().equals;
+    // print(eq([1, 'two', 3], [1, 'two', 3])); // => true
+    print(eq(before, now)); // => true
     print("before : $before");
     print("now : $now");
+    // var aaa = eq
     if (before == now) {
       print(">>> SAMA");
     } else {

@@ -28,14 +28,23 @@ class ParameterRepositoryImpl implements ParameterRepository {
   Future<Either<Failure, int>> getUpdateThemes(String value) async {
     try {
       final result = await localDataSource.updateParamThemes(value);
-      // updateTransaction(
-      //     idTransaction, valueTransaction);
-
       return right(result);
     } on ServerException {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> getPasscodeExist() async {
+    try {
+      final result = await localDataSource.readPasscode();
+      return right(result);
+    } on ServerException {
+      return left(ServerFailure('Failed to Connect Server'));
+    } on SocketException {
+      return const Left(ConnectionFailure("Failed to connect to the databse"));
     }
   }
 }

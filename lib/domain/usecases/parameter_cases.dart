@@ -12,8 +12,13 @@ class ParameterCases {
     return repository.getReadThemes();
   }
 
-  // // update themes
+  // update themes
   Future<Either<Failure, int>> executeUpdateThemes(String value) {
     return repository.getUpdateThemes(value);
+  }
+
+  // check passcode exist
+  Future<Either<Failure, bool>> executeCheckPasscodeExist() {
+    return repository.getPasscodeExist();
   }
 }

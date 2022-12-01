@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_app/presentation/pages/settings/pin/bloc/pin_bloc.dart';
 import 'package:money_app/presentation/pages/settings/themes/themes_bloc/themes_bloc.dart';
 
 import '../../presentation/pages/settings/category/bloc/category_bloc.dart';
@@ -41,6 +42,9 @@ class MenuSetting {
       case BlocName.themesRead:
         context.read<ThemesBloc>().add(ReadThemesEvent());
         break;
+      case BlocName.pinRead:
+        context.read<PinBloc>().add(CheckPinUsed());
+        break;
       default:
         context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
     }
@@ -75,7 +79,7 @@ class MenuSetting {
       labelSetting: 'title-pin'.tr(),
       iconSetting: const Icon(Icons.password),
       routeSetting: AppRoutes.settPin,
-      // blocName: BlocName.pinRead,
+      blocName: BlocName.pinRead,
     ),
     Setting(
       labelSetting: 'donation'.tr(),
