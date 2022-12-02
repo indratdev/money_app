@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 import '../../../../data/constants.dart';
+import '../../../../data/pin_manager.dart';
 
 class PinConfirmationScreen extends StatefulWidget {
   final List<int> valuePasscodeBefore;
@@ -17,6 +19,7 @@ class PinConfirmationScreen extends StatefulWidget {
 }
 
 class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
+  PinManager pm = PinManager();
   List<String> tempPasscode = ['', '', '', '', '', ''];
   List<int> valuePasscode = [];
 
@@ -35,25 +38,36 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
     }
 
     // passcode already 6
-    if (valuePasscode.length == 6) {
-      //check
-      isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
+    if (valuePasscode.length == pm.getMaxLengthPasscode) {
+      if (pm.isValidPasscode(widget.valuePasscodeBefore, valuePasscode)) {
+        print("samaaaa");
+      } else {
+        CustomWidgets.showMessageAlertBasic(
+            context, "Passcode Tidak Sama", false);
+      }
     }
+
+    // pm.isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
+    // if (valuePasscode.length == 6) {
+    //   //check
+    //   isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
+    // }
   }
 
-  isValidPasscode(List<int> before, List<int> now) {
-    Function eq = const ListEquality().equals;
-    // print(eq([1, 'two', 3], [1, 'two', 3])); // => true
-    print(eq(before, now)); // => true
-    print("before : $before");
-    print("now : $now");
-    // var aaa = eq
-    if (before == now) {
-      print(">>> SAMA");
-    } else {
-      print(">>> Ga sama");
-    }
-  }
+  // isValidPasscode(List<int> before, List<int> now) {
+  //   // Function eq = const ListEquality().equals;
+  //   // // print(eq([1, 'two', 3], [1, 'two', 3])); // => true
+  //   // print(eq(before, now)); // => true
+  //   // print("before : $before");
+  //   // print("now : $now");
+  //   // var aaa = eq
+
+  //   // if (before == now) {
+  //   //   print(">>> SAMA");
+  //   // } else {
+  //   //   print(">>> Ga sama");
+  //   // }
+  // }
 
   removeDigitPasscode() {
     if (valuePasscode.isNotEmpty) {

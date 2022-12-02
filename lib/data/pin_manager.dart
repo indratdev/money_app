@@ -1,3 +1,6 @@
+import 'package:collection/collection.dart';
+import 'package:encrypt/encrypt.dart';
+
 enum PinString {
   tempPasscodeValue,
   valuePasscodeValue,
@@ -53,5 +56,39 @@ class PinManager {
       PinString.valuePasscodeValue.toString(): _valuePasscode,
       PinString.tempPasscodeValue.toString(): _tempPasscode,
     };
+  }
+
+  bool isValidPasscode(List<int> before, List<int> now) {
+    Function eq = const ListEquality().equals;
+    bool result = false;
+    // print(eq([1, 'two', 3], [1, 'two', 3])); // => true
+    // print(eq(before, now)); // => true
+    var values = eq(before, now);
+    if (values) {
+      encryptDecryptPasscode(true, now.toString());
+      result = true;
+    } else {
+      result = false;
+    }
+    return result;
+  }
+
+  // encrypt
+  encryptDecryptPasscode(bool isEncryt, String value) {
+    final plainText = value;
+    final key = Key.fromUtf8('keyformyapp123moneyappfromisdev9');
+    final iv = IV.fromLength(16);
+
+    final encrypter = Encrypter(AES(key));
+
+    final encrypted = encrypter.encrypt(plainText, iv: iv);
+    final decrypted = encrypter.decrypt(encrypted, iv: iv);
+
+    print(decrypted); // Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    print(encrypted
+        .base64); // R4PxiU3h8YoIRqVowBXm36ZcCeNeZ4s1OvVBTfFlZRdmohQqOpPQqD1YecJeZMAop/hZ4OxqgC1WtwvX/hP9mw==
+    // decrypt
+
+    return (isEncryt) ? encrypted : decrypted;
   }
 }
