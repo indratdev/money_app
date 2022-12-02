@@ -8,3 +8,11 @@ abstract class PinEvent extends Equatable {
 }
 
 class CheckPinUsed extends PinEvent {}
+
+class ChangePasscodeEvent extends PinEvent {
+  int value;
+
+  ChangePasscodeEvent({required this.value});
+}
+
+class RemoveDigitPasscodeEvent extends PinEvent {}

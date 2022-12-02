@@ -4,6 +4,7 @@ import 'package:encrypt/encrypt.dart';
 enum PinString {
   tempPasscodeValue,
   valuePasscodeValue,
+  passcodeAlreadyFulfilled,
 }
 
 class PinManager {
@@ -29,18 +30,27 @@ class PinManager {
   }
 
   Map<String, dynamic> removeDigitPasscode() {
+    Map<String, dynamic> tempValue = {};
     if (_valuePasscode.isNotEmpty) {
       _valuePasscode.removeLast();
       _tempPasscode[_valuePasscode.length] = '';
     }
 
-    return {
-      PinString.valuePasscodeValue.toString(): _valuePasscode,
-      PinString.tempPasscodeValue.toString(): _tempPasscode,
-    };
+    tempValue[PinString.tempPasscodeValue.toString()] = _tempPasscode;
+    tempValue[PinString.valuePasscodeValue.toString()] = _valuePasscode;
+    tempValue[PinString.passcodeAlreadyFulfilled.toString()] =
+        _passcodeAlreadyFulfilled;
+
+    return tempValue;
+
+    // return {
+    //   PinString.valuePasscodeValue.toString(): _valuePasscode,
+    //   PinString.tempPasscodeValue.toString(): _tempPasscode,
+    // };
   }
 
-  changePasscode(int value) {
+  Map<String, dynamic> changePasscode(int value) {
+    Map<String, dynamic> tempValue = {};
     if (_valuePasscode.length < _maxLengthPasscode) {
       _valuePasscode.add(value);
       _tempPasscode[_valuePasscode.length - 1] =
@@ -52,10 +62,16 @@ class PinManager {
       _passcodeAlreadyFulfilled = true;
     }
 
-    return {
-      PinString.valuePasscodeValue.toString(): _valuePasscode,
-      PinString.tempPasscodeValue.toString(): _tempPasscode,
-    };
+    tempValue[PinString.tempPasscodeValue.toString()] = _tempPasscode;
+    tempValue[PinString.valuePasscodeValue.toString()] = _valuePasscode;
+    tempValue[PinString.passcodeAlreadyFulfilled.toString()] =
+        _passcodeAlreadyFulfilled;
+    return tempValue;
+
+    // return {
+    //   PinString.valuePasscodeValue.toString(): _valuePasscode,
+    //   PinString.tempPasscodeValue.toString(): _tempPasscode,
+    // };
   }
 
   bool isValidPasscode(List<int> before, List<int> now) {

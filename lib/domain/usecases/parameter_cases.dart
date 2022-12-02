@@ -21,4 +21,14 @@ class ParameterCases {
   Future<Either<Failure, bool>> executeCheckPasscodeExist() {
     return repository.getPasscodeExist();
   }
+
+  // change passcode
+  Either<Failure, Map<String, dynamic>> executeChangePasscode(int value) {
+    return repository.changePasscode(value);
+  }
+
+  // remove digit passcode
+  Either<Failure, Map<String, dynamic>> executeRemoveDigitPasscode() {
+    return repository.removeDigitPasscode();
+  }
 }
