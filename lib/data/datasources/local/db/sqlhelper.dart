@@ -401,11 +401,10 @@ class SqlHelper {
 
     if (db != null) {
       final result = await db.rawQuery(''' $query''');
-      print(">> nilainya ::: ${result.first.values}");
-      print(">>> hasil ::: $result");
-
-      return (result.first.values.toString() == '00000') ? false : true;
-      // return false;
+      return (result.first.values.first.toString() ==
+              'wGDY8UmGNMtA9Gj17JoeQQ==') // 00000
+          ? false
+          : true;
     } else {
       throw Exception('DB is null');
     }
@@ -426,13 +425,33 @@ class SqlHelper {
     return result;
   }
 
+  // read passcode exist
+  Future<bool> savingNewPasscode(
+    Database? db,
+    SqlDatabase instance,
+    String valuePasscode,
+  ) async {
+    final db = await instance.database;
+    int result = 0;
+
+    if (db != null) {
+      result = await db.rawUpdate("""UPDATE $tableMasterParameter
+          SET
+          value = ?          
+          WHERE name = 'user_passcode' 
+          and actived = 1
+          """, [valuePasscode]);
+    }
+    return (result == 1) ? true : false;
+  }
+
   // -- end paramter ----------------------------------------------------------
 
   insertMasterParameter(Database db, String tableMasterParamter) async {
     await db.rawInsert(
         ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('isDark', '0', 1, 'Default Themes of Application');   ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('user_passcode', '00000', 1, 'User Passcode');   ''');
+        ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('user_passcode', 'wGDY8UmGNMtA9Gj17JoeQQ==', 1, 'User Passcode');   ''');
   }
 
   inserMasterColors(Database db, String tableMasterColors) async {

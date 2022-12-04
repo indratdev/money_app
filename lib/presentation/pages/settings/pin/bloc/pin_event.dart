@@ -15,4 +15,16 @@ class ChangePasscodeEvent extends PinEvent {
   ChangePasscodeEvent({required this.value});
 }
 
+class ChangePasscodeConfirmationEvent extends PinEvent {
+  int value;
+
+  ChangePasscodeConfirmationEvent({required this.value});
+}
+
 class RemoveDigitPasscodeEvent extends PinEvent {}
+
+class SavingPasscodeEvent extends PinEvent {
+  String value;
+
+  SavingPasscodeEvent({required this.value});
+}

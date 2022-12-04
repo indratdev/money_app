@@ -49,6 +49,15 @@ class SuccessChangePasscode extends PinState {
   List<Object> get props => [result];
 }
 
+class SuccessChangePasscodeConfirmation extends PinState {
+  Map<String, dynamic> result;
+
+  SuccessChangePasscodeConfirmation({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
 // RemoveDigitPasscode
 class LoadingRemoveDigitPasscode extends PinState {}
 
@@ -60,6 +69,22 @@ class SuccessRemoveDigitPasscode extends PinState {
   Map<String, dynamic> result;
 
   SuccessRemoveDigitPasscode({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+// RemoveDigitPasscode
+class LoadingSavingPasscode extends PinState {}
+
+class FailureSavingPasscode extends FailureState {
+  FailureSavingPasscode({required super.messageError});
+}
+
+class SuccessSavingPasscode extends PinState {
+  bool result;
+
+  SuccessSavingPasscode({required this.result});
 
   @override
   List<Object> get props => [result];

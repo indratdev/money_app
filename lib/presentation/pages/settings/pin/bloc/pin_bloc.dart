@@ -20,12 +20,18 @@ class PinBloc extends Bloc<PinEvent, PinState> {
     on<CheckPinUsed>((event, emit) async {
       try {
         final result = await _getParameterCases.executeCheckPasscodeExist();
-        print(">>>haisnya ::: $result");
-      } catch (e) {}
+        result.fold(
+            (l) =>
+                emit(FailureCheckPinUsed(messageError: "FailureCheckPinUsed")),
+            (data) => emit(SuccessCheckPinUsed(result: data)));
+      } catch (e) {
+        emit(FailureCheckPinUsed(messageError: "FailureCheckPinUsed e"));
+      }
     });
 
     on<ChangePasscodeEvent>((event, emit) {
       try {
+        print(">>> ChangePasscodeEvent Running...");
         emit(LoadingChangePasscode());
         final result = _getParameterCases.executeChangePasscode(event.value);
 
@@ -37,6 +43,27 @@ class PinBloc extends Bloc<PinEvent, PinState> {
             SuccessChangePasscode(result: data),
           ),
         );
+      } catch (e) {
+        emit(FailureChangePasscode(messageError: "FailureChangePasscode e"));
+      }
+    });
+
+    on<ChangePasscodeConfirmationEvent>((event, emit) {
+      try {
+        print(">>> ChangePasscodeEvent Running...");
+        emit(LoadingChangePasscode());
+        final result = _getParameterCases.executeChangePasscode(event.value);
+
+        result.fold(
+            (l) => emit(
+                  FailureChangePasscode(
+                      messageError: "Error FailureChangePasscode"),
+                ), (data) {
+          print(">>> gassss: $data");
+          emit(
+            SuccessChangePasscodeConfirmation(result: data),
+          );
+        });
       } catch (e) {
         emit(FailureChangePasscode(messageError: "FailureChangePasscode e"));
       }
@@ -58,6 +85,20 @@ class PinBloc extends Bloc<PinEvent, PinState> {
       } catch (e) {
         FailureRemoveDigitPasscode(
             messageError: "Error FailureRemoveDigitPasscode e");
+      }
+    });
+
+    on<SavingPasscodeEvent>((event, emit) async {
+      try {
+        emit(LoadingSavingPasscode());
+        final result =
+            await _getParameterCases.executeSavingPasscode(event.value);
+        result.fold(
+            (l) => emit(
+                FailureSavingPasscode(messageError: "FailureSavingPasscode")),
+            (data) => emit(SuccessSavingPasscode(result: data)));
+      } catch (e) {
+        emit(FailureSavingPasscode(messageError: "FailureSavingPasscode e"));
       }
     });
   }

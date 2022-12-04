@@ -8,4 +8,5 @@ abstract class ParameterRepository {
   Future<Either<Failure, bool>> getPasscodeExist();
   Either<Failure, Map<String, dynamic>> changePasscode(int value);
   Either<Failure, Map<String, dynamic>> removeDigitPasscode();
+  Future<Either<Failure, bool>> savingPasscode(String value);
 }

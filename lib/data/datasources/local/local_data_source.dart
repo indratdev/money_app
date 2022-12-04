@@ -28,6 +28,7 @@ abstract class LocalDataSource {
   // parameter
   Future<List<Map<String, dynamic>>> readParamThemes();
   Future<int> updateParamThemes(String value);
+  Future<bool> savingPasscode(String value);
   // Future<bool> updateParamThemes(String value);
 }
 
@@ -115,5 +116,10 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<bool> readPasscode() async {
     return await dbprovider.readPasscodeExist();
+  }
+
+  @override
+  Future<bool> savingPasscode(String value) async {
+    return await dbprovider.savingNewPasscode(value);
   }
 }

@@ -74,4 +74,16 @@ class ParameterRepositoryImpl implements ParameterRepository {
       return const Left(ConnectionFailure("Failed to connect to the databse"));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> savingPasscode(String value) async {
+    try {
+      var result = await localDataSource.savingPasscode(value);
+      return right(result);
+    } on ServerException {
+      return left(const ServerFailure('Failed to Connect Server'));
+    } on SocketException {
+      return const Left(ConnectionFailure("Failed to connect to the databse"));
+    }
+  }
 }

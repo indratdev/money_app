@@ -175,6 +175,53 @@ class CustomWidgets {
           );
         });
   }
+
+  static showMessageAlertWithF(
+    BuildContext context,
+    String content,
+    bool isSuccess,
+    Function()? voidCallBack,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)), //this right here
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 3,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: MediaQuery.of(context).size.width / 8,
+                      foregroundColor: Colors.transparent,
+                      child: ClipOval(
+                        child: Image.asset(
+                          (isSuccess) ? successImage : failedImage,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    SB_Height20,
+                    Text(content),
+                    SB_Height20,
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: ElevatedButton(
+                            // onPressed: () => Navigator.pop(context),
+                            onPressed: voidCallBack,
+                            child: const Text("OK")))
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
 }
 
 

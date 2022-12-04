@@ -31,4 +31,9 @@ class ParameterCases {
   Either<Failure, Map<String, dynamic>> executeRemoveDigitPasscode() {
     return repository.removeDigitPasscode();
   }
+
+  // saving passcode
+  Future<Either<Failure, bool>> executeSavingPasscode(String value) {
+    return repository.savingPasscode(value);
+  }
 }

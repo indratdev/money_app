@@ -19,6 +19,7 @@ class PinScreen extends StatelessWidget {
         child: BlocBuilder<PinBloc, PinState>(
           builder: (context, state) {
             if (state is SuccessCheckPinUsed) {
+              print(state.result);
               isUsedPincode = state.result;
             }
             return Column(
