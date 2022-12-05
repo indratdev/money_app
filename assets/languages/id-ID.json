@@ -66,4 +66,5 @@
     , "enter-pincode" : "Masukkan Kode PIN"
     , "confirm-pincode" : "Konfirmasi Kode PIN"
     , "pin-information" : "Perhatian: jika Anda lupa kode pin, Anda harus mengunduh ulang aplikasi ini"
+    , "pin-remove-confirmation" : "Apakah Anda yakin akan menghapus passcode ?"
 }

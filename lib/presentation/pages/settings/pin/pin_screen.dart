@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/presentation/pages/settings/pin/bloc/pin_bloc.dart';
+import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 class PinScreen extends StatelessWidget {
   PinScreen({super.key});
@@ -24,6 +25,7 @@ class PinScreen extends StatelessWidget {
             }
             return Column(
               children: <Widget>[
+                // new passcode
                 Visibility(
                   visible: !isUsedPincode,
                   child: ElevatedButton(
@@ -35,6 +37,8 @@ class PinScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // change passcode
                 Visibility(
                   visible: isUsedPincode,
                   child: ElevatedButton(
@@ -43,11 +47,16 @@ class PinScreen extends StatelessWidget {
                       },
                       child: Text('change-pin'.tr())),
                 ),
+
+                // remove passcode
                 Visibility(
                   visible: isUsedPincode,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigator.pushNamed(context, AppRoutes.settPinChange);
+                      CustomWidgets.showConfirmationWithF(
+                          context, 'pin-remove-confirmation'.tr(), () {
+                        Navigator.pushNamed(context, AppRoutes.settPinRemove);
+                      });
                     },
                     child: Text(
                       'remove-pin'.tr(),

@@ -55,6 +55,9 @@ const warningImage = 'assets/images/warning.png';
 // url
 const urlSaweria = 'https://saweria.co/indratdev';
 
+// key
+const keyPasscode = 'keyformyapp123moneyappfromisdev9';
+
 // --------------------------------- decoration ----------------------------------
 Decoration arrowDecor = const BoxDecoration(
   // color: Colors.white.withOpacity(0.9),

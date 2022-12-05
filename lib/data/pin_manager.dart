@@ -1,5 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:encrypt/encrypt.dart';
+import 'package:money_app/data/constants.dart';
+import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
+import 'package:money_app/data/datasources/local/db/sqlhelper.dart';
 
 enum PinString {
   tempPasscodeValue,
@@ -10,6 +13,7 @@ enum PinString {
 }
 
 class PinManager {
+  SqlDatabase? sqlDatabase;
   List<String> _tempPasscode = ['', '', '', '', '', ''];
   List<int> _valuePasscode = [];
 
@@ -60,7 +64,6 @@ class PinManager {
   Map<String, dynamic> changePasscode(int value) {
     Map<String, dynamic> tempValue = {};
 
-    print(">>> _valuePasscode sekarang : $_valuePasscode");
     if (_valuePasscode.length < _maxLengthPasscode) {
       _valuePasscode.add(value);
       _tempPasscode[_valuePasscode.length - 1] =
@@ -70,16 +73,12 @@ class PinManager {
     if (_valuePasscode.length == _maxLengthPasscode) {
       _passcodeAlreadyFulfilled = true;
     }
-
     tempValue[PinString.tempPasscodeValue.toString()] = _tempPasscode;
     tempValue[PinString.valuePasscodeValue.toString()] = _valuePasscode;
     tempValue[PinString.passcodeAlreadyFulfilled.toString()] =
         _passcodeAlreadyFulfilled;
+
     return tempValue;
-    // return {
-    //   PinString.valuePasscodeValue.toString(): _valuePasscode,
-    //   PinString.tempPasscodeValue.toString(): _tempPasscode,
-    // };
   }
 
   Map<String, dynamic> isValidPasscode(List<int> before, List<int> now) {
@@ -103,20 +102,30 @@ class PinManager {
   // encrypt
   String encryptDecryptPasscode(bool isEncryt, String value) {
     final plainText = value;
-    final key = Key.fromUtf8('keyformyapp123moneyappfromisdev9');
+    final key = Key.fromUtf8(keyPasscode);
     final iv = IV.fromLength(16);
 
     final encrypter = Encrypter(AES(key));
 
-    final encrypted = encrypter.encrypt("00000", iv: iv);
-    // final encrypted = encrypter.encrypt(plainText, iv: iv);
+    // final encrypted = encrypter.encrypt("00000", iv: iv);
+    final encrypted = encrypter.encrypt(plainText, iv: iv);
     final decrypted = encrypter.decrypt(encrypted, iv: iv);
 
-    print(decrypted); // Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    print(encrypted
-        .base64); // R4PxiU3h8YoIRqVowBXm36ZcCeNeZ4s1OvVBTfFlZRdmohQqOpPQqD1YecJeZMAop/hZ4OxqgC1WtwvX/hP9mw==
-    // decrypt
+    // print(decrypted); // Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    // print(encrypted
+    //     .base64); // R4PxiU3h8YoIRqVowBXm36ZcCeNeZ4s1OvVBTfFlZRdmohQqOpPQqD1YecJeZMAop/hZ4OxqgC1WtwvX/hP9mw==
+    // // decrypt
 
-    return (isEncryt) ? encrypted.toString() : decrypted.toString();
+    return (isEncryt) ? encrypted.base64.toString() : decrypted.toString();
+  }
+
+  removePasscode() async {
+    // encrpt data dari ui
+    var encriptFromUi = encryptDecryptPasscode(true, _valuePasscode.toString());
+    var encriptFromDb = await sqlDatabase?.readPasscodeValue();
+
+    print("encriptFromUi : ${encriptFromUi}");
+    print("encriptFromDb : ${encriptFromDb}");
+    var passcodeSql = print("objec t :: ${_valuePasscode.toString()}");
   }
 }

@@ -410,16 +410,37 @@ class SqlHelper {
     }
   }
 
+  // read passcode value
+  Future<String> readParamPasscodeValue(
+      Database? db, SqlDatabase instance) async {
+    final db = await instance.database;
+
+    String query =
+        """ select value from $tableMasterParameter where name = 'user_passcode' limit 1; """;
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query''');
+      // return (result.first.values.first.toString() ==
+      //         'wGDY8UmGNMtA9Gj17JoeQQ==') // 00000
+      //     ? false
+      //     : true;
+      return result.first.values.first.toString();
+    } else {
+      throw Exception('DB is null');
+    }
+  }
+
   // update parameter themes
   Future<int> updateParamThemes(
       Database? db, SqlDatabase instance, String valueParam) async {
     final db = await instance.database;
     int result = 0;
+    print("valueParam : $valueParam");
 
     if (db != null) {
       result = await db.rawUpdate("""UPDATE $tableMasterParameter
           SET
-          value = ?          
+          value = ?
           WHERE name = 'isDark' """, [valueParam]);
     }
     return result;
@@ -437,8 +458,8 @@ class SqlHelper {
     if (db != null) {
       result = await db.rawUpdate("""UPDATE $tableMasterParameter
           SET
-          value = ?          
-          WHERE name = 'user_passcode' 
+          value = ?
+          WHERE name = 'user_passcode'
           and actived = 1
           """, [valuePasscode]);
     }

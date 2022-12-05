@@ -155,10 +155,16 @@ class SqlDatabase {
     return result;
   }
 
-  // read passcode - exist
+  // saving new passcode
   Future<bool> savingNewPasscode(String value) async {
     final db = await instance.database;
     final result = await sqlHelper.savingNewPasscode(db, instance, value);
     return result;
+  }
+
+  // read passcode value
+  readPasscodeValue() async {
+    final db = await instance.database;
+    return await sqlHelper.readParamPasscodeValue(db, instance);
   }
 }

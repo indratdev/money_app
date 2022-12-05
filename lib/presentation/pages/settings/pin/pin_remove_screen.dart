@@ -1,20 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/data/pin_manager.dart';
 import 'package:money_app/presentation/pages/settings/pin/pin_confirmation_screen.dart';
 
 import '../../../../data/constants.dart';
 
-class PinChangeScreen extends StatefulWidget {
-  PinChangeScreen({
+class PinRemoveScreen extends StatefulWidget {
+  PinRemoveScreen({
     super.key,
   });
 
   @override
-  State<PinChangeScreen> createState() => _PinChangeScreenState();
+  State<PinRemoveScreen> createState() => _PinRemoveScreenState();
 }
 
-class _PinChangeScreenState extends State<PinChangeScreen> {
+class _PinRemoveScreenState extends State<PinRemoveScreen> {
   PinManager pm = PinManager();
   List<String> _tempPasscode = ['', '', '', '', '', ''];
   List<int> _valuePasscode = [];
@@ -25,17 +26,25 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
     super.initState();
   }
 
-  nextPageConfirmation() {
+  validationPasscode() {
+    // check apa sudah full 6
     if (pm.getPasscodeAlreadFulfilled == true) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              PinConfirmationScreen(valuePasscodeBefore: pm.getValuePasscode),
-        ),
-      );
+      print("datanya : ${pm.getValuePasscode}");
+      pm.removePasscode();
     }
   }
+
+  // nextPageConfirmation() {
+  //   if (pm.getPasscodeAlreadFulfilled == true) {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) =>
+  //             PinConfirmationScreen(valuePasscodeBefore: pm.getValuePasscode),
+  //       ),
+  //     );
+  //   }
+  // }
 
   // changePasscode(int value) {
   //   if (valuePasscode.length < pm.getMaxLengthPasscode) {
@@ -56,18 +65,10 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
   //   }
   // }
 
-  // removeDigitPasscode() {
-  //   if (valuePasscode.isNotEmpty) {
-  //     valuePasscode.removeLast();
-  //     tempPasscode[valuePasscode.length] = '';
-  //     setState(() {});
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('choose-pin'.tr())),
+      // appBar: AppBar(title: Text('choose-pin'.tr())),
       body: Column(
         children: [
           Container(
@@ -139,10 +140,10 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
                 TapPasscode(true, '7', OperationPin.number),
                 TapPasscode(true, '8', OperationPin.number),
                 TapPasscode(true, '9', OperationPin.number),
-                TapPasscode(false, 'More', OperationPin.more,
-                    icon: const Icon(Icons.more_horiz_sharp)),
-                TapPasscode(true, '0', OperationPin.number),
                 TapPasscode(false, 'Cancel', OperationPin.cancel,
+                    icon: const Icon(Icons.cancel)),
+                TapPasscode(true, '0', OperationPin.number),
+                TapPasscode(false, 'Backspace', OperationPin.backspace,
                     icon: const Icon(Icons.backspace_outlined)),
               ],
             ),
@@ -158,12 +159,19 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
       onTap: () {
         if (operationPin == OperationPin.number) {
           pm.changePasscode(int.parse(label));
-          nextPageConfirmation();
+          // _valuePasscode.add(int.parse(label));
+          // _tempPasscode[_valuePasscode.length - 1] =
+          //     int.parse(label).toString(); //update tempp
+
+          validationPasscode();
+          setState(() {});
+        } else if (operationPin == OperationPin.backspace) {
+          pm.removeDigitPasscode();
+          // _valuePasscode.removeLast();
+          // _tempPasscode[_valuePasscode.length] = '';
           setState(() {});
         } else if (operationPin == OperationPin.cancel) {
-          // removeDigitPasscode();
-          pm.removeDigitPasscode();
-          setState(() {});
+          Navigator.pushReplacementNamed(context, AppRoutes.settings);
         }
       },
       child: Container(
@@ -185,4 +193,4 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
   }
 }
 
-enum OperationPin { number, cancel, more }
+enum OperationPin { number, backspace, cancel }

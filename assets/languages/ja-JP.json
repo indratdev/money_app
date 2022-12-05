@@ -66,4 +66,5 @@
     , "enter-pincode" : "PIN コードを入力してください"
     , "confirm-pincode" : "PIN コードの確認"
     , "pin-information" : "注意: 暗証番号を忘れた場合は、このアプリを再ダウンロードする必要があります"
+    , "pin-remove-confirmation" : "パスコードを削除してもよろしいですか ?"
 }

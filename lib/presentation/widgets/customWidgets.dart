@@ -135,7 +135,10 @@ class CustomWidgets {
   }
 
   static showMessageAlertBasic(
-      BuildContext context, String content, bool isSuccess) {
+    BuildContext context,
+    String content,
+    bool isSuccess,
+  ) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -215,6 +218,72 @@ class CustomWidgets {
                             // onPressed: () => Navigator.pop(context),
                             onPressed: voidCallBack,
                             child: const Text("OK")))
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  static showConfirmationWithF(
+    BuildContext context,
+    String content,
+    Function()? voidCallBack,
+  ) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)), //this right here
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 3,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: MediaQuery.of(context).size.width / 8,
+                      foregroundColor: Colors.transparent,
+                      child: ClipOval(
+                        child: Image.asset(
+                          warningImage,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    SB_Height20,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        content,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SB_Height20,
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: ElevatedButton(
+                                  onPressed: (() => Navigator.pop(context)),
+                                  child: Text('cancel'.tr())),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: ElevatedButton(
+                                  onPressed: voidCallBack,
+                                  child: const Text("OK")),
+                            ),
+                          ],
+                        ))
                   ],
                 ),
               ),
