@@ -163,7 +163,7 @@ class SqlDatabase {
   }
 
   // read passcode value
-  readPasscodeValue() async {
+  Future<String> readPasscodeValue() async {
     final db = await instance.database;
     return await sqlHelper.readParamPasscodeValue(db, instance);
   }

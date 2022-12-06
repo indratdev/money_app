@@ -58,6 +58,9 @@ const urlSaweria = 'https://saweria.co/indratdev';
 // key
 const keyPasscode = 'keyformyapp123moneyappfromisdev9';
 
+//
+const defaultPasscode = 'wGDY8UmGNMtA9Gj17JoeQQ=='; // 00000
+
 // --------------------------------- decoration ----------------------------------
 Decoration arrowDecor = const BoxDecoration(
   // color: Colors.white.withOpacity(0.9),
@@ -217,7 +220,5 @@ Decoration backgroundThemeDark = const BoxDecoration(
 // divider
 Divider defaultDivider(BuildContext context) =>
     Divider(color: Theme.of(context).dividerColor, height: 0.5);
-
-
 
 // <a href="https://www.flaticon.com/free-icons/donation" title="donation icons">Donation icons created by DinosoftLabs - Flaticon</a>

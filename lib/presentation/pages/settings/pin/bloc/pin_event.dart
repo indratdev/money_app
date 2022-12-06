@@ -28,3 +28,9 @@ class SavingPasscodeEvent extends PinEvent {
 
   SavingPasscodeEvent({required this.value});
 }
+
+class RemovePasscodeEvent extends PinEvent {
+  String value;
+
+  RemovePasscodeEvent({required this.value});
+}

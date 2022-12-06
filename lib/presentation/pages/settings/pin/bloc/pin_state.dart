@@ -89,3 +89,19 @@ class SuccessSavingPasscode extends PinState {
   @override
   List<Object> get props => [result];
 }
+
+// RemovePasscode
+class LoadingRemovePasscode extends PinState {}
+
+class FailureRemovePasscode extends FailureState {
+  FailureRemovePasscode({required super.messageError});
+}
+
+class SuccessRemovePasscode extends PinState {
+  bool result;
+
+  SuccessRemovePasscode({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}

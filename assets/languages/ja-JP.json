@@ -67,4 +67,6 @@
     , "confirm-pincode" : "PIN コードの確認"
     , "pin-information" : "注意: 暗証番号を忘れた場合は、このアプリを再ダウンロードする必要があります"
     , "pin-remove-confirmation" : "パスコードを削除してもよろしいですか ?"
+    , "pin-remove-success" : "パスコードの削除に成功"
+    , "pin-remove-failed" : "パスコードの削除に失敗しました"
 }

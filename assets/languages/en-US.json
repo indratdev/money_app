@@ -67,5 +67,7 @@
     , "confirm-pincode" : "Confirm PIN Code"
     , "pin-information" : "Caution: If you forget your pin code, you have to re-download this application"
     , "pin-remove-confirmation" : "Are you sure remove passcode ?"
+    , "pin-remove-success" : "Success To Remove Passcode"
+    , "pin-remove-failed" : "Failed To Remove Passcode"
 
 }

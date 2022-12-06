@@ -36,4 +36,14 @@ class ParameterCases {
   Future<Either<Failure, bool>> executeSavingPasscode(String value) {
     return repository.savingPasscode(value);
   }
+
+  // read passcode db
+  Future<Either<Failure, String>> executeReadPasscodeDB() {
+    return repository.readPasscodeFromDB();
+  }
+
+  // // remove passcode device
+  // executeRemovePasscodeDevice(String value) {
+  //   return repository.removePasscodeDevice(value);
+  // }
 }

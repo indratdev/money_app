@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
-import 'package:money_app/data/datasources/local/db/sqlhelper.dart';
 
 enum PinString {
   tempPasscodeValue,
@@ -79,6 +78,10 @@ class PinManager {
         _passcodeAlreadyFulfilled;
 
     return tempValue;
+  }
+
+  bool compareTwoString(String value1, String value2) {
+    return (value1 == value2) ? true : false;
   }
 
   Map<String, dynamic> isValidPasscode(List<int> before, List<int> now) {
