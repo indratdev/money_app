@@ -20,7 +20,6 @@ class PinScreen extends StatelessWidget {
         child: BlocBuilder<PinBloc, PinState>(
           builder: (context, state) {
             if (state is SuccessCheckPinUsed) {
-              print(state.result);
               isUsedPincode = state.result;
             }
             return Column(
@@ -43,7 +42,7 @@ class PinScreen extends StatelessWidget {
                   visible: isUsedPincode,
                   child: ElevatedButton(
                       onPressed: () {
-                        // Navigator.pushNamed(context, AppRoutes.settPinChange);
+                        Navigator.pushNamed(context, AppRoutes.settPinUpdate);
                       },
                       child: Text('change-pin'.tr())),
                 ),

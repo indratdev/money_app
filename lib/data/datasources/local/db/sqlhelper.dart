@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../../../domain/entities/category.dart';
 import '../../../../domain/entities/transaction.dart' as trx;
+import '../../../constants.dart';
 import '../../../models/category_model.dart';
 import '../../../models/transaction_model.dart';
 
@@ -401,8 +402,7 @@ class SqlHelper {
 
     if (db != null) {
       final result = await db.rawQuery(''' $query''');
-      return (result.first.values.first.toString() ==
-              'wGDY8UmGNMtA9Gj17JoeQQ==') // 00000
+      return (result.first.values.first.toString() == defaultPasscode) // 00000
           ? false
           : true;
     } else {

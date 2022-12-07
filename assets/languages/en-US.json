@@ -63,11 +63,16 @@
     , "change-pin" : "Change PIN Code"
     , "choose-pin" : "Choose PIN Code"
     , "remove-pin" : "Remove PIN Code"
+    , "update-pin-type-old-pin" : "Enter Old PIN Code"
     , "enter-pincode" : "Enter PIN Code"
     , "confirm-pincode" : "Confirm PIN Code"
     , "pin-information" : "Caution: If you forget your pin code, you have to re-download this application"
     , "pin-remove-confirmation" : "Are you sure remove passcode ?"
     , "pin-remove-success" : "Success To Remove Passcode"
     , "pin-remove-failed" : "Failed To Remove Passcode"
+    , "wrong-passcode" : "Wrong Passcode"
+    , "passcode-check-failure" : "Check Passcode Failed"
+    , "passcode-change-failure" : "Change Passcode Failed"
+    , "passcode-save-failure" : "Save Passcode Failed"
 
 }

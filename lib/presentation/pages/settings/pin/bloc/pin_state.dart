@@ -105,3 +105,23 @@ class SuccessRemovePasscode extends PinState {
   @override
   List<Object> get props => [result];
 }
+
+// RemovePasscode UpdatePasscodeEvent
+class LoadingCheckPasscode extends PinState {}
+
+class FailureCheckPasscode extends FailureState {
+  FailureCheckPasscode({required super.messageError});
+}
+
+class FailureCheckPasscodeStatus extends FailureState {
+  FailureCheckPasscodeStatus({required super.messageError});
+}
+
+class SuccessCheckPasscode extends PinState {
+  bool result;
+
+  SuccessCheckPasscode({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}

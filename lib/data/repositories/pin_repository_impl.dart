@@ -40,6 +40,19 @@ class PinRepositoryImpl implements PinRepository {
     }
   }
 
+  @override
+  Future<bool> isValidPasscode(String value) async {
+    try {
+      final encryptValue = pm.encryptDecryptPasscode(true, value);
+      final passcodeFromDB = await localDataSource.readPasscodeFromDB();
+      final resultCompare = pm.compareTwoString(encryptValue, passcodeFromDB);
+      return resultCompare;
+    } catch (e) {
+      print("Error :: $e");
+      return false;
+    }
+  }
+
   // @override
   // bool compareTwoString(String value1, String value2) {
   //   bool status = false;

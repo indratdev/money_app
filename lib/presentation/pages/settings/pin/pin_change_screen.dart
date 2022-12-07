@@ -67,7 +67,12 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('choose-pin'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'choose-pin'.tr(),
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: Column(
         children: [
           Container(

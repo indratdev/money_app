@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/data/pin_manager.dart';
 import 'package:money_app/presentation/pages/settings/pin/bloc/pin_bloc.dart';
-import 'package:money_app/presentation/pages/settings/pin/pin_confirmation_screen.dart';
 
 import '../../../../data/constants.dart';
 import '../../../widgets/customWidgets.dart';
@@ -25,7 +24,6 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
 
   @override
   void initState() {
-    // print("tempPasscode : $tempPasscode");
     super.initState();
   }
 
@@ -53,7 +51,7 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
           }
           if (state is FailureRemovePasscode) {
             CustomWidgets.showMessageAlertWithF(
-                context, 'pin-remove-failed'.tr(), false, () {
+                context, state.messageError.toString(), false, () {
               Navigator.pushReplacementNamed(context, AppRoutes.settings);
             });
           }
@@ -83,9 +81,7 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
                       fit: BoxFit.contain,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:
-                            // _buildCircles(),
-                            <Widget>[
+                        children: <Widget>[
                           (pm.getTempPasscode[0] == '')
                               ? const Icon(Icons.circle_outlined)
                               : const Icon(Icons.circle_rounded),
@@ -153,8 +149,6 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
           setState(() {});
         } else if (operationPin == OperationPin.backspace) {
           pm.removeDigitPasscode();
-          // _valuePasscode.removeLast();
-          // _tempPasscode[_valuePasscode.length] = '';
           setState(() {});
         } else if (operationPin == OperationPin.cancel) {
           Navigator.pushReplacementNamed(context, AppRoutes.settings);

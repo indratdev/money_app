@@ -10,6 +10,7 @@ import 'package:money_app/presentation/pages/settings/pin/pin_change_screen.dart
 import 'package:money_app/presentation/pages/settings/pin/pin_confirmation_screen.dart';
 import 'package:money_app/presentation/pages/settings/pin/pin_remove_screen.dart';
 import 'package:money_app/presentation/pages/settings/pin/pin_screen.dart';
+import 'package:money_app/presentation/pages/settings/pin/update_passcode/pin_update_screen.dart';
 import 'package:money_app/presentation/pages/settings/themes/themes_screen.dart';
 import 'package:money_app/presentation/pages/transaction/transaction_category_screen.dart';
 
@@ -44,6 +45,7 @@ class AppRoutes {
   static const String settPinChange = '/setting/pin/change';
   static const String settPinConfirmation = '/setting/pin/confirmation';
   static const String settPinRemove = '/setting/pin/remove';
+  static const String settPinUpdate = '/setting/pin/update';
 
   Map<String, WidgetBuilder> getRoutes = {
     first: (_) => MoneyappScreen(),
@@ -66,5 +68,6 @@ class AppRoutes {
     settPinChange: (_) => PinChangeScreen(),
     settPinConfirmation: (_) => PinConfirmationScreen(),
     settPinRemove: (_) => PinRemoveScreen(),
+    settPinUpdate: (_) => PinUpdateScreen(),
   };
 }

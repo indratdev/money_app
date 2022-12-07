@@ -1,121 +1,65 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_app/config/routes/app_routes.dart';
-import 'package:money_app/presentation/pages/settings/pin/bloc/pin_bloc.dart';
-import 'package:money_app/presentation/widgets/customWidgets.dart';
 
-import '../../../../data/constants.dart';
-import '../../../../data/pin_manager.dart';
+import '../../../../../config/routes/app_routes.dart';
+import '../../../../../data/constants.dart';
+import '../../../../../data/pin_manager.dart';
+import '../../../../widgets/customWidgets.dart';
+import '../bloc/pin_bloc.dart';
 
-class PinConfirmationScreen extends StatefulWidget {
-  final List<int> valuePasscodeBefore;
-
-  PinConfirmationScreen({
+class PinUpdateScreen extends StatefulWidget {
+  PinUpdateScreen({
     super.key,
-    this.valuePasscodeBefore = const [],
+    // this.status = StatusRemoveScreen.update,
   });
 
   @override
-  State<PinConfirmationScreen> createState() => _PinConfirmationScreenState();
+  State<PinUpdateScreen> createState() => _PinUpdateScreenState();
 }
 
-class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
+class _PinUpdateScreenState extends State<PinUpdateScreen> {
   PinManager pm = PinManager();
-  List<String> tempPasscode = ['', '', '', '', '', ''];
-  List<int> valuePasscode = [];
-  int countTry = 0;
+  // List<String> _tempPasscode = ['', '', '', '', '', ''];
+  List<int> _valuePasscode = [];
 
   @override
   void initState() {
     super.initState();
-
-    print(">>lemparan valuePasscodeBefore : ${widget.valuePasscodeBefore}");
   }
 
-  resetPm() {
-    tempPasscode = ['', '', '', '', '', ''];
-    valuePasscode = [];
-  }
-
-  changePasscode(int value) {
-    if (valuePasscode.length < pm.getMaxLengthPasscode) {
-      valuePasscode.add(value);
-      tempPasscode[valuePasscode.length - 1] = value.toString(); //update tempp
-      setState(() {}); // refresh
-    }
-
-    // passcode already 6
-    if (valuePasscode.length == pm.getMaxLengthPasscode) {
-      var isValid =
-          pm.isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
-      if (isValid[PinString.isValidPasscode.toString()] == true) {
-        context.read<PinBloc>().add(SavingPasscodeEvent(
-            value: isValid[PinString.valueEncryptDecryptPasscode.toString()]));
-      } else {
-        countTry += 1;
-        CustomWidgets.showMessageAlertBasic(
-            context, "Passcode Tidak Sama", false);
-        resetPm();
-      }
-
-      if (countTry == 3) {
-        CustomWidgets.showMessageAlertWithF(
-            context, "Anda Melewati Batas Maksimal Percobaan", false, () {
-          Navigator.pushReplacementNamed(context, AppRoutes.settings);
-        });
-      }
-    }
-
-    // pm.isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
-    // if (valuePasscode.length == 6) {
-    //   //check
-    //   isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
-    // }
-  }
-
-  // isValidPasscode(List<int> before, List<int> now) {
-  //   // Function eq = const ListEquality().equals;
-  //   // // print(eq([1, 'two', 3], [1, 'two', 3])); // => true
-  //   // print(eq(before, now)); // => true
-  //   // print("before : $before");
-  //   // print("now : $now");
-  //   // var aaa = eq
-
-  //   // if (before == now) {
-  //   //   print(">>> SAMA");
-  //   // } else {
-  //   //   print(">>> Ga sama");
-  //   // }
-  // }
-
-  removeDigitPasscode() {
-    if (valuePasscode.isNotEmpty) {
-      valuePasscode.removeLast();
-      tempPasscode[valuePasscode.length] = '';
-      setState(() {});
+  validationPasscode(BuildContext context) {
+    // check apa sudah full 6
+    if (pm.getPasscodeAlreadFulfilled == true) {
+      _valuePasscode = pm.getValuePasscode;
+      context
+          .read<PinBloc>()
+          .add(CheckPasscodeEvent(value: _valuePasscode.toString()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'confirm-pincode'.tr(),
-        ),
-      ),
       body: BlocListener<PinBloc, PinState>(
         listener: (context, state) {
-          if (state is SuccessSavingPasscode) {
+          if (state is SuccessCheckPasscode) {
+            Future.delayed(
+                const Duration(milliseconds: 500),
+                () => Navigator.pushReplacementNamed(
+                    context, AppRoutes.settPinChange));
+          }
+          if (state is FailureCheckPasscodeStatus) {
             CustomWidgets.showMessageAlertWithF(
-                context, "Berhasil Simpan Passcode", true, () {
+                context, state.messageError, false, () {
               Navigator.pushReplacementNamed(context, AppRoutes.settings);
             });
-            // CustomWidgets.showMessageAlertBasic(
-            //     context, "Berhasil Simpan Passcode", true);
+          }
+          if (state is FailureCheckPasscode) {
+            CustomWidgets.showMessageAlertWithF(
+                context, 'error FailureCheckPasscode', false, () {
+              Navigator.pushReplacementNamed(context, AppRoutes.settings);
+            });
           }
         },
         child: Column(
@@ -132,7 +76,7 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
                     child: FittedBox(
                       fit: BoxFit.contain,
                       child: Text(
-                        'confirm-pincode'.tr(),
+                        'update-pin-type-old-pin'.tr(),
                       ),
                     ),
                   ),
@@ -146,22 +90,22 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
                         children:
                             // _buildCircles(),
                             <Widget>[
-                          (tempPasscode[0] == '')
+                          (pm.getTempPasscode[0] == '')
                               ? const Icon(Icons.circle_outlined)
                               : const Icon(Icons.circle_rounded),
-                          (tempPasscode[1] == '')
+                          (pm.getTempPasscode[1] == '')
                               ? const Icon(Icons.circle_outlined)
                               : const Icon(Icons.circle_rounded),
-                          (tempPasscode[2] == '')
+                          (pm.getTempPasscode[2] == '')
                               ? const Icon(Icons.circle_outlined)
                               : const Icon(Icons.circle_rounded),
-                          (tempPasscode[3] == '')
+                          (pm.getTempPasscode[3] == '')
                               ? const Icon(Icons.circle_outlined)
                               : const Icon(Icons.circle_rounded),
-                          (tempPasscode[4] == '')
+                          (pm.getTempPasscode[4] == '')
                               ? const Icon(Icons.circle_outlined)
                               : const Icon(Icons.circle_rounded),
-                          (tempPasscode[5] == '')
+                          (pm.getTempPasscode[5] == '')
                               ? const Icon(Icons.circle_outlined)
                               : const Icon(Icons.circle_rounded),
                         ],
@@ -190,7 +134,7 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
                   TapPasscode(true, '8', OperationPin.number),
                   TapPasscode(true, '9', OperationPin.number),
                   TapPasscode(false, 'Cancel', OperationPin.cancel,
-                      icon: const Icon(Icons.cancel_outlined)),
+                      icon: const Icon(Icons.cancel)),
                   TapPasscode(true, '0', OperationPin.number),
                   TapPasscode(false, 'Backspace', OperationPin.backspace,
                       icon: const Icon(Icons.backspace_outlined)),
@@ -208,11 +152,16 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
     return InkWell(
       onTap: () {
         if (operationPin == OperationPin.number) {
-          changePasscode(int.parse(label));
+          pm.changePasscode(int.parse(label));
+          validationPasscode(context);
+          setState(() {});
         } else if (operationPin == OperationPin.backspace) {
-          removeDigitPasscode();
+          pm.removeDigitPasscode();
+          // _valuePasscode.removeLast();
+          // _tempPasscode[_valuePasscode.length] = '';
+          setState(() {});
         } else if (operationPin == OperationPin.cancel) {
-          Navigator.pushReplacementNamed(context, AppRoutes.settPin);
+          Navigator.pushReplacementNamed(context, AppRoutes.settings);
         }
       },
       child: Container(
@@ -234,4 +183,4 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
   }
 }
 
-enum OperationPin { number, cancel, backspace }
+enum OperationPin { number, backspace, cancel }

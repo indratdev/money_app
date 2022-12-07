@@ -12,4 +12,5 @@ abstract class PinRepository {
   // removePasscodeDevice(String value);
   Future<Either<Failure, String>> encriptDecrypt(bool isEncrypt, String value);
   bool compareTwoString(String value1, String value2);
+  Future<bool> isValidPasscode(String value);
 }

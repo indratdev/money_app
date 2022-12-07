@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -21,51 +22,52 @@ class PinBloc extends Bloc<PinEvent, PinState> {
       try {
         final result = await _getParameterCases.executeCheckPasscodeExist();
         result.fold(
-            (l) =>
-                emit(FailureCheckPinUsed(messageError: "FailureCheckPinUsed")),
-            (data) => emit(SuccessCheckPinUsed(result: data)));
+          (l) => emit(
+              FailureCheckPinUsed(messageError: 'passcode-check-failure'.tr())),
+          (data) => emit(
+            SuccessCheckPinUsed(result: data),
+          ),
+        );
       } catch (e) {
-        emit(FailureCheckPinUsed(messageError: "FailureCheckPinUsed e"));
+        emit(FailureCheckPinUsed(messageError: 'passcode-check-failure'.tr()));
       }
     });
 
     on<ChangePasscodeEvent>((event, emit) {
       try {
-        print(">>> ChangePasscodeEvent Running...");
         emit(LoadingChangePasscode());
         final result = _getParameterCases.executeChangePasscode(event.value);
-
         result.fold(
           (l) => emit(
-            FailureChangePasscode(messageError: "Error FailureChangePasscode"),
+            FailureChangePasscode(messageError: 'passcode-change-failure'.tr()),
           ),
           (data) => emit(
             SuccessChangePasscode(result: data),
           ),
         );
       } catch (e) {
-        emit(FailureChangePasscode(messageError: "FailureChangePasscode e"));
+        emit(FailureChangePasscode(
+            messageError: 'passcode-change-failure'.tr()));
       }
     });
 
     on<ChangePasscodeConfirmationEvent>((event, emit) {
       try {
-        print(">>> ChangePasscodeEvent Running...");
         emit(LoadingChangePasscode());
         final result = _getParameterCases.executeChangePasscode(event.value);
 
         result.fold(
             (l) => emit(
                   FailureChangePasscode(
-                      messageError: "Error FailureChangePasscode"),
+                      messageError: 'passcode-change-failure'.tr()),
                 ), (data) {
-          print(">>> gassss: $data");
           emit(
             SuccessChangePasscodeConfirmation(result: data),
           );
         });
       } catch (e) {
-        emit(FailureChangePasscode(messageError: "FailureChangePasscode e"));
+        emit(FailureChangePasscode(
+            messageError: 'passcode-change-failure'.tr()));
       }
     });
 
@@ -76,7 +78,7 @@ class PinBloc extends Bloc<PinEvent, PinState> {
         result.fold(
           (l) => emit(
             FailureRemoveDigitPasscode(
-                messageError: "Error FailureChangePasscode"),
+                messageError: 'passcode-change-failure'.tr()),
           ),
           (data) => emit(
             SuccessRemoveDigitPasscode(result: data),
@@ -84,7 +86,7 @@ class PinBloc extends Bloc<PinEvent, PinState> {
         );
       } catch (e) {
         FailureRemoveDigitPasscode(
-            messageError: "Error FailureRemoveDigitPasscode e");
+            messageError: 'passcode-change-failure'.tr());
       }
     });
 
@@ -94,57 +96,54 @@ class PinBloc extends Bloc<PinEvent, PinState> {
         final result =
             await _getParameterCases.executeSavingPasscode(event.value);
         result.fold(
-            (l) => emit(
-                FailureSavingPasscode(messageError: "FailureSavingPasscode")),
+            (l) => emit(FailureSavingPasscode(
+                messageError: 'passcode-save-failure'.tr())),
             (data) => emit(SuccessSavingPasscode(result: data)));
       } catch (e) {
-        emit(FailureSavingPasscode(messageError: "FailureSavingPasscode e"));
+        emit(FailureSavingPasscode(messageError: 'passcode-save-failure'.tr()));
       }
     });
 
     // remove passcode devices
     on<RemovePasscodeEvent>((event, emit) async {
-      String valueEncrypt = "";
-      String valuePasscode = "";
-      bool resultCompare = false;
       try {
         emit(LoadingRemovePasscode());
+        // check passcode is valid
+        final isValidPasscode =
+            await _getPinCases.executeIsValidPasscode(event.value);
 
-        final resultEncrypt = await _getPinCases.executeEncryptDecrypt(
-            true, event.value); // enkrip data dari ui
-
-        final resultValuePasscode = await _getParameterCases
-            .executeReadPasscodeDB(); // get value passcode sql
-
-        resultEncrypt.fold((l) {
-          valueEncrypt = "";
-        }, (r) {
-          valueEncrypt = r;
-        });
-
-        resultValuePasscode.fold((l) {
-          valuePasscode = "";
-        }, (r) {
-          valuePasscode = r;
-        });
-
-        resultCompare =
-            _getPinCases.executeCompareTwoString(valueEncrypt, valuePasscode);
-
-        if (resultCompare) {
+        if (isValidPasscode) {
           final resetPasscode =
               await _getParameterCases.executeSavingPasscode(defaultPasscode);
 
           resetPasscode.fold(
-              (l) => emit(
-                  FailureRemovePasscode(messageError: "FailureRemovePasscode")),
-              (data) => emit(SuccessRemovePasscode(result: data)));
+            (l) => emit(
+                FailureRemovePasscode(messageError: 'pin-remove-failed'.tr())),
+            (data) => emit(
+              SuccessRemovePasscode(result: data),
+            ),
+          );
         } else {
-          emit(FailureRemovePasscode(
-              messageError: "Error FailureRemovePasscode"));
+          emit(FailureRemovePasscode(messageError: 'pin-remove-failed'.tr()));
         }
       } catch (e) {
-        emit(FailureRemovePasscode(messageError: "FailureRemovePasscode e"));
+        emit(FailureRemovePasscode(messageError: 'pin-remove-failed'.tr()));
+      }
+    });
+
+    on<CheckPasscodeEvent>((event, emit) async {
+      try {
+        emit(LoadingCheckPasscode());
+        // check passcode is valid
+        final isValidPasscode =
+            await _getPinCases.executeIsValidPasscode(event.value);
+        if (isValidPasscode) {
+          emit(SuccessCheckPasscode(result: isValidPasscode));
+        } else {
+          emit(FailureCheckPasscodeStatus(messageError: 'wrong-passcode'.tr()));
+        }
+      } catch (e) {
+        emit(FailureCheckPasscode(messageError: 'passcode-check-failure'.tr()));
       }
     });
   }

@@ -16,4 +16,8 @@ class PinCases {
   bool executeCompareTwoString(String value1, String value2) {
     return repository.compareTwoString(value1, value2);
   }
+
+  Future<bool> executeIsValidPasscode(String value) {
+    return repository.isValidPasscode(value);
+  }
 }
