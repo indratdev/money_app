@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-import 'package:intl/intl.dart';
-import 'package:money_app/data/constants.dart';
+
 import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/domain/usecases/transaction_cases.dart';
 
@@ -14,7 +14,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   TransactionBloc(this._getTransactionCases) : super(TransactionInitial()) {
     on<SelectedIsOutcomeEvent>((event, emit) {
       try {
-        // print("runniggg SelectedIsOutcomeEvent");
         emit(LoadingSelectedIsOutcome());
         emit(SuccessSelectedIsOutcome(result: event.value));
       } catch (e) {
@@ -25,7 +24,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
     on<SelectedDateEvent>((event, emit) {
       try {
-        // print("runniggg SelectedDateEvent");
         emit(LoadingSelectedDate());
         emit(SuccessSelectedDate(result: event.value));
       } catch (e) {
@@ -41,34 +39,19 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       }
     });
 
-    //  on<CreateCategoryEvent>((event, emit) async {
-    //   try {
-    //     emit(LoadingCreateCategory());
-    //     final result =
-    //         await _getCategoryCases.executeCreateCategory(event.valueCategory);
-    //     result.fold(
-    //         (l) => emit(
-    //             FailureCreateCategory(messageError: "FailureCreateCategory")),
-    //         (data) => emit(SuccessCreateCategory(result: data)));
-    //   } catch (e) {
-    //     emit(FailureCreateCategory(messageError: "FailureCreateCategory e"));
-    //   }
-    // });
-
     on<SaveTransactionNew>((event, emit) async {
       try {
-        print("========== jalan ==========");
         emit(LoadingSaveTransactionNew());
         final result =
             await _getTransactionCases.executeCreateNewTransaction(event.value);
         result.fold(
           (l) => emit(FailureSaveTransactionNew(
-              messageError: "FailureSaveTransactionNew l")),
+              messageError: 'failed-transaction-savin'.tr())),
           (data) => emit(SuccessSaveTransactionNew(result: data)),
         );
       } catch (e) {
         emit(FailureSaveTransactionNew(
-            messageError: "FailureSaveTransactionNew e"));
+            messageError: 'failed-transaction-savin'.tr()));
       }
     });
 
@@ -83,16 +66,15 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         // print(">> >> result $contentTransaction");
         contentTransaction.fold(
           (l) => emit(FailureReadTransaction(
-              messageError: "FailureReadTransaction :: $l")),
-          // (data) => emit(SuccessReadTransaction(result: data)));
+              messageError: 'failed-transaction-read'.tr())),
           (data) {
-            print(">>>>> ReadTransactionEvent Runinggg.... ${data}");
             emit(SuccessReadTransaction(result: data));
           },
         );
       } catch (e) {
         print(e);
-        emit(FailureReadTransaction(messageError: "FailureReadTransaction e"));
+        emit(FailureReadTransaction(
+            messageError: 'failed-transaction-read'.tr()));
       }
     });
 
@@ -100,17 +82,15 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<DeleteTransactionEvent>((event, emit) async {
       try {
         emit(LoadingDeleteTransaction());
-
         final result = await _getTransactionCases
             .executeDeleteTransaction(event.idTransaction);
         result.fold(
             (l) => emit(FailureDeleteTransaction(
-                messageError: "FailureDeleteTransaction")),
+                messageError: 'failed-transaction-delete'.tr())),
             (data) => emit(SuccessDeleteTransaction()));
       } catch (e) {
-        print(e);
         emit(FailureDeleteTransaction(
-            messageError: "FailureDeleteTransaction e"));
+            messageError: 'failed-transaction-delete'.tr()));
       }
     });
 
@@ -119,15 +99,14 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         emit(LoadingDeleteAllData());
         final result = await _getTransactionCases.executeDeleteAllData();
         result.fold(
-          (l) =>
-              emit(FailureDeleteAllData(messageError: "FailureDeleteAllData")),
+          (l) => emit(
+              FailureDeleteAllData(messageError: 'failed-clear-data-all'.tr())),
           (data) => emit(
             SuccessDeleteAllData(),
           ),
         );
       } catch (e) {
-        print(e);
-        emit(FailureDeleteAllData(messageError: "FailureDeleteAllData e"));
+        emit(FailureDeleteAllData(messageError: 'failed-clear-data-all'.tr()));
       }
     });
 
@@ -139,16 +118,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
             event.idTransaction, event.valueTransaction);
         result.fold(
             (l) => emit(FailureUpdateTransaction(
-                messageError: "FailureUpdateTransaction")),
+                messageError: 'failed-transaction-update'.tr())),
             (data) => emit(SuccessUpdateTransaction()));
-        //   (data) {
-        // emit(SuccessUpdateTransaction(result: data));
-        // print(">>>>>!! UpdateTransactionEvent Runinggg....");
-        // emit(SuccessReadTransaction(result: ));
-        // });
       } catch (e) {
         emit(FailureUpdateTransaction(
-            messageError: "FailureUpdateTransaction e"));
+            messageError: 'failed-transaction-update'.tr()));
       }
     });
   }

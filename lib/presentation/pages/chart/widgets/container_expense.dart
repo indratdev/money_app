@@ -74,8 +74,6 @@ Container ContainerIncomeChart(
   return Container(
     decoration: customCircularBox(
       color: (stateTheme == Brightness.light)
-          // ? Colors.white60
-          // : lightPurple,
           ? lightWhite.withOpacity(0.6)
           : blackN,
     ),
@@ -96,7 +94,6 @@ Container ContainerIncomeChart(
           ),
         ),
         SizedBox(
-          // height: 200,
           height: heightPieChart,
           width: widhtPieChart,
           child: PieChart(

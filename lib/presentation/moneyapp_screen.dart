@@ -18,7 +18,6 @@ class MoneyappScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     int _index = 0;
     final stateTheme = Theme.of(context).brightness;
-    // final stateTheme = context.watch<ThemesBloc>().state.props.first.toString();
 
     return SafeArea(
       child: BlocConsumer<TransactionBloc, TransactionState>(

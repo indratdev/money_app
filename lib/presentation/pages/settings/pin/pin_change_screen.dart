@@ -21,7 +21,6 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
 
   @override
   void initState() {
-    // print("tempPasscode : $tempPasscode");
     super.initState();
   }
 
@@ -36,33 +35,6 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
       );
     }
   }
-
-  // changePasscode(int value) {
-  //   if (valuePasscode.length < pm.getMaxLengthPasscode) {
-  //     valuePasscode.add(value);
-  //     tempPasscode[valuePasscode.length - 1] = value.toString(); //update tempp
-  //     setState(() {}); // refresh
-  //   }
-
-  // passcode already 6
-  //   if (valuePasscode.length == pm.getMaxLengthPasscode) {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) =>
-  //             PinConfirmationScreen(valuePasscodeBefore: valuePasscode),
-  //       ),
-  //     );
-  //   }
-  // }
-
-  // removeDigitPasscode() {
-  //   if (valuePasscode.isNotEmpty) {
-  //     valuePasscode.removeLast();
-  //     tempPasscode[valuePasscode.length] = '';
-  //     setState(() {});
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,9 +70,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
                     fit: BoxFit.contain,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:
-                          // _buildCircles(),
-                          <Widget>[
+                      children: <Widget>[
                         (pm.getTempPasscode[0] == '')
                             ? const Icon(Icons.circle_outlined)
                             : const Icon(Icons.circle_rounded),
@@ -166,7 +136,6 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
           nextPageConfirmation();
           setState(() {});
         } else if (operationPin == OperationPin.cancel) {
-          // removeDigitPasscode();
           pm.removeDigitPasscode();
           setState(() {});
         }

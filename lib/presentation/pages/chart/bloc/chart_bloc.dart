@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/domain/usecases/report_cases.dart';
@@ -17,15 +18,12 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
             await _getTransactionCases.executeReadChartDefault(
                 event.transactionDateTime, OptionDate.month);
 
-        // print(">> >> result $contentTransaction");
         contentTransaction.fold(
-            (l) => emit(FailureReadChartDefault(
-                messageError: "FailureReadChartDefault :: $l")),
+            (l) => emit(
+                FailureReadChartDefault(messageError: 'error-read-chart'.tr())),
             (data) => emit(SuccessReadChartDefault(result: data)));
       } catch (e) {
-        print(e);
-        emit(
-            FailureReadChartDefault(messageError: "FailureReadChartDefault e"));
+        emit(FailureReadChartDefault(messageError: 'error-read-chart'.tr()));
       }
     });
   }

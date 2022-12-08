@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:money_app/domain/usecases/parameter_cases.dart';
 
@@ -13,9 +14,9 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
     on<ReadThemesEvent>((event, emit) async {
       try {
         final result = await _getParameterCases.executeReadThemes();
-        // print("ReadThemesEvent ... $result");
         result.fold(
-          (l) => emit(FailureReadThemes(messageError: "FailureReadThemes")),
+          (l) =>
+              emit(FailureReadThemes(messageError: 'error-read-themes'.tr())),
           (data) {
             AppTheme result = AppTheme.lightAppTheme;
             (data.first.entries.first.value == "0")
@@ -25,19 +26,9 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
           },
         );
       } catch (e) {
-        print(e);
-        emit(FailureReadThemes(messageError: "FailureReadThemes e"));
+        emit(FailureReadThemes(messageError: 'error-read-themes'.tr()));
       }
     });
-
-    // on<UpdateThemesEvent>((event, emit) {
-    //   try {
-    //     // print("event ::: ${event.value}");
-    //     // var choose = "";
-    //     // (event.value.name == "lightColor") ? choose = "0" : choose = "1";
-    //     // final result = _getParameterCases.executeUpdateThemes(choose);
-    //   } catch (e) {}
-    // });
 
     on<ChangeThemeEvent>((event, emit) {
       try {
@@ -46,20 +37,16 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
         switch (result) {
           case AppTheme.darkAppTheme:
             final updateTheme = _getParameterCases.executeUpdateThemes("1");
-            // print("AppTheme.darkAppTheme ==> klikk");
             emit(SuccessChangeThemes(appTheme: AppTheme.darkAppTheme));
             break;
           case AppTheme.lightAppTheme:
-            // print("AppTheme.lightAppTheme ==> klikk");
             final updateTheme = _getParameterCases.executeUpdateThemes("0");
-
             emit(SuccessChangeThemes(appTheme: AppTheme.lightAppTheme));
             break;
           default:
         }
       } catch (e) {
-        print(e);
-        emit(FailureChangeThemes(messageError: "$e"));
+        emit(FailureChangeThemes(messageError: 'error-change-themes'.tr()));
       }
     });
   }

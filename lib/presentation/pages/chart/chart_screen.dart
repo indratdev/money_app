@@ -36,7 +36,7 @@ class ChartScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is FailureReadChartDefault) {
               CustomWidgets.showMessageAlertBasic(
-                  context, 'error-read-chart'.tr(), false);
+                  context, state.messageError.toString(), false);
             }
 
             if (state is SuccessReadChartDefault) {
@@ -46,7 +46,7 @@ class ChartScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is FailureReadChartDefault) {
               CustomWidgets.showMessageAlertBasic(
-                  context, 'error-read-chart'.tr(), false);
+                  context, state.messageError.toString(), false);
             }
 
             if (state is SuccessReadChartDefault) {

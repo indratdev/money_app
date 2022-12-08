@@ -57,7 +57,7 @@ class _PinUpdateScreenState extends State<PinUpdateScreen> {
           }
           if (state is FailureCheckPasscode) {
             CustomWidgets.showMessageAlertWithF(
-                context, 'error FailureCheckPasscode', false, () {
+                context, state.messageError.toString(), false, () {
               Navigator.pushReplacementNamed(context, AppRoutes.settings);
             });
           }
@@ -157,8 +157,6 @@ class _PinUpdateScreenState extends State<PinUpdateScreen> {
           setState(() {});
         } else if (operationPin == OperationPin.backspace) {
           pm.removeDigitPasscode();
-          // _valuePasscode.removeLast();
-          // _tempPasscode[_valuePasscode.length] = '';
           setState(() {});
         } else if (operationPin == OperationPin.cancel) {
           Navigator.pushReplacementNamed(context, AppRoutes.settings);

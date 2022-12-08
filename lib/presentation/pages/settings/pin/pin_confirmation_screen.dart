@@ -30,8 +30,6 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
   @override
   void initState() {
     super.initState();
-
-    print(">>lemparan valuePasscodeBefore : ${widget.valuePasscodeBefore}");
   }
 
   resetPm() {
@@ -56,39 +54,18 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
       } else {
         countTry += 1;
         CustomWidgets.showMessageAlertBasic(
-            context, "Passcode Tidak Sama", false);
+            context, 'wrong-passcode'.tr(), false);
         resetPm();
       }
 
       if (countTry == 3) {
         CustomWidgets.showMessageAlertWithF(
-            context, "Anda Melewati Batas Maksimal Percobaan", false, () {
+            context, 'passcode-warning-try'.tr(), false, () {
           Navigator.pushReplacementNamed(context, AppRoutes.settings);
         });
       }
     }
-
-    // pm.isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
-    // if (valuePasscode.length == 6) {
-    //   //check
-    //   isValidPasscode(widget.valuePasscodeBefore, valuePasscode);
-    // }
   }
-
-  // isValidPasscode(List<int> before, List<int> now) {
-  //   // Function eq = const ListEquality().equals;
-  //   // // print(eq([1, 'two', 3], [1, 'two', 3])); // => true
-  //   // print(eq(before, now)); // => true
-  //   // print("before : $before");
-  //   // print("now : $now");
-  //   // var aaa = eq
-
-  //   // if (before == now) {
-  //   //   print(">>> SAMA");
-  //   // } else {
-  //   //   print(">>> Ga sama");
-  //   // }
-  // }
 
   removeDigitPasscode() {
     if (valuePasscode.isNotEmpty) {
@@ -103,19 +80,15 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(
-          'confirm-pincode'.tr(),
-        ),
+        title: Text('confirm-pincode'.tr()),
       ),
       body: BlocListener<PinBloc, PinState>(
         listener: (context, state) {
           if (state is SuccessSavingPasscode) {
             CustomWidgets.showMessageAlertWithF(
-                context, "Berhasil Simpan Passcode", true, () {
+                context, 'passcode-save-success'.tr(), true, () {
               Navigator.pushReplacementNamed(context, AppRoutes.settings);
             });
-            // CustomWidgets.showMessageAlertBasic(
-            //     context, "Berhasil Simpan Passcode", true);
           }
         },
         child: Column(

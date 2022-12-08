@@ -1,11 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-import 'package:money_app/data/repositories/category_repository_impl.dart';
 import 'package:money_app/domain/entities/category.dart';
-import 'package:money_app/domain/repositories/category_repository.dart';
 import 'package:money_app/domain/usecases/category_cases.dart';
-
-import '../../../../../data/constants.dart';
 
 part 'category_event.dart';
 part 'category_state.dart';
@@ -17,27 +14,22 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<InitCategory>((event, emit) async {
       try {
         emit(LoadingInitCategory());
-        print("....runinggg InitCategory");
-        final result = await _getCategoryCases.executeInitCategory();
+        await _getCategoryCases.executeInitCategory();
       } catch (e) {
-        emit(FailureInitCategory(
-            messageError: "failureInitCategoryMessage.toString()"));
-        print(e);
+        emit(FailureInitCategory(messageError: 'error-init-category'.tr()));
       }
     });
 
     on<ReadCategory>((event, emit) async {
-      print("ReadCategory runinggg...");
       try {
         emit(LoadingReadCategory());
         final result =
             await _getCategoryCases.executeReadCategory(event.isDefault);
-        print("resultttttt : $result");
+
         result.fold((l) => emit(FailureReadCategory(messageError: l.message)),
             (data) => emit(SuccessReadCategory(result: data)));
       } catch (e) {
-        emit(FailureReadCategory(
-            messageError: "failureReadCategoryMessage.toString()"));
+        emit(FailureReadCategory(messageError: 'error-read-category'.tr()));
       }
     });
 
@@ -52,7 +44,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             (data) => emit(SuccessReadIconCategoryDefault(result: data)));
       } catch (e) {
         emit(FailureReadIconCategoryDefault(
-            messageError: "failureReadCategoryMessage.toString()"));
+            messageError: 'error-read-category'.tr()));
       }
     });
 
@@ -62,39 +54,27 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         emit(LoadingSelectedIcon());
         emit(SuccessSelectedIcon(resultSelectedIconName: event.iconName));
       } catch (e) {
-        emit(FailureSelectedIcon(messageError: "Error FailureSelectedIcon "));
+        emit(FailureSelectedIcon(messageError: 'icon-selected-failure'.tr()));
       }
     });
-
-    // on<CallbackIconNameEvent>((event, emit) {
-    //   try {
-    //     emit(LoadingCallbackIconName());
-    //     emit(SuccessCallbackIconName(resultSelectedIconName: event.iconName));
-    //   } catch (e) {
-    //     emit(FailureCallbackIconName(
-    //         messageError: "Error FailureCallbackIconName"));
-    //   }
-    // });
 
     on<CallbackIconNameEvent>((event, emit) {
       try {
         emit(LoadingCallbackIconName());
-        // final result = _getCategoryCases.
         emit(SuccessCallbackIconName(resultSelectedIconName: event.iconName));
       } catch (e) {
         emit(FailureCallbackIconName(
-            messageError: "Error FailureCallbackIconName"));
+            messageError: 'icon-selected-failure'.tr()));
       }
     });
 
     on<CallbackIconCategoryEvent>((event, emit) {
       try {
         emit(LoadingCallbackIconCategory());
-        // final result = _getCategoryCases.
         emit(SuccessCallbackIconCategory(value: event.value));
       } catch (e) {
         emit(FailureCallbackIconCategory(
-            messageError: "Error FailureCallbackIconName"));
+            messageError: 'icon-selected-failure'.tr()));
       }
     });
 
@@ -105,10 +85,10 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             await _getCategoryCases.executeCreateCategory(event.valueCategory);
         result.fold(
             (l) => emit(
-                FailureCreateCategory(messageError: "FailureCreateCategory")),
+                FailureCreateCategory(messageError: 'error-add-category'.tr())),
             (data) => emit(SuccessCreateCategory(result: data)));
       } catch (e) {
-        emit(FailureCreateCategory(messageError: "FailureCreateCategory e"));
+        emit(FailureCreateCategory(messageError: 'error-add-category'.tr()));
       }
     });
 
@@ -119,11 +99,10 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             await _getCategoryCases.executeReadCategoryById(event.idCategory);
         result.fold(
             (l) => emit(FailureReadCategoryById(
-                messageError: "FailureReadCategoryById")),
+                messageError: 'error-read-category'.tr())),
             (data) => emit(SuccessReadCategoryById(result: data)));
       } catch (e) {
-        emit(
-            FailureReadCategoryById(messageError: "FailureReadCategoryById e"));
+        emit(FailureReadCategoryById(messageError: 'error-read-category'.tr()));
       }
     });
 
@@ -133,31 +112,30 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         final result = await _getCategoryCases.executeUpdateCategory(
             event.idCategory, event.valueCategory);
         result.fold(
-            (l) => emit(
-                FailureUpdateCategory(messageError: "FailureUpdateCategory")),
+            (l) => emit(FailureUpdateCategory(
+                messageError: 'error-update-category'.tr())),
             (data) => emit(SuccessUpdateCategory(result: data)));
       } catch (e) {
-        emit(FailureUpdateCategory(messageError: "FailureUpdateCategory e"));
+        emit(FailureUpdateCategory(messageError: 'error-update-category'.tr()));
       }
     });
 
     on<DeleteCategoryEvent>((event, emit) async {
       try {
         emit(LoadingDeleteCategory());
-        print("Event ::: ${event.idCategory}");
         if (event.idCategory == 0 || event.idCategory < 1) {
-          print("ini jalan");
-          emit(FailureDeleteCategory(messageError: "FailureDeleteCategory e"));
+          emit(FailureDeleteCategory(
+              messageError: 'error-delete-category'.tr()));
         } else {
           final result =
               await _getCategoryCases.executeDeleteCategory(event.idCategory);
           result.fold(
-              (l) => emit(
-                  FailureDeleteCategory(messageError: "FailureDeleteCategory")),
+              (l) => emit(FailureDeleteCategory(
+                  messageError: 'error-delete-category'.tr())),
               (r) => emit(SuccessDeleteCategory()));
         }
       } catch (e) {
-        emit(FailureDeleteCategory(messageError: "FailureDeleteCategory e"));
+        emit(FailureDeleteCategory(messageError: 'error-delete-category'.tr()));
       }
     });
 

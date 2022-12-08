@@ -133,7 +133,6 @@ class HomeScreen extends StatelessWidget {
                           child: Image.asset(
                             'assets/icons/${listTransaction?[index].categoryIconName}.png',
                             fit: BoxFit.fill,
-                            // color: Colors.white,
                           ),
                         ),
                       ),
