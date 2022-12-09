@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 class LanguagesApp {
   final List<Locale> _listLanguage = const [
     Locale('id', 'ID'),

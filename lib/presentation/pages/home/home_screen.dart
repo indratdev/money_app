@@ -139,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                       title:
                           Text("${listTransaction?[index].title.toString()}"),
                       trailing: Text(
-                        "Rp. ${formatterThousand.format(
+                        "${'currency-symbol'.tr()}  ${formatterThousand.format(
                           double.tryParse("${listTransaction?[index].amount}"),
                         )}",
                       ),

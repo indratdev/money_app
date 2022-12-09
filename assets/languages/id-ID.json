@@ -84,4 +84,6 @@
     , "passcode-save-failure" : "Gagal Menyimpan Passcode"
     , "passcode-save-success" : "Berhasil Menyimpan Passcode"
     , "passcode-warning-try" : "Anda Melewati Batas Maksimal Percobaan"
+    , "currency-symbol": "Rp"
+    , "currency-name": "IDR"
 }

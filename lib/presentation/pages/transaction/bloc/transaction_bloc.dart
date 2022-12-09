@@ -46,12 +46,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
             await _getTransactionCases.executeCreateNewTransaction(event.value);
         result.fold(
           (l) => emit(FailureSaveTransactionNew(
-              messageError: 'failed-transaction-savin'.tr())),
+              messageError: 'failed-transaction-saving'.tr())),
           (data) => emit(SuccessSaveTransactionNew(result: data)),
         );
       } catch (e) {
         emit(FailureSaveTransactionNew(
-            messageError: 'failed-transaction-savin'.tr()));
+            messageError: 'failed-transaction-saving'.tr()));
       }
     });
 

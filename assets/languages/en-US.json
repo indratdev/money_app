@@ -1,4 +1,5 @@
 {
+    
     "titleLanguage" : "Language"
     , "titleSetting" : "Setting"
     , "expense"   : "Expense"
@@ -84,5 +85,6 @@
     , "passcode-save-failure" : "Save Passcode Failed"
     , "passcode-save-success" : "Save Passcode Success"
     , "passcode-warning-try" : "You Have Exceeded Your Maximum Attempts"
-
+    , "currency-symbol": "$"
+    , "currency-name": "USD"
 }

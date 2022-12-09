@@ -84,4 +84,6 @@
     , "passcode-save-failure" : "パスコードの保存に失敗しました"
     , "passcode-save-success" : "パスコードの保存成功"
     , "passcode-warning-try" : "最大試行回数を超えました"
+    , "currency-symbol": "¥"
+    , "currency-name": "JPY"
 }
