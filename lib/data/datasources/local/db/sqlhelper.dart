@@ -73,8 +73,8 @@ class SqlHelper {
   initDefaultDB(Database db) {
     // var createTime = DateTime.now().toString();
 
-    inserMasterCategory(
-        db, tableMasterCategory); // insert default master category
+    // inserMasterCategory(
+    //     db, tableMasterCategory); // insert default master category
 
     inserMasterColors(db, tableMasterColors); // insert default master category
 

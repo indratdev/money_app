@@ -35,6 +35,11 @@ class CategoryCases {
     return repository.getCreateCategory(valueCategory);
   }
 
+  // count master category default
+  Future<Either<Failure, bool>> executeCountMasterCategoryDefault() {
+    return repository.countMasterCategoryDefault();
+  }
+
   // update category
   Future<Either<Failure, int>> executeUpdateCategory(
       int idCategory, Category valueCategory) {

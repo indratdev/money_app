@@ -26,6 +26,15 @@ class FailureInitCategory extends FailureState {
 
 class SuccessInitCategory extends CategoryState {}
 
+// init master category
+class LoadingInitMasterCategory extends CategoryState {}
+
+class FailureInitMasterCategory extends FailureState {
+  FailureInitMasterCategory({required super.messageError});
+}
+
+class SuccessInitMasterCategory extends CategoryState {}
+
 class LoadingReadCategory extends CategoryState {}
 
 class FailureReadCategory extends FailureState {

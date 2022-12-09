@@ -9,6 +9,12 @@ abstract class CategoryEvent extends Equatable {
 
 class InitCategory extends CategoryEvent {}
 
+class InitMasterCategory extends CategoryEvent {
+  String language;
+
+  InitMasterCategory({required this.language});
+}
+
 class ReadCategory extends CategoryEvent {
   int isDefault;
 

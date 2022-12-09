@@ -14,4 +14,5 @@ abstract class CategoryRepository {
   Future<Either<Failure, int>> getUpdateCategory(
       int idCategory, Category valueCategory);
   Future<Either<Failure, void>> getDeleteCategory(int idCategory);
+  Future<Either<Failure, bool>> countMasterCategoryDefault();
 }
