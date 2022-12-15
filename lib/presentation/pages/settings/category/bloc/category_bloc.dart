@@ -20,6 +20,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       }
     });
 
+    // read master category
     on<ReadCategory>((event, emit) async {
       try {
         emit(LoadingReadCategory());
@@ -30,6 +31,21 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             (data) => emit(SuccessReadCategory(result: data)));
       } catch (e) {
         emit(FailureReadCategory(messageError: 'error-read-category'.tr()));
+      }
+    });
+
+// read ops category
+    on<ReadOpsCategory>((event, emit) async {
+      try {
+        emit(LoadingReadOpsCategory());
+        final result =
+            await _getCategoryCases.executeReadOpsCategory(event.isDefault);
+
+        result.fold(
+            (l) => emit(FailureReadOpsCategory(messageError: l.message)),
+            (data) => emit(SuccessReadOpsCategory(result: data)));
+      } catch (e) {
+        emit(FailureReadOpsCategory(messageError: 'error-read-category'.tr()));
       }
     });
 

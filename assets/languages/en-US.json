@@ -28,6 +28,7 @@
     , "confirm-delete-all" : "Are you sure delete all data ?"
     , "amount" : "Amount"
     , "choose-category" : "Choose Category"
+    , "choose-category-first" : "Select the Category Icon first !"
     , "change-category" : "Change Category"
     , "done" : "Done"
     , "loading" : "Loading..."

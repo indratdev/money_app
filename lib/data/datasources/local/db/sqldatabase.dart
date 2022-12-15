@@ -61,10 +61,17 @@ class SqlDatabase {
     return result;
   }
 
-  //read all
+  //read master category
   Future<List<CategoryModel>> readCategory(int isDefault) async {
     final db = await instance.database;
     final result = await sqlHelper.readCategory(db, instance, isDefault);
+    return result;
+  }
+
+  //read ops  category
+  Future<List<CategoryModel>> readOpsCategory(int isDefault) async {
+    final db = await instance.database;
+    final result = await sqlHelper.readOpsCategory(db, instance, isDefault);
     return result;
   }
 
@@ -74,8 +81,6 @@ class SqlDatabase {
     final result = await sqlHelper.readCategoryById(db, instance, idCategory);
     return result;
   }
-
-  Future<bool> countCate;
 
   Future<int> updateCategory(int idCategory, Category valueCategory) async {
     final db = await instance.database;

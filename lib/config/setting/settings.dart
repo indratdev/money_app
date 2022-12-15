@@ -34,11 +34,12 @@ class MenuSetting {
   callBloc(BuildContext context, BlocName blocName) {
     switch (blocName) {
       case BlocName.categoryRead:
-        // context.read<CategoryBloc>().add(InitCategory());
-        context
-            .read<CategoryBloc>()
-            .add(InitMasterCategory(language: context.locale.toString()));
-        context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
+        context.read<CategoryBloc>().add(InitCategory());
+        // context
+        //     .read<CategoryBloc>()
+        //     .add(InitMasterCategory(language: context.locale.toString()));
+        // context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
+        context.read<CategoryBloc>().add(ReadOpsCategory(isDefault: 1));
         break;
       case BlocName.languangeRead:
         break;

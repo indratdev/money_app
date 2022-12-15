@@ -34,19 +34,33 @@ class CategoryRepositoryImpl implements CategoryRepository {
     }
   }
 
+  // @override
+  // Future<Either<Failure, bool>> countMasterCategoryDefault() {
+  //   try {} on ServerException {
+  //     return const Left(ServerFailure(''));
+  //   } on SocketException {
+  //     return const Left(ConnectionFailure('Failed to connect to the database'));
+  //   }
+  // }
+
   @override
-  Future<Either<Failure, bool>> countMasterCategoryDefault() {
-    try {} on ServerException {
+  Future<Either<Failure, List<Category>>> getReadCategory() async {
+    try {
+      final result = await localDataSource.readCategory(0);
+
+      return Right(result.toList());
+    } on ServerException {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
 
+  // read ops category
   @override
-  Future<Either<Failure, List<Category>>> getReadCategory() async {
+  Future<Either<Failure, List<Category>>> getReadOpsCategory() async {
     try {
-      final result = await localDataSource.readCategory(0);
+      final result = await localDataSource.readOpsCategory(0);
 
       return Right(result.toList());
     } on ServerException {
@@ -118,4 +132,16 @@ class CategoryRepositoryImpl implements CategoryRepository {
       return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
+
+  // @override
+  // Future<Either<Failure, bool>> countMasterCategoryDefault() async {
+  //   try {
+  //     // final result = await localDataSource.deleteCategory(idCategory);
+  //     return right(false);
+  //   } on ServerException {
+  //     return const Left(ServerFailure(''));
+  //   } on SocketException {
+  //     return const Left(ConnectionFailure('Failed to connect to the database'));
+  //   }
+  // }
 }

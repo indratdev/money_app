@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
+import 'package:money_app/presentation/widgets/customWidgets.dart';
 
 import '../../../../../data/constants.dart';
 
@@ -13,8 +14,8 @@ class CategoryAddScreen extends StatelessWidget {
   GlobalKey<FormState> formKeyCtgr = GlobalKey<FormState>();
 
   Category? selectedCategory = Category(
-      name: "Bunga",
-      iconName: "collect-interest",
+      name: "",
+      iconName: "choose-file",
       createdTime: DateTime.now().toString(),
       modifieldTime: "",
       isDefault: 0);
@@ -26,7 +27,7 @@ class CategoryAddScreen extends StatelessWidget {
     final stateTheme = Theme.of(context).brightness;
     return WillPopScope(
       onWillPop: () async {
-        context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
+        context.read<CategoryBloc>().add(ReadOpsCategory(isDefault: 0));
         return true;
       },
       child: Scaffold(
@@ -95,8 +96,11 @@ class CategoryAddScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text('category'.tr())),
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                'category'.tr(),
+                              ),
+                            ),
                             SB_Height10,
                             InkWell(
                               onTap: () {
@@ -124,7 +128,7 @@ class CategoryAddScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                title: Text(selectedCategory?.name ?? ""),
+                                // title: Text(selectedCategory?.name ?? ""),
                                 trailing:
                                     const Icon(Icons.arrow_drop_down_sharp),
                               ),
@@ -138,18 +142,25 @@ class CategoryAddScreen extends StatelessWidget {
                             if (formKeyCtgr.currentState!.validate()) {
                               formKeyCtgr.currentState!.save();
 
-                              Category value = Category(
-                                  name: categoryNameController.text,
-                                  iconName: selectedCategory!.iconName,
-                                  createdTime: DateTime.now().toString(),
-                                  modifieldTime: "",
-                                  isDefault: 0);
-                              context.read<CategoryBloc>().add(
-                                  CreateCategoryEvent(valueCategory: value));
-                              context
-                                  .read<CategoryBloc>()
-                                  .add(ReadCategory(isDefault: 0));
-                              Navigator.pop(context);
+                              // check icon category cannot default
+                              if (selectedCategory?.iconName.toString() ==
+                                  'choose-file') {
+                                CustomWidgets.showMessageAlertBasic(context,
+                                    'choose-category-first'.tr(), false);
+                              } else {
+                                Category value = Category(
+                                    name: categoryNameController.text,
+                                    iconName: selectedCategory!.iconName,
+                                    createdTime: DateTime.now().toString(),
+                                    modifieldTime: "",
+                                    isDefault: 0);
+                                context.read<CategoryBloc>().add(
+                                    CreateCategoryEvent(valueCategory: value));
+                                context
+                                    .read<CategoryBloc>()
+                                    .add(ReadOpsCategory(isDefault: 0));
+                                Navigator.pop(context);
+                              }
                             }
                           },
                           style: ElevatedButton.styleFrom(

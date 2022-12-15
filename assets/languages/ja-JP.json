@@ -25,6 +25,7 @@
     , "confirm-delete-all" : "すべてのデータを削除してもよろしいですか ?"
     , "amount" : "公称"
     , "choose-category" : "カテゴリを選んでください"
+    , "choose-category-first" : "最初にカテゴリ アイコンを選択します !"
     , "change-category" : "カテゴリを変更"
     , "icon-selected"   : "アイコンを選択"
     , "icon-selected-failure"   : "アイコンの選択に失敗しました"
