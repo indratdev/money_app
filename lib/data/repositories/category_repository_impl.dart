@@ -35,15 +35,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> countMasterCategoryDefault() {
-    try {} on ServerException {
-      return const Left(ServerFailure(''));
-    } on SocketException {
-      return const Left(ConnectionFailure('Failed to connect to the database'));
-    }
-  }
-
-  @override
   Future<Either<Failure, List<Category>>> getReadCategory() async {
     try {
       final result = await localDataSource.readCategory(0);
@@ -117,5 +108,11 @@ class CategoryRepositoryImpl implements CategoryRepository {
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the database'));
     }
+  }
+
+  @override
+  Future<Either<Failure, bool>> countMasterCategoryDefault() {
+    // TODO: implement countMasterCategoryDefault
+    throw UnimplementedError();
   }
 }

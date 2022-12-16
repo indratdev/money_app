@@ -75,8 +75,6 @@ class SqlDatabase {
     return result;
   }
 
-  Future<bool> countCate;
-
   Future<int> updateCategory(int idCategory, Category valueCategory) async {
     final db = await instance.database;
     final result =
