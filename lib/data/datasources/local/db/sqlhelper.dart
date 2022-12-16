@@ -504,6 +504,26 @@ class SqlHelper {
 
   // -- end paramter ----------------------------------------------------------
 
+  // read all year transaction
+  Future<List<String>> readAllYearTransaction(
+    Database? db,
+    SqlDatabase instance,
+  ) async {
+    final db = await instance.database;
+    List<String> result = [];
+    String query =
+        """ select strftime('%Y', createdTime) from th_transaction GROUP by strftime('%Y', createdTime) order by createdTime desc; """;
+
+    if (db != null) {
+      final datas = await db.rawQuery(''' $query''');
+      // final resultB = result.toList().;
+      for (var element in datas) {
+        result.add(element.values.first.toString());
+      }
+    }
+    return result;
+  }
+
   insertMasterParameter(Database db, String tableMasterParamter) async {
     await db.rawInsert(
         ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('isDark', '0', 1, 'Default Themes of Application');   ''');

@@ -88,4 +88,5 @@
     , "passcode-warning-try" : "最大試行回数を超えました"
     , "currency-symbol": "¥"
     , "currency-name": "JPY"
+    , "report-year-failedLoad": "レポートに年を表示できませんでした"
 }

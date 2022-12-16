@@ -174,4 +174,10 @@ class SqlDatabase {
     final db = await instance.database;
     return await sqlHelper.readParamPasscodeValue(db, instance);
   }
+
+  // read all year transaction
+  Future<List<String>> readAllYearTransaction() async {
+    final db = await instance.database;
+    return await sqlHelper.readAllYearTransaction(db, instance);
+  }
 }

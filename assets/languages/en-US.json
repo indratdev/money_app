@@ -89,4 +89,5 @@
     , "passcode-warning-try" : "You Have Exceeded Your Maximum Attempts"
     , "currency-symbol": "$"
     , "currency-name": "USD"
+    , "report-year-failedLoad": "Failed to Display Year on Report"
 }

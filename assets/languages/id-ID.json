@@ -88,4 +88,5 @@
     , "passcode-warning-try" : "Anda Melewati Batas Maksimal Percobaan"
     , "currency-symbol": "Rp"
     , "currency-name": "IDR"
+    , "report-year-failedLoad": "Gagal Menampilkan Tahun Pada Laporan"
 }

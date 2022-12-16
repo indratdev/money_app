@@ -36,4 +36,16 @@ class ReportRepositoryImpl implements ReportRepository {
       return const Left(ConnectionFailure('Failed to connect to the database'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<String>>> getAllYearTransaction() async {
+    try {
+      final result = await localDataSource.readAllYearTransaction();
+      return Right(result);
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the database'));
+    }
+  }
 }

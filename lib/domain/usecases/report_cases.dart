@@ -13,4 +13,8 @@ class ReportCases {
       String date, OptionDate optionDate) {
     return repository.getReadChartDefault(date, optionDate);
   }
+
+  Future<Either<Failure, List<String>>> executeCheckAllYearTrx() {
+    return repository.getAllYearTransaction();
+  }
 }
