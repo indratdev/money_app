@@ -50,6 +50,38 @@ class SuccessReadCategory extends CategoryState {
   List<Object> get props => [result];
 }
 
+// read ops category
+class LoadingReadOpsCategory extends CategoryState {}
+
+class FailureReadOpsCategory extends FailureState {
+  FailureReadOpsCategory({required super.messageError});
+}
+
+class SuccessReadOpsCategory extends CategoryState {
+  final List<Category> result;
+
+  SuccessReadOpsCategory({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+// master category
+class LoadingReadIconCategoryMaster extends CategoryState {}
+
+class FailureReadIconCategoryMaster extends FailureState {
+  FailureReadIconCategoryMaster({required super.messageError});
+}
+
+class SuccessReadIconCategoryMaster extends CategoryState {
+  final List<Category> result;
+
+  SuccessReadIconCategoryMaster({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
 //
 class LoadingReadIconCategoryDefault extends CategoryState {}
 

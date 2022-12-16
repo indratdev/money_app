@@ -27,7 +27,7 @@ class CategoryUpDelScreen extends StatelessWidget {
     final stateTheme = Theme.of(context).brightness;
     return WillPopScope(
       onWillPop: () async {
-        context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
+        context.read<CategoryBloc>().add(ReadOpsCategory(isDefault: 0));
         return true;
       },
       child: Scaffold(
@@ -41,7 +41,9 @@ class CategoryUpDelScreen extends StatelessWidget {
                     context, 'confirm-delete-data'.tr(), () {
                   context.read<CategoryBloc>().add(DeleteCategoryEvent(
                       idCategory: oldValueCategory?.id ?? 0));
-                  context.read<CategoryBloc>().add(ReadCategory(isDefault: 1));
+                  context
+                      .read<CategoryBloc>()
+                      .add(ReadOpsCategory(isDefault: 0));
                   Navigator.of(context)
                     ..pop()
                     ..pop();
@@ -145,7 +147,7 @@ class CategoryUpDelScreen extends StatelessWidget {
                               onTap: () {
                                 context
                                     .read<CategoryBloc>()
-                                    .add(ReadIconCategoryDefault(isDefault: 1));
+                                    .add(ReadIconCategoryMaster(isDefault: 1));
 
                                 Navigator.push(
                                     context,
@@ -166,7 +168,7 @@ class CategoryUpDelScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                title: Text(selectedImage),
+                                // title: Text(selectedImage),
                                 trailing:
                                     const Icon(Icons.arrow_drop_down_sharp),
                               ),
@@ -200,7 +202,7 @@ class CategoryUpDelScreen extends StatelessWidget {
 
                                 context
                                     .read<CategoryBloc>()
-                                    .add(ReadCategory(isDefault: 0));
+                                    .add(ReadOpsCategory(isDefault: 0));
                                 Navigator.pop(context);
                               }
                             },

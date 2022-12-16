@@ -5,6 +5,7 @@ import 'package:money_app/config/routes/app_routes.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/category_updel_screen.dart';
 import 'package:money_app/presentation/widgets/customWidgets.dart';
+import 'package:money_app/presentation/widgets/no_data_widget.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen({Key? key}) : super(key: key);
@@ -51,46 +52,49 @@ class CategoryScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state is LoadingReadCategory) {
+          if (state is LoadingReadOpsCategory) {
             CustomWidgets.showLoadingWidget();
           }
 
-          if (state is FailureReadCategory) {
+          if (state is FailureReadOpsCategory) {
             CustomWidgets.showMessageAlertBasic(
                 context, ' error-read-category'.tr(), true);
           }
 
-          if (state is SuccessReadCategory) {
+          if (state is SuccessReadOpsCategory) {
             final result = state.result;
-            return ListView.separated(
-              separatorBuilder: (context, index) => const Divider(),
-              itemCount: result.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CategoryUpDelScreen(
-                        selectedImage: result[index].iconName,
-                        oldValueCategory: result[index],
-                      ),
-                    ));
-                  },
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      foregroundColor: Colors.transparent,
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/icons/${result[index].iconName}.png',
-                          fit: BoxFit.fill,
+            return (result.length > 0)
+                ? ListView.separated(
+                    separatorBuilder: (context, index) => const Divider(),
+                    itemCount: result.length,
+                    padding: const EdgeInsets.only(top: 10),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CategoryUpDelScreen(
+                              selectedImage: result[index].iconName,
+                              oldValueCategory: result[index],
+                            ),
+                          ));
+                        },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 30,
+                            foregroundColor: Colors.transparent,
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/icons/${result[index].iconName}.png',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          title: Text(result[index].name),
                         ),
-                      ),
-                    ),
-                    title: Text(result[index].name),
-                  ),
-                );
-              },
-            );
+                      );
+                    },
+                  )
+                : const NoDataWidget();
           } else {
             return const SizedBox();
           }

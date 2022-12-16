@@ -26,8 +26,8 @@ class TransactionScreen extends StatelessWidget {
         Transaction(idCategory: 1, title: "", createdTime: todayTime);
 
     Category category = Category(
-        name: "Bunga",
-        iconName: "collect-interest",
+        name: "",
+        iconName: "choose-file",
         createdTime: "",
         modifieldTime: "",
         isDefault: 1);

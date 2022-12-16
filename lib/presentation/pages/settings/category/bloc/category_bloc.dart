@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:money_app/domain/entities/category.dart';
@@ -20,6 +21,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       }
     });
 
+    // read master category
     on<ReadCategory>((event, emit) async {
       try {
         emit(LoadingReadCategory());
@@ -30,6 +32,38 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             (data) => emit(SuccessReadCategory(result: data)));
       } catch (e) {
         emit(FailureReadCategory(messageError: 'error-read-category'.tr()));
+      }
+    });
+
+// read ops category
+    on<ReadOpsCategory>((event, emit) async {
+      try {
+        emit(LoadingReadOpsCategory());
+        final result =
+            await _getCategoryCases.executeReadOpsCategory(event.isDefault);
+
+        result.fold(
+            (l) => emit(FailureReadOpsCategory(messageError: l.message)),
+            (data) => emit(SuccessReadOpsCategory(result: data)));
+      } catch (e) {
+        emit(FailureReadOpsCategory(messageError: 'error-read-category'.tr()));
+      }
+    });
+
+    // read master category
+    on<ReadIconCategoryMaster>((event, emit) async {
+      try {
+        emit(LoadingReadIconCategoryMaster());
+        final result = await _getCategoryCases
+            .executeReadIconCategoryMaster(event.isDefault);
+
+        print(">>> ReadIconCategoryMaster : ${result}");
+        result.fold(
+            (l) => emit(FailureReadIconCategoryMaster(messageError: l.message)),
+            (data) => emit(SuccessReadIconCategoryMaster(result: data)));
+      } catch (e) {
+        emit(FailureReadIconCategoryMaster(
+            messageError: 'error-read-category'.tr()));
       }
     });
 

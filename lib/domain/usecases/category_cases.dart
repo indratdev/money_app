@@ -14,14 +14,26 @@ class CategoryCases {
     repository.getInitCategory();
   }
 
-  // read category
+  // read master category
   Future<Either<Failure, List<Category>>> executeReadCategory(int isDefault) {
     return repository.getReadCategory();
+  }
+
+  // read ops category
+  Future<Either<Failure, List<Category>>> executeReadOpsCategory(
+      int isDefault) {
+    return repository.getReadOpsCategory();
   }
 
   // read category by id
   Future<Either<Failure, Category>> executeReadCategoryById(int idCategory) {
     return repository.getReadCategoryById(idCategory);
+  }
+
+  // read icon category master
+  Future<Either<Failure, List<Category>>> executeReadIconCategoryMaster(
+      int isDefault) {
+    return repository.getReadIconCategoryMaster(isDefault);
   }
 
   // read icon category default
@@ -36,9 +48,9 @@ class CategoryCases {
   }
 
   // count master category default
-  Future<Either<Failure, bool>> executeCountMasterCategoryDefault() {
-    return repository.countMasterCategoryDefault();
-  }
+  // Future<Either<Failure, bool>> executeCountMasterCategoryDefault() {
+  //   return repository.countMasterCategoryDefault();
+  // }
 
   // update category
   Future<Either<Failure, int>> executeUpdateCategory(

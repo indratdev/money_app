@@ -13,6 +13,7 @@ class SqlHelper {
   final String dbName = 'dbmoney.db';
   final String tableTransaction = 'th_transaction';
   final String tableMasterCategory = 'm_category';
+  final String tableOpsCategory = 'ops_category';
   final String tableMasterColors = 'm_colors';
   final String tableMasterParameter = 'm_parameter';
 
@@ -37,6 +38,18 @@ class SqlHelper {
     // create table master category
     await db.execute('''
     CREATE TABLE $tableMasterCategory    (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      iconName TEXT NULL,
+      createdTime TEXT NULL,
+      modifieldTime TEXT NULL,
+      isDefault INTEGER
+      )
+      ''');
+
+    // create table ops category
+    await db.execute('''
+    CREATE TABLE $tableOpsCategory    (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       iconName TEXT NULL,
@@ -73,8 +86,8 @@ class SqlHelper {
   initDefaultDB(Database db) {
     // var createTime = DateTime.now().toString();
 
-    // inserMasterCategory(
-    //     db, tableMasterCategory); // insert default master category
+    inserMasterCategory(
+        db, tableMasterCategory); // insert default master category
 
     inserMasterColors(db, tableMasterColors); // insert default master category
 
@@ -104,13 +117,36 @@ class SqlHelper {
     }
   }
 
+  // read ops category
+  Future<List<CategoryModel>> readOpsCategory(
+      Database? db, SqlDatabase instance, int isDefault) async {
+    final db = await instance.database;
+
+    String query = "";
+    if (isDefault == 0) {
+      query =
+          "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableOpsCategory ;";
+    } else {
+      query =
+          "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableOpsCategory where isDefault = 1 ;";
+    }
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+
+      return result.map((e) => CategoryModel.fromJson(e)).toList();
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
   // read category by id
   Future<CategoryModel> readCategoryById(
       Database? db, SqlDatabase instance, int idCategory) async {
     final db = await instance.database;
 
     String query =
-        "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableMasterCategory where id = $idCategory ;";
+        "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableOpsCategory where id = $idCategory ;";
 
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
@@ -127,7 +163,7 @@ class SqlHelper {
     int result = 0;
     if (db != null) {
       result = await db.rawInsert('''
-      INSERT INTO $tableMasterCategory (name, iconName,createdTime, modifieldTime, isDefault)
+      INSERT INTO $tableOpsCategory (name, iconName,createdTime, modifieldTime, isDefault)
       VALUES
       (
         '${category.name}'
@@ -147,7 +183,7 @@ class SqlHelper {
     int result = 0;
 
     if (db != null) {
-      return result = await db.rawUpdate('''UPDATE $tableMasterCategory
+      return result = await db.rawUpdate('''UPDATE $tableOpsCategory
           SET
           name = ?
           , iconName = ?
@@ -169,7 +205,7 @@ class SqlHelper {
   Future<void> deleteCategoryByID(Database? db, int idCategory) async {
     if (db != null) {
       await db.rawDelete('''
-      DELETE FROM $tableMasterCategory WHERE id = ? ''', [idCategory]);
+      DELETE FROM $tableOpsCategory WHERE id = ? ''', [idCategory]);
     }
   }
 
@@ -177,7 +213,7 @@ class SqlHelper {
     if (db != null) {
       await db.rawDelete(''' DELETE FROM $tableTransaction ; ''');
       await db.rawDelete(
-          ''' DELETE FROM $tableMasterCategory where isDefault != 1; ''');
+          ''' DELETE FROM $tableOpsCategory where isDefault != 1; ''');
     }
   }
 
@@ -221,7 +257,7 @@ class SqlHelper {
             ,tr.modifieldTrxTime
             ,mc.name as categoryName
             ,mc.iconName as categoryIconName            
-          from $tableTransaction tr join $tableMasterCategory mc on tr.idCategory = mc.id where tr.createdTime like '%$date%'
+          from $tableTransaction tr join $tableOpsCategory mc on tr.idCategory = mc.id where tr.createdTime like '%$date%'
           ;""";
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
@@ -300,7 +336,7 @@ class SqlHelper {
         , sum(trx.amount) as amount 
         , round(sum(trx.amount) * 100.0 / sum(sum(trx.amount)) over(),2) as persentase 
       from $tableTransaction trx
-      join $tableMasterCategory ct on ct.id = trx.idCategory
+      join $tableOpsCategory ct on ct.id = trx.idCategory
         where 
           trx.idCategory <> 0
           and trx.isOutcome = $isOutcome
@@ -692,74 +728,74 @@ class SqlHelper {
 
   inserMasterCategory(Database db, String tableMasterCategory) async {
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Bunga', 'collect-interest', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'collect-interest', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Utang', 'debt', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'debt', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Penagihan Hutang', 'debt-collection', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'debt-collection', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Pendidikan', 'education', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'education', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Listrik', 'electricity-bill', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'electricity-bill', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Kebugaran', 'fitness', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'fitness', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Makanan', 'food', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'food', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Uang Menyenangkan', 'fun-money', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'fun-money', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Gas', 'gas-bill', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'gas-bill', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Sumbangan Hadiah', 'gifts-donations', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'gifts-donations', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Perawatan Rumah', 'home-maitenance', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'home-maitenance', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Layanan Rumah', 'home-services', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'home-services', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Peralatan Rumah Tangga', 'houseware', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'houseware', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Asuransi', 'insurances', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'insurances', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Internet', 'internet-bill', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'internet-bill', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Investasi', 'investment', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'investment', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Meminjamkan', 'loan', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'loan', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Dandan', 'makeup', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'makeup', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Pemeriksaan Kesehatan', 'medical-checkup', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'medical-checkup', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Lainnya', 'other-bill', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'other-bill', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Biaya Lainnya', 'other-expense', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'other-expense', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Penghasilan Lain', 'other-income', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'other-income', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Membayar Bunga', 'pay-interest', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'pay-interest', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Barang Pribadi', 'personal-items', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'personal-items', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Hewan Peliharaan', 'pets', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'pets', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Telepon', 'phone-bill', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'phone-bill', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Persewaan', 'rental', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'rental', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Pembayaran Kembali', 'repayment', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'repayment', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Gaji', 'salary', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'salary', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Layanan Streaming', 'streaming-service', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'streaming-service', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Transfer', 'transfer', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'transfer', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Angkutan', 'transportation', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'transportation', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Tv', 'tv-bill', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'tv-bill', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Pemeliharaan Kendaraan', 'vehicle-maintenance', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'vehicle-maintenance', NULL, NULL, 1) ''');
     await db.rawInsert(
-        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('Tagihan Air', 'water-bill', NULL, NULL, 1) ''');
+        ''' INSERT INTO $tableMasterCategory (name, iconName, createdTime, modifieldTime, isDefault) VALUES ('', 'water-bill', NULL, NULL, 1) ''');
   }
 }

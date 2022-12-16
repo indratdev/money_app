@@ -10,6 +10,7 @@ import '../../models/category_model.dart';
 abstract class LocalDataSource {
   getInitCategory();
   Future<List<CategoryModel>> readCategory(int isDefault);
+  Future<List<CategoryModel>> readOpsCategory(int isDefault);
   Future<CategoryModel> readCategoryById(int idCategory);
   Future<int> createCategory(Category value);
   Future<int> updateCategory(int idCategory, Category valueCategory);
@@ -44,6 +45,12 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<List<CategoryModel>> readCategory(int isDefault) async {
     return await dbprovider.readCategory(isDefault);
+  }
+
+  // read ops category
+  @override
+  Future<List<CategoryModel>> readOpsCategory(int isDefault) async {
+    return await dbprovider.readOpsCategory(isDefault);
   }
 
   @override

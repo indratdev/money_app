@@ -21,6 +21,18 @@ class ReadCategory extends CategoryEvent {
   ReadCategory({required this.isDefault});
 }
 
+class ReadOpsCategory extends CategoryEvent {
+  int isDefault;
+
+  ReadOpsCategory({required this.isDefault});
+}
+
+class ReadIconCategoryMaster extends CategoryEvent {
+  int isDefault;
+
+  ReadIconCategoryMaster({required this.isDefault});
+}
+
 class ReadIconCategoryDefault extends CategoryEvent {
   int isDefault;
 
