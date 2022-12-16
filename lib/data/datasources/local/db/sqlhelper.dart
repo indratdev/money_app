@@ -146,7 +146,7 @@ class SqlHelper {
     final db = await instance.database;
 
     String query =
-        "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableMasterCategory where id = $idCategory ;";
+        "select id, name, iconName, createdTime, modifieldTime, isDefault from $tableOpsCategory where id = $idCategory ;";
 
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
@@ -213,7 +213,7 @@ class SqlHelper {
     if (db != null) {
       await db.rawDelete(''' DELETE FROM $tableTransaction ; ''');
       await db.rawDelete(
-          ''' DELETE FROM $tableMasterCategory where isDefault != 1; ''');
+          ''' DELETE FROM $tableOpsCategory where isDefault != 1; ''');
     }
   }
 
@@ -257,7 +257,7 @@ class SqlHelper {
             ,tr.modifieldTrxTime
             ,mc.name as categoryName
             ,mc.iconName as categoryIconName            
-          from $tableTransaction tr join $tableMasterCategory mc on tr.idCategory = mc.id where tr.createdTime like '%$date%'
+          from $tableTransaction tr join $tableOpsCategory mc on tr.idCategory = mc.id where tr.createdTime like '%$date%'
           ;""";
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
@@ -336,7 +336,7 @@ class SqlHelper {
         , sum(trx.amount) as amount 
         , round(sum(trx.amount) * 100.0 / sum(sum(trx.amount)) over(),2) as persentase 
       from $tableTransaction trx
-      join $tableMasterCategory ct on ct.id = trx.idCategory
+      join $tableOpsCategory ct on ct.id = trx.idCategory
         where 
           trx.idCategory <> 0
           and trx.isOutcome = $isOutcome

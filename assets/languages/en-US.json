@@ -30,6 +30,7 @@
     , "choose-category" : "Choose Category"
     , "choose-category-first" : "Select the Category Icon first !"
     , "change-category" : "Change Category"
+    , "change-category-no-selectedData" : "You Have Not Selected A Category !"
     , "done" : "Done"
     , "loading" : "Loading..."
     , "confirmation" : "Confirmation"

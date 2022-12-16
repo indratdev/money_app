@@ -30,6 +30,12 @@ class CategoryCases {
     return repository.getReadCategoryById(idCategory);
   }
 
+  // read icon category master
+  Future<Either<Failure, List<Category>>> executeReadIconCategoryMaster(
+      int isDefault) {
+    return repository.getReadIconCategoryMaster(isDefault);
+  }
+
   // read icon category default
   Future<Either<Failure, List<Category>>> executeReadIconCategoryDefault(
       int isDefault) {

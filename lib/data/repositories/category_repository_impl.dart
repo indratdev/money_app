@@ -71,10 +71,23 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, List<Category>>> getReadIconCategoryDefault(
+  Future<Either<Failure, List<Category>>> getReadIconCategoryMaster(
       isdefault) async {
     try {
       final result = await localDataSource.readCategory(isdefault);
+      return Right(result.toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Category>>> getReadIconCategoryDefault(
+      isdefault) async {
+    try {
+      final result = await localDataSource.readOpsCategory(isdefault);
       return Right(result.toList());
     } on ServerException {
       return const Left(ServerFailure(''));

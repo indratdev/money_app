@@ -29,6 +29,7 @@
     , "choose-category" : "Pilih Kategori"
     , "choose-category-first" : "Pilih Ikon Kategori Dahulu !"
     , "change-category" : "Ubah Kategori"
+    , "change-category-no-selectedData" : "Anda Belum Memilih Kategori !"
     , "done" : "Selesai"
     , "loading" : "Memuat..."
     , "confirmation" : "Konfirmasi"

@@ -67,6 +67,7 @@ class CategoryScreen extends StatelessWidget {
                 ? ListView.separated(
                     separatorBuilder: (context, index) => const Divider(),
                     itemCount: result.length,
+                    padding: const EdgeInsets.only(top: 10),
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {

@@ -54,7 +54,7 @@ class _CategorySelectIconScreenState extends State<CategorySelectIconScreen> {
       ),
       body: BlocBuilder<CategoryBloc, CategoryState>(
         builder: (context, state) {
-          if (state is SuccessReadIconCategoryDefault) {
+          if (state is SuccessReadIconCategoryMaster) {
             listCategoryIcon = state.result;
           }
           return GridView.builder(

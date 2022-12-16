@@ -8,6 +8,8 @@ abstract class CategoryRepository {
   Future<Either<Failure, List<Category>>> getReadCategory();
   Future<Either<Failure, List<Category>>> getReadOpsCategory();
   Future<Either<Failure, Category>> getReadCategoryById(int idCategory);
+  Future<Either<Failure, List<Category>>> getReadIconCategoryMaster(
+      int isDefault);
   Future<Either<Failure, List<Category>>> getReadIconCategoryDefault(
       int isDefault);
 

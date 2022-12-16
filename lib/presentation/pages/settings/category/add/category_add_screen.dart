@@ -106,7 +106,7 @@ class CategoryAddScreen extends StatelessWidget {
                               onTap: () {
                                 context
                                     .read<CategoryBloc>()
-                                    .add(ReadIconCategoryDefault(isDefault: 1));
+                                    .add(ReadIconCategoryMaster(isDefault: 1));
 
                                 Navigator.push(
                                     context,
