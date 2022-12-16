@@ -16,7 +16,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
   @override
   getInitCategory() {
     try {
-      print("CategoryRepositoryImpl runingg");
       final result = localDataSource.getInitCategory();
     } catch (e) {
       print(e);
