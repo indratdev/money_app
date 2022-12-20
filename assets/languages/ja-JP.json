@@ -6,6 +6,7 @@
     , "deviation"   : "偏差"
     , "no-data"   : "データなし"
     , "transaction"   : "取引"
+    , "transaction-empty"   : "まだ取引はありません"
     , "date"   : "日にち"
     , "category"   : "カテゴリー"
     , "category-addnew"   : "新しいカテゴリを追加"

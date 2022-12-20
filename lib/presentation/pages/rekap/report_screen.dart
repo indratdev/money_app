@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_app/data/constants.dart';
+import 'package:money_app/data/date_util.dart';
 import 'package:money_app/presentation/pages/rekap/bloc/report_bloc.dart';
+
+import '../../../data/constants.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -12,50 +14,43 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-  @override
-  void initState() {
-    // BlocProvider.of<ReportBloc>(context).add(CheckAllYearTransactionEvent());
-    super.initState();
-  }
+  String selectedYear = "";
+  List<String> listYearTransaction = [];
 
   @override
   Widget build(BuildContext context) {
-    String selectedYear = "";
-    List<String> listYearTransaction = [];
-
     return Scaffold(
-      appBar: AppBar(title: Text('report'.tr())),
-      body: BlocBuilder<ReportBloc, ReportState>(
+      appBar: AppBar(
+        title: Text('report'.tr()),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              // context.read<ReportBloc>().add(CheckAllYearTransactionEvent());
+              DateOperation().getFirstLastDay(2021);
+            },
+            icon: const Icon(Icons.refresh),
+          )
+        ],
+      ),
+      body: BlocConsumer<ReportBloc, ReportState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
         builder: (context, state) {
           if (state is SuccessCheckAllYearTransaction) {
-            print(">>> jalan");
-            selectedYear = state.result.first;
-            listYearTransaction = state.result;
+            if (state.result.isNotEmpty) {
+              selectedYear = state.result.first;
+              listYearTransaction = state.result;
+            }
+          }
+
+          if (state is SuccessChangeYearTransaction) {
+            if (state.valueYear.isNotEmpty) {
+              selectedYear = state.valueYear;
+            }
           }
           return Column(
             children: <Widget>[
-              // // segment control
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     CupertinoSlidingSegmentedControl<int>(
-              //       backgroundColor: CupertinoColors.lightBackgroundGray,
-              //       thumbColor: Colors.blue,
-              //       padding: const EdgeInsets.all(8),
-              //       groupValue: 0,
-              //       children: {
-              //         0: buildSegmentControl("Penerimaan"),
-              //         1: buildSegmentControl("Pengeluaran"),
-              //       },
-              //       onValueChanged: (value) {
-              //         // context
-              //         //     .read<TransactionBloc>()
-              //         //     .add(SelectedIsOutcomeEvent(value: value ?? 0));
-              //         // transaction.isOutcome = value!;
-              //       },
-              //     ),
-              //   ],
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -67,17 +62,17 @@ class _ReportScreenState extends State<ReportScreen> {
                         child: Text(list.toString()),
                       );
                     }).toList(),
-                    // items: [
-                    //   DropdownMenuItem(
-                    //     child: Text("2022"),
-                    //     value: "2022",
-                    //   )
-                    // ],
+                    onTap: () {
+                      context
+                          .read<ReportBloc>()
+                          .add(CheckAllYearTransactionEvent());
+                    },
                     onChanged: (String? value) {
-                      setState(() {
-                        selectedYear = value!;
-                      });
-                      print(">>>> onChanged : $value");
+                      if (value != "") {
+                        context
+                            .read<ReportBloc>()
+                            .add(ChangeYearTransactionEvent(valueYear: value!));
+                      }
                     },
                   )
                 ],
@@ -94,13 +89,4 @@ class _ReportScreenState extends State<ReportScreen> {
       ),
     );
   }
-}
-
-Widget buildSegmentControl(String text) {
-  return Container(
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 22, color: Colors.black),
-    ),
-  );
 }

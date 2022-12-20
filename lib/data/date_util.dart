@@ -6,6 +6,11 @@ enum OptionDate {
   years,
 }
 
+enum OptionFirstLast {
+  first,
+  last,
+}
+
 class DateUtil {
   String currentDate;
 
@@ -19,6 +24,11 @@ class DateUtil {
 
   String formatedyyyyMMdd(String date) {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(DateTime.parse(date)).toString();
+  }
+
+  String formatedddMMyyyy(String date) {
+    DateFormat formatter = DateFormat('dd/MM/yyyy');
     return formatter.format(DateTime.parse(date)).toString();
   }
 
@@ -55,5 +65,25 @@ class DateUtil {
     }
 
     return formatedyyyyMMdd(myDate);
+  }
+}
+
+class DateOperation extends DateUtil {
+  List<int> listMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  Map<int, dynamic> getFirstLastDay(int year) {
+    Map<int, dynamic> result = {};
+
+    for (var props in listMonth) {
+      DateTime firstDayMonth = DateTime.utc(year, props, 1);
+      DateTime lastDayMonth =
+          DateTime.utc(year, props + 1).subtract(const Duration(days: 1));
+      // print("first : ${firstDayMonth} - last : ${lastDayMonth}");
+      result[props] = {
+        OptionFirstLast.first: firstDayMonth,
+        OptionFirstLast.last: lastDayMonth,
+      };
+    }
+    return result;
   }
 }

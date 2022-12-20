@@ -8,3 +8,9 @@ abstract class ReportEvent extends Equatable {
 }
 
 class CheckAllYearTransactionEvent extends ReportEvent {}
+
+class ChangeYearTransactionEvent extends ReportEvent {
+  String valueYear;
+
+  ChangeYearTransactionEvent({required this.valueYear});
+}

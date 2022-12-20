@@ -6,6 +6,7 @@
     , "deviation"   : "Selisih"
     , "no-data"   : "Tidak Ada Data"
     , "transaction"   : "Transaksi"
+    , "transaction-empty"   : "Belum Ada Transaksi"
     , "date"   : "Tanggal"
     , "category"   : "Kategori"
     , "category-addnew"   : "Penambahan Kategori Baru"
