@@ -7,4 +7,5 @@ abstract class ReportRepository {
   Future<Either<Failure, Map<String, dynamic>>> getReadChartDefault(
       String date, OptionDate optionDate);
   Future<Either<Failure, List<String>>> getAllYearTransaction();
+  generateReportYearly(String year);
 }

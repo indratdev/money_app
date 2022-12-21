@@ -1,5 +1,6 @@
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
 import 'package:money_app/data/date_util.dart';
+import 'package:money_app/data/models/report_model.dart';
 import 'package:money_app/data/models/transaction_model.dart';
 import 'package:money_app/domain/entities/category.dart';
 import 'package:money_app/domain/entities/transaction.dart';
@@ -33,6 +34,9 @@ abstract class LocalDataSource {
   Future<String> readPasscodeFromDB();
   Future<List<String>> readAllYearTransaction();
   // Future<bool> updateParamThemes(String value);
+
+  // report
+  generatedTransactionByYear(String firstDay, String lastDay, String period);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -140,5 +144,12 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<List<String>> readAllYearTransaction() async {
     return await dbprovider.readAllYearTransaction();
+  }
+
+  @override
+  // Future<List<ReportModel>>
+  generatedTransactionByYear(
+      String firstDay, String lastDay, String period) async {
+    return await dbprovider.generateReportYearly(firstDay, lastDay, period);
   }
 }

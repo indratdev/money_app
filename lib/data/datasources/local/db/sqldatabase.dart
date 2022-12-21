@@ -1,6 +1,7 @@
 import 'package:money_app/data/datasources/local/db/sqlhelper.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/models/calculation_model.dart';
+import 'package:money_app/data/models/report_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:path/path.dart';
@@ -179,5 +180,16 @@ class SqlDatabase {
   Future<List<String>> readAllYearTransaction() async {
     final db = await instance.database;
     return await sqlHelper.readAllYearTransaction(db, instance);
+  }
+
+  // generate report yearly
+  // Future<List<ReportModel>>
+  generateReportYearly(String first, String last, String period) async {
+    final db = await instance.database;
+
+    // print("firstDay : $first, lastDay: $last, periode: $period");
+
+    return await sqlHelper.generateReportByYear(db, instance,
+        firstDayLastDay: "$first - $last", period: period);
   }
 }

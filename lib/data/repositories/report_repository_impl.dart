@@ -11,6 +11,7 @@ import '../exception.dart';
 
 class ReportRepositoryImpl implements ReportRepository {
   final LocalDataSource localDataSource;
+  final DateOperation dateOperation = DateOperation();
 
   ReportRepositoryImpl({required this.localDataSource});
 
@@ -46,6 +47,32 @@ class ReportRepositoryImpl implements ReportRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the database'));
+    }
+  }
+
+  @override
+  generateReportYearly(String year) async {
+    try {
+      final resultYear = dateOperation.getFirstLastDay(int.parse(year));
+      resultYear.forEach((key, value) async {
+        final String firstDay = dateOperation
+            .formatedddMMMyyyy(value[OptionFirstLast.first].toString());
+        final String lastDay = DateUtil()
+            .formatedddMMMyyyy(value[OptionFirstLast.last].toString());
+        final String periode =
+            DateUtil().formatedyyyyMM(value[OptionFirstLast.first].toString());
+
+        final resultQuery = await localDataSource.generatedTransactionByYear(
+            firstDay, lastDay, periode);
+
+        // print(">>> resultQuery : $resultQuery");
+
+        // print("key: $key, ==> ${value[OptionFirstLast.first]} ");
+      });
+
+      // print(">>> result ::: $resultYear");
+    } catch (e) {
+      print("Error : $e");
     }
   }
 }

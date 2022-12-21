@@ -1,6 +1,7 @@
 import 'package:money_app/data/datasources/local/db/sqldatabase.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/models/calculation_model.dart';
+import 'package:money_app/data/models/report_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../domain/entities/category.dart';
@@ -523,6 +524,64 @@ class SqlHelper {
     }
     return result;
   }
+
+  // ----------------- REPORT ------------------------------------
+  // Future<List<ReportModel>>
+  // '$firstDayLastDay' as firstDayLastDay,
+  generateReportByYear(
+    Database? db,
+    SqlDatabase instance, {
+    required String firstDayLastDay,
+    required String period,
+  }) async {
+    String query = """ 
+     SELECT
+      'firstDayLastDay' as firstDayLastDay,
+      CAST(IFNULL(sum(income),0.0) as double) as income,
+      CAST(IFNULL(sum(expense),0.0) as double) as expense,
+      CAST(IFNULL(sum(income) ,0.0)- IFNULL(sum(expense) ,0.0) as double) as profit
+    from (
+          SELECT
+            IFNULL(amount,0.0) as income
+            , IFNULL(0.0,0.0) as expense
+            from th_transaction
+            where 
+            isOutcome = 0
+            and createdTime like '%$period%'
+          UNION ALL
+          SELECT
+            IFNULL(0,0.0) as income
+            , IFNULL(amount,0.0) as expense
+            from th_transaction
+            where 
+            isOutcome = 1
+            and createdTime like '%$period%'
+          ) 
+      """;
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+      print(">>> result :: ${result}");
+
+      // final datas = result.map((e) => CalculationModel.fromJson(e)).toList();
+      // result.map((e) {
+      //   print(">>> e : $e");
+      // });
+
+      // result.map((e) => print(e));
+
+      // final datas = result.map((e) => ReportModel.fromJson(e)).toList();
+      final datas = result.map((e) => ReportModel.fromJson(e)).toList();
+
+      print(">>> datas : $datas");
+
+      // return datas;
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  // --------------- END REPORT ----------------------------------
 
   insertMasterParameter(Database db, String tableMasterParamter) async {
     await db.rawInsert(

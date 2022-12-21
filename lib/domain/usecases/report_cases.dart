@@ -17,4 +17,8 @@ class ReportCases {
   Future<Either<Failure, List<String>>> executeCheckAllYearTrx() {
     return repository.getAllYearTransaction();
   }
+
+  executeGenerateReportYearly(String year) {
+    repository.generateReportYearly(year);
+  }
 }

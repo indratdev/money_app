@@ -26,7 +26,10 @@ class _ReportScreenState extends State<ReportScreen> {
           IconButton(
             onPressed: () {
               // context.read<ReportBloc>().add(CheckAllYearTransactionEvent());
-              DateOperation().getFirstLastDay(2021);
+              // DateOperation().getFirstLastDay(2021);
+              context
+                  .read<ReportBloc>()
+                  .add(GenerateReportByYearEvent(year: '2021'));
             },
             icon: const Icon(Icons.refresh),
           )

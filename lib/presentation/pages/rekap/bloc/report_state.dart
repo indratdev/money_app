@@ -35,7 +35,6 @@ class SuccessCheckAllYearTransaction extends ReportState {
 }
 
 // Change Year Transaction
-
 class LoadingChangeYearTransaction extends ReportState {}
 
 class FailureChangeYearTransaction extends FailureState {
@@ -46,6 +45,22 @@ class SuccessChangeYearTransaction extends ReportState {
   String valueYear;
 
   SuccessChangeYearTransaction({required this.valueYear});
+
+  @override
+  List<Object> get props => [valueYear];
+}
+
+// generate report Yearly
+class LoadingGenerateReportByYear extends ReportState {}
+
+class FailureGenerateReportByYear extends FailureState {
+  FailureGenerateReportByYear({required super.messageError});
+}
+
+class SuccessGenerateReportByYear extends ReportState {
+  String valueYear;
+
+  SuccessGenerateReportByYear({required this.valueYear});
 
   @override
   List<Object> get props => [valueYear];

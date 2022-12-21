@@ -37,5 +37,14 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         emit(FailureChangeYearTransaction(messageError: e.toString()));
       }
     });
+
+    on<GenerateReportByYearEvent>((event, emit) {
+      try {
+        emit(LoadingGenerateReportByYear());
+        final result = _getReportCases.executeGenerateReportYearly(event.year);
+      } catch (e) {
+        emit(FailureGenerateReportByYear(messageError: "e : $e"));
+      }
+    });
   }
 }

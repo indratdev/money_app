@@ -14,3 +14,9 @@ class ChangeYearTransactionEvent extends ReportEvent {
 
   ChangeYearTransactionEvent({required this.valueYear});
 }
+
+class GenerateReportByYearEvent extends ReportEvent {
+  String year;
+
+  GenerateReportByYearEvent({required this.year});
+}
