@@ -526,17 +526,14 @@ class SqlHelper {
   }
 
   // ----------------- REPORT ------------------------------------
-  // Future<List<ReportModel>>
-  // '$firstDayLastDay' as firstDayLastDay,
-  generateReportByYear(
+  Future<List<ReportModel>> generateReportByYear(
     Database? db,
     SqlDatabase instance, {
-    required String firstDayLastDay,
-    required String period,
+    required String year,
   }) async {
     String query = """ 
-     SELECT
-      'firstDayLastDay' as firstDayLastDay,
+      SELECT
+	    strftime('%Y-%m', createdTime) as year_month, 
       CAST(IFNULL(sum(income),0.0) as double) as income,
       CAST(IFNULL(sum(expense),0.0) as double) as expense,
       CAST(IFNULL(sum(income) ,0.0)- IFNULL(sum(expense) ,0.0) as double) as profit
@@ -544,38 +541,29 @@ class SqlHelper {
           SELECT
             IFNULL(amount,0.0) as income
             , IFNULL(0.0,0.0) as expense
+			, createdTime as createdTime
             from th_transaction
             where 
             isOutcome = 0
-            and createdTime like '%$period%'
+            and createdTime like '%$year%'
           UNION ALL
           SELECT
             IFNULL(0,0.0) as income
             , IFNULL(amount,0.0) as expense
+			, createdTime as createdTime
             from th_transaction
             where 
             isOutcome = 1
-            and createdTime like '%$period%'
+            and createdTime like '%$year%'
           ) 
+		  group by year_month
+		  order by year_month desc
       """;
 
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
-      print(">>> result :: ${result}");
-
-      // final datas = result.map((e) => CalculationModel.fromJson(e)).toList();
-      // result.map((e) {
-      //   print(">>> e : $e");
-      // });
-
-      // result.map((e) => print(e));
-
-      // final datas = result.map((e) => ReportModel.fromJson(e)).toList();
       final datas = result.map((e) => ReportModel.fromJson(e)).toList();
-
-      print(">>> datas : $datas");
-
-      // return datas;
+      return datas;
     } else {
       throw Exception('DB is NULL');
     }

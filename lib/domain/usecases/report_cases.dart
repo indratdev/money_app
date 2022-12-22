@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:money_app/data/date_util.dart';
+import 'package:money_app/domain/entities/report.dart';
 
 import '../../data/failure.dart';
 import '../repositories/report_repository.dart';
@@ -18,7 +19,8 @@ class ReportCases {
     return repository.getAllYearTransaction();
   }
 
-  executeGenerateReportYearly(String year) {
-    repository.generateReportYearly(year);
+  Future<Either<Failure, List<Report>>> executeGenerateReportYearly(
+      String year) {
+    return repository.generateReportYearly(year);
   }
 }

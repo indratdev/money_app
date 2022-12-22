@@ -183,13 +183,8 @@ class SqlDatabase {
   }
 
   // generate report yearly
-  // Future<List<ReportModel>>
-  generateReportYearly(String first, String last, String period) async {
+  Future<List<ReportModel>> generateReportYearly(String year) async {
     final db = await instance.database;
-
-    // print("firstDay : $first, lastDay: $last, periode: $period");
-
-    return await sqlHelper.generateReportByYear(db, instance,
-        firstDayLastDay: "$first - $last", period: period);
+    return await sqlHelper.generateReportByYear(db, instance, year: year);
   }
 }

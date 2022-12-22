@@ -36,7 +36,7 @@ abstract class LocalDataSource {
   // Future<bool> updateParamThemes(String value);
 
   // report
-  generatedTransactionByYear(String firstDay, String lastDay, String period);
+  Future<List<ReportModel>> generatedTransactionByYear(String year);
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -147,9 +147,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  // Future<List<ReportModel>>
-  generatedTransactionByYear(
-      String firstDay, String lastDay, String period) async {
-    return await dbprovider.generateReportYearly(firstDay, lastDay, period);
+  Future<List<ReportModel>> generatedTransactionByYear(String year) async {
+    return await dbprovider.generateReportYearly(year);
   }
 }

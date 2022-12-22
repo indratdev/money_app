@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
@@ -38,10 +38,17 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       }
     });
 
-    on<GenerateReportByYearEvent>((event, emit) {
+    on<GenerateReportByYearEvent>((event, emit) async {
       try {
         emit(LoadingGenerateReportByYear());
-        final result = _getReportCases.executeGenerateReportYearly(event.year);
+        final result =
+            await _getReportCases.executeGenerateReportYearly(event.year);
+        result.fold(
+            (l) => emit(FailureGenerateReportByYear(
+                  messageError: l.toString(),
+                )), (r) {
+          print(">>> data dari bloc : $r");
+        });
       } catch (e) {
         emit(FailureGenerateReportByYear(messageError: "e : $e"));
       }
