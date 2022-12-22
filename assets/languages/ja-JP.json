@@ -90,4 +90,5 @@
     , "currency-symbol": "¥"
     , "currency-name": "JPY"
     , "report-year-failedLoad": "レポートに年を表示できませんでした"
+    , "report-failedLoad": "レポートの表示に失敗しました"
 }

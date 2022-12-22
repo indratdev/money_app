@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
+import 'package:money_app/domain/entities/report.dart';
 
 import '../../../../domain/usecases/report_cases.dart';
 
@@ -29,6 +30,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
 
     on<ChangeYearTransactionEvent>((event, emit) {
       try {
+        print(">>> ChangeYearTransactionEvent runninggggg....");
         emit(LoadingChangeYearTransaction());
         final result = event.valueYear;
         emit(SuccessChangeYearTransaction(valueYear: result));
@@ -40,15 +42,15 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
 
     on<GenerateReportByYearEvent>((event, emit) async {
       try {
+        print(">>> GenerateReportByYearEvent runninggggg....");
         emit(LoadingGenerateReportByYear());
         final result =
             await _getReportCases.executeGenerateReportYearly(event.year);
         result.fold(
             (l) => emit(FailureGenerateReportByYear(
                   messageError: l.toString(),
-                )), (r) {
-          print(">>> data dari bloc : $r");
-        });
+                )),
+            (data) => emit(SuccessGenerateReportByYear(resultReport: data)));
       } catch (e) {
         emit(FailureGenerateReportByYear(messageError: "e : $e"));
       }

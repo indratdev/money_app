@@ -17,7 +17,7 @@ import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.d
 import 'config/routes/app_routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import 'presentation/pages/rekap/bloc/report_bloc.dart';
+import 'presentation/pages/report/bloc/report_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

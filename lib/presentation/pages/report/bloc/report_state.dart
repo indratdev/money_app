@@ -58,10 +58,10 @@ class FailureGenerateReportByYear extends FailureState {
 }
 
 class SuccessGenerateReportByYear extends ReportState {
-  String valueYear;
+  List<Report> resultReport;
 
-  SuccessGenerateReportByYear({required this.valueYear});
+  SuccessGenerateReportByYear({required this.resultReport});
 
   @override
-  List<Object> get props => [valueYear];
+  List<Object> get props => [resultReport];
 }

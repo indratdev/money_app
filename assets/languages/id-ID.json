@@ -90,4 +90,5 @@
     , "currency-symbol": "Rp"
     , "currency-name": "IDR"
     , "report-year-failedLoad": "Gagal Menampilkan Tahun Pada Laporan"
+    , "report-failedLoad": "Gagal Menampilkan Laporan"
 }

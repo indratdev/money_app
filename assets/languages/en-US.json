@@ -91,4 +91,5 @@
     , "currency-symbol": "$"
     , "currency-name": "USD"
     , "report-year-failedLoad": "Failed to Display Year on Report"
+    , "report-failedLoad": "Failed to Display Report"
 }
