@@ -61,7 +61,7 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
       if (countTry == 3) {
         CustomWidgets.showMessageAlertWithF(
             context, 'passcode-warning-try'.tr(), false, () {
-          Navigator.pushReplacementNamed(context, AppRoutes.settings);
+          Navigator.pushReplacementNamed(context, AppRoutes.first);
         });
       }
     }
@@ -87,7 +87,7 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
           if (state is SuccessSavingPasscode) {
             CustomWidgets.showMessageAlertWithF(
                 context, 'passcode-save-success'.tr(), true, () {
-              Navigator.pushReplacementNamed(context, AppRoutes.settings);
+              Navigator.pushReplacementNamed(context, AppRoutes.first);
             });
           }
         },
@@ -179,6 +179,7 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
       {Icon icon = const Icon(Icons.circle)}) {
     return InkWell(
+      highlightColor: Colors.transparent,
       onTap: () {
         if (operationPin == OperationPin.number) {
           changePasscode(int.parse(label));

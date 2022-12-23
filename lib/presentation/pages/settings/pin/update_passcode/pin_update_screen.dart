@@ -150,6 +150,7 @@ class _PinUpdateScreenState extends State<PinUpdateScreen> {
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
       {Icon icon = const Icon(Icons.circle)}) {
     return InkWell(
+      highlightColor: Colors.transparent,
       onTap: () {
         if (operationPin == OperationPin.number) {
           pm.changePasscode(int.parse(label));

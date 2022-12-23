@@ -47,13 +47,13 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
           if (state is SuccessRemovePasscode) {
             CustomWidgets.showMessageAlertWithF(
                 context, 'pin-remove-success'.tr(), true, () {
-              Navigator.pushReplacementNamed(context, AppRoutes.settings);
+              Navigator.pushReplacementNamed(context, AppRoutes.first);
             });
           }
           if (state is FailureRemovePasscode) {
             CustomWidgets.showMessageAlertWithF(
                 context, state.messageError.toString(), false, () {
-              Navigator.pushReplacementNamed(context, AppRoutes.settings);
+              Navigator.pushReplacementNamed(context, AppRoutes.first);
             });
           }
         },
@@ -93,8 +93,12 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
   }
 
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
-      {Icon icon = const Icon(Icons.circle)}) {
+      {Icon icon = const Icon(
+        Icons.circle,
+        color: Colors.transparent,
+      )}) {
     return InkWell(
+      highlightColor: Colors.transparent,
       onTap: () {
         if (operationPin == OperationPin.number) {
           pm.changePasscode(int.parse(label));

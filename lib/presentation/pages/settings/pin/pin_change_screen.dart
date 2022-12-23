@@ -128,8 +128,12 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
   }
 
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
-      {Icon icon = const Icon(Icons.circle)}) {
+      {Icon icon = const Icon(
+        Icons.circle,
+        color: Colors.transparent,
+      )}) {
     return InkWell(
+      highlightColor: Colors.transparent,
       onTap: () {
         if (operationPin == OperationPin.number) {
           pm.changePasscode(int.parse(label));
