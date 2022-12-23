@@ -13,6 +13,7 @@ import 'package:money_app/domain/usecases/pin_cases.dart';
 import 'package:money_app/domain/usecases/report_cases.dart';
 import 'package:money_app/domain/usecases/transaction_cases.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
+import 'package:money_app/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:money_app/presentation/pages/report/bloc/report_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/presentation/pages/settings/pin/bloc/pin_bloc.dart';
@@ -35,6 +36,7 @@ Future<void> setup() async {
   // getIt.registerFactory(() => PinBloc(getIt()));
   getIt.registerFactory(() => PinBloc(getIt(), getIt()));
   getIt.registerFactory(() => ReportBloc(getIt()));
+  getIt.registerFactory(() => LoginBloc(getIt()));
 
   // usecase
   getIt.registerLazySingleton(() => CategoryCases(getIt()));

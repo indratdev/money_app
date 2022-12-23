@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_app/presentation/pages/clear_data/cleardata_screen.dart';
+import 'package:money_app/presentation/pages/login/login_screen.dart';
 
 import 'package:money_app/presentation/pages/settings/category/add/category_add_screen.dart';
 import 'package:money_app/presentation/pages/settings/category/category_select_icon_screen.dart';
@@ -25,6 +26,7 @@ import '../../presentation/pages/transaction/manage_transaction/transaction_mana
 
 class AppRoutes {
   static const String first = '/';
+  static const String login = '/login';
   static const String home = '/home';
   static const String splash = '/splash';
   static const String settings = '/settings';
@@ -48,6 +50,7 @@ class AppRoutes {
   static const String settPinUpdate = '/setting/pin/update';
 
   Map<String, WidgetBuilder> getRoutes = {
+    login: (_) => LoginScreen(),
     first: (_) => MoneyappScreen(),
     home: (_) => HomeScreen(),
     splash: (_) => SplashScreen(),

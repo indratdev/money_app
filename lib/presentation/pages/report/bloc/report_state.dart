@@ -9,7 +9,7 @@ abstract class ReportState extends Equatable {
 
 class ReportInitial extends ReportState {}
 
-abstract class FailureState extends ReportInitial {
+abstract class FailureState extends ReportState {
   String messageError;
 
   FailureState({required this.messageError});

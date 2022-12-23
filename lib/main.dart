@@ -8,6 +8,7 @@ import 'package:money_app/data/constants.dart';
 import 'package:money_app/data/date_util.dart';
 import 'package:money_app/data/languages_app.dart';
 import 'package:money_app/presentation/pages/chart/bloc/chart_bloc.dart';
+import 'package:money_app/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:money_app/presentation/pages/settings/category/bloc/category_bloc.dart';
 import 'package:money_app/injection.dart' as di;
 import 'package:money_app/presentation/pages/settings/pin/bloc/pin_bloc.dart';
@@ -74,6 +75,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               di.getIt<ReportBloc>()..add(CheckAllYearTransactionEvent()),
+        ),
+        BlocProvider(
+          create: (context) => di.getIt<LoginBloc>(),
         ),
       ],
       child: BlocBuilder<ThemesBloc, ThemesState>(
