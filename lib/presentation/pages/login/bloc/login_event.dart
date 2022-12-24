@@ -8,3 +8,11 @@ abstract class LoginEvent extends Equatable {
 }
 
 class CheckUsePincode extends LoginEvent {}
+
+class LoginWithPasscodeEvent extends LoginEvent {
+  String value;
+
+  LoginWithPasscodeEvent({
+    required this.value,
+  });
+}

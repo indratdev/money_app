@@ -92,4 +92,7 @@
     , "currency-name": "USD"
     , "report-year-failedLoad": "Failed to Display Year on Report"
     , "report-failedLoad": "Failed to Display Report"
+    , "login-success": "Login Successful"
+    , "login-failed" : "Login Failure"
+    , "login-error" : "Error at Login"
 }

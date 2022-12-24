@@ -36,7 +36,7 @@ Future<void> setup() async {
   // getIt.registerFactory(() => PinBloc(getIt()));
   getIt.registerFactory(() => PinBloc(getIt(), getIt()));
   getIt.registerFactory(() => ReportBloc(getIt()));
-  getIt.registerFactory(() => LoginBloc(getIt()));
+  getIt.registerFactory(() => LoginBloc(getIt(), getIt()));
 
   // usecase
   getIt.registerLazySingleton(() => CategoryCases(getIt()));

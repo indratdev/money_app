@@ -278,21 +278,25 @@ class SqlHelper {
       CAST(IFNULL(sum(expense),0.0) as double) as expense,
       CAST(IFNULL(sum(income) ,0.0)- IFNULL(sum(expense) ,0.0) as double) as profit
     from (
-          SELECT
-            IFNULL(amount,0.0) as income
+            SELECT
+            IFNULL(aa.amount,0.0) as income
             , IFNULL(0.0,0.0) as expense
-            from th_transaction
+			      , aa.createdTime as createdTime
+            from th_transaction aa
+			left JOIN ops_category bb on aa.idCategory = bb.id
             where 
-            isOutcome = 0
-            and createdTime like '%$date%'
+            aa.isOutcome = 0
+            and aa.createdTime like '%$date%'
           UNION ALL
           SELECT
             IFNULL(0,0.0) as income
-            , IFNULL(amount,0.0) as expense
-            from th_transaction
+            , IFNULL(a.amount,0.0) as expense
+			      , a.createdTime as createdTime
+            from th_transaction a
+			 JOIN ops_category b on a.idCategory = b.id
             where 
-            isOutcome = 1
-            and createdTime like '%$date%'
+            a.isOutcome = 1
+            and a.createdTime like '%$date%'
           ) 
       """;
 
@@ -538,23 +542,25 @@ class SqlHelper {
       CAST(IFNULL(sum(expense),0.0) as double) as expense,
       CAST(IFNULL(sum(income) ,0.0)- IFNULL(sum(expense) ,0.0) as double) as profit
     from (
-          SELECT
-            IFNULL(amount,0.0) as income
+         SELECT
+            IFNULL(aa.amount,0.0) as income
             , IFNULL(0.0,0.0) as expense
-			, createdTime as createdTime
-            from th_transaction
+			      , aa.createdTime as createdTime
+            from th_transaction aa
+			left JOIN ops_category bb on aa.idCategory = bb.id
             where 
-            isOutcome = 0
-            and createdTime like '%$year%'
+            aa.isOutcome = 0
+            and aa.createdTime like '%$year%'
           UNION ALL
           SELECT
             IFNULL(0,0.0) as income
-            , IFNULL(amount,0.0) as expense
-			, createdTime as createdTime
-            from th_transaction
+            , IFNULL(a.amount,0.0) as expense
+			      , a.createdTime as createdTime
+            from th_transaction a
+			 JOIN ops_category b on a.idCategory = b.id
             where 
-            isOutcome = 1
-            and createdTime like '%$year%'
+            a.isOutcome = 1
+            and a.createdTime like '%$year%'
           ) 
 		  group by year_month
 		  order by year_month desc

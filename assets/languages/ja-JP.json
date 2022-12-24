@@ -91,4 +91,7 @@
     , "currency-name": "JPY"
     , "report-year-failedLoad": "レポートに年を表示できませんでした"
     , "report-failedLoad": "レポートの表示に失敗しました"
+    , "login-success": "ログイン成功"
+    , "login-failed" : "ログインに失敗しました"
+    , "login-error" : "ログイン時のエラー"
 }

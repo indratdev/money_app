@@ -91,4 +91,7 @@
     , "currency-name": "IDR"
     , "report-year-failedLoad": "Gagal Menampilkan Tahun Pada Laporan"
     , "report-failedLoad": "Gagal Menampilkan Laporan"
+    , "login-success": "Login Berhasil"
+    , "login-failed" : "Login Gagal"
+    , "login-error" : "Kesalahan Saat Masuk"
 }

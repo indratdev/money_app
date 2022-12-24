@@ -35,3 +35,24 @@ class SuccessCheckUsePincode extends LoginState {
   @override
   List<Object> get props => [status];
 }
+
+// login with passcode
+
+class LoadingLoginWithPasscode extends LoginState {}
+
+class FailureLoginWithPasscode extends FailureState {
+  FailureLoginWithPasscode({required super.messageError});
+}
+
+class PasscodeFailedLoginWithPasscode extends LoginState {}
+
+class SuccessLoginWithPasscode extends LoginState {
+  bool status;
+
+  SuccessLoginWithPasscode({
+    required this.status,
+  });
+
+  @override
+  List<Object> get props => [status];
+}
