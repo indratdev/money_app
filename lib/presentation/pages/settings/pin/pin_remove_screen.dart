@@ -41,58 +41,65 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<PinBloc, PinState>(
-        listener: (context, state) {
-          if (state is SuccessRemovePasscode) {
-            CustomWidgets.showMessageAlertWithF(
-                context, 'pin-remove-success'.tr(), true, () {
-              Navigator.pushReplacementNamed(context, AppRoutes.first);
-            });
-          }
-          if (state is FailureRemovePasscode) {
-            CustomWidgets.showMessageAlertWithF(
-                context, state.messageError.toString(), false, () {
-              Navigator.pushReplacementNamed(context, AppRoutes.first);
-            });
-          }
-        },
-        child: Column(
-          children: [
-            StatusPadsIcons(pm: pm),
-            Expanded(
-              child: GridView.count(
-                shrinkWrap: true,
-                primary: false,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 3,
-                children: <Widget>[
-                  TapPasscode(true, '1', OperationPin.number),
-                  TapPasscode(true, '2', OperationPin.number),
-                  TapPasscode(true, '3', OperationPin.number),
-                  TapPasscode(true, '4', OperationPin.number),
-                  TapPasscode(true, '5', OperationPin.number),
-                  TapPasscode(true, '6', OperationPin.number),
-                  TapPasscode(true, '7', OperationPin.number),
-                  TapPasscode(true, '8', OperationPin.number),
-                  TapPasscode(true, '9', OperationPin.number),
-                  TapPasscode(false, 'Cancel', OperationPin.cancel,
-                      icon: const Icon(Icons.cancel)),
-                  TapPasscode(true, '0', OperationPin.number),
-                  TapPasscode(false, 'Backspace', OperationPin.backspace,
-                      icon: const Icon(Icons.backspace_outlined)),
-                ],
+    final stateTheme = Theme.of(context).brightness;
+
+    return SafeArea(
+      child: Scaffold(
+        body: BlocListener<PinBloc, PinState>(
+          listener: (context, state) {
+            if (state is SuccessRemovePasscode) {
+              CustomWidgets.showMessageAlertWithF(
+                  context, 'pin-remove-success'.tr(), true, () {
+                Navigator.pushReplacementNamed(context, AppRoutes.first);
+              });
+            }
+            if (state is FailureRemovePasscode) {
+              CustomWidgets.showMessageAlertWithF(
+                  context, state.messageError.toString(), false, () {
+                Navigator.pushReplacementNamed(context, AppRoutes.first);
+              });
+            }
+          },
+          child: Column(
+            children: [
+              StatusPadsIcons(pm: pm),
+              Expanded(
+                child: GridView.count(
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 3,
+                  children: <Widget>[
+                    TapPasscode(true, '1', OperationPin.number, stateTheme),
+                    TapPasscode(true, '2', OperationPin.number, stateTheme),
+                    TapPasscode(true, '3', OperationPin.number, stateTheme),
+                    TapPasscode(true, '4', OperationPin.number, stateTheme),
+                    TapPasscode(true, '5', OperationPin.number, stateTheme),
+                    TapPasscode(true, '6', OperationPin.number, stateTheme),
+                    TapPasscode(true, '7', OperationPin.number, stateTheme),
+                    TapPasscode(true, '8', OperationPin.number, stateTheme),
+                    TapPasscode(true, '9', OperationPin.number, stateTheme),
+                    TapPasscode(
+                        false, 'Cancel', OperationPin.cancel, stateTheme,
+                        icon: const Icon(Icons.cancel)),
+                    TapPasscode(true, '0', OperationPin.number, stateTheme),
+                    TapPasscode(
+                        false, 'Backspace', OperationPin.backspace, stateTheme,
+                        icon: const Icon(Icons.backspace_outlined)),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
+      Brightness stateTheme,
       {Icon icon = const Icon(
         Icons.circle,
         color: Colors.transparent,
@@ -112,8 +119,8 @@ class _PinRemoveScreenState extends State<PinRemoveScreen> {
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: lightMildWaters,
+        decoration: BoxDecoration(
+          color: (stateTheme == Brightness.light) ? lightMildWaters : charcoal,
           shape: BoxShape.circle,
         ),
         child: Center(

@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final stateTheme = Theme.of(context).brightness;
     // check passcode
     checkPinCode(bool status) {
       if (status == false) {
@@ -99,20 +100,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisSpacing: 10,
                         crossAxisCount: 3,
                         children: <Widget>[
-                          TapPasscode(true, '1', OperationPin.number),
-                          TapPasscode(true, '2', OperationPin.number),
-                          TapPasscode(true, '3', OperationPin.number),
-                          TapPasscode(true, '4', OperationPin.number),
-                          TapPasscode(true, '5', OperationPin.number),
-                          TapPasscode(true, '6', OperationPin.number),
-                          TapPasscode(true, '7', OperationPin.number),
-                          TapPasscode(true, '8', OperationPin.number),
-                          TapPasscode(true, '9', OperationPin.number),
-                          TapPasscode(false, 'Cancel', OperationPin.cancel,
-                              icon: const Icon(Icons.cancel)),
-                          TapPasscode(true, '0', OperationPin.number),
                           TapPasscode(
-                              false, 'Backspace', OperationPin.backspace,
+                              true, '1', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '2', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '3', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '4', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '5', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '6', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '7', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '8', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              true, '9', OperationPin.number, stateTheme),
+                          TapPasscode(
+                              false, 'Cancel', OperationPin.cancel, stateTheme,
+                              icon: const Icon(Icons.cancel)),
+                          TapPasscode(
+                              true, '0', OperationPin.number, stateTheme),
+                          TapPasscode(false, 'Backspace',
+                              OperationPin.backspace, stateTheme,
                               icon: const Icon(Icons.backspace_outlined)),
                         ],
                       ),
@@ -127,6 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
+      Brightness stateTheme,
       {Icon icon = const Icon(
         Icons.circle,
         color: Colors.transparent,
@@ -146,8 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: lightMildWaters,
+        decoration: BoxDecoration(
+          color: (stateTheme == Brightness.light) ? lightMildWaters : charcoal,
           shape: BoxShape.circle,
         ),
         child: Center(

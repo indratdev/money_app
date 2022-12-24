@@ -38,96 +38,95 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'choose-pin'.tr(),
+    final stateTheme = Theme.of(context).brightness;
+
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.3,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'enter-pincode'.tr(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          (pm.getTempPasscode[0] == '')
+                              ? const Icon(Icons.circle_outlined)
+                              : const Icon(Icons.circle_rounded),
+                          (pm.getTempPasscode[1] == '')
+                              ? const Icon(Icons.circle_outlined)
+                              : const Icon(Icons.circle_rounded),
+                          (pm.getTempPasscode[2] == '')
+                              ? const Icon(Icons.circle_outlined)
+                              : const Icon(Icons.circle_rounded),
+                          (pm.getTempPasscode[3] == '')
+                              ? const Icon(Icons.circle_outlined)
+                              : const Icon(Icons.circle_rounded),
+                          (pm.getTempPasscode[4] == '')
+                              ? const Icon(Icons.circle_outlined)
+                              : const Icon(Icons.circle_rounded),
+                          (pm.getTempPasscode[5] == '')
+                              ? const Icon(Icons.circle_outlined)
+                              : const Icon(Icons.circle_rounded),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: GridView.count(
+                shrinkWrap: true,
+                primary: false,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                children: <Widget>[
+                  TapPasscode(true, '1', OperationPin.number, stateTheme),
+                  TapPasscode(true, '2', OperationPin.number, stateTheme),
+                  TapPasscode(true, '3', OperationPin.number, stateTheme),
+                  TapPasscode(true, '4', OperationPin.number, stateTheme),
+                  TapPasscode(true, '5', OperationPin.number, stateTheme),
+                  TapPasscode(true, '6', OperationPin.number, stateTheme),
+                  TapPasscode(true, '7', OperationPin.number, stateTheme),
+                  TapPasscode(true, '8', OperationPin.number, stateTheme),
+                  TapPasscode(true, '9', OperationPin.number, stateTheme),
+                  TapPasscode(false, 'More', OperationPin.more, stateTheme,
+                      icon: const Icon(Icons.more_horiz_sharp)),
+                  TapPasscode(true, '0', OperationPin.number, stateTheme),
+                  TapPasscode(false, 'Cancel', OperationPin.cancel, stateTheme,
+                      icon: const Icon(Icons.backspace_outlined)),
+                ],
+              ),
+            ),
+          ],
         ),
-        automaticallyImplyLeading: false,
-      ),
-      body: Column(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height / 6,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2.3,
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      'enter-pincode'.tr(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        (pm.getTempPasscode[0] == '')
-                            ? const Icon(Icons.circle_outlined)
-                            : const Icon(Icons.circle_rounded),
-                        (pm.getTempPasscode[1] == '')
-                            ? const Icon(Icons.circle_outlined)
-                            : const Icon(Icons.circle_rounded),
-                        (pm.getTempPasscode[2] == '')
-                            ? const Icon(Icons.circle_outlined)
-                            : const Icon(Icons.circle_rounded),
-                        (pm.getTempPasscode[3] == '')
-                            ? const Icon(Icons.circle_outlined)
-                            : const Icon(Icons.circle_rounded),
-                        (pm.getTempPasscode[4] == '')
-                            ? const Icon(Icons.circle_outlined)
-                            : const Icon(Icons.circle_rounded),
-                        (pm.getTempPasscode[5] == '')
-                            ? const Icon(Icons.circle_outlined)
-                            : const Icon(Icons.circle_rounded),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: GridView.count(
-              shrinkWrap: true,
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 3,
-              children: <Widget>[
-                TapPasscode(true, '1', OperationPin.number),
-                TapPasscode(true, '2', OperationPin.number),
-                TapPasscode(true, '3', OperationPin.number),
-                TapPasscode(true, '4', OperationPin.number),
-                TapPasscode(true, '5', OperationPin.number),
-                TapPasscode(true, '6', OperationPin.number),
-                TapPasscode(true, '7', OperationPin.number),
-                TapPasscode(true, '8', OperationPin.number),
-                TapPasscode(true, '9', OperationPin.number),
-                TapPasscode(false, 'More', OperationPin.more,
-                    icon: const Icon(Icons.more_horiz_sharp)),
-                TapPasscode(true, '0', OperationPin.number),
-                TapPasscode(false, 'Cancel', OperationPin.cancel,
-                    icon: const Icon(Icons.backspace_outlined)),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
 
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
+      Brightness stateTheme,
       {Icon icon = const Icon(
         Icons.circle,
         color: Colors.transparent,
@@ -145,8 +144,8 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: lightMildWaters,
+        decoration: BoxDecoration(
+          color: (stateTheme == Brightness.light) ? lightMildWaters : charcoal,
           shape: BoxShape.circle,
         ),
         child: Center(

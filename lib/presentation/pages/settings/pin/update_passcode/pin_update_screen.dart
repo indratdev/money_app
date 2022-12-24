@@ -40,114 +40,121 @@ class _PinUpdateScreenState extends State<PinUpdateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<PinBloc, PinState>(
-        listener: (context, state) {
-          if (state is SuccessCheckPasscode) {
-            Future.delayed(
-                const Duration(milliseconds: 500),
-                () => Navigator.pushReplacementNamed(
-                    context, AppRoutes.settPinChange));
-          }
-          if (state is FailureCheckPasscodeStatus) {
-            CustomWidgets.showMessageAlertWithF(
-                context, state.messageError, false, () {
-              Navigator.pushReplacementNamed(context, AppRoutes.settings);
-            });
-          }
-          if (state is FailureCheckPasscode) {
-            CustomWidgets.showMessageAlertWithF(
-                context, state.messageError.toString(), false, () {
-              Navigator.pushReplacementNamed(context, AppRoutes.settings);
-            });
-          }
-        },
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              height: MediaQuery.of(context).size.height / 6,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2.3,
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Text(
-                        'update-pin-type-old-pin'.tr(),
+    final stateTheme = Theme.of(context).brightness;
+
+    return SafeArea(
+      child: Scaffold(
+        body: BlocListener<PinBloc, PinState>(
+          listener: (context, state) {
+            if (state is SuccessCheckPasscode) {
+              Future.delayed(
+                  const Duration(milliseconds: 500),
+                  () => Navigator.pushReplacementNamed(
+                      context, AppRoutes.settPinChange));
+            }
+            if (state is FailureCheckPasscodeStatus) {
+              CustomWidgets.showMessageAlertWithF(
+                  context, state.messageError, false, () {
+                Navigator.pushReplacementNamed(context, AppRoutes.settings);
+              });
+            }
+            if (state is FailureCheckPasscode) {
+              CustomWidgets.showMessageAlertWithF(
+                  context, state.messageError.toString(), false, () {
+                Navigator.pushReplacementNamed(context, AppRoutes.settings);
+              });
+            }
+          },
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height / 6,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2.3,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          'update-pin-type-old-pin'.tr(),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children:
-                            // _buildCircles(),
-                            <Widget>[
-                          (pm.getTempPasscode[0] == '')
-                              ? const Icon(Icons.circle_outlined)
-                              : const Icon(Icons.circle_rounded),
-                          (pm.getTempPasscode[1] == '')
-                              ? const Icon(Icons.circle_outlined)
-                              : const Icon(Icons.circle_rounded),
-                          (pm.getTempPasscode[2] == '')
-                              ? const Icon(Icons.circle_outlined)
-                              : const Icon(Icons.circle_rounded),
-                          (pm.getTempPasscode[3] == '')
-                              ? const Icon(Icons.circle_outlined)
-                              : const Icon(Icons.circle_rounded),
-                          (pm.getTempPasscode[4] == '')
-                              ? const Icon(Icons.circle_outlined)
-                              : const Icon(Icons.circle_rounded),
-                          (pm.getTempPasscode[5] == '')
-                              ? const Icon(Icons.circle_outlined)
-                              : const Icon(Icons.circle_rounded),
-                        ],
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:
+                              // _buildCircles(),
+                              <Widget>[
+                            (pm.getTempPasscode[0] == '')
+                                ? const Icon(Icons.circle_outlined)
+                                : const Icon(Icons.circle_rounded),
+                            (pm.getTempPasscode[1] == '')
+                                ? const Icon(Icons.circle_outlined)
+                                : const Icon(Icons.circle_rounded),
+                            (pm.getTempPasscode[2] == '')
+                                ? const Icon(Icons.circle_outlined)
+                                : const Icon(Icons.circle_rounded),
+                            (pm.getTempPasscode[3] == '')
+                                ? const Icon(Icons.circle_outlined)
+                                : const Icon(Icons.circle_rounded),
+                            (pm.getTempPasscode[4] == '')
+                                ? const Icon(Icons.circle_outlined)
+                                : const Icon(Icons.circle_rounded),
+                            (pm.getTempPasscode[5] == '')
+                                ? const Icon(Icons.circle_outlined)
+                                : const Icon(Icons.circle_rounded),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: GridView.count(
-                shrinkWrap: true,
-                primary: false,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 3,
-                children: <Widget>[
-                  TapPasscode(true, '1', OperationPin.number),
-                  TapPasscode(true, '2', OperationPin.number),
-                  TapPasscode(true, '3', OperationPin.number),
-                  TapPasscode(true, '4', OperationPin.number),
-                  TapPasscode(true, '5', OperationPin.number),
-                  TapPasscode(true, '6', OperationPin.number),
-                  TapPasscode(true, '7', OperationPin.number),
-                  TapPasscode(true, '8', OperationPin.number),
-                  TapPasscode(true, '9', OperationPin.number),
-                  TapPasscode(false, 'Cancel', OperationPin.cancel,
-                      icon: const Icon(Icons.cancel)),
-                  TapPasscode(true, '0', OperationPin.number),
-                  TapPasscode(false, 'Backspace', OperationPin.backspace,
-                      icon: const Icon(Icons.backspace_outlined)),
-                ],
+              Expanded(
+                child: GridView.count(
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 3,
+                  children: <Widget>[
+                    TapPasscode(true, '1', OperationPin.number, stateTheme),
+                    TapPasscode(true, '2', OperationPin.number, stateTheme),
+                    TapPasscode(true, '3', OperationPin.number, stateTheme),
+                    TapPasscode(true, '4', OperationPin.number, stateTheme),
+                    TapPasscode(true, '5', OperationPin.number, stateTheme),
+                    TapPasscode(true, '6', OperationPin.number, stateTheme),
+                    TapPasscode(true, '7', OperationPin.number, stateTheme),
+                    TapPasscode(true, '8', OperationPin.number, stateTheme),
+                    TapPasscode(true, '9', OperationPin.number, stateTheme),
+                    TapPasscode(
+                        false, 'Cancel', OperationPin.cancel, stateTheme,
+                        icon: const Icon(Icons.cancel)),
+                    TapPasscode(true, '0', OperationPin.number, stateTheme),
+                    TapPasscode(
+                        false, 'Backspace', OperationPin.backspace, stateTheme,
+                        icon: const Icon(Icons.backspace_outlined)),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   TapPasscode(bool isNumber, String label, OperationPin operationPin,
+      Brightness stateTheme,
       {Icon icon = const Icon(Icons.circle)}) {
     return InkWell(
       highlightColor: Colors.transparent,
@@ -164,8 +171,8 @@ class _PinUpdateScreenState extends State<PinUpdateScreen> {
         }
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: lightMildWaters,
+        decoration: BoxDecoration(
+          color: (stateTheme == Brightness.light) ? lightMildWaters : charcoal,
           shape: BoxShape.circle,
         ),
         child: Center(
