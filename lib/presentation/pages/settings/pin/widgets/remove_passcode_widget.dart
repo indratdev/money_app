@@ -8,22 +8,27 @@ class RemovePasscodeWidget extends StatelessWidget {
   const RemovePasscodeWidget({
     Key? key,
     required this.isUsedPincode,
+    required this.widthButton,
   }) : super(key: key);
 
   final bool isUsedPincode;
+  final double widthButton;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
       visible: isUsedPincode,
-      child: ElevatedButton(
-        onPressed: () {
-          CustomWidgets.showConfirmationWithF(
-              context, 'pin-remove-confirmation'.tr(), () {
-            Navigator.pushNamed(context, AppRoutes.settPinRemove);
-          });
-        },
-        child: Text('remove-pin'.tr()),
+      child: SizedBox(
+        width: widthButton,
+        child: ElevatedButton(
+          onPressed: () {
+            CustomWidgets.showConfirmationWithF(
+                context, 'pin-remove-confirmation'.tr(), () {
+              Navigator.pushNamed(context, AppRoutes.settPinRemove);
+            });
+          },
+          child: Text('remove-pin'.tr()),
+        ),
       ),
     );
   }

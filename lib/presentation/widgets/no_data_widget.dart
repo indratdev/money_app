@@ -10,6 +10,8 @@ class NoDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateTheme = Theme.of(context).brightness;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -18,7 +20,7 @@ class NoDataWidget extends StatelessWidget {
           AspectRatio(
             aspectRatio: 21 / 9,
             child: Image.asset(
-              noDataImage,
+              (stateTheme == Brightness.light) ? noDataImage : noDataImageLight,
               opacity: const AlwaysStoppedAnimation(0.6),
             ),
           ),

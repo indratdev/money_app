@@ -47,6 +47,7 @@ const Color blackN = Color(0xFF474E68);
 
 // image name
 const noDataImage = 'assets/images/nodata.png';
+const noDataImageLight = 'assets/images/nodata_light.png';
 const locAssetLanguage = 'assets/languages';
 const successImage = 'assets/images/success.png';
 const failedImage = 'assets/images/failed.png';

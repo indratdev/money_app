@@ -7,19 +7,24 @@ class ChangePasscodeWidget extends StatelessWidget {
   const ChangePasscodeWidget({
     Key? key,
     required this.isUsedPincode,
+    required this.widthButton,
   }) : super(key: key);
 
   final bool isUsedPincode;
+  final double widthButton;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
       visible: isUsedPincode,
-      child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, AppRoutes.settPinUpdate);
-          },
-          child: Text('change-pin'.tr())),
+      child: SizedBox(
+        width: widthButton,
+        child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.settPinUpdate);
+            },
+            child: Text('change-pin'.tr())),
+      ),
     );
   }
 }
