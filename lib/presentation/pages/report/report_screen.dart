@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_app/domain/entities/report.dart';
 import 'package:money_app/presentation/pages/report/bloc/report_bloc.dart';
 import 'package:money_app/presentation/pages/report/widgets/detail_report_yearly.dart';
+import 'package:money_app/presentation/widgets/no_data_widget.dart';
 
 import '../../../data/constants.dart';
 import '../../widgets/customWidgets.dart';
@@ -49,7 +50,6 @@ class _ReportScreenState extends State<ReportScreen> {
           if (state is SuccessChangeYearTransaction) {
             if (state.valueYear.isNotEmpty) {
               selectedYear = state.valueYear;
-              print(">>> SuccessChangeYearTransaction : ${state.valueYear}");
             }
           }
         },
@@ -88,33 +88,36 @@ class _ReportScreenState extends State<ReportScreen> {
             }
           }
 
-          return Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  DropdownButton(
-                    value: selectedYear,
-                    items: listYearTransaction.map((list) {
-                      return DropdownMenuItem(
-                        value: list.toString(),
-                        child: Text(list.toString()),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      if (value != "") {
-                        context.read<ReportBloc>()
-                          ..add(ChangeYearTransactionEvent(valueYear: value!))
-                          ..add(GenerateReportByYearEvent(year: value));
-                      }
-                    },
-                  )
-                ],
-              ),
-              SB_Height20,
-              DetailReportYearly(listReport: listReport),
-            ],
-          );
+          return (listYearTransaction.isNotEmpty)
+              ? Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        DropdownButton(
+                          value: selectedYear,
+                          items: listYearTransaction.map((list) {
+                            return DropdownMenuItem(
+                              value: list.toString(),
+                              child: Text(list.toString()),
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            if (value != "") {
+                              context.read<ReportBloc>()
+                                ..add(ChangeYearTransactionEvent(
+                                    valueYear: value!))
+                                ..add(GenerateReportByYearEvent(year: value));
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                    SB_Height20,
+                    DetailReportYearly(listReport: listReport),
+                  ],
+                )
+              : const NoDataWidget();
         },
       ),
     );
