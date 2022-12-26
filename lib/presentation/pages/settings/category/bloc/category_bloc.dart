@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -57,7 +59,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         final result = await _getCategoryCases
             .executeReadIconCategoryMaster(event.isDefault);
 
-        print(">>> ReadIconCategoryMaster : ${result}");
         result.fold(
             (l) => emit(FailureReadIconCategoryMaster(messageError: l.message)),
             (data) => emit(SuccessReadIconCategoryMaster(result: data)));
@@ -177,7 +178,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       try {
         emit(SuccessChangeIconCategory(categoryValue: event.categoryValue));
       } catch (e) {
-        print(e);
+        log(e.toString());
       }
     });
   }

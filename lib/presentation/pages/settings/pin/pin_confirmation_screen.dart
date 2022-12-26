@@ -81,10 +81,6 @@ class _PinConfirmationScreenState extends State<PinConfirmationScreen> {
 
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   title: Text('confirm-pincode'.tr()),
-        // ),
         body: BlocListener<PinBloc, PinState>(
           listener: (context, state) {
             if (state is SuccessSavingPasscode) {

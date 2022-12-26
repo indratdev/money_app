@@ -33,7 +33,6 @@ Future<void> setup() async {
   getIt.registerFactory(() => TransactionBloc(getIt()));
   getIt.registerFactory(() => ChartBloc(getIt()));
   getIt.registerFactory(() => ThemesBloc(getIt()));
-  // getIt.registerFactory(() => PinBloc(getIt()));
   getIt.registerFactory(() => PinBloc(getIt(), getIt()));
   getIt.registerFactory(() => ReportBloc(getIt()));
   getIt.registerFactory(() => LoginBloc(getIt(), getIt()));

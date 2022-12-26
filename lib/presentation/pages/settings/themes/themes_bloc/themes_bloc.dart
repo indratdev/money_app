@@ -30,17 +30,17 @@ class ThemesBloc extends Bloc<ThemesEvent, ThemesState> {
       }
     });
 
-    on<ChangeThemeEvent>((event, emit) {
+    on<ChangeThemeEvent>((event, emit) async {
       try {
         final result = event.appTheme;
 
         switch (result) {
           case AppTheme.darkAppTheme:
-            final updateTheme = _getParameterCases.executeUpdateThemes("1");
+            await _getParameterCases.executeUpdateThemes("1");
             emit(SuccessChangeThemes(appTheme: AppTheme.darkAppTheme));
             break;
           case AppTheme.lightAppTheme:
-            final updateTheme = _getParameterCases.executeUpdateThemes("0");
+            await _getParameterCases.executeUpdateThemes("0");
             emit(SuccessChangeThemes(appTheme: AppTheme.lightAppTheme));
             break;
           default:

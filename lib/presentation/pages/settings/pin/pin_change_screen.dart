@@ -16,8 +16,8 @@ class PinChangeScreen extends StatefulWidget {
 
 class _PinChangeScreenState extends State<PinChangeScreen> {
   PinManager pm = PinManager();
-  List<String> _tempPasscode = ['', '', '', '', '', ''];
-  List<int> _valuePasscode = [];
+  // List<String> _tempPasscode = ['', '', '', '', '', ''];
+  // List<int> _valuePasscode = [];
 
   @override
   void initState() {

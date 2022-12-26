@@ -52,35 +52,6 @@ class ReportRepositoryImpl implements ReportRepository {
     }
   }
 
-  // @override
-  // generateReportYearly(String year) async {
-  //   try {
-  //     var resultQuery;
-  //     final resultYear = dateOperation.getFirstLastDay(int.parse(year));
-  //     resultYear.forEach((key, value) async {
-  //       final String firstDay = dateOperation
-  //           .formatedddMMMyyyy(value[OptionFirstLast.first].toString());
-  //       final String lastDay = DateUtil()
-  //           .formatedddMMMyyyy(value[OptionFirstLast.last].toString());
-  //       final String periode =
-  //           DateUtil().formatedyyyyMM(value[OptionFirstLast.first].toString());
-
-  //       resultQuery = await localDataSource.generatedTransactionByYear(
-  //           firstDay, lastDay, periode);
-
-  //       // print(">>> resultQuery : $resultQuery");
-
-  //       // print("key: $key, ==> ${value[OptionFirstLast.first]} ");
-  //     });
-
-  //     print(">>> resultQuery : $resultQuery");
-
-  //     // print(">>> result ::: $resultYear");
-  //   } catch (e) {
-  //     print("Error : $e");
-  //   }
-  // }
-
   @override
   Future<Either<Failure, List<ReportModel>>> generateReportYearly(
       String year) async {

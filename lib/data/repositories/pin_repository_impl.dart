@@ -11,7 +11,6 @@ import '../pin_manager.dart';
 class PinRepositoryImpl implements PinRepository {
   final LocalDataSource localDataSource;
   final pm = PinManager();
-  // final PinManager pinManager;
 
   PinRepositoryImpl({
     required this.localDataSource,
@@ -35,7 +34,6 @@ class PinRepositoryImpl implements PinRepository {
     try {
       return pm.compareTwoString(value1, value2);
     } catch (e) {
-      print("error : $e");
       return false;
     }
   }
@@ -48,18 +46,7 @@ class PinRepositoryImpl implements PinRepository {
       final resultCompare = pm.compareTwoString(encryptValue, passcodeFromDB);
       return resultCompare;
     } catch (e) {
-      print("Error :: $e");
       return false;
     }
   }
-
-  // @override
-  // bool compareTwoString(String value1, String value2) {
-  //   bool status = false;
-  //   try {
-  //     return pm.compareTwoString(value1, value2);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 }

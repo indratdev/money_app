@@ -66,9 +66,6 @@ class TransactionManageScreen extends StatelessWidget {
                     context.read<TransactionBloc>().add(ReadTransactionEvent(
                         transactionDateTime: DateUtil().getCurrentDate()));
 
-                    // Navigator.of(context, rootNavigator: true).pop();
-                    // Navigator.of(context).popUntil((route) => route.isFirst);
-                    // Navigator.pushReplacementNamed(context, AppRoutes.first);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

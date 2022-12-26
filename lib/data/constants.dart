@@ -24,12 +24,8 @@ const List<Color> bloomColor = [lightMildWaters, seagull];
 const Color lightMildWaters = Color(0xFFE0EAFD);
 const Color lightBlue = Color(0xFF50A7D9);
 const Color lightPurple = Color(0xFF8383BE);
-// const Color greenCalculation = Color(0xFF29C7AC);
-// const Color greenCalculation = Color(0xFF4E9F3D);
 const Color greenCalculation = Color(0xFF03DAC5);
 const Color greenDeepCalculation = Color(0xFF018786);
-// const Color redCalculation = Color(0xFF84142D);
-// const Color redCalculation = Color(0xFFE94560);
 const Color redCalculation = Color(0xFFFF7597);
 const Color redDeepCalculation = Color(0xFFB42B51);
 const Color blackDefault = Color(0xFF141010);
@@ -64,7 +60,6 @@ const defaultPasscode = 'wGDY8UmGNMtA9Gj17JoeQQ=='; // 00000
 
 // --------------------------------- decoration ----------------------------------
 Decoration arrowDecor = const BoxDecoration(
-  // color: Colors.white.withOpacity(0.9),
   color: lightWhite,
   borderRadius: BorderRadius.all(Radius.circular(13)),
   boxShadow: [
@@ -78,7 +73,6 @@ Decoration arrowDecor = const BoxDecoration(
 );
 
 Decoration arrowDecorDark = const BoxDecoration(
-  // color: lightPurple,
   color: blackN,
   borderRadius: BorderRadius.all(Radius.circular(13)),
   boxShadow: [
@@ -92,7 +86,6 @@ Decoration arrowDecorDark = const BoxDecoration(
 );
 
 Decoration calculationDecor = const BoxDecoration(
-  // color: Colors.white.withOpacity(0.9),
   color: lightWhite,
   borderRadius: BorderRadius.only(
     topLeft: Radius.circular(10),
@@ -101,11 +94,6 @@ Decoration calculationDecor = const BoxDecoration(
     bottomRight: Radius.circular(10),
   ),
   boxShadow: [
-    // BoxShadow(
-    //   color: Colors.black12,
-    //   offset: Offset(0, -5),
-    //   blurRadius: 8.0,
-    // )
     BoxShadow(
       color: lightPurple,
       blurRadius: 0.8,
@@ -116,7 +104,6 @@ Decoration calculationDecor = const BoxDecoration(
 );
 
 Decoration calculationDecorDark = const BoxDecoration(
-  // color: lightPurple,
   color: blackN,
   borderRadius: BorderRadius.only(
     topLeft: Radius.circular(10),
@@ -175,32 +162,7 @@ Decoration customCircularBox({Color? color}) => BoxDecoration(
           topRight: Radius.circular(10),
           bottomLeft: Radius.circular(10),
           bottomRight: Radius.circular(10)),
-      // boxShadow: [
-      //   BoxShadow(
-      //     color: Colors.grey.withOpacity(0.5),
-      //     spreadRadius: 5,
-      //     blurRadius: 7,
-      //     offset: const Offset(0, 3), // changes position of shadow
-      //   ),
-      // ],
     );
-
-// Decoration customCircularBoxDark({Color? color}) => BoxDecoration(
-//       color: color ?? Colors.white60,
-//       borderRadius: const BorderRadius.only(
-//           topLeft: Radius.circular(10),
-//           topRight: Radius.circular(10),
-//           bottomLeft: Radius.circular(10),
-//           bottomRight: Radius.circular(10)),
-//       boxShadow: [
-//         BoxShadow(
-//           color: Colors.grey.withOpacity(0.5),
-//           spreadRadius: 5,
-//           blurRadius: 7,
-//           offset: const Offset(0, 3), // changes position of shadow
-//         ),
-//       ],
-//     );
 
 Decoration backgroundThemeLight = const BoxDecoration(
   gradient: LinearGradient(

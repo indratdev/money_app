@@ -461,10 +461,6 @@ class SqlHelper {
 
     if (db != null) {
       final result = await db.rawQuery(''' $query''');
-      // return (result.first.values.first.toString() ==
-      //         'wGDY8UmGNMtA9Gj17JoeQQ==') // 00000
-      //     ? false
-      //     : true;
       return result.first.values.first.toString();
     } else {
       throw Exception('DB is null');
@@ -476,7 +472,6 @@ class SqlHelper {
       Database? db, SqlDatabase instance, String valueParam) async {
     final db = await instance.database;
     int result = 0;
-    print("valueParam : $valueParam");
 
     if (db != null) {
       result = await db.rawUpdate("""UPDATE $tableMasterParameter
@@ -506,7 +501,6 @@ class SqlHelper {
     }
     return (result == 1) ? true : false;
   }
-
   // -- end paramter ----------------------------------------------------------
 
   // read all year transaction
@@ -521,7 +515,6 @@ class SqlHelper {
 
     if (db != null) {
       final datas = await db.rawQuery(''' $query''');
-      // final resultB = result.toList().;
       for (var element in datas) {
         result.add(element.values.first.toString());
       }
@@ -576,7 +569,6 @@ class SqlHelper {
   }
 
   // --------------- END REPORT ----------------------------------
-
   insertMasterParameter(Database db, String tableMasterParamter) async {
     await db.rawInsert(
         ''' INSERT INTO $tableMasterParameter (name, value, actived, description) VALUES ('isDark', '0', 1, 'Default Themes of Application');   ''');

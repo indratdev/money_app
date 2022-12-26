@@ -44,7 +44,7 @@ class ParameterRepositoryImpl implements ParameterRepository {
       final result = await localDataSource.readPasscode();
       return right(result);
     } on ServerException {
-      return left(ServerFailure('Failed to Connect Server'));
+      return left(const ServerFailure('Failed to Connect Server'));
     } on SocketException {
       return const Left(ConnectionFailure("Failed to connect to the databse"));
     }
@@ -53,7 +53,6 @@ class ParameterRepositoryImpl implements ParameterRepository {
   @override
   Either<Failure, Map<String, dynamic>> changePasscode(int value) {
     try {
-      // pm.changePasscode(int.parse(label));
       var result = pm.changePasscode(value);
       return right(result);
     } on ServerException {

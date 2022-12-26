@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
@@ -34,7 +36,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<SelectedDateHomeEvent>((event, emit) async {
       Map<String, dynamic> result = {};
       try {
-        print(">>> SelectedDateHomeEvent runningg");
         emit(LoadingSelectedDateHome());
         final String selectedDate = event.value;
         result['selectedDate'] = selectedDate;
@@ -60,7 +61,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       try {
         emit(SuccessValueTextEditing(result: event.value));
       } catch (e) {
-        print(e.toString());
+        log(e.toString());
       }
     });
 
@@ -83,12 +84,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ReadTransactionEvent>((event, emit) async {
       try {
         emit(LoadingReadTransaction());
-
         final contentTransaction =
             await _getTransactionCases.executeReadTransaction(
                 event.transactionDateTime); // read content transaction
-
-        // print(">> >> result $contentTransaction");
         contentTransaction.fold(
           (l) => emit(FailureReadTransaction(
               messageError: 'failed-transaction-read'.tr())),
@@ -97,7 +95,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           },
         );
       } catch (e) {
-        print(e);
         emit(FailureReadTransaction(
             messageError: 'failed-transaction-read'.tr()));
       }

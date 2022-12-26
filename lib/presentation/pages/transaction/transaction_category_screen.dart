@@ -26,18 +26,18 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
     context.read<CategoryBloc>().add(ReadIconCategoryDefault(isDefault: 0));
   }
 
-  // String selectedIconName = "";
   Category? selectedCatecory = Category(
-      name: "",
-      iconName: "choose-file",
-      createdTime: DateTime.now().toString(),
-      modifieldTime: "",
-      isDefault: 0);
+    name: "",
+    iconName: "choose-file",
+    createdTime: DateTime.now().toString(),
+    modifieldTime: "",
+    isDefault: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
-    print(">> listCategoryIcon : $listCategoryIcon");
     final stateTheme = Theme.of(context).brightness;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('choose-category'.tr()),
@@ -70,7 +70,6 @@ class _TransactionCategoryScreenState extends State<TransactionCategoryScreen> {
         builder: (context, state) {
           if (state is SuccessReadIconCategoryDefault) {
             listCategoryIcon = state.result;
-            print("listCategoryIcon : ${listCategoryIcon?.length}");
           }
 
           if (state is SuccessChangeIconCategory) {

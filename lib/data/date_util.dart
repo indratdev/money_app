@@ -47,15 +47,6 @@ class DateUtil {
     return formatter.format(DateTime.parse(date)).toString();
   }
 
-  // String operationDate2(String date, int isIncrement) {
-  //   // if isIncement = 1 => plus date 1 day
-  //   // if isIncement = 0 => minus date 1 day
-  //   DateTime datees = DateTime.parse(date);
-  //   String myDate =
-  //       datees.add(Duration(days: (isIncrement == 1) ? 1 : -1)).toString();
-  //   return formatedyyyyMMdd(myDate);
-  // }
-
   String operationDate(String date, OptionDate option, int isIncrement) {
     // if isIncement = 1 => plus date 1 day
     // if isIncement = 0 => minus date 1 day

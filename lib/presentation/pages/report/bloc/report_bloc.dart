@@ -15,7 +15,6 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   ReportBloc(this._getReportCases) : super(ReportInitial()) {
     on<CheckAllYearTransactionEvent>((event, emit) async {
       try {
-        print(">>> CheckAllYearTransactionEvent click..");
         emit(LoadingCheckAllYearTransaction());
         final result = await _getReportCases.executeCheckAllYearTrx();
         result.fold(
@@ -30,19 +29,16 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
 
     on<ChangeYearTransactionEvent>((event, emit) {
       try {
-        print(">>> ChangeYearTransactionEvent runninggggg....");
         emit(LoadingChangeYearTransaction());
         final result = event.valueYear;
         emit(SuccessChangeYearTransaction(valueYear: result));
       } catch (e) {
-        print("e : $e");
         emit(FailureChangeYearTransaction(messageError: e.toString()));
       }
     });
 
     on<GenerateReportByYearEvent>((event, emit) async {
       try {
-        print(">>> GenerateReportByYearEvent runninggggg....");
         emit(LoadingGenerateReportByYear());
         final result =
             await _getReportCases.executeGenerateReportYearly(event.year);
