@@ -15,6 +15,8 @@ class DetailReportYearly extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateTheme = Theme.of(context).brightness;
+
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -25,7 +27,8 @@ class DetailReportYearly extends StatelessWidget {
           dateMonth = DateUtil().formatedMMMyyy(dateMonth);
           return Container(
             margin: const EdgeInsets.only(bottom: 20),
-            decoration: arrowDecor,
+            decoration:
+                (stateTheme == Brightness.light) ? arrowDecor : arrowDecorDark,
             child: Column(
               children: <Widget>[
                 Padding(
