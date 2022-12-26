@@ -31,6 +31,31 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       }
     });
 
+    on<SelectedDateHomeEvent>((event, emit) async {
+      Map<String, dynamic> result = {};
+      try {
+        print(">>> SelectedDateHomeEvent runningg");
+        emit(LoadingSelectedDateHome());
+        final String selectedDate = event.value;
+        result['selectedDate'] = selectedDate;
+
+        final contentTransaction =
+            await _getTransactionCases.executeReadTransaction(event.value);
+
+        contentTransaction.fold(
+          (l) => emit(FailureSelectedDateHome(
+              messageError: 'failed-transaction-read'.tr())),
+          (data) {
+            result['data'] = data;
+            emit(SuccessSelectedDateHome(result: result));
+          },
+        );
+      } catch (e) {
+        emit(
+            FailureSelectedDateHome(messageError: "FailureSelectedDateHome e"));
+      }
+    });
+
     on<ChangeValueTextEditing>((event, emit) {
       try {
         emit(SuccessValueTextEditing(result: event.value));

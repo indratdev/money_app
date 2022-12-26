@@ -95,4 +95,5 @@
     , "login-success": "Login Successful"
     , "login-failed" : "Login Failure"
     , "login-error" : "Error at Login"
+    , "selecteddate-error" : "Error to Show Date"
 }

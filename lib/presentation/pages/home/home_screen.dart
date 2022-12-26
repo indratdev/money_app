@@ -59,6 +59,27 @@ class HomeScreen extends StatelessWidget {
                 }
               },
               builder: (context, state) {
+                // selected date
+                if (state is FailureSelectedDateHome) {
+                  CustomWidgets.showMessageAlertBasic(
+                      context, 'selecteddate-error'.tr(), false);
+                }
+
+                if (state is LoadingSelectedDateHome) {
+                  const Center(child: CircularProgressIndicator.adaptive());
+                }
+
+                if (state is SuccessSelectedDateHome) {
+                  selectedDate = state.result['selectedDate'].toString();
+                  listTransaction =
+                      state.result['data'][TransactionEnum.transaction.name];
+                  listCalculation =
+                      state.result['data'][TransactionEnum.calculation.name];
+                  //reload chart
+                  context.read<ChartBloc>().add(ReadChartDefaultEvent(
+                      transactionDateTime: DateUtil().getCurrentDate()));
+                } // selected date (end)
+
                 if (state is FailureReadTransaction) {
                   CustomWidgets.showMessageAlertBasic(
                       context, 'error-read-transaction'.tr(), false);

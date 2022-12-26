@@ -42,21 +42,39 @@ class ContainerDateHome extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            decoration:
-                (stateTheme == Brightness.light) ? arrowDecor : arrowDecorDark,
-            width: MediaQuery.of(context).size.width / 2,
-            height: double.infinity,
-            child: FittedBox(
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Text(
-                  selectedDate,
-                  softWrap: true,
-                  maxLines: 1,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+          InkWell(
+            onTap: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: DateTime.parse(selectedDate),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(9999))
+                  .then((value) {
+                if (value != null) {
+                  final date = DateUtil().formatedyyyyMMdd(value.toString());
+                  context
+                      .read<TransactionBloc>()
+                      .add(SelectedDateHomeEvent(value: date));
+                }
+              });
+            },
+            child: Container(
+              decoration: (stateTheme == Brightness.light)
+                  ? arrowDecor
+                  : arrowDecorDark,
+              width: MediaQuery.of(context).size.width / 2,
+              height: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Text(
+                    selectedDate,
+                    softWrap: true,
+                    maxLines: 1,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
             ),

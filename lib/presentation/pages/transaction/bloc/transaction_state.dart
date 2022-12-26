@@ -50,6 +50,24 @@ class SuccessSelectedDate extends TransactionState {
   List<Object> get props => [result];
 }
 
+// selected date home
+class LoadingSelectedDateHome extends TransactionState {}
+
+class FailureSelectedDateHome extends FailureState {
+  FailureSelectedDateHome({required super.messageError});
+}
+
+class SuccessSelectedDateHome extends TransactionState {
+  Map<String, dynamic> result;
+
+  SuccessSelectedDateHome({required this.result});
+
+  @override
+  List<Object> get props => [result];
+}
+
+// end selected date home
+
 class SuccessValueTextEditing extends TransactionState {
   String result;
 

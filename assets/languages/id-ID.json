@@ -94,4 +94,5 @@
     , "login-success": "Login Berhasil"
     , "login-failed" : "Login Gagal"
     , "login-error" : "Kesalahan Saat Masuk"
+    , "selecteddate-error" : "Gagal untuk Menampilkan Tanggal"
 }

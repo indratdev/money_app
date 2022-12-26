@@ -19,6 +19,12 @@ class SelectedDateEvent extends TransactionEvent {
   SelectedDateEvent({required this.value});
 }
 
+class SelectedDateHomeEvent extends TransactionEvent {
+  String value;
+
+  SelectedDateHomeEvent({required this.value});
+}
+
 class ChangeValueTextEditing extends TransactionEvent {
   String value;
 
