@@ -45,8 +45,6 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   AppRoutes routes = AppRoutes();
-
-  // bool isDark = false;
   ThemeData? _themeData = appThemeData[AppTheme.lightAppTheme];
 
   @override

@@ -146,9 +146,8 @@ List<PieChartSectionData> showingSections(
         value: element.persentase,
         radius: 40.0,
         titleStyle: const TextStyle(
-          fontSize: 16.0,
+          // fontSize: 16.0,
           fontWeight: FontWeight.bold,
-          color: Color(0xffffffff),
         ),
       );
       list.add(data);

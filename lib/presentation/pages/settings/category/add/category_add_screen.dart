@@ -128,7 +128,6 @@ class CategoryAddScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                // title: Text(selectedCategory?.name ?? ""),
                                 trailing:
                                     const Icon(Icons.arrow_drop_down_sharp),
                               ),
@@ -137,37 +136,42 @@ class CategoryAddScreen extends StatelessWidget {
                         ),
                       ),
                       Center(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (formKeyCtgr.currentState!.validate()) {
-                              formKeyCtgr.currentState!.save();
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (formKeyCtgr.currentState!.validate()) {
+                                formKeyCtgr.currentState!.save();
 
-                              // check icon category cannot default
-                              if (selectedCategory?.iconName.toString() ==
-                                  'choose-file') {
-                                CustomWidgets.showMessageAlertBasic(context,
-                                    'choose-category-first'.tr(), false);
-                              } else {
-                                Category value = Category(
-                                    name: categoryNameController.text,
-                                    iconName: selectedCategory!.iconName,
-                                    createdTime: DateTime.now().toString(),
-                                    modifieldTime: "",
-                                    isDefault: 0);
-                                context.read<CategoryBloc>().add(
-                                    CreateCategoryEvent(valueCategory: value));
-                                context
-                                    .read<CategoryBloc>()
-                                    .add(ReadOpsCategory(isDefault: 0));
-                                Navigator.pop(context);
+                                // check icon category cannot default
+                                if (selectedCategory?.iconName.toString() ==
+                                    'choose-file') {
+                                  CustomWidgets.showMessageAlertBasic(context,
+                                      'choose-category-first'.tr(), false);
+                                } else {
+                                  Category value = Category(
+                                      name: categoryNameController.text,
+                                      iconName: selectedCategory!.iconName,
+                                      createdTime: DateTime.now().toString(),
+                                      modifieldTime: "",
+                                      isDefault: 0);
+                                  context.read<CategoryBloc>().add(
+                                      CreateCategoryEvent(
+                                          valueCategory: value));
+                                  context
+                                      .read<CategoryBloc>()
+                                      .add(ReadOpsCategory(isDefault: 0));
+                                  Navigator.pop(context);
+                                }
                               }
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            elevation: 5,
-                            backgroundColor: bluePaypal,
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 5,
+                              backgroundColor: bluePaypal,
+                            ),
+                            child: Text('save'.tr(),
+                                overflow: TextOverflow.ellipsis),
                           ),
-                          child: Text('save'.tr()),
                         ),
                       ),
                     ],

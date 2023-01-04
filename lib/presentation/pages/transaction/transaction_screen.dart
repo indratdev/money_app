@@ -7,7 +7,9 @@ import 'package:money_app/domain/entities/transaction.dart';
 import 'package:money_app/presentation/pages/transaction/bloc/transaction_bloc.dart';
 import 'package:money_app/presentation/pages/transaction/widgets/transaction_widgets.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../data/constants.dart';
+import '../../widgets/customWidgets.dart';
 import '../settings/category/bloc/category_bloc.dart';
 
 class TransactionScreen extends StatelessWidget {
@@ -52,7 +54,36 @@ class TransactionScreen extends StatelessWidget {
             },
             builder: (context, state) {
               return BlocConsumer<TransactionBloc, TransactionState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state is SuccessUpdateTransaction) {
+                    CustomWidgets.showMessageAlertWithF(
+                        context,
+                        'success-update-transaction'.tr(),
+                        true,
+                        () => Navigator.pushReplacementNamed(
+                            context, AppRoutes.first));
+
+                    context.read<TransactionBloc>().add(ReadTransactionEvent(
+                        transactionDateTime: DateUtil().getCurrentDate()));
+                  }
+                  if (state is SuccessDeleteTransaction) {
+                    CustomWidgets.showMessageAlertWithF(
+                        context,
+                        'success-delete-transaction'.tr(),
+                        true,
+                        () => Navigator.pushReplacementNamed(
+                            context, AppRoutes.first));
+                  }
+
+                  if (state is SuccessSaveTransactionNew) {
+                    CustomWidgets.showMessageAlertWithF(
+                        context,
+                        'success-added-transaction'.tr(),
+                        true,
+                        () => Navigator.pushReplacementNamed(
+                            context, AppRoutes.first));
+                  }
+                },
                 builder: (context, state) {
                   if (state is SuccessSelectedIsOutcome) {
                     transaction.isOutcome = state.result;

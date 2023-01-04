@@ -167,7 +167,7 @@ class _PinUpdateScreenState extends State<PinUpdateScreen> {
           pm.removeDigitPasscode();
           setState(() {});
         } else if (operationPin == OperationPin.cancel) {
-          Navigator.pushReplacementNamed(context, AppRoutes.settings);
+          Navigator.pushReplacementNamed(context, AppRoutes.first);
         }
       },
       child: Container(

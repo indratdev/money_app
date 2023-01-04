@@ -645,8 +645,8 @@ class SqlHelper {
         '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark slate gray', '2F4F4F', 3100495, '(47,79,79)') ''');
     await db.rawInsert(
         '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('dark cyan', '008B8B', 35723, '(0,139,139)') ''');
-    await db.rawInsert(
-        '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('aqua', '00FFFF', 65535, '(0,255,255)') ''');
+    // await db.rawInsert(
+    //     '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('aqua', '00FFFF', 65535, '(0,255,255)') ''');
     await db.rawInsert(
         '''  INSERT INTO $tableMasterColors (name, hex_code, int_code, rgb_code) VALUES ('light cyan', 'E0FFFF', 14745599, '(224,255,255)') ''');
     await db.rawInsert(

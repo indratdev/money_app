@@ -53,87 +53,88 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
 
-    return Scaffold(
-      body: BlocConsumer<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state is SuccessLoginWithPasscode) {
-            Navigator.pushReplacementNamed(context, AppRoutes.first);
-          }
-          if (state is PasscodeFailedLoginWithPasscode) {
-            CustomWidgets.showMessageAlertWithF(
-                context, 'login-failed'.tr(), false, () {
-              if (Platform.isAndroid) {
-                SystemNavigator.pop();
-              } else if (Platform.isIOS) {
-                exit(0);
-              }
-            });
-          }
-          if (state is FailureLoginWithPasscode) {
-            CustomWidgets.showMessageAlertWithF(
-                context, 'login-error'.tr(), false, () {
-              if (Platform.isAndroid) {
-                SystemNavigator.pop();
-              } else if (Platform.isIOS) {
-                exit(0);
-              }
-            });
-          }
-        },
-        builder: (context, state) {
-          if (state is LoadingCheckUsePincode) {
-            const Center(child: CircularProgressIndicator.adaptive());
-          }
-          if (state is SuccessCheckUsePincode) {
-            checkPinCode(state.status);
-          }
-          return (isVisible)
-              ? Column(
-                  children: [
-                    StatusPadsIcons(pm: pm),
-                    Expanded(
-                      child: GridView.count(
-                        shrinkWrap: true,
-                        primary: false,
-                        padding: const EdgeInsets.all(20),
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        crossAxisCount: 3,
-                        children: <Widget>[
-                          TapPasscode(
-                              true, '1', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '2', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '3', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '4', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '5', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '6', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '7', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '8', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              true, '9', OperationPin.number, stateTheme),
-                          TapPasscode(
-                              false, 'Cancel', OperationPin.cancel, stateTheme,
-                              icon: const Icon(Icons.cancel)),
-                          TapPasscode(
-                              true, '0', OperationPin.number, stateTheme),
-                          TapPasscode(false, 'Backspace',
-                              OperationPin.backspace, stateTheme,
-                              icon: const Icon(Icons.backspace_outlined)),
-                        ],
+    return SafeArea(
+      child: Scaffold(
+        body: BlocConsumer<LoginBloc, LoginState>(
+          listener: (context, state) {
+            if (state is SuccessLoginWithPasscode) {
+              Navigator.pushReplacementNamed(context, AppRoutes.first);
+            }
+            if (state is PasscodeFailedLoginWithPasscode) {
+              CustomWidgets.showMessageAlertWithF(
+                  context, 'login-failed'.tr(), false, () {
+                if (Platform.isAndroid) {
+                  SystemNavigator.pop();
+                } else if (Platform.isIOS) {
+                  exit(0);
+                }
+              });
+            }
+            if (state is FailureLoginWithPasscode) {
+              CustomWidgets.showMessageAlertWithF(
+                  context, 'login-error'.tr(), false, () {
+                if (Platform.isAndroid) {
+                  SystemNavigator.pop();
+                } else if (Platform.isIOS) {
+                  exit(0);
+                }
+              });
+            }
+          },
+          builder: (context, state) {
+            if (state is LoadingCheckUsePincode) {
+              const Center(child: CircularProgressIndicator.adaptive());
+            }
+            if (state is SuccessCheckUsePincode) {
+              checkPinCode(state.status);
+            }
+            return (isVisible)
+                ? Column(
+                    children: [
+                      StatusPadsIcons(pm: pm),
+                      Expanded(
+                        child: GridView.count(
+                          shrinkWrap: true,
+                          primary: false,
+                          padding: const EdgeInsets.all(20),
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          crossAxisCount: 3,
+                          children: <Widget>[
+                            TapPasscode(
+                                true, '1', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '2', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '3', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '4', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '5', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '6', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '7', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '8', OperationPin.number, stateTheme),
+                            TapPasscode(
+                                true, '9', OperationPin.number, stateTheme),
+                            TapPasscode(false, 'Cancel', OperationPin.cancel,
+                                stateTheme,
+                                icon: const Icon(Icons.cancel)),
+                            TapPasscode(
+                                true, '0', OperationPin.number, stateTheme),
+                            TapPasscode(false, 'Backspace',
+                                OperationPin.backspace, stateTheme,
+                                icon: const Icon(Icons.backspace_outlined)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              : const Expanded(
-                  child: Center(child: CircularProgressIndicator.adaptive()));
-        },
+                    ],
+                  )
+                : const Center(child: CircularProgressIndicator.adaptive());
+          },
+        ),
       ),
     );
   }

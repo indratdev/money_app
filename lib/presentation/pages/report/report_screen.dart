@@ -23,102 +23,115 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('report'.tr()),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              context.read<ReportBloc>().add(CheckAllYearTransactionEvent());
-            },
-            icon: const Icon(Icons.refresh),
-          )
-        ],
-      ),
-      body: BlocConsumer<ReportBloc, ReportState>(
-        listener: (context, state) {
-          if (state is FailureChangeYearTransaction) {
-            CustomWidgets.showMessageAlertBasic(
-                context, 'report-year-failedLoad'.tr(), false);
-          }
+    final stateTheme = Theme.of(context).brightness;
 
-          if (state is FailureGenerateReportByYear) {
-            CustomWidgets.showMessageAlertBasic(
-                context, 'report-failedLoad'.tr(), false);
-          }
-
-          if (state is SuccessChangeYearTransaction) {
-            if (state.valueYear.isNotEmpty) {
-              selectedYear = state.valueYear;
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('report'.tr()),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                print(">>> klik");
+                context.read<ReportBloc>().add(CheckAllYearTransactionEvent());
+              },
+              icon: const Icon(Icons.refresh),
+            )
+          ],
+        ),
+        body: BlocConsumer<ReportBloc, ReportState>(
+          listener: (context, state) {
+            if (state is FailureChangeYearTransaction) {
+              CustomWidgets.showMessageAlertBasic(
+                  context, 'report-year-failedLoad'.tr(), false);
             }
-          }
-        },
-        builder: (context, state) {
-          if (state is FailureChangeYearTransaction) {
-            CustomWidgets.showMessageAlertBasic(
-                context, 'report-year-failedLoad'.tr(), false);
-          }
 
-          if (state is FailureGenerateReportByYear) {
-            CustomWidgets.showMessageAlertBasic(
-                context, 'report-failedLoad'.tr(), false);
-          }
-
-          if (state is LoadingGenerateReportByYear) {
-            return const Center(child: CircularProgressIndicator.adaptive());
-          }
-
-          if (state is SuccessChangeYearTransaction) {
-            if (state.valueYear.isNotEmpty) {
-              selectedYear = state.valueYear;
+            if (state is FailureGenerateReportByYear) {
+              CustomWidgets.showMessageAlertBasic(
+                  context, 'report-failedLoad'.tr(), false);
             }
-          }
 
-          if (state is SuccessGenerateReportByYear) {
-            listReport = state.resultReport;
-          }
-
-          if (state is SuccessCheckAllYearTransaction) {
-            if (state.result.isNotEmpty) {
-              selectedYear = state.result.first;
-              context
-                  .read<ReportBloc>()
-                  .add(GenerateReportByYearEvent(year: selectedYear));
-              listYearTransaction = state.result;
+            if (state is SuccessChangeYearTransaction) {
+              if (state.valueYear.isNotEmpty) {
+                selectedYear = state.valueYear;
+              }
             }
-          }
+          },
+          builder: (context, state) {
+            if (state is FailureChangeYearTransaction) {
+              CustomWidgets.showMessageAlertBasic(
+                  context, 'report-year-failedLoad'.tr(), false);
+            }
 
-          return (listYearTransaction.isNotEmpty)
-              ? Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+            if (state is FailureGenerateReportByYear) {
+              CustomWidgets.showMessageAlertBasic(
+                  context, 'report-failedLoad'.tr(), false);
+            }
+
+            if (state is LoadingGenerateReportByYear) {
+              return const Center(child: CircularProgressIndicator.adaptive());
+            }
+
+            if (state is SuccessChangeYearTransaction) {
+              if (state.valueYear.isNotEmpty) {
+                selectedYear = state.valueYear;
+              }
+            }
+
+            if (state is SuccessGenerateReportByYear) {
+              listReport = state.resultReport;
+            }
+
+            if (state is SuccessCheckAllYearTransaction) {
+              if (state.result.isNotEmpty) {
+                selectedYear = state.result.first;
+                context
+                    .read<ReportBloc>()
+                    .add(GenerateReportByYearEvent(year: selectedYear));
+                listYearTransaction = state.result;
+              } else {
+                listYearTransaction = [];
+              }
+            }
+
+            return (listYearTransaction.isNotEmpty)
+                ? Container(
+                    decoration: (stateTheme == Brightness.light)
+                        ? backgroundThemeLight
+                        : backgroundThemeDark,
+                    child: Column(
                       children: <Widget>[
-                        DropdownButton(
-                          value: selectedYear,
-                          items: listYearTransaction.map((list) {
-                            return DropdownMenuItem(
-                              value: list.toString(),
-                              child: Text(list.toString()),
-                            );
-                          }).toList(),
-                          onChanged: (String? value) {
-                            if (value != "") {
-                              context.read<ReportBloc>()
-                                ..add(ChangeYearTransactionEvent(
-                                    valueYear: value!))
-                                ..add(GenerateReportByYearEvent(year: value));
-                            }
-                          },
-                        )
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            DropdownButton(
+                              value: selectedYear,
+                              items: listYearTransaction.map((list) {
+                                return DropdownMenuItem(
+                                  value: list.toString(),
+                                  child: Text(list.toString()),
+                                );
+                              }).toList(),
+                              onChanged: (String? value) {
+                                if (value != "") {
+                                  context.read<ReportBloc>()
+                                    ..add(ChangeYearTransactionEvent(
+                                        valueYear: value!))
+                                    ..add(
+                                        GenerateReportByYearEvent(year: value));
+                                }
+                              },
+                            )
+                          ],
+                        ),
+                        SB_Height20,
+                        DetailReportYearly(listReport: listReport),
                       ],
                     ),
-                    SB_Height20,
-                    DetailReportYearly(listReport: listReport),
-                  ],
-                )
-              : const NoDataWidget();
-        },
+                  )
+                : const NoDataWidget();
+          },
+        ),
       ),
     );
   }

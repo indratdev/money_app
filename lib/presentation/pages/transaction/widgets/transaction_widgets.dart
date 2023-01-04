@@ -105,7 +105,7 @@ class SectionButtonSave extends StatelessWidget {
                 ..add(ReadTransactionEvent(
                     transactionDateTime: DateUtil().getCurrentDate()));
 
-              Navigator.pop(context);
+              // Navigator.pop(context);
             }
           },
           child: Text('save'.tr()),

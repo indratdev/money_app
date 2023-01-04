@@ -27,9 +27,7 @@ class TransactionManageScreen extends StatelessWidget {
       createdTime: "",
       modifieldTime: "",
       isDefault: 1);
-  // Transaction? tempData =
-  //     Transaction(createdTime: '', idCategory: 0, title: '');
-  // static final _formKey = GlobalKey<FormState>();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
@@ -88,7 +86,36 @@ class TransactionManageScreen extends StatelessWidget {
               category = state.result;
             }
             return BlocConsumer<TransactionBloc, TransactionState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is SuccessUpdateTransaction) {
+                  CustomWidgets.showMessageAlertWithF(
+                      context,
+                      'success-update-transaction'.tr(),
+                      true,
+                      () => Navigator.pushReplacementNamed(
+                          context, AppRoutes.first));
+
+                  context.read<TransactionBloc>().add(ReadTransactionEvent(
+                      transactionDateTime: DateUtil().getCurrentDate()));
+                }
+                if (state is SuccessDeleteTransaction) {
+                  CustomWidgets.showMessageAlertWithF(
+                      context,
+                      'success-delete-transaction'.tr(),
+                      true,
+                      () => Navigator.pushReplacementNamed(
+                          context, AppRoutes.first));
+                }
+
+                if (state is SuccessSaveTransactionNew) {
+                  CustomWidgets.showMessageAlertWithF(
+                      context,
+                      'success-added-transaction'.tr(),
+                      true,
+                      () => Navigator.pushReplacementNamed(
+                          context, AppRoutes.first));
+                }
+              },
               builder: (context, state) {
                 if (state is SuccessSelectedIsOutcome) {
                   data!.isOutcome = state.result;
@@ -216,8 +243,6 @@ class TransactionManageScreen extends StatelessWidget {
                                             idTransaction: data!.id!,
                                             valueTransaction: data!));
                                   }
-                                  Navigator.pushReplacementNamed(
-                                      context, AppRoutes.first);
                                 },
                                 child: Text('save'.tr()),
                               ),
@@ -238,10 +263,9 @@ class TransactionManageScreen extends StatelessWidget {
 }
 
 Widget buildSegmentComponent(String text) {
-  return Container(
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 22, color: Colors.black),
-    ),
+  return Text(
+    text,
+    // style: TextStyle(fontSize: 22, color: Colors.black),
+    // style: TextStyle(fontSize: 22),
   );
 }
